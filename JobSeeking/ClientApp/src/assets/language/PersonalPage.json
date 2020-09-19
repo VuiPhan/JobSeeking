@@ -1,0 +1,17 @@
+
+{
+  "PersonPage":
+      {
+        "MaNhanVien":"Mã nhân viên",
+        "HoTen":"Họ và tên",
+        "NgaySinh":"Ngày sinh",
+        "GioiTinh":"Giới tính",
+        "DiaChiEmail":"Địa chỉ Email",
+        "TrinhDoVH":"Trình độ văn hóa",
+        "HinhThucDT":"Hình thức đào tạo",
+        "TrinhDoHV":"Trình độ học vấn",
+        "SDT":"Số điện thoại",
+        "LuuDuLieu":"Lưu dữ liệu"
+    }
+}
+

@@ -1,0 +1,14 @@
+.react-kanban-card {
+    width: 131px !important;
+    max-width: 284px !important;
+    min-width: 154px !important;
+}
+.react-kanban-column {
+  width: 150px !important;
+}
+.react-kanban-board{
+  overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
