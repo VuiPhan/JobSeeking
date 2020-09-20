@@ -35,6 +35,7 @@ function HeaderApp(props) {
           height: 200,
           color: "white"
         }}
+        
         {...rest}
       />
           <Parallax small filter image={require("../../assets/img/profile-bg.jpg")} />

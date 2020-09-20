@@ -63,23 +63,34 @@ export default function HeaderLinks(props) {
         />
       </ListItem>
       <ListItem className={classes.listItem}>
-      <FormDialog></FormDialog>
-      {dataLogin.sub}
-        {/* <Button
-          href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
+      {/* <FormDialog></FormDialog>
+      {dataLogin.sub} */}
+        <Button
+          component={Link} to="/ProfilePage"
           color="transparent"
-          target="_blank"
           className={classes.navLink}
         >
-          <AccountCircleIcon className={classes.icons} /> Đăng nhập
-        </Button> */}
+          <AccountCircleIcon className={classes.icons} /> Trang cá nhân
+          
+        </Button>
+        <Button
+          component={Link} to="/Company"
+          color="transparent"
+          className={classes.navLink}
+        >
+          <AccountCircleIcon className={classes.icons} /> Trang công ty
+          
+        </Button>
+        <Button
+          component={Link} to="/Jobs"
+          color="transparent"
+          className={classes.navLink}
+        >
+          <AccountCircleIcon className={classes.icons} /> Trang công việc
+          
+        </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        {/*<Tooltip title="Delete">
-          <IconButton aria-label="Delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>*/}
         <Tooltip
           id="instagram-twitter"
           title="Follow us on twitter"

@@ -6,7 +6,9 @@ import { FetchData } from './components/FetchData';
 import HomePage from './views/HomePage';
 import { Counter } from './components/Counter';
 import ProfilePage from './views/ProfilePage';
+import CompanyPage from './views/CompanyPage';
 import './custom.css';
+import JobsPage from './views/JobsPage';
 
 
 export default class App extends Component {
@@ -15,11 +17,12 @@ export default class App extends Component {
   render () {
     return (
         <Layout>
-   
-        <Route exact path='/' component={ProfilePage} />
+        <Route exact path='/' component={HomePage} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
-        <Route path='/Home' component={HomePage} />
+        <Route path='/ProfilePage' component={ProfilePage} />
+        <Route path='/Company' component={CompanyPage} />
+        <Route path='/Jobs' component={JobsPage} />
       </Layout>
     );
   }
