@@ -53,7 +53,6 @@ class ListViewKendo extends React.Component {
             take: e.take
         });
     }
-
     render() {
         const { skip, take } = this.state;
 

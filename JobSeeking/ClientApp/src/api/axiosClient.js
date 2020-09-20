@@ -8,7 +8,7 @@ const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJWdWlQaGFuIi
 const token =localStorage.getItem('token');
 const axiosClient = axios.create({
 // baseURL: 'http://localhost:55471/api',
-baseURL: 'https://localhost:44398/api',
+    baseURL: 'https://localhost:44351/api/',
 headers: {
 'content-type': 'application/json',
 // 'Authorization': `token ${access_token}`
