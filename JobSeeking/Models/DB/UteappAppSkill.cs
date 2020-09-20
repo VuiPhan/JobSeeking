@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace JobSeeking.Models.DB
 {
-    public partial class UteappAppSkills
+    public partial class UteappAppSkill
     {
         public int RecId { get; set; }
         public string CandidateCode { get; set; }
@@ -13,6 +13,6 @@ namespace JobSeeking.Models.DB
         public string Notes2 { get; set; }
 
         public virtual UteappApplicant CandidateCodeNavigation { get; set; }
-        public virtual UtelsSkills Skill { get; set; }
+        public virtual UtelsSkill Skill { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace JobSeeking.Models.DB
     {
         public UtelsTypeOfLabor()
         {
-            UteappJobInformation = new HashSet<UteappJobInformation>();
+            UteappJobInformations = new HashSet<UteappJobInformation>();
         }
 
         public int RecId { get; set; }
@@ -15,6 +15,6 @@ namespace JobSeeking.Models.DB
         public string TypeOfLaborName { get; set; }
         public string TypeOfLaborName2 { get; set; }
 
-        public virtual ICollection<UteappJobInformation> UteappJobInformation { get; set; }
+        public virtual ICollection<UteappJobInformation> UteappJobInformations { get; set; }
     }
 }

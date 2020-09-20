@@ -7,7 +7,7 @@ namespace JobSeeking.Models.DB
     {
         public UtelsFormsOfTraining()
         {
-            UteappApplicant = new HashSet<UteappApplicant>();
+            UteappApplicants = new HashSet<UteappApplicant>();
         }
 
         public int RecId { get; set; }
@@ -15,6 +15,6 @@ namespace JobSeeking.Models.DB
         public string FormsOfTrainingName { get; set; }
         public byte? Ordinal { get; set; }
 
-        public virtual ICollection<UteappApplicant> UteappApplicant { get; set; }
+        public virtual ICollection<UteappApplicant> UteappApplicants { get; set; }
     }
 }

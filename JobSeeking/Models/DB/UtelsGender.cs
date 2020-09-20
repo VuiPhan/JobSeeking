@@ -7,7 +7,7 @@ namespace JobSeeking.Models.DB
     {
         public UtelsGender()
         {
-            UteappApplicant = new HashSet<UteappApplicant>();
+            UteappApplicants = new HashSet<UteappApplicant>();
         }
 
         public int RecId { get; set; }
@@ -15,6 +15,6 @@ namespace JobSeeking.Models.DB
         public string GenderName { get; set; }
         public string GenderName2 { get; set; }
 
-        public virtual ICollection<UteappApplicant> UteappApplicant { get; set; }
+        public virtual ICollection<UteappApplicant> UteappApplicants { get; set; }
     }
 }

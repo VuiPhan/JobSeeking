@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using JobSeeking.Models.DB;
+//using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +14,7 @@ namespace JobSeeking.Controllers
     [ApiController]
     public class ValueListController : ControllerBase
     {
-        static JobSeekingContext db = new JobSeekingContext();
+       // static JobSeekingContext db = new JobSeekingContext();
         // GET api/values/5
 
     }
