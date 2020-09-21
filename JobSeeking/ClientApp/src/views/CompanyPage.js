@@ -29,13 +29,15 @@ import work3 from "../assets/img/examples/cynthia-del-rio.jpg";
 import work4 from "../assets/img/examples/mariya-georgieva.jpg";
 import work5 from "../assets/img/examples/clem-onojegaw.jpg";
 
-import styles from "../assets/jss/material-kit-react/views/profilePage.js";
+import styles from "../assets/jss/material-kit-react/views/CompanyPage.js";
 import PersonalInformation from "./FormProfile/PersonalInformation.js";
-import ListViewKendo from "../components/ListViewKendo/ListViewKendo.js";
+import '../../src/assets/css/TitleCompany.scss';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 
 const useStyles = makeStyles(styles);
 
-export default function HomePage(props) {
+export default function CompanyPage(props) {
   const classes = useStyles();
   //LoadLanguageForPage();
   const { ...rest } = props;
@@ -53,38 +55,33 @@ export default function HomePage(props) {
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={6}>
-                <div className={classes.profile}>
-                  <div>
-                    <img src={profile} alt="..." className={imageClasses} />
-                  </div>
-                  <div className={classes.name}>
-                    <h3 className={classes.title}>Christian Louboutin</h3>
-                    <h6>DESIGNER</h6>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-twitter"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-instagram"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-facebook"} />
-                    </Button>
-                  </div>
-                </div>
+                  <div className="containerTitle">
+                 <img src="https://cdn.itviec.com/employers/fpt-software/logo/w170/mir3HT3xtedbECJY5jVeRRgV/fpt-software-logo.png" alt="..."/>
+                 <div>
+                     <h1>FPT Software</h1>
+                     <h5><LocationOnIcon></LocationOnIcon> Ho Chi Minh, Ha Noi, Da Nang, Others</h5>
+                     <h5><AccessAlarmIcon></AccessAlarmIcon > Thứ 2 - Thứ 6. Từ 8h00 - 18h00</h5>
+                 </div>
+                 </div>
               </GridItem>
             </GridContainer>
-            <div className={classes.description}>
+            {/* <div className={classes.description}> */}
+            <div >
+                <div className="containerDetail">
               <p>
-                Vui
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
+              The leading provider of software outsourcing services in Vietnam
+                “ FPT Software is part of FPT Corporation (FPT – HoSE) – the global leading technology, outsourcing and IT services group headquartered in Vietnam with nearly US$2 billion in revenue and more than 13,000 employees. Qualified with CMMI Level 5 & ISO 27001:2013, ASPICE LEVEL 3, FPT Software delivers world-class services in Smart factory, Digital platform, RPA, AI, IoT, Enterprise Mobilization, Cloud, AR/VR, Embedded System, Managed service, Testing, Platform modernization, Business Applications, Application Service, BPO and more services globally from delivery centers across the United States, Japan, Europe, Korea, China, Australia, Vietnam and the Asia Pacific. 
+                In 2017, FPT Software has been placed in top 10 of the ranking for three consecutive years. Among top 10, FPT Software is the only IT Company. {" "}
               </p>
+                <div>
+                    Tổng quan
+                </div>
+
+
+              </div>
+
             </div>
-            <ListViewKendo dataName = "Jobs"></ListViewKendo>
           </div>
-   
         </div>
       </div>
       <Footer />

@@ -16,38 +16,39 @@ namespace JobSeeking.Models.DB
         {
         }
 
-        public virtual DbSet<UteappAppCertificate> UteappAppCertificate { get; set; }
-        public virtual DbSet<UteappAppEducation> UteappAppEducation { get; set; }
-        public virtual DbSet<UteappAppSkills> UteappAppSkills { get; set; }
-        public virtual DbSet<UteappAppWorkProgress> UteappAppWorkProgress { get; set; }
-        public virtual DbSet<UteappApplicant> UteappApplicant { get; set; }
-        public virtual DbSet<UteappJobInformation> UteappJobInformation { get; set; }
-        public virtual DbSet<UtelsAcademicLevel> UtelsAcademicLevel { get; set; }
-        public virtual DbSet<UtelsCertificate> UtelsCertificate { get; set; }
-        public virtual DbSet<UtelsEducationalLevel> UtelsEducationalLevel { get; set; }
-        public virtual DbSet<UtelsFormsOfTraining> UtelsFormsOfTraining { get; set; }
-        public virtual DbSet<UtelsGender> UtelsGender { get; set; }
-        public virtual DbSet<UtelsJobStatus> UtelsJobStatus { get; set; }
-        public virtual DbSet<UtelsLevelTraining> UtelsLevelTraining { get; set; }
-        public virtual DbSet<UtelsMajors> UtelsMajors { get; set; }
-        public virtual DbSet<UtelsMaritalStatus> UtelsMaritalStatus { get; set; }
-        public virtual DbSet<UtelsSkills> UtelsSkills { get; set; }
-        public virtual DbSet<UtelsTrainingPlaces> UtelsTrainingPlaces { get; set; }
-        public virtual DbSet<UtelsTypeOfEducation> UtelsTypeOfEducation { get; set; }
-        public virtual DbSet<UtelsTypeOfLabor> UtelsTypeOfLabor { get; set; }
-        public virtual DbSet<UtesysComboboxList> UtesysComboboxList { get; set; }
-        public virtual DbSet<UtesysInformationDatabase> UtesysInformationDatabase { get; set; }
-        public virtual DbSet<UtesysValuelist> UtesysValuelist { get; set; }
-        public virtual DbSet<UteworkJobs> UteworkJobs { get; set; }
+        public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
+        public virtual DbSet<UteappAppEducation> UteappAppEducations { get; set; }
+        public virtual DbSet<UteappAppSkill> UteappAppSkills { get; set; }
+        public virtual DbSet<UteappAppWorkProgress> UteappAppWorkProgresses { get; set; }
+        public virtual DbSet<UteappApplicant> UteappApplicants { get; set; }
+        public virtual DbSet<UteappJobInformation> UteappJobInformations { get; set; }
+        public virtual DbSet<UtecomCompany> UtecomCompanies { get; set; }
+        public virtual DbSet<UtelsAcademicLevel> UtelsAcademicLevels { get; set; }
+        public virtual DbSet<UtelsCertificate> UtelsCertificates { get; set; }
+        public virtual DbSet<UtelsEducationalLevel> UtelsEducationalLevels { get; set; }
+        public virtual DbSet<UtelsFormsOfTraining> UtelsFormsOfTrainings { get; set; }
+        public virtual DbSet<UtelsGender> UtelsGenders { get; set; }
+        public virtual DbSet<UtelsJobStatu> UtelsJobStatus { get; set; }
+        public virtual DbSet<UtelsLevelTraining> UtelsLevelTrainings { get; set; }
+        public virtual DbSet<UtelsMajor> UtelsMajors { get; set; }
+        public virtual DbSet<UtelsMaritalStatu> UtelsMaritalStatus { get; set; }
+        public virtual DbSet<UtelsSkill> UtelsSkills { get; set; }
+        public virtual DbSet<UtelsTrainingPlace> UtelsTrainingPlaces { get; set; }
+        public virtual DbSet<UtelsTypeOfEducation> UtelsTypeOfEducations { get; set; }
+        public virtual DbSet<UtelsTypeOfLabor> UtelsTypeOfLabors { get; set; }
+        public virtual DbSet<UtesysComboboxList> UtesysComboboxLists { get; set; }
+        public virtual DbSet<UtesysInformationDatabase> UtesysInformationDatabases { get; set; }
+        public virtual DbSet<UtesysValuelist> UtesysValuelists { get; set; }
+        public virtual DbSet<UteworkJob> UteworkJobs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
+              .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+              .AddJsonFile("appsettings.json")
+              .Build();
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("JobSeekingDB"));
             }
         }
@@ -71,13 +72,13 @@ namespace JobSeeking.Models.DB
                 entity.Property(e => e.RecId).HasColumnName("RecID");
 
                 entity.HasOne(d => d.CandidateCodeNavigation)
-                    .WithMany(p => p.UteappAppCertificate)
+                    .WithMany(p => p.UteappAppCertificates)
                     .HasForeignKey(d => d.CandidateCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UTEAPP_AppCertificate_UTEAPP_Applicant");
 
                 entity.HasOne(d => d.Certificate)
-                    .WithMany(p => p.UteappAppCertificate)
+                    .WithMany(p => p.UteappAppCertificates)
                     .HasForeignKey(d => d.CertificateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UTEAPP_AppCertificate_UTELS_Certificate");
@@ -113,35 +114,35 @@ namespace JobSeeking.Models.DB
                     .HasMaxLength(10);
 
                 entity.HasOne(d => d.CandidateCodeNavigation)
-                    .WithMany(p => p.UteappAppEducation)
+                    .WithMany(p => p.UteappAppEducations)
                     .HasForeignKey(d => d.CandidateCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UTEAPP_AppEducation_UTEAPP_Applicant");
 
                 entity.HasOne(d => d.LevelTraining)
-                    .WithMany(p => p.UteappAppEducation)
+                    .WithMany(p => p.UteappAppEducations)
                     .HasForeignKey(d => d.LevelTrainingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UTEAPP_AppEducation_UTELS_LevelTraining");
 
                 entity.HasOne(d => d.LevelTrainingNavigation)
-                    .WithMany(p => p.UteappAppEducation)
+                    .WithMany(p => p.UteappAppEducations)
                     .HasForeignKey(d => d.LevelTrainingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UTEAPP_AppEducation_UTELS_TrainingPlaces");
 
                 entity.HasOne(d => d.Majors)
-                    .WithMany(p => p.UteappAppEducation)
+                    .WithMany(p => p.UteappAppEducations)
                     .HasForeignKey(d => d.MajorsId)
                     .HasConstraintName("FK_UTEAPP_AppEducation_UTELS_Majors");
 
                 entity.HasOne(d => d.TypeOfEducation)
-                    .WithMany(p => p.UteappAppEducation)
+                    .WithMany(p => p.UteappAppEducations)
                     .HasForeignKey(d => d.TypeOfEducationId)
                     .HasConstraintName("FK_UTEAPP_AppEducation_UTELS_TypeOfEducation");
             });
 
-            modelBuilder.Entity<UteappAppSkills>(entity =>
+            modelBuilder.Entity<UteappAppSkill>(entity =>
             {
                 entity.HasKey(e => new { e.CandidateCode, e.SkillId })
                     .HasName("PK_UTEAPP_AppSkillAndCertification");
@@ -257,27 +258,27 @@ namespace JobSeeking.Models.DB
                 entity.Property(e => e.SpecialTraces).HasMaxLength(200);
 
                 entity.HasOne(d => d.AcademicLevel)
-                    .WithMany(p => p.UteappApplicant)
+                    .WithMany(p => p.UteappApplicants)
                     .HasForeignKey(d => d.AcademicLevelId)
                     .HasConstraintName("FK_UTEAPP_Applicant_UTELS_AcademicLevel");
 
                 entity.HasOne(d => d.EducationalLevel)
-                    .WithMany(p => p.UteappApplicant)
+                    .WithMany(p => p.UteappApplicants)
                     .HasForeignKey(d => d.EducationalLevelId)
                     .HasConstraintName("FK_UTEAPP_Applicant_UTELS_EducationalLevel");
 
                 entity.HasOne(d => d.FormsOfTraining)
-                    .WithMany(p => p.UteappApplicant)
+                    .WithMany(p => p.UteappApplicants)
                     .HasForeignKey(d => d.FormsOfTrainingId)
                     .HasConstraintName("FK_UTEAPP_Applicant_UTELS_FormsOfTraining");
 
                 entity.HasOne(d => d.Gender)
-                    .WithMany(p => p.UteappApplicant)
+                    .WithMany(p => p.UteappApplicants)
                     .HasForeignKey(d => d.GenderId)
                     .HasConstraintName("FK_UTEAPP_Applicant_UTELS_Gender");
 
                 entity.HasOne(d => d.MaritalStatus)
-                    .WithMany(p => p.UteappApplicant)
+                    .WithMany(p => p.UteappApplicants)
                     .HasForeignKey(d => d.MaritalStatusId)
                     .HasConstraintName("FK_UTEAPP_Applicant_UTELS_MaritalStatus");
             });
@@ -303,14 +304,31 @@ namespace JobSeeking.Models.DB
                     .HasMaxLength(10);
 
                 entity.HasOne(d => d.JobStatus)
-                    .WithMany(p => p.UteappJobInformation)
+                    .WithMany(p => p.UteappJobInformations)
                     .HasForeignKey(d => d.JobStatusId)
                     .HasConstraintName("FK_UTEAPP_JobInformation_UTELS_JobStatus");
 
                 entity.HasOne(d => d.TypeOfLabor)
-                    .WithMany(p => p.UteappJobInformation)
+                    .WithMany(p => p.UteappJobInformations)
                     .HasForeignKey(d => d.TypeOfLaborId)
                     .HasConstraintName("FK_UTEAPP_JobInformation_UTELS_TypeOfLabor");
+            });
+
+            modelBuilder.Entity<UtecomCompany>(entity =>
+            {
+                entity.HasKey(e => e.CompanyId);
+
+                entity.ToTable("UTECom_Company");
+
+                entity.Property(e => e.CompanyId)
+                    .HasColumnName("CompanyID")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.CompanyAddress).HasMaxLength(500);
+
+                entity.Property(e => e.CompanyName).HasMaxLength(500);
+
+                entity.Property(e => e.Image).HasMaxLength(200);
             });
 
             modelBuilder.Entity<UtelsAcademicLevel>(entity =>
@@ -408,7 +426,7 @@ namespace JobSeeking.Models.DB
                     .ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<UtelsJobStatus>(entity =>
+            modelBuilder.Entity<UtelsJobStatu>(entity =>
             {
                 entity.HasKey(e => e.JobStatusId);
 
@@ -448,7 +466,7 @@ namespace JobSeeking.Models.DB
                     .ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<UtelsMajors>(entity =>
+            modelBuilder.Entity<UtelsMajor>(entity =>
             {
                 entity.HasKey(e => e.MajorsId);
 
@@ -469,7 +487,7 @@ namespace JobSeeking.Models.DB
                     .ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<UtelsMaritalStatus>(entity =>
+            modelBuilder.Entity<UtelsMaritalStatu>(entity =>
             {
                 entity.HasKey(e => e.MaritalStatusId);
 
@@ -488,7 +506,7 @@ namespace JobSeeking.Models.DB
                     .ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<UtelsSkills>(entity =>
+            modelBuilder.Entity<UtelsSkill>(entity =>
             {
                 entity.HasKey(e => e.SkillId);
 
@@ -507,7 +525,7 @@ namespace JobSeeking.Models.DB
                 entity.Property(e => e.SkillName2).HasMaxLength(200);
             });
 
-            modelBuilder.Entity<UtelsTrainingPlaces>(entity =>
+            modelBuilder.Entity<UtelsTrainingPlace>(entity =>
             {
                 entity.HasKey(e => e.TrainingPlacesId);
 
@@ -619,7 +637,7 @@ namespace JobSeeking.Models.DB
                     .ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<UteworkJobs>(entity =>
+            modelBuilder.Entity<UteworkJob>(entity =>
             {
                 entity.HasKey(e => e.JobId);
 
@@ -638,7 +656,11 @@ namespace JobSeeking.Models.DB
 
                 entity.Property(e => e.JobRequirements).HasMaxLength(1000);
 
+                entity.Property(e => e.JobsTitle).HasMaxLength(200);
+
                 entity.Property(e => e.LoveWorkingHere).HasMaxLength(1000);
+
+                entity.Property(e => e.PostingDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ReasonsToJoin).HasMaxLength(1000);
 

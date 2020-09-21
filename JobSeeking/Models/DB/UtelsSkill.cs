@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace JobSeeking.Models.DB
 {
-    public partial class UtelsSkills
+    public partial class UtelsSkill
     {
-        public UtelsSkills()
+        public UtelsSkill()
         {
-            UteappAppSkills = new HashSet<UteappAppSkills>();
+            UteappAppSkills = new HashSet<UteappAppSkill>();
         }
 
         public int RecId { get; set; }
@@ -15,6 +15,6 @@ namespace JobSeeking.Models.DB
         public string SkillName { get; set; }
         public string SkillName2 { get; set; }
 
-        public virtual ICollection<UteappAppSkills> UteappAppSkills { get; set; }
+        public virtual ICollection<UteappAppSkill> UteappAppSkills { get; set; }
     }
 }

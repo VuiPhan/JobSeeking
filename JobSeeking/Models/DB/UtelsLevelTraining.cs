@@ -7,7 +7,7 @@ namespace JobSeeking.Models.DB
     {
         public UtelsLevelTraining()
         {
-            UteappAppEducation = new HashSet<UteappAppEducation>();
+            UteappAppEducations = new HashSet<UteappAppEducation>();
         }
 
         public int RecId { get; set; }
@@ -16,6 +16,6 @@ namespace JobSeeking.Models.DB
         public string LevelTrainingName2 { get; set; }
         public string Notes { get; set; }
 
-        public virtual ICollection<UteappAppEducation> UteappAppEducation { get; set; }
+        public virtual ICollection<UteappAppEducation> UteappAppEducations { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace JobSeeking.Models.DB
         public string TypeOfLaborId { get; set; }
         public string JobStatusId { get; set; }
 
-        public virtual UtelsJobStatus JobStatus { get; set; }
+        public virtual UtelsJobStatu JobStatus { get; set; }
         public virtual UtelsTypeOfLabor TypeOfLabor { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace JobSeeking.Models.DB
     {
         public UtelsCertificate()
         {
-            UteappAppCertificate = new HashSet<UteappAppCertificate>();
+            UteappAppCertificates = new HashSet<UteappAppCertificate>();
         }
 
         public int RecId { get; set; }
@@ -16,6 +16,6 @@ namespace JobSeeking.Models.DB
         public string CertificateName2 { get; set; }
         public string Notes { get; set; }
 
-        public virtual ICollection<UteappAppCertificate> UteappAppCertificate { get; set; }
+        public virtual ICollection<UteappAppCertificate> UteappAppCertificates { get; set; }
     }
 }

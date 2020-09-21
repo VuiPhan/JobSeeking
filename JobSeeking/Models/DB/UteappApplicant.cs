@@ -7,9 +7,9 @@ namespace JobSeeking.Models.DB
     {
         public UteappApplicant()
         {
-            UteappAppCertificate = new HashSet<UteappAppCertificate>();
-            UteappAppEducation = new HashSet<UteappAppEducation>();
-            UteappAppSkills = new HashSet<UteappAppSkills>();
+            UteappAppCertificates = new HashSet<UteappAppCertificate>();
+            UteappAppEducations = new HashSet<UteappAppEducation>();
+            UteappAppSkills = new HashSet<UteappAppSkill>();
         }
 
         public int RecId { get; set; }
@@ -38,10 +38,10 @@ namespace JobSeeking.Models.DB
         public virtual UtelsEducationalLevel EducationalLevel { get; set; }
         public virtual UtelsFormsOfTraining FormsOfTraining { get; set; }
         public virtual UtelsGender Gender { get; set; }
-        public virtual UtelsMaritalStatus MaritalStatus { get; set; }
+        public virtual UtelsMaritalStatu MaritalStatus { get; set; }
         public virtual UteappAppWorkProgress UteappAppWorkProgress { get; set; }
-        public virtual ICollection<UteappAppCertificate> UteappAppCertificate { get; set; }
-        public virtual ICollection<UteappAppEducation> UteappAppEducation { get; set; }
-        public virtual ICollection<UteappAppSkills> UteappAppSkills { get; set; }
+        public virtual ICollection<UteappAppCertificate> UteappAppCertificates { get; set; }
+        public virtual ICollection<UteappAppEducation> UteappAppEducations { get; set; }
+        public virtual ICollection<UteappAppSkill> UteappAppSkills { get; set; }
     }
 }

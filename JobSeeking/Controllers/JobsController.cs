@@ -13,10 +13,25 @@ namespace JobSeeking.Controllers
     public class JobsController : ControllerBase
     {
         JobSeekingContext db = new JobSeekingContext();
-        public IEnumerable<UteworkJobs> Get()
+        public async Task<object> Get()
         {
-            var data = db.UteworkJobs.Select(p=>p).ToList();
-            return data;
+            //  var data = db.Select(p=>p).ToList();
+            //JobSeekingContext db = new JobSeekingContext();
+
+            var dataJob = from jobs in db.UteworkJobs
+                          join company in db.UtecomCompanies
+                                 on jobs.CompanyId equals company.CompanyId
+                          select new
+                          {
+                              jobs.JobDescriptions,
+                              jobs.JobRequirements,
+                              jobs.ReasonsToJoin,
+                              company.CompanyName,
+                              jobs.PostingDate,
+                              jobs.JobsTitle
+                          };
+
+            return dataJob;
         }
     }
 }

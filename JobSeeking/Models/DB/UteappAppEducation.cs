@@ -15,8 +15,8 @@ namespace JobSeeking.Models.DB
 
         public virtual UteappApplicant CandidateCodeNavigation { get; set; }
         public virtual UtelsLevelTraining LevelTraining { get; set; }
-        public virtual UtelsTrainingPlaces LevelTrainingNavigation { get; set; }
-        public virtual UtelsMajors Majors { get; set; }
+        public virtual UtelsTrainingPlace LevelTrainingNavigation { get; set; }
+        public virtual UtelsMajor Majors { get; set; }
         public virtual UtelsTypeOfEducation TypeOfEducation { get; set; }
     }
 }
