@@ -37,11 +37,10 @@ export default function FormDialog() {
        Đăng nhập
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Đăng nhập</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
+            Mời bạn đăng nhập
           </DialogContentText>
           <TextField
             autoFocus

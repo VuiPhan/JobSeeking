@@ -63,8 +63,8 @@ export default function HeaderLinks(props) {
         />
       </ListItem>
       <ListItem className={classes.listItem}>
-      {/* <FormDialog></FormDialog>
-      {dataLogin.sub} */}
+      <FormDialog></FormDialog>
+      {dataLogin.sub}
         <Button
           component={Link} to="/ProfilePage"
           color="transparent"

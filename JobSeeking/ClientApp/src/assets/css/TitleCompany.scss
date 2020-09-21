@@ -5,3 +5,31 @@
     display: flex;
     padding-top: 10px;
 }
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+  }
+  .some-page-wrapper {
+    margin: 15px;
+    background-color: white;
+  }    
+  .blue-column {
+    background-color: white;
+    height: auto;
+    flex: 4;
+  }
+  
+  .green-column {
+    background-color: white;
+    height: auto;
+    flex: 3;
+  }
