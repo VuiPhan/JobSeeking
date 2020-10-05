@@ -16,6 +16,7 @@ namespace JobSeeking.Models.DB
         {
         }
 
+        public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
         public virtual DbSet<UteappAppEducation> UteappAppEducations { get; set; }
         public virtual DbSet<UteappAppSkill> UteappAppSkills { get; set; }
@@ -55,6 +56,23 @@ namespace JobSeeking.Models.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UteappAccount>(entity =>
+            {
+                entity.HasKey(e => e.RecId);
+
+                entity.ToTable("UTEApp_Account");
+
+                entity.Property(e => e.RecId).HasColumnName("RecID");
+
+                entity.Property(e => e.Roles).HasMaxLength(20);
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("UserID")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.UserLogin).HasMaxLength(20);
+            });
+
             modelBuilder.Entity<UteappAppCertificate>(entity =>
             {
                 entity.HasKey(e => new { e.CandidateCode, e.CertificateId });

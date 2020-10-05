@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using JobSeeking.Models.Class;
+using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ namespace JobSeeking.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
+        JobSeekingContext db = new JobSeekingContext();
         public LoginController(IConfiguration config)
         {
             _config = config;
@@ -41,9 +43,10 @@ namespace JobSeeking.Controllers
         private UserLogin AuthenticationUser(UserLogin userLogin)
         {
             UserLogin user = null;
-            if (userLogin.UserName == "Vui" && userLogin.Password == "123")
+            var checkUser = db.UteappAccounts.Where(p => p.UserLogin == userLogin.UserName && p.Password == userLogin.Password).SingleOrDefault();
+            if (checkUser != null)
             {
-                user = new UserLogin { UserName = "VuiPhan", Address = "123 Hoàng Diệu 2", Password = "123" };
+                user = new UserLogin { UserName = checkUser.UserLogin, Roles = checkUser.Roles, UserID = checkUser.UserId};
             }
             return user;
 
@@ -54,10 +57,11 @@ namespace JobSeeking.Controllers
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub,userInfo.UserName),
-                new Claim(JwtRegisteredClaimNames.Email,userInfo.Address),
+               // new Claim(JwtRegisteredClaimNames.Sub,userInfo.UserName),
+                new Claim(JwtRegisteredClaimNames.UniqueName,userInfo.UserID),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Role,"Admin"),
+                new Claim(ClaimTypes.NameIdentifier,userInfo.UserName)
 
             };
             var token = new JwtSecurityToken(
