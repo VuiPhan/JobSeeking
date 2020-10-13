@@ -9,6 +9,7 @@ import ProfilePage from './views/ProfilePage';
 import CompanyPage from './views/CompanyPage';
 import './custom.css';
 import JobsPage from './views/JobsPage';
+import CompanyRegiter from 'views/Register/CompanyRegister/CompanyRegiter';
 
 
 export default class App extends Component {
@@ -23,6 +24,7 @@ export default class App extends Component {
         <Route path='/ProfilePage' component={ProfilePage} />
         <Route path='/Company' component={CompanyPage} />
         <Route path='/Jobs' component={JobsPage} />
+        <Route path='/CompanyRegiter' component={CompanyRegiter} />
       </Layout>
     );
   }
