@@ -1,8 +1,10 @@
+using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -46,6 +48,7 @@ namespace JobSeeking
             {
                 configuration.RootPath = "ClientApp/build";
             });
+            services.AddDbContext<JobSeekingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("JobSeekingDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

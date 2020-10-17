@@ -82,16 +82,14 @@ export default function CompanyPage(props) {
             reader.readAsDataURL(imageFile);
         }
     }
-    const HandleSubmitData = (values) => {
+    const HandleSubmitData = (valuesForm) => {
         const formData = new FormData();
-        console.log(values, 'values');
-        console.log('sss',initialValues); 
-        formData.append('FullName', values.FullName);
-        formData.append('Email', values.Email);
-        formData.append('PhoneNumber', values.PhoneNumber);
-        formData.append('Password', values.Password);
-        formData.append('CompanyName', values.CompanyName);
-        formData.append('TimeWorking', values.TimeWorking);
+        formData.append('FullName', valuesForm.FullName);
+        formData.append('Email', valuesForm.Email);
+        formData.append('PhoneNumber', valuesForm.PhoneNumber);
+        formData.append('Password', valuesForm.Password);
+        formData.append('CompanyName', valuesForm.CompanyName);
+        formData.append('TimeWorking', valuesForm.TimeWorking);
         formData.append('imageFile', values.imageFile);
         formData.append('imageName', values.imageName);
         RegisterCompanyApi.post(formData);
