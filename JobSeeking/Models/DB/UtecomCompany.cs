@@ -5,10 +5,12 @@ namespace JobSeeking.Models.DB
 {
     public partial class UtecomCompany
     {
-        public string CompanyId { get; set; }
+        public int CompanyId { get; set; }
+        public int? UserId { get; set; }
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
         public int? CompanyType { get; set; }
-        public string Image { get; set; }
+        public string ImageLogo { get; set; }
+        public string TimeWorking { get; set; }
     }
 }

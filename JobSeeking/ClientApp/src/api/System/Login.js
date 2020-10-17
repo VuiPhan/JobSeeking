@@ -5,13 +5,17 @@ const LoginApi = {
         return axiosClient.post(url);
     },
     get:async (data) =>{
-        const url=`/Login?userName=${data.userName}&pass=${data.pass}`;
-        let response= await axiosClient.get(url,JSON.stringify(data))
-        if(response){
-            localStorage.setItem('token', response.token);
-            var data = parseJwt(response.token);
-            localStorage.setItem('UserLogin', JSON.stringify(data));
-        }
+        // debugger;
+        // const url=`/Login?userName=${data.userName}&pass=${data.pass}`;
+        // let response= await axiosClient.get(url,JSON.stringify(data));
+        // console.log('responseresponse',response);
+        // if(response){
+        //     console.log('responseresponse',response);
+        //     localStorage.setItem('token', response.token);
+        //     var data = parseJwt(response.token);
+        //     localStorage.setItem('UserLogin', JSON.stringify(data));
+        // }
+        var response = data;
         return response;
     }
 }

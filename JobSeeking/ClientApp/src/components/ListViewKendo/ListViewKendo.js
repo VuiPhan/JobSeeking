@@ -53,15 +53,11 @@ class ListViewKendo extends React.Component {
         }];
         this.state = {data:dataArtical,skip: 0,
             take: 5};
-        console.log(props);
-        debugger;
     }
     async componentDidMount(){
         var x = await LoadJobsAPI.getAll();
         this.setState({data:x});
-        console.log(x);
 
-        debugger;
     }
     handlePageChange = (e) => {
         this.setState({

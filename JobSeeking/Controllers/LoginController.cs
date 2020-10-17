@@ -37,8 +37,10 @@ namespace JobSeeking.Controllers
             {
                 var tokenStr = GenerateJSONWebToken(user);
                 response = Ok(new { token = tokenStr });
+                return response;
             }
-            return response;
+            return null;
+        
         }
         private UserLogin AuthenticationUser(UserLogin userLogin)
         {
@@ -58,7 +60,7 @@ namespace JobSeeking.Controllers
             var claims = new[]
             {
                // new Claim(JwtRegisteredClaimNames.Sub,userInfo.UserName),
-                new Claim(JwtRegisteredClaimNames.UniqueName,userInfo.UserID),
+                new Claim(JwtRegisteredClaimNames.UniqueName,userInfo.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Role,"Admin"),
                 new Claim(ClaimTypes.NameIdentifier,userInfo.UserName)

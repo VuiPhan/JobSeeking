@@ -20,7 +20,10 @@
           "MatKhauQN":"Mật khẩu quá ngắn. Vui lòng nhiều hơn 8 ký tự",
           "MatKhauInHoa":"Mật khẩu phải chứa ký tự in hoa",
           "DangKy":"Đăng ký",
-          "HoVaTen":"Họ và tên"
+          "HoVaTen":"Họ và tên",
+          "DangNhap":"Đăng nhập",
+          "MoiBanNhapDiaChiEmail":"Mời bạn nhập địa chỉ Email",
+          "MoiBanNhapMatKhau":"Mời bạn nhập mật khẩu"
 
       }
   }

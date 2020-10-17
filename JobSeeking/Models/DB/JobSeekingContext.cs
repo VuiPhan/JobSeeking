@@ -58,17 +58,14 @@ namespace JobSeeking.Models.DB
         {
             modelBuilder.Entity<UteappAccount>(entity =>
             {
-                entity.HasKey(e => e.RecId);
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK_UTEApp_Account_1");
 
                 entity.ToTable("UTEApp_Account");
 
-                entity.Property(e => e.RecId).HasColumnName("RecID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Roles).HasMaxLength(20);
-
-                entity.Property(e => e.UserId)
-                    .HasColumnName("UserID")
-                    .HasMaxLength(20);
 
                 entity.Property(e => e.UserLogin).HasMaxLength(20);
             });
@@ -275,6 +272,10 @@ namespace JobSeeking.Models.DB
 
                 entity.Property(e => e.SpecialTraces).HasMaxLength(200);
 
+                entity.Property(e => e.UserId)
+                    .HasColumnName("UserID")
+                    .HasMaxLength(20);
+
                 entity.HasOne(d => d.AcademicLevel)
                     .WithMany(p => p.UteappApplicants)
                     .HasForeignKey(d => d.AcademicLevelId)
@@ -338,15 +339,17 @@ namespace JobSeeking.Models.DB
 
                 entity.ToTable("UTECom_Company");
 
-                entity.Property(e => e.CompanyId)
-                    .HasColumnName("CompanyID")
-                    .HasMaxLength(20);
+                entity.Property(e => e.CompanyId).HasColumnName("CompanyID");
 
                 entity.Property(e => e.CompanyAddress).HasMaxLength(500);
 
                 entity.Property(e => e.CompanyName).HasMaxLength(500);
 
-                entity.Property(e => e.Image).HasMaxLength(200);
+                entity.Property(e => e.ImageLogo).HasMaxLength(200);
+
+                entity.Property(e => e.TimeWorking).HasMaxLength(500);
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
             });
 
             modelBuilder.Entity<UtelsAcademicLevel>(entity =>

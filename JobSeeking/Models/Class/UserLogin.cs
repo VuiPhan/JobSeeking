@@ -11,8 +11,11 @@ namespace JobSeeking.Models.Class
         public string Password { get; set; }
         public string Address { get; set; }
 
-        public string UserID { get; set; }
+        public int UserID { get; set; }
         public string Roles { get; set; }
+
+        public string MessageError { get; set; }
+
 
     }
 }

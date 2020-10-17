@@ -19,7 +19,6 @@ const ratingChanged = (newRating) => {
 export default function Ratting(props) {
     const {value,disable,size} = props;
     console.log(disable);
-    debugger;
   return (
     <div>
       <ReactStars

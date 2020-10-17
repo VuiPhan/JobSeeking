@@ -18,20 +18,20 @@ namespace JobSeeking.Controllers
             //  var data = db.Select(p=>p).ToList();
             //JobSeekingContext db = new JobSeekingContext();
 
-            var dataJob = from jobs in db.UteworkJobs
-                          join company in db.UtecomCompanies
-                                 on jobs.CompanyId equals company.CompanyId
-                          select new
-                          {
-                              jobs.JobDescriptions,
-                              jobs.JobRequirements,
-                              jobs.ReasonsToJoin,
-                              company.CompanyName,
-                              jobs.PostingDate,
-                              jobs.JobsTitle
-                          };
-
-            return dataJob;
+            //var dataJob = from jobs in db.UteworkJobs
+            //              join company in db.UtecomCompanies
+            //                     on jobs.CompanyId equals company.CompanyId
+            //              select new
+            //              {
+            //                  jobs.JobDescriptions,
+            //                  jobs.JobRequirements,
+            //                  jobs.ReasonsToJoin,
+            //                  company.CompanyName,
+            //                  jobs.PostingDate,
+            //                  jobs.JobsTitle
+            //              };
+            
+            return null;
         }
     }
 }
