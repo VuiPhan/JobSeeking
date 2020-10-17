@@ -29,7 +29,6 @@ export default function HeaderLinks(props) {
   if(localStorage.getItem('UserLogin') != null){
     dataLogin = JSON.parse(localStorage.getItem('UserLogin'));
   }
-  debugger;
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>

@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System.IO;
 using System.Text;
 
 namespace JobSeeking
@@ -78,7 +80,11 @@ namespace JobSeeking
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
-
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath,"Images")),
+                RequestPath="/Images"
+            });
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";

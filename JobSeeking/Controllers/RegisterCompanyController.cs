@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using JobSeeking.Models.Class;
+using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobSeeking.Controllers
 {
@@ -14,15 +16,20 @@ namespace JobSeeking.Controllers
     [ApiController]
     public class RegisterCompanyController : ControllerBase
     {
+        private readonly JobSeekingContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public RegisterCompanyController(IWebHostEnvironment hostEnvironment)
+        public RegisterCompanyController(JobSeekingContext context,IWebHostEnvironment hostEnvironment)
         {
+            _context = context;
             this._hostEnvironment = hostEnvironment;
         }
         [HttpPost]
         public async Task<ActionResult<RegisterCompanyForm>> RegisterCompany([FromForm] RegisterCompanyForm registerCompanyForm)
         {
+            var db = new JobSeekingContext();
             registerCompanyForm.ImageName = await SaveImage(registerCompanyForm.ImageFile);
+            //var userType = _context.Set().FromSql("dbo.UTE_Company_Register @FullName={0}", registerCompanyForm.ImageName);
+            db.Database.ExecuteSqlCommand("dbo.UTE_Company_Register @FullName", registerCompanyForm.ImageName);
             return StatusCode(201);
         }
 
