@@ -11,14 +11,13 @@ export const someAction = createAsyncThunk(
   
 const login = createSlice({
     name:'login',
-    initialState:{UserID:"demo",Roles:"demo"},
+    initialState:{UserID:"",Roles:"",Email:""},
     reducers:{
         LoginForm: (state,action) =>{
           
         },
         Logout: (state,action) =>{
             state ={UserID:"",Roles:"",Email:""};
-            debugger;
             return state;
         },
     },
