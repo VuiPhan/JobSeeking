@@ -35,7 +35,8 @@ namespace JobSeeking.Controllers
             var user = AuthenticationUser(login);
             if (user != null)
             {
-                var tokenStr = GenerateJSONWebToken(user);
+                //var tokenStr = GenerateJSONWebToken(user);
+                var tokenStr = GenerateJWTToken(user);
                 response = Ok(new { token = tokenStr });
                 return response;
             }
@@ -48,7 +49,8 @@ namespace JobSeeking.Controllers
             var checkUser = db.UteappAccounts.Where(p => p.UserLogin == userLogin.UserName && p.Password == userLogin.Password).SingleOrDefault();
             if (checkUser != null)
             {
-                user = new UserLogin { UserName = checkUser.UserLogin, Roles = checkUser.Roles, UserID = checkUser.UserId};
+                user = new UserLogin { UserName = checkUser.UserLogin, 
+                    Roles = checkUser.Roles, UserID = checkUser.UserId};
             }
             return user;
 
@@ -75,7 +77,7 @@ namespace JobSeeking.Controllers
             var encodetoken = new JwtSecurityTokenHandler().WriteToken(token);
             return encodetoken;
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = Policies.User)]
         [HttpPost("Post")]
         public string Post()
         {
@@ -89,5 +91,26 @@ namespace JobSeeking.Controllers
         {
             return new string[] { "value1", "value2" };
         }
+        string GenerateJWTToken(UserLogin userInfo)
+        {
+           var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+                    new Claim(JwtRegisteredClaimNames.Sub, userInfo.UserName),
+                    new Claim("UserID", userInfo.UserID.ToString()),
+                    new Claim("UserLoginDB", userInfo.UserName.ToString()),
+                    new Claim("role", userInfo.Roles),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+                var token = new JwtSecurityToken(
+                issuer: _config["Jwt: Issuer"],
+                audience: _config["Jwt: Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials
+                );
+            return new JwtSecurityTokenHandler().WriteToken(token);
+            }
     }
 }

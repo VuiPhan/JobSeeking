@@ -9,9 +9,11 @@ export const someAction = createAsyncThunk(
     },
     );
   
+var UserLogin = JSON.parse(localStorage.getItem('UserLogin'));
+console.log('UserLoginUserLogin',UserLogin);
 const login = createSlice({
     name:'login',
-    initialState:{UserID:"",Roles:"",Email:""},
+    initialState:UserLogin,
     reducers:{
         LoginForm: (state,action) =>{
           

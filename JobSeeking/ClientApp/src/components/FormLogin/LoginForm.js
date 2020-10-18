@@ -62,12 +62,12 @@ const validationShema = yup.object().shape({
   ,
 })
   // Cần phải dispath một cái action
-  console.log(LoginInfo.Email);
+  console.log(LoginInfo.UserLoginDB);
   debugger;
   return (
     <div style={{ display: "inline" }}>
 
-        {LoginInfo.Email === '' 
+        {LoginInfo.UserLoginDB === '' || typeof LoginInfo.UserLoginDB === 'undefined'
         ?       <Button
         color="transparent"
         className={classes.navLink}
@@ -83,7 +83,7 @@ const validationShema = yup.object().shape({
         <AccountCircleIcon className={classes.icons} /> Đăng xuất
         </Button>
       }
-  {LoginInfo.Email}
+    {LoginInfo.UserLoginDB}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogContent>
           <Formik initialValues={initialValues}

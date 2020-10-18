@@ -6,17 +6,18 @@ const LoginApi = {
     },
     get:async (data) =>{
         // debugger;
-        // const url=`/Login?userName=${data.userName}&pass=${data.pass}`;
-        // let response= await axiosClient.get(url,JSON.stringify(data));
-        // console.log('responseresponse',response);
-        // if(response){
-        //     console.log('responseresponse',response);
-        //     localStorage.setItem('token', response.token);
-        //     var data = parseJwt(response.token);
-        //     localStorage.setItem('UserLogin', JSON.stringify(data));
-        // }
-        var response = data;
-        return response;
+        const url=`/Login?userName=${data.Email}&pass=${data.Password}`;
+        let response= await axiosClient.get(url,JSON.stringify(data));
+        console.log('responseresponse',response);
+        if(response){
+            console.log('responseresponse',response);
+            localStorage.setItem('token', response.token);
+            var data = parseJwt(response.token);
+            debugger;
+            localStorage.setItem('UserLogin', JSON.stringify(data));
+        }
+        //var response = data;
+        return data;
     }
 }
 function parseJwt (token) {
