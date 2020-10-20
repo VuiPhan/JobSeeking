@@ -57,6 +57,14 @@ export default function HeaderLinks(props) {
           <AccountCircleIcon className={classes.icons} /> Trang công việc
           
         </Button>
+        <Button
+          component={Link} to="/PublishedRecruitment"
+          color="transparent"
+          className={classes.navLink}
+        >
+          <AccountCircleIcon className={classes.icons} /> Đăng tin tuyển dụng
+          
+        </Button>
         <FormDialog></FormDialog>
       </ListItem>
       <ListItem className={classes.listItem}>

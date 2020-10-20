@@ -10,7 +10,9 @@ export const someAction = createAsyncThunk(
     );
   
 var UserLogin = JSON.parse(localStorage.getItem('UserLogin'));
-console.log('UserLoginUserLogin',UserLogin);
+if(UserLogin == null){
+    UserLogin = {UserLoginDB:''};
+}
 const login = createSlice({
     name:'login',
     initialState:UserLogin,

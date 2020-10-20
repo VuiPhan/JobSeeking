@@ -62,8 +62,6 @@ const validationShema = yup.object().shape({
   ,
 })
   // Cần phải dispath một cái action
-  console.log(LoginInfo.UserLoginDB);
-  debugger;
   return (
     <div style={{ display: "inline" }}>
 
