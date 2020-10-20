@@ -25,6 +25,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ckeditor, { CKEditor } from '@ckeditor/ckeditor5-react';
 import MyCKEditor from "components/CKEditor/CKEditor";
 import Select from 'react-select';
+import PublishedRecruitmentAPI from "api/Company/PublishedRecruitmentAPI";
 
 
 
@@ -40,7 +41,7 @@ export default function PublishedRecruitment(props) {
     );
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
     const initialValues = {
-        FullName: '',
+        Title: '',
         Email: '',
         PhoneNumber: '',
         Password: '',
@@ -108,15 +109,13 @@ export default function PublishedRecruitment(props) {
     const HandleSubmitData = (valuesForm) => {
         console.log(requireWork);
         const formData = new FormData();
-        formData.append('FullName', valuesForm.FullName);
-        formData.append('Email', valuesForm.Email);
-        formData.append('PhoneNumber', valuesForm.PhoneNumber);
-        formData.append('Password', valuesForm.Password);
-        formData.append('CompanyName', valuesForm.CompanyName);
-        formData.append('TimeWorking', valuesForm.TimeWorking);
+        formData.append('Title', valuesForm.Title);
+        formData.append('RequireCV', requireWork.requireCV);
+        formData.append('JobDescription', requireWork.jobDescription);
         formData.append('imageFile', values.imageFile);
         formData.append('imageName', values.imageName);
-        RegisterCompanyApi.post(formData);
+        debugger;
+        PublishedRecruitmentAPI.post(formData);
     }
     
     return (
@@ -149,7 +148,7 @@ export default function PublishedRecruitment(props) {
                                 <Form>
                                     <h1>{res.TieuDeCongViec}</h1>
                                     <FastField
-                                        name="FullName"
+                                        name="Title"
                                         component={InputField}
                                         label=""
                                         placeholder={res.TieuDeCongViec}
@@ -185,7 +184,7 @@ export default function PublishedRecruitment(props) {
                                         <img className='imageLogoCompany' src={values.imageSrc}></img>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Button type='submit'>{res.DangKy}</Button>
+                                        <Button type='submit'>{res.DangTin}</Button>
                                     </FormGroup>
                                 </Form>
                             )

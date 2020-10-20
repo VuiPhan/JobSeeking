@@ -33,25 +33,7 @@
         "YeuCauCongViec":"Yêu Cầu Công Việc",
         "TieuDeCongViec":"Tiêu đề công việc",
         "TaiSaoBanYeuThich":"Tại Sao Bạn Sẽ Yêu Thích Làm Việc Tại Đây",
-        "TrinhDoVH":"Trình độ văn hóa",
-        "HinhThucDT":"Hình thức đào tạo",
-        "TrinhDoHV":"Trình độ học vấn",
-        "SDT":"Điện Thoại",
-        "LuuDuLieu":"Lưu dữ liệu",
-        "MatKhau":"Mật Khẩu",
-        "NLMatKhau":"Nhập Lại Mật Khẩu",
-        "TTCongTy":"Thông tin công ty",
-        "TenCongTy":"Tên công ty",
-        "TGLamViec":"Thời gian làm việc",
-        "LogoCongTy":"Logo công ty",
-        "MatKhauKK":"Mật khẩu không khớp. Vui lòng kiểm tra lại",
-        "MatKhauQN":"Mật khẩu quá ngắn. Vui lòng nhiều hơn 8 ký tự",
-        "MatKhauInHoa":"Mật khẩu phải chứa ký tự in hoa",
-        "DangKy":"Đăng ký",
-        "HoVaTen":"Họ và tên",
-        "DangNhap":"Đăng nhập",
-        "MoiBanNhapDiaChiEmail":"Mời bạn nhập địa chỉ Email",
-        "MoiBanNhapMatKhau":"Mời bạn nhập mật khẩu"
+        "DangTin":"Đăng tin tuyển dụng"
 
     }
   }

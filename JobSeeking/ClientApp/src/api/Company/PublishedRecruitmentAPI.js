@@ -1,9 +1,10 @@
 import axiosClient from "api/axiosClient";
-const RegisterCompanyApi = {
+
+const PublishedRecruitmentAPI = {
     post: (data) => {
+        debugger;
         const url = `/RegisterCompany/`;
         return axiosClient.post(url,data);
     },
 }
-
-export default RegisterCompanyApi;
+export default PublishedRecruitmentAPI;
