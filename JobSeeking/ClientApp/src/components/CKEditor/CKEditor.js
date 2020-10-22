@@ -11,7 +11,7 @@ function MyCKEditor(props) {
       <CKEditor
         id={name}
         editor={ClassicEditor}
-        data="<p>Phan Đăng Vui</p><h3>Phan Đăng Vui</h3><ol><li>Nè&nbsp;</li><li>Nè&nbsp;</li><li>Hè</li></ol>"
+        data=""
         onInit={editor => {
           // You can store the "editor" and use when it is needed.
           console.log('Editor is ready to use!', editor);

@@ -26,6 +26,8 @@ import ckeditor, { CKEditor } from '@ckeditor/ckeditor5-react';
 import MyCKEditor from "components/CKEditor/CKEditor";
 import Select from 'react-select';
 import PublishedRecruitmentAPI from "api/Company/PublishedRecruitmentAPI";
+import SelectField from "components/CustomField/SelectField";
+import MutipleSelectField from "components/CustomField/MutipleSelectField";
 
 
 
@@ -42,12 +44,9 @@ export default function PublishedRecruitment(props) {
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
     const initialValues = {
         Title: '',
-        Email: '',
-        PhoneNumber: '',
-        Password: '',
-        ConfirmPassword: '',
-        CompanyName: '',
-        TimeWorking: ''
+        categoryId: null,
+        categoryIdMutiple:''
+
     };
     const validationShema = yup.object().shape({
         FullName: yup.string().required(res.TruongBBNhap),
@@ -90,16 +89,16 @@ export default function PublishedRecruitment(props) {
             reader.readAsDataURL(imageFile);
         }
     }
-    const [requireWork, setrequireWork] = useState({requireCV:'abs',jobDescription:''});
-    
-    const ChangeRequireWork = data =>{
+    const [requireWork, setrequireWork] = useState({ requireCV: 'abs', jobDescription: '' });
+
+    const ChangeRequireWork = data => {
         //setrequireWork({requireCV:data2});
         setrequireWork({
             ...requireWork,
             requireCV: data
         })
     }
-    const ChangeJobDescription = data =>{
+    const ChangeJobDescription = data => {
         //setrequireWork({requireCV:data2});
         setrequireWork({
             ...requireWork,
@@ -117,7 +116,7 @@ export default function PublishedRecruitment(props) {
         debugger;
         PublishedRecruitmentAPI.post(formData);
     }
-    
+
     return (
         <div>
             <div className={classNames(classes.main, classes.mainRaised)}>
@@ -141,7 +140,8 @@ export default function PublishedRecruitment(props) {
                     <Formik initialValues={initialValues}
                         // validationSchema={validationShema}
                         // onSubmit={values => HandleSubmitData(values)}>
-                        onSubmit={values => HandleSubmitData(values)}>
+                        // onSubmit={values => HandleSubmitData(values)}>
+                        onSubmit={values => console.log(values)}>
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
                             return (
@@ -161,16 +161,28 @@ export default function PublishedRecruitment(props) {
                                         placeholder={res.YeuCauCongViec}
                                     />
                                     <h1>{res.YeuCauCongViec}</h1>
-                                    
+
                                     <FastField
                                         component={MyCKEditor}
                                         ChangeRequireWork={ChangeRequireWork}
                                         label=""
                                         placeholder={res.YeuCauCongViec}
                                     />
-                                    <FormGroup>
-                                        <Select></Select>
-                                    </FormGroup>
+                                    <FastField
+                                        name="categoryId"
+                                        component={SelectField}
+                                        label="Category"
+                                        placeholder="Category"
+                                        options={[{ value: 1, label: "Vui" }, { value: 2, label: "Buon" }, { value: 3, label: "Đẹp trai" }, { value: 4, label: "Đẹp tra2i" }]}
+                                    />
+                                    <FastField
+                                        name="categoryIdMutiple"
+                                        component={MutipleSelectField}
+                                        label="Các thế mạnh của chúng tôi"
+                                        placeholder="Category"
+                                        options={[{ value: 1, label: "C#" }, { value: 2, label: "SQL" }, { value: 3, label: "JavaScript" }, { value: 4, label: "JavaScript" }]}
+                                    />
+
 
                                     <FormGroup>
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>
