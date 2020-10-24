@@ -1,4 +1,5 @@
 ﻿using System;
+using JobSeeking.Models.Class;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ namespace JobSeeking.Models.DB
             : base(options)
         {
         }
-
+        public DbSet<ValueList> ValueLists { get; set; }
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
         public virtual DbSet<UteappAppEducation> UteappAppEducations { get; set; }
@@ -56,6 +57,7 @@ namespace JobSeeking.Models.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ValueList>().HasNoKey();
             modelBuilder.Entity<UteappAccount>(entity =>
             {
                 entity.HasKey(e => e.UserId)
