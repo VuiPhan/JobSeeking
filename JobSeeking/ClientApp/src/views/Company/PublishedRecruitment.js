@@ -45,7 +45,7 @@ export default function PublishedRecruitment(props) {
     const initialValues = {
         Title: '',
         categoryId: null,
-        categoryIdMutiple:''
+        categoryIdMutiple: ''
 
     };
     const validationShema = yup.object().shape({
@@ -180,6 +180,14 @@ export default function PublishedRecruitment(props) {
                                         component={MutipleSelectField}
                                         label="Các thế mạnh của chúng tôi"
                                         placeholder="Category"
+                                        options={[{ value: 1, label: "C#" }, { value: 2, label: "SQL" }, { value: 3, label: "JavaScript" }, { value: 4, label: "JavaScript" }]}
+                                    />
+                                    <FastField
+                                        name="categoryIdMutiple"
+                                        component={MutipleSelectField}
+                                        label="Các bằng cấp ưu tiên"
+                                        ListName="BangCapUuTien"
+                                        placeholder="Mời bạn chọn các bằng cấp được ưu tiên"
                                         options={[{ value: 1, label: "C#" }, { value: 2, label: "SQL" }, { value: 3, label: "JavaScript" }, { value: 4, label: "JavaScript" }]}
                                     />
 
