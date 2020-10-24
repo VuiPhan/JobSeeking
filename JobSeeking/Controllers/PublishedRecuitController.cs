@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JobSeeking.Models.Class;
 using JobSeeking.Models.DB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,27 +17,24 @@ namespace JobSeeking.Controllers
     public class PublishedRecuitController : ControllerBase
     {
         private readonly JobSeekingContext _context;
-        private readonly IWebHostEnvironment _hostEnvironment;
         public PublishedRecuitController(JobSeekingContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
-            this._hostEnvironment = hostEnvironment;
         }
-        [HttpPost]
-        public async Task<ActionResult<PublishedRecuitForm>> RegisterCompany([FromForm] RegisterCompanyForm registerCompanyForm)
+        [HttpPost("Post")]
+        [Authorize(Policy = Policies.Recruiter)]
+        public async Task<ActionResult<PublishedRecuitForm>> PublishedRecuit([FromForm] PublishedRecuitForm registerCompanyForm)
         {
-            _context.Database.ExecuteSqlRaw("dbo.UTE_Company_Register" +
-                " @FullName={0},@EmailAddress={1},@PassWord={2},@CompanyName={3}," +
-                "@CompanyAddress={4},@TimeWorking={5},@ImageLogo={6},@CompanyType={7}",
-                registerCompanyForm.FullName,
-                registerCompanyForm.Email,
-                registerCompanyForm.Password,
-                registerCompanyForm.CompanyName,
-                registerCompanyForm.CompanyAddress,
-                registerCompanyForm.TimeWorking,
-                registerCompanyForm.ImageName,
-                registerCompanyForm.CompanyType
-                );
+            _context.Database.ExecuteSqlRaw("dbo.UTECompany_PublishedRecuit" +
+               " @CompanyID={0},@JobsTitle={1},@JobDescriptions={2},@JobRequirements={3}," +
+               "@Strengths={4},@PriorityDegree={5}",
+               1,
+               registerCompanyForm.Title,
+               registerCompanyForm.JobDescription,
+               registerCompanyForm.RequireCV,
+               registerCompanyForm.Strengths,
+               registerCompanyForm.PriorityDegree
+               );
             return StatusCode(201);
         }
     }

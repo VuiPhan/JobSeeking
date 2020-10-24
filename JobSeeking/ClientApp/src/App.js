@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import HomePage from './views/HomePage';
 import { Counter } from './components/Counter';
@@ -11,7 +10,7 @@ import './custom.css';
 import JobsPage from './views/JobsPage';
 import CompanyRegiter from 'views/Register/CompanyRegister/CompanyRegiter';
 import PublishedRecruitment from 'views/Company/PublishedRecruitment';
-// import PublishedRecruitment from 'views/Company/PublishedRecruitment';
+import PrivateRoute from 'components/Router/PrivateRoute';
 
 
 export default class App extends Component {
@@ -27,7 +26,7 @@ export default class App extends Component {
         <Route path='/Company' component={CompanyPage} />
         <Route path='/Jobs' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />
-        <Route path='/PublishedRecruitment' component={PublishedRecruitment} />
+        <PrivateRoute component={PublishedRecruitment} path="/PublishedRecruitment" exact />
         
       </Layout>
     );

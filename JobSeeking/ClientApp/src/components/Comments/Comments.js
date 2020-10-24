@@ -1,8 +1,7 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { ListView, ListViewHeader } from '@progress/kendo-react-listview';
-import { Card, CardTitle, CardImage, CardHeader, CardSubtitle, CardActions } from '@progress/kendo-react-layout';
+import { Card, CardTitle} from '@progress/kendo-react-layout';
 import { Pager } from '@progress/kendo-react-data-tools';
 
 import articles from '../ListViewKendo/articles.json';

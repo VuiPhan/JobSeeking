@@ -23,10 +23,8 @@ function MutipleSelectField(props) {
     const { name,value } = field;
     const [options, setoptions] = useState([])
     const selectedOption = options.find(options => options.value === value);  
-    debugger;
     useEffect(() => {
         async function fetchData(){
-            debugger;
             let response  = await LoadValueListApi.get(ListName);
             setoptions(response);
         }
@@ -35,8 +33,6 @@ function MutipleSelectField(props) {
     }, [])
     const HandleSelectedOptionChange = (selectedOption) => {
         const selectedValue = selectedOption ?  selectedOption.map(e => e.value).join(",") : selectedOption;
-        debugger;
-
         const changeEvent = {
             target: {
                 name: name,

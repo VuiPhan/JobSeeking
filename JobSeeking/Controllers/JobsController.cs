@@ -12,14 +12,18 @@ namespace JobSeeking.Controllers
     [ApiController]
     public class JobsController : ControllerBase
     {
-        JobSeekingContext db = new JobSeekingContext();
+        private readonly JobSeekingContext _context;
+        public JobsController(JobSeekingContext context)
+        {
+            _context = context;
+        }
         public async Task<object> Get()
         {
             //  var data = db.Select(p=>p).ToList();
             //JobSeekingContext db = new JobSeekingContext();
 
-            //var dataJob = from jobs in db.UteworkJobs
-            //              join company in db.UtecomCompanies
+            //var dataJob = from jobs in _context.UteworkJobs
+            //              join company in _context.UtecomCompanies
             //                     on jobs.CompanyId equals company.CompanyId
             //              select new
             //              {
@@ -30,7 +34,7 @@ namespace JobSeeking.Controllers
             //                  jobs.PostingDate,
             //                  jobs.JobsTitle
             //              };
-            
+
             return null;
         }
     }

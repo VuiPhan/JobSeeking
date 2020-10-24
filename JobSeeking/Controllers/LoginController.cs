@@ -64,7 +64,7 @@ namespace JobSeeking.Controllers
                // new Claim(JwtRegisteredClaimNames.Sub,userInfo.UserName),
                 new Claim(JwtRegisteredClaimNames.UniqueName,userInfo.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role,"Admin"),
+                new Claim(ClaimTypes.Role,userInfo.Roles),
                 new Claim(ClaimTypes.NameIdentifier,userInfo.UserName)
 
             };
@@ -77,8 +77,8 @@ namespace JobSeeking.Controllers
             var encodetoken = new JwtSecurityTokenHandler().WriteToken(token);
             return encodetoken;
         }
-        [Authorize(Policy = Policies.User)]
         [HttpPost("Post")]
+        [Authorize(Policy = Policies.User)]
         public string Post()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -100,12 +100,13 @@ namespace JobSeeking.Controllers
                     new Claim(JwtRegisteredClaimNames.Sub, userInfo.UserName),
                     new Claim("UserID", userInfo.UserID.ToString()),
                     new Claim("UserLoginDB", userInfo.UserName.ToString()),
-                    new Claim("role", userInfo.Roles),
+                    new Claim("Roles", userInfo.Roles),
+                    //new Claim(ClaimTypes.Role,userInfo.Roles),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
                 var token = new JwtSecurityToken(
-                issuer: _config["Jwt: Issuer"],
-                audience: _config["Jwt: Audience"],
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: credentials

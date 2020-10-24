@@ -12,7 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
 
 // @material-ui/icons
-import { Apps, CloudDownload} from "@material-ui/icons";
+import { Apps, CloudDownload } from "@material-ui/icons";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 // core components
@@ -27,19 +27,20 @@ const useStyles = makeStyles(styles);
 export default function HeaderLinks(props) {
   const classes = useStyles();
   const LoginInfo = useSelector(state => state.loginInfo)
+  debugger;
   return (
     <List className={classes.list}>
-      <ListItem className={classes.listItem}>  
+      <ListItem className={classes.listItem}>
       </ListItem>
       <ListItem className={classes.listItem}>
-    
+
         <Button
           component={Link} to="/ProfilePage"
           color="transparent"
           className={classes.navLink}
         >
           <AccountCircleIcon className={classes.icons} /> Trang cá nhân
-          
+
         </Button>
         <Button
           component={Link} to="/Company"
@@ -47,7 +48,7 @@ export default function HeaderLinks(props) {
           className={classes.navLink}
         >
           <AccountCircleIcon className={classes.icons} /> Trang công ty
-          
+
         </Button>
         <Button
           component={Link} to="/Jobs"
@@ -55,38 +56,21 @@ export default function HeaderLinks(props) {
           className={classes.navLink}
         >
           <AccountCircleIcon className={classes.icons} /> Trang công việc
-          
+
         </Button>
-        <Button
-          component={Link} to="/PublishedRecruitment"
-          color="transparent"
-          className={classes.navLink}
-        >
-          <AccountCircleIcon className={classes.icons} /> Đăng tin tuyển dụng
-          
-        </Button>
-        <FormDialog></FormDialog>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-tooltip"
-          title="Follow us on instagram"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
+        { LoginInfo.Roles === "Recruiter"?
           <Button
+            component={Link} to="/PublishedRecruitment"
             color="transparent"
-            href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
-            target="_blank"
             className={classes.navLink}
           >
-            <i className={classes.socialIcons + " fab fa-instagram"} />
-          </Button>
-        </Tooltip>
+            <AccountCircleIcon className={classes.icons} /> Đăng tin tuyển dụng
+         </Button>
+          :""
+        }
+
+
+        <FormDialog></FormDialog>
       </ListItem>
     </List>
   );

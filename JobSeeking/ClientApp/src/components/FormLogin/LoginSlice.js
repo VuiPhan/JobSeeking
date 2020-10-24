@@ -1,39 +1,43 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import LoginApi from 'api/System/Login';
 
-export const someAction = createAsyncThunk(
+export const LoginAPIRedux = createAsyncThunk(
     'login/callAPI',
-    async type => {
-        var x = await LoginApi.get(type);
-        return x;
+    async data => {
+        var response = await LoginApi.get(data);
+        return response;
     },
-    );
-  
+);
+if (localStorage.getItem('UserLogin') == "") {
+    localStorage.setItem('UserLogin', JSON.stringify({ UserID: "", Roles: "", Email: "" }));
+}
 var UserLogin = JSON.parse(localStorage.getItem('UserLogin'));
-if(UserLogin == null){
-    UserLogin = {UserLoginDB:''};
+if (UserLogin == null) {
+    UserLogin = { UserLoginDB: '' };
 }
 const login = createSlice({
-    name:'login',
-    initialState:UserLogin,
-    reducers:{
-        LoginForm: (state,action) =>{
-          
+    name: 'login',
+    initialState: UserLogin,
+    reducers: {
+        LoginForm: (state, action) => {
+
         },
-        Logout: (state,action) =>{
-            state ={UserID:"",Roles:"",Email:""};
+        Logout: (state, action) => {
+            state = { UserID: "", Roles: "", Email: "" };
+            localStorage.setItem('token', '');
+            localStorage.setItem('UserLogin','');
             return state;
         },
     },
     extraReducers: {
-      [someAction.fulfilled]: (state, action) => {
-         state = action.payload;
-         return state;
-      },
+        [LoginAPIRedux.fulfilled]: (state, action) => {
+            state = action.payload;
+            return state;
+        },
     },
 
 });
 // Export ra các reducer và các action
-const {reducer,actions} =login;
-export const { LoginForm,Logout } = actions;
+const { reducer, actions } = login;
+export const { LoginForm, Logout } = actions;
 export default reducer;

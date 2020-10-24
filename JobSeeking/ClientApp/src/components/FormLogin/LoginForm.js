@@ -1,13 +1,8 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import LoginApi from '../../api/System/Login';
-import { LoginForm, Logout, someAction } from 'components/FormLogin/LoginSlice'
+import {Logout, LoginAPIRedux } from 'components/FormLogin/LoginSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import styles from "../../assets/jss/material-kit-react/components/headerLinksStyle.js";
@@ -36,7 +31,7 @@ export default function FormDialog() {
     setOpen(false);
   };
   const handleLogin = async (user) => {
-    const action = someAction(user);
+    const action = LoginAPIRedux(user);
     dispatch(action);
     setOpen(false);
   };

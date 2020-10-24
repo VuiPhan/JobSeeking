@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-// core components
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -14,17 +10,12 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import 'assets/scss/view/CompanyPage.scss';
 import 'assets/scss/view/CompanyRegister.scss';
-import { Button, Collapse, FormGroup, Input, InputGroup, Label, Row } from "reactstrap";
-import { FormControl, FormLabel } from "react-bootstrap";
+import { Button, FormGroup, Label } from "reactstrap";
 import { Formik, Form, FastField } from "formik";
 import InputField from "components/CustomField/InputField";
 import * as yup from 'yup';
-import RegisterCompanyApi from "api/Company/RegisterCompany";
 import LGCompanyPage from "Language/CompanyPage";
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import ckeditor, { CKEditor } from '@ckeditor/ckeditor5-react';
 import MyCKEditor from "components/CKEditor/CKEditor";
-import Select from 'react-select';
 import PublishedRecruitmentAPI from "api/Company/PublishedRecruitmentAPI";
 import SelectField from "components/CustomField/SelectField";
 import MutipleSelectField from "components/CustomField/MutipleSelectField";
@@ -36,18 +27,6 @@ export default function PublishedRecruitment(props) {
     const classes = useStyles();
     const res = LGCompanyPage.PublishedRecruitment;
     const { ...rest } = props;
-    const imageClasses = classNames(
-        classes.imgRaised,
-        classes.imgRoundedCircle,
-        classes.imgFluid
-    );
-    const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-    const initialValues = {
-        Title: '',
-        categoryId: null,
-        categoryIdMutiple: ''
-
-    };
     const validationShema = yup.object().shape({
         FullName: yup.string().required(res.TruongBBNhap),
         Email: yup.string().email().required(res.TruongBBNhap),
@@ -105,15 +84,22 @@ export default function PublishedRecruitment(props) {
             jobDescription: data
         })
     }
+    const initialValues = {
+        Title: '',
+        categoryId: null,
+        Strengths: '',
+        PriorityDegree:''
+    };
     const HandleSubmitData = (valuesForm) => {
         console.log(requireWork);
         const formData = new FormData();
         formData.append('Title', valuesForm.Title);
         formData.append('RequireCV', requireWork.requireCV);
         formData.append('JobDescription', requireWork.jobDescription);
+        formData.append('Strengths', valuesForm.Strengths);
+        formData.append('PriorityDegree',valuesForm.PriorityDegree);
         formData.append('imageFile', values.imageFile);
         formData.append('imageName', values.imageName);
-        debugger;
         PublishedRecruitmentAPI.post(formData);
     }
 
@@ -140,8 +126,7 @@ export default function PublishedRecruitment(props) {
                     <Formik initialValues={initialValues}
                         // validationSchema={validationShema}
                         // onSubmit={values => HandleSubmitData(values)}>
-                        // onSubmit={values => HandleSubmitData(values)}>
-                        onSubmit={values => console.log(values)}>
+                         onSubmit={values => HandleSubmitData(values)}>
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
                             return (
@@ -173,17 +158,17 @@ export default function PublishedRecruitment(props) {
                                         component={SelectField}
                                         label="Category"
                                         placeholder="Category"
-                                        options={[{ value: 1, label: "Vui" }, { value: 2, label: "Buon" }, { value: 3, label: "Đẹp trai" }, { value: 4, label: "Đẹp tra2i" }]}
+                                        ListName="HinhThucLamViec"
                                     />
                                     <FastField
-                                        name="categoryIdMutiple"
+                                        name="Strengths"
                                         component={MutipleSelectField}
                                         label="Các thế mạnh của chúng tôi"
                                         placeholder="Category"
-                                        options={[{ value: 1, label: "C#" }, { value: 2, label: "SQL" }, { value: 3, label: "JavaScript" }, { value: 4, label: "JavaScript" }]}
+                                        ListName="TheManhCongTy"
                                     />
                                     <FastField
-                                        name="categoryIdMutiple"
+                                        name="PriorityDegree"
                                         component={MutipleSelectField}
                                         label="Các bằng cấp ưu tiên"
                                         ListName="BangCapUuTien"
