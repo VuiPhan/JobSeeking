@@ -15,7 +15,6 @@ import PrivateRoute from 'components/Router/PrivateRoute';
 
 export default class App extends Component {
   static displayName = App.name;
-
   render () {
     return (
         <Layout>
@@ -24,7 +23,7 @@ export default class App extends Component {
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/ProfilePage' component={ProfilePage} />
         <Route path='/Company' component={CompanyPage} />
-        <Route path='/Jobs' component={JobsPage} />
+        <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />
         <PrivateRoute component={PublishedRecruitment} path="/PublishedRecruitment" exact />
         

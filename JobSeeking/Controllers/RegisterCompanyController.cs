@@ -26,6 +26,8 @@ namespace JobSeeking.Controllers
         [HttpPost]
         public async Task<ActionResult<RegisterCompanyForm>> RegisterCompany([FromForm] RegisterCompanyForm registerCompanyForm)
         {
+            registerCompanyForm.ImageName = await SaveImage(registerCompanyForm.ImageFile);
+
             _context.Database.ExecuteSqlRaw("dbo.UTE_Company_Register" +
                 " @FullName={0},@EmailAddress={1},@PassWord={2},@CompanyName={3}," +
                 "@CompanyAddress={4},@TimeWorking={5},@ImageLogo={6},@CompanyType={7}", 
@@ -38,7 +40,6 @@ namespace JobSeeking.Controllers
                 registerCompanyForm.ImageName,
                 registerCompanyForm.CompanyType
                 );
-            registerCompanyForm.ImageName = await SaveImage(registerCompanyForm.ImageFile);
 
             return StatusCode(201);
         }

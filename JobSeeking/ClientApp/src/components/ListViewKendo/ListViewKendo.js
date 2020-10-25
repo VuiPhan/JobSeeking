@@ -5,8 +5,9 @@ import { Card, CardTitle, CardImage, CardSubtitle, CardActions } from '@progress
 import { Pager } from '@progress/kendo-react-data-tools';
 
 import articles from './articles.json';
-import LoadJobsAPI from '../../api/HomePageAPI'
+import LoadJobsAPI from '../../api/HomePageAPI';
 import './styleListView.scss';
+import { useHistory } from 'react-router-dom';
 const myHeader = () => {
     return (
         <ListViewHeader style={{ color: 'rgb(160, 160, 160)', fontSize: 14 }} className='pl-4 pb-2 pt-2'>
@@ -18,6 +19,12 @@ const myHeader = () => {
 const MyItemRender = props => {
     let item = props.dataItem;
     var parse = require('html-react-parser');
+    const history = useHistory();
+    const HandleRedirectPage = (id) =>{
+        debugger;
+        const linkRedired = `/Jobs/${id}`;
+        history.push(linkRedired);
+    }
     return (
         <Card style={{ padding: '20px 24px', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)', }} orientation='horizontal' className='d-flex justify-content-between'>
             <div className='k-vbox k-column'>
@@ -33,7 +40,7 @@ const MyItemRender = props => {
                     </CardSubtitle>
                 </div>
                 <CardActions style={{ padding: 0 }}>
-                    <button className='k-button k-bare'>Xem chi tiết</button>
+                    <button onClick={() =>HandleRedirectPage(item.jobId)} className='k-button k-bare'>Xem chi tiết</button>
                     <button className='k-button k-bare'>Thêm vào yêu thích</button>
                 </CardActions>
             </div>
@@ -57,7 +64,7 @@ class ListViewKendo extends React.Component {
     }
     async componentDidMount(){
         var x = await LoadJobsAPI.getAll();
-        this.setState({data:x});
+       this.setState({data:x});
 
     }
     handlePageChange = (e) => {

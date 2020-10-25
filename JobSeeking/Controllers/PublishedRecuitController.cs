@@ -27,13 +27,15 @@ namespace JobSeeking.Controllers
         {
             _context.Database.ExecuteSqlRaw("dbo.UTECompany_PublishedRecuit" +
                " @CompanyID={0},@JobsTitle={1},@JobDescriptions={2},@JobRequirements={3}," +
-               "@Strengths={4},@PriorityDegree={5}",
+               "@Strengths={4},@PriorityDegree={5},@ReasonsToJoin ={6},@LoveWorkingHere ={7}",
                1,
                registerCompanyForm.Title,
                registerCompanyForm.JobDescription,
                registerCompanyForm.RequireCV,
                registerCompanyForm.Strengths,
-               registerCompanyForm.PriorityDegree
+               registerCompanyForm.PriorityDegree,
+               registerCompanyForm.ReasonsToJoin,
+               registerCompanyForm.LoveWorkingHere
                );
             return StatusCode(201);
         }

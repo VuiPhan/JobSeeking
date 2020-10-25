@@ -12,6 +12,9 @@ namespace JobSeeking.Models.Class
         public string JobDescription { get; set; }
         public string Strengths { get; set; }
         public string PriorityDegree { get; set; }
+        public string ReasonsToJoin { get; set; }
+        public string LoveWorkingHere { get; set; }
+        
 
     }
 }

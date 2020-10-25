@@ -14,7 +14,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import 'assets/scss/view/CompanyPage.scss';
 import 'assets/scss/view/CompanyRegister.scss';
-import { Button, Collapse, FormGroup, Label} from "reactstrap";
+import { Button, Collapse, FormGroup, Label } from "reactstrap";
 import { Formik, Form, FastField } from "formik";
 import InputField from "components/CustomField/InputField";
 import * as yup from 'yup';
@@ -37,8 +37,9 @@ export default function CompanyPage(props) {
         PhoneNumber: '',
         Password: '',
         ConfirmPassword: '',
-        CompanyName:'',
-        TimeWorking:''
+        CompanyName: '',
+        TimeWorking: '',
+        CompanyAddress: ''
     };
     const validationShema = yup.object().shape({
         FullName: yup.string().required(res.TruongBBNhap),
@@ -89,6 +90,7 @@ export default function CompanyPage(props) {
         formData.append('Password', valuesForm.Password);
         formData.append('CompanyName', valuesForm.CompanyName);
         formData.append('TimeWorking', valuesForm.TimeWorking);
+        formData.append('CompanyAddress', valuesForm.CompanyAddress);
         formData.append('imageFile', values.imageFile);
         formData.append('imageName', values.imageName);
         RegisterCompanyApi.post(formData);
@@ -115,7 +117,7 @@ export default function CompanyPage(props) {
                 <div className='ContainerForm'>
                     <Formik initialValues={initialValues}
                         validationSchema={validationShema}
-                         onSubmit={values =>HandleSubmitData(values)}>
+                        onSubmit={values => HandleSubmitData(values)}>
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
                             return (
@@ -158,12 +160,17 @@ export default function CompanyPage(props) {
                                         label={res.TenCongTy}
                                         placeholder={res.TenCongTy}
                                     />
-
                                     <FastField
                                         name="TimeWorking"
                                         component={InputField}
                                         label={res.TGLamViec}
                                         placeholder={res.TGLamViec}
+                                    />
+                                    <FastField
+                                        name="CompanyAddress"
+                                        component={InputField}
+                                        label={res.DiaChi}
+                                        placeholder={res.DiaChi}
                                     />
                                     <FormGroup>
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>

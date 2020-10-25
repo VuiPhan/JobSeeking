@@ -1,7 +1,7 @@
 ﻿import axiosClient from './axiosClient';
 const LoadJobsApi = {
     getAll: (param) => {
-        const url = '/Jobs';
+        const url = '/Jobs/Get';
         return axiosClient.get(url, { param });
     },
     get: (id) => {

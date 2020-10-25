@@ -18,7 +18,14 @@ function MyCKEditor(props) {
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          ChangeRequireWork(data);
+          //ChangeRequireWork(data);
+          const changeEvent = {
+            target: {
+                name: name,
+                value: data
+            },
+        }
+        field.onChange(changeEvent);
          // console.log({ event, editor, data });
         }}
         onBlur={(event, editor) => {

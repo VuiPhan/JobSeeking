@@ -68,36 +68,26 @@ export default function PublishedRecruitment(props) {
             reader.readAsDataURL(imageFile);
         }
     }
-    const [requireWork, setrequireWork] = useState({ requireCV: 'abs', jobDescription: '' });
-
-    const ChangeRequireWork = data => {
-        //setrequireWork({requireCV:data2});
-        setrequireWork({
-            ...requireWork,
-            requireCV: data
-        })
-    }
-    const ChangeJobDescription = data => {
-        //setrequireWork({requireCV:data2});
-        setrequireWork({
-            ...requireWork,
-            jobDescription: data
-        })
-    }
     const initialValues = {
         Title: '',
         categoryId: null,
         Strengths: '',
-        PriorityDegree:''
+        PriorityDegree: '',
+        jobDescription: '',
+        requireCV: '',
+        reasonsToJoin: '',
+        loveWorkingHere:''
     };
     const HandleSubmitData = (valuesForm) => {
-        console.log(requireWork);
+        console.log(valuesForm);
         const formData = new FormData();
         formData.append('Title', valuesForm.Title);
-        formData.append('RequireCV', requireWork.requireCV);
-        formData.append('JobDescription', requireWork.jobDescription);
+        formData.append('RequireCV', valuesForm.requireCV);
+        formData.append('ReasonsToJoin', valuesForm.reasonsToJoin);
+        formData.append('JobDescription', valuesForm.jobDescription);
+        formData.append('LoveWorkingHere', valuesForm.loveWorkingHere);
         formData.append('Strengths', valuesForm.Strengths);
-        formData.append('PriorityDegree',valuesForm.PriorityDegree);
+        formData.append('PriorityDegree', valuesForm.PriorityDegree);
         formData.append('imageFile', values.imageFile);
         formData.append('imageName', values.imageName);
         PublishedRecruitmentAPI.post(formData);
@@ -126,7 +116,7 @@ export default function PublishedRecruitment(props) {
                     <Formik initialValues={initialValues}
                         // validationSchema={validationShema}
                         // onSubmit={values => HandleSubmitData(values)}>
-                         onSubmit={values => HandleSubmitData(values)}>
+                        onSubmit={values => HandleSubmitData(values)}>
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
                             return (
@@ -138,21 +128,38 @@ export default function PublishedRecruitment(props) {
                                         label=""
                                         placeholder={res.TieuDeCongViec}
                                     />
+                                    <h1>{res.LyDoGiaNhapCongTy}</h1>
+                                    <FastField
+                                        name="reasonsToJoin"
+                                        component={MyCKEditor}
+                                        label=""
+                                        placeholder={res.LyDoGiaNhapCongTy}
+                                    />
+
                                     <h1>{res.MoTaCongViec}</h1>
                                     <FastField
+                                        name="jobDescription"
                                         component={MyCKEditor}
-                                        ChangeRequireWork={ChangeJobDescription}
                                         label=""
                                         placeholder={res.YeuCauCongViec}
                                     />
                                     <h1>{res.YeuCauCongViec}</h1>
 
                                     <FastField
+                                        name="requireCV"
                                         component={MyCKEditor}
-                                        ChangeRequireWork={ChangeRequireWork}
                                         label=""
                                         placeholder={res.YeuCauCongViec}
                                     />
+
+                                    <h1>{res.TaiSaoBanYeuThich}</h1>
+                                    <FastField
+                                        name="loveWorkingHere"
+                                        component={MyCKEditor}
+                                        label=""
+                                        placeholder={res.TaiSaoBanYeuThich}
+                                    />
+
                                     <FastField
                                         name="categoryId"
                                         component={SelectField}
@@ -173,10 +180,7 @@ export default function PublishedRecruitment(props) {
                                         label="Các bằng cấp ưu tiên"
                                         ListName="BangCapUuTien"
                                         placeholder="Mời bạn chọn các bằng cấp được ưu tiên"
-                                        options={[{ value: 1, label: "C#" }, { value: 2, label: "SQL" }, { value: 3, label: "JavaScript" }, { value: 4, label: "JavaScript" }]}
                                     />
-
-
                                     <FormGroup>
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>
                                     </FormGroup>

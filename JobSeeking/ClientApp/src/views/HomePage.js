@@ -19,7 +19,6 @@ const useStyles = makeStyles(styles);
 
 export default function HomePage(props) {
   const classes = useStyles();
-  //LoadLanguageForPage();
   const { ...rest } = props;
   const imageClasses = classNames(
     classes.imgRaised,
