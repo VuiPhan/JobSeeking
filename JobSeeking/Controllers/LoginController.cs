@@ -100,7 +100,7 @@ namespace JobSeeking.Controllers
                     new Claim(JwtRegisteredClaimNames.Sub, userInfo.UserName),
                     new Claim("UserID", userInfo.UserID.ToString()),
                     new Claim("UserLoginDB", userInfo.UserName.ToString()),
-                    new Claim("Roles", userInfo.Roles),
+                    new Claim("role", userInfo.Roles),
                     //new Claim(ClaimTypes.Role,userInfo.Roles),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };

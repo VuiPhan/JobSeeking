@@ -9,7 +9,7 @@ export const LoginAPIRedux = createAsyncThunk(
     },
 );
 if (localStorage.getItem('UserLogin') == "") {
-    localStorage.setItem('UserLogin', JSON.stringify({ UserID: "", Roles: "", Email: "" }));
+    localStorage.setItem('UserLogin', JSON.stringify({ UserID: "", role: "", Email: "" }));
 }
 var UserLogin = JSON.parse(localStorage.getItem('UserLogin'));
 if (UserLogin == null) {
@@ -23,7 +23,7 @@ const login = createSlice({
 
         },
         Logout: (state, action) => {
-            state = { UserID: "", Roles: "", Email: "" };
+            state = { UserID: "", role: "", Email: "" };
             localStorage.setItem('token', '');
             localStorage.setItem('UserLogin','');
             return state;

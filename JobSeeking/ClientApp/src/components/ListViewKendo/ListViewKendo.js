@@ -6,7 +6,7 @@ import { Pager } from '@progress/kendo-react-data-tools';
 
 import articles from './articles.json';
 import LoadJobsAPI from '../../api/HomePageAPI'
-
+import './styleListView.scss';
 const myHeader = () => {
     return (
         <ListViewHeader style={{ color: 'rgb(160, 160, 160)', fontSize: 14 }} className='pl-4 pb-2 pt-2'>
@@ -17,6 +17,7 @@ const myHeader = () => {
 
 const MyItemRender = props => {
     let item = props.dataItem;
+    var parse = require('html-react-parser');
     return (
         <Card style={{ padding: '20px 24px', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)', }} orientation='horizontal' className='d-flex justify-content-between'>
             <div className='k-vbox k-column'>
@@ -28,7 +29,7 @@ const MyItemRender = props => {
                         {item.companyName}
                     </CardSubtitle>
                     <CardSubtitle style={{ fontSize: 12 }}>
-                        {item.jobRequirements}
+                    {parse(item.jobRequirements)}
                     </CardSubtitle>
                 </div>
                 <CardActions style={{ padding: 0 }}>
@@ -48,7 +49,8 @@ class ListViewKendo extends React.Component {
             "Title": "How to design with love?",
             "Subtitle": "7 tips to fall in love with your job.",
             "Date": "Feb 24,  2020",
-            "Image": "2-220x140.png"
+            "Image": "2-220x140.png",
+            "jobRequirements": "<p><i>Hybrid Technologies là công ty công nghệ phần mềm liên doanh Nhật-Việt, cung cấp các dịch vụ và mô hình làm việc đa dạng như Mô hình Hybrid, Mô hình Ủy thác, hay lĩnh vực Trí tuệ nhân tạo (AI).</i></p>"
         }];
         this.state = {data:dataArtical,skip: 0,
             take: 5};

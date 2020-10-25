@@ -9,14 +9,9 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Tooltip from "@material-ui/core/Tooltip";
-
 // @material-ui/icons
-import { Apps, CloudDownload } from "@material-ui/icons";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
 // core components
-import CustomDropdown from "../../components/CustomDropdown/CustomDropdown.js";
 import Button from "../../components/CustomButtons/Button.js";
 
 import styles from "../../assets/jss/material-kit-react/components/headerLinksStyle.js";
@@ -27,7 +22,6 @@ const useStyles = makeStyles(styles);
 export default function HeaderLinks(props) {
   const classes = useStyles();
   const LoginInfo = useSelector(state => state.loginInfo)
-  debugger;
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -58,7 +52,7 @@ export default function HeaderLinks(props) {
           <AccountCircleIcon className={classes.icons} /> Trang công việc
 
         </Button>
-        { LoginInfo.Roles === "Recruiter"?
+        { LoginInfo.role === "Recruiter"?
           <Button
             component={Link} to="/PublishedRecruitment"
             color="transparent"

@@ -19,23 +19,20 @@ namespace JobSeeking.Controllers
         }
         public async Task<object> Get()
         {
-            //  var data = db.Select(p=>p).ToList();
-            //JobSeekingContext db = new JobSeekingContext();
+            var dataJob = from jobs in _context.UteworkJobs
+                          join company in _context.UtecomCompanies
+                                 on jobs.CompanyId equals company.CompanyId
+                          select new
+                          {
+                              jobs.JobDescriptions,
+                              jobs.JobRequirements,
+                              jobs.ReasonsToJoin,
+                              company.CompanyName,
+                              jobs.PostingDate,
+                              jobs.JobsTitle
+                          };
 
-            //var dataJob = from jobs in _context.UteworkJobs
-            //              join company in _context.UtecomCompanies
-            //                     on jobs.CompanyId equals company.CompanyId
-            //              select new
-            //              {
-            //                  jobs.JobDescriptions,
-            //                  jobs.JobRequirements,
-            //                  jobs.ReasonsToJoin,
-            //                  company.CompanyName,
-            //                  jobs.PostingDate,
-            //                  jobs.JobsTitle
-            //              };
-
-            return null;
+            return dataJob;
         }
     }
 }
