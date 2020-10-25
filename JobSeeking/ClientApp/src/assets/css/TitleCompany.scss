@@ -3,35 +3,47 @@
     align-items: center;
     justify-content: center;
 }
+.containerImage
+{
+    display:flex;
+    flex-direction:row;
+    padding:5px; /* this */
+}
+.containerImage > img
+{
+    flex:1 1 auto;
+    text-align:center;
+    margin:5px;  /* and that, will result in a 10px gap */
+}
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+  display: inline-block;
+}
+
+/* Main column */
+.main {
+  flex: 70%;
+  background-color:white;
+  padding: 20px;
+}
 .containerDetail{
     display: flex;
     padding-top: 10px;
+    justify-items: stretch;
 }
-.row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-  }
-  
-  .column {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    flex: 1;
-  }
-  .some-page-wrapper {
-    margin: 15px;
-    background-color: white;
-  }    
-  .blue-column {
-    background-color: white;
-    height: auto;
-    flex: 4;
-  }
-  
-  .green-column {
-    background-color: white;
-    height: auto;
-    flex: 3;
-  }
+.detail_side{
+  display: -webkit-inline-box;
+}
+.detail_side_content{
+  padding-left: 10px;
+}
