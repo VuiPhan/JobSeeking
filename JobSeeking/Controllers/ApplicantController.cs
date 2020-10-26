@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using JobSeeking.Models.DB;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobSeeking.Controllers
@@ -18,10 +11,10 @@ namespace JobSeeking.Controllers
         public IActionResult SaveDate([FromBody] UteappApplicant uteappApplicant)
         {
 
-            return Ok();   
+            return Ok();
         }
         [HttpGet("GetData")]
-        public IActionResult SaveDate(int  x)
+        public IActionResult SaveDate(int x)
         {
 
             return Ok();

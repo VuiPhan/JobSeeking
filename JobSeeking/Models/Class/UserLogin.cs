@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace JobSeeking.Models.Class
+﻿namespace JobSeeking.Models.Class
 {
     public class UserLogin
     {
@@ -13,7 +8,7 @@ namespace JobSeeking.Models.Class
 
         public int UserID { get; set; }
         public int UserLoginDB { get; set; }
-        
+
         public string Roles { get; set; }
 
         public string MessageError { get; set; }

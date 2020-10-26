@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace JobSeeking.Models.Class
+﻿namespace JobSeeking.Models.Class
 {
     public class PublishedRecuitForm
     {
@@ -14,7 +9,15 @@ namespace JobSeeking.Models.Class
         public string PriorityDegree { get; set; }
         public string ReasonsToJoin { get; set; }
         public string LoveWorkingHere { get; set; }
-        
+
+        public float SalaryFrom { get; set; }
+
+        public float SalaryTo { get; set; }
+
+        public string WorkLocation { get; set; }
+
+        public string OTMode { get; set; }
+
 
     }
 }

@@ -1,8 +1,7 @@
-﻿using System;
-using JobSeeking.Models.Class;
+﻿using JobSeeking.Models.Class;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using System;
 
 namespace JobSeeking.Models.DB
 {

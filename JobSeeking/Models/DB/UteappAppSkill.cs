@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace JobSeeking.Models.DB
+﻿namespace JobSeeking.Models.DB
 {
     public partial class UteappAppSkill
     {

@@ -17,7 +17,7 @@ import LGCompanyPage from "Language/CompanyPage";
 import ListViewKendo from "components/ListViewKendo/ListViewKendo.js";
 import JobsApi from "api/Company/JobsAPI.js";
 import { useHistory, useParams } from "react-router-dom";
-import { Icon } from "@material-ui/core";
+import { Button, Icon } from "@material-ui/core";
 import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import LocationCityIcon from '@material-ui/icons/LocationCity';
@@ -62,7 +62,7 @@ export default function JobsPage(props) {
                 <div className="containerTitle">
                   <img src={`https://localhost:44351/Images/${data.imageLogo}`} alt="..." />
                   <div>
-                    <h1>{data.companyName}</h1>
+                    <h1 className="CompanyNameTitle">{data.companyName}</h1>
                     <h5><LocationOnIcon></LocationOnIcon> {data.companyAddress}</h5>
                     <h5><AccessAlarmIcon></AccessAlarmIcon > {data.timeWorking}</h5>
                   </div>
@@ -106,10 +106,13 @@ export default function JobsPage(props) {
                 <DateRangeIcon  />
                   <p className="detail_side_content"> 5 ngày trước</p>
                 </div>
+                <div className="buttonCenter">
+                <Button variant="outlined" color="secondary">Ứng tuyển ngay</Button>
+                </div>
 
               </div>
               <div className="main">
-                <h3>{parse(data.jobsTitle)}</h3>
+                <h3 className="TitleWork">{parse(data.jobsTitle)}</h3>
                 <h3>
                   {res.LyDoNenGiaNhap}
                 </h3>

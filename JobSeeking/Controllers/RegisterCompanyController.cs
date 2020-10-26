@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using JobSeeking.Models.Class;
+﻿using JobSeeking.Models.Class;
 using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace JobSeeking.Controllers
 {
@@ -18,7 +17,7 @@ namespace JobSeeking.Controllers
     {
         private readonly JobSeekingContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public RegisterCompanyController(JobSeekingContext context,IWebHostEnvironment hostEnvironment)
+        public RegisterCompanyController(JobSeekingContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             this._hostEnvironment = hostEnvironment;
@@ -27,10 +26,13 @@ namespace JobSeeking.Controllers
         public async Task<ActionResult<RegisterCompanyForm>> RegisterCompany([FromForm] RegisterCompanyForm registerCompanyForm)
         {
             registerCompanyForm.ImageName = await SaveImage(registerCompanyForm.ImageFile);
+            registerCompanyForm.Image1 = await SaveImage(registerCompanyForm.ImageFile1);
+            registerCompanyForm.Image2 = await SaveImage(registerCompanyForm.ImageFile2);
+            registerCompanyForm.Image3 = await SaveImage(registerCompanyForm.ImageFile3);
 
             _context.Database.ExecuteSqlRaw("dbo.UTE_Company_Register" +
                 " @FullName={0},@EmailAddress={1},@PassWord={2},@CompanyName={3}," +
-                "@CompanyAddress={4},@TimeWorking={5},@ImageLogo={6},@CompanyType={7}", 
+                "@CompanyAddress={4},@TimeWorking={5},@ImageLogo={6},@CompanyType={7},@Image1={8},@Image2={9},@Image3={10}",
                 registerCompanyForm.FullName,
                 registerCompanyForm.Email,
                 registerCompanyForm.Password,
@@ -38,7 +40,10 @@ namespace JobSeeking.Controllers
                 registerCompanyForm.CompanyAddress,
                 registerCompanyForm.TimeWorking,
                 registerCompanyForm.ImageName,
-                registerCompanyForm.CompanyType
+                registerCompanyForm.CompanyType,
+                registerCompanyForm.Image1,
+                registerCompanyForm.Image2,
+                registerCompanyForm.Image3
                 );
 
             return StatusCode(201);

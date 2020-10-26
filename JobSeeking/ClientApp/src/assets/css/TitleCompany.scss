@@ -1,22 +1,32 @@
-.containerTitle{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.containerTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  padding: 15px;
+  margin-bottom: 25px;
+  -webkit-box-shadow: 4px 12px 43px -5px rgba(0, 32, 0, 0.47);
+  -moz-box-shadow: 4px 12px 43px -5px rgba(0, 32, 0, 0.47);
+  box-shadow: 4px 12px 43px -5px rgba(135, 109, 250, 0.616);
 }
-.containerImage
-{
-    display:flex;
-    flex-direction:row;
-    padding:5px; /* this */
+.CompanyNameTitle {
+  font-family: "Alfa Slab One", cursive;
+  font-size: 30px;
+  color: #fb8500;
 }
-.containerImage > img
-{
-    flex:1 1 auto;
-    text-align:center;
-    margin:5px;  /* and that, will result in a 10px gap */
+.containerImage {
+  display: flex;
+  flex-direction: row;
+  padding: 5px; /* this */
+  margin-bottom: 15px;
+}
+.containerImage > img {
+  flex: 1 1 auto;
+  text-align: center;
+  margin: 5px; /* and that, will result in a 10px gap */
 }
 /* Column container */
-.row {  
+.row {
   display: flex;
   flex-wrap: wrap;
 }
@@ -33,17 +43,31 @@
 /* Main column */
 .main {
   flex: 70%;
-  background-color:white;
+  background-color: white;
   padding: 20px;
 }
-.containerDetail{
-    display: flex;
-    padding-top: 10px;
-    justify-items: stretch;
+.containerDetail {
+  display: flex;
+  padding-top: 10px;
+  justify-items: stretch;
 }
-.detail_side{
+.detail_side {
   display: -webkit-inline-box;
 }
-.detail_side_content{
+.detail_side_content {
   padding-left: 10px;
+}
+.buttonCenter {
+  display: flex;
+  justify-content: center;
+  margin-top: 17px;
+}
+.TitleWork {
+  font-family: "Lobster", cursive;
+  font-size: 40px;
+  margin-bottom: 30px;
+  color: #d62828;
+}
+.main > h3 {
+  font-family: "Anton", sans-serif;
 }
