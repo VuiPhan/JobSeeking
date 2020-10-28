@@ -24,7 +24,10 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import PeopleIcon from '@material-ui/icons/People';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import { useSelector } from "react-redux";
+import ShowCadidate from "components/ShowCandidate/ShowCandidate";
 const useStyles = makeStyles(styles);
+
 
 export default function JobsPage(props) {
   const classes = useStyles();
@@ -49,12 +52,13 @@ export default function JobsPage(props) {
     }
     fetchMyAPI()
   }, [jobID]);
-
-
+  const LoginInfo = useSelector(state => state.loginInfo)
+debugger;
   return (
     <div>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
+
         <div>
           <div className={classes.container}>
             <GridContainer justify="center">
@@ -106,9 +110,20 @@ export default function JobsPage(props) {
                 <DateRangeIcon  />
                   <p className="detail_side_content"> 5 ngày trước</p>
                 </div>
+
+                
                 <div className="buttonCenter">
-                <Button variant="outlined" color="secondary">Ứng tuyển ngay</Button>
+                
+                { LoginInfo.role === "Recruiter" ?
+                 <Button variant="outlined" color="secondary">Xem ứng viên</Button>
+          :     <Button variant="outlined" color="secondary">Ứng tuyển ngay</Button>
+                
+        }
+              <span className="buttonCenterNotification">10</span>
                 </div>
+             
+               
+
 
               </div>
               <div className="main">
@@ -150,7 +165,10 @@ export default function JobsPage(props) {
             <ListViewKendo></ListViewKendo>
           </div>
         </div>
+      <ShowCadidate></ShowCadidate>
+
       </div>
+
       <Footer />
     </div>
   );

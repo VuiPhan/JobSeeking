@@ -1,0 +1,86 @@
+.ContainerMenu{
+  position: relative;
+}
+.hamburger {
+  cursor: pointer;
+  // position: relative;
+  position: fixed;
+  bottom: 0px;
+  right: 0px; 
+  background-color: sandybrown;
+  &.inactive {
+    height: 30px;
+    width: 30px;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition-delay: 0.4s;
+    -moz-transition-delay: 0.4s;
+    -o-transition-delay: 0.4s;
+    transition-delay: 0.4s;
+    ul {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      -webkit-transition-delay: 0s;
+      -moz-transition-delay: 0s;
+      -o-transition-delay: 0s;
+      transition-delay: 0s;
+    }
+  }
+  &.active {
+    background: #eee;
+    width: 450px;
+    height: 300px;
+    transition: all 0.5s ease-in-out;
+    ul {
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+      -webkit-transition-delay: 0.5s;
+      -moz-transition-delay: 0.5s;
+      -o-transition-delay: 0.5s;
+      transition-delay: 0.5s;
+    }
+    .lines {
+      background: #fab800;
+    }
+  }
+}
+
+.menu {
+    cursor: pointer;
+    text-align: center;
+    margin: 30px 0 30px 0;
+    width: 100%;
+    li {
+       line-height: 40px;
+       width: 100%;
+      &:hover {
+        background: #fab800;
+      }
+    }
+}
+
+.lines {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 0;
+  &:hover {
+    background: #fab800;
+  }
+  span {
+    background: #fff;
+    display: block;
+    width: 20px;
+    height: 2px;
+    position: absolute;
+    right: 5px;
+    &:first-of-type {
+      top: 10px;
+    }
+    &:nth-of-type(2) {
+      top: 15px;
+    }
+    &:nth-of-type(3) {
+      top: 20px;
+    }
+  }
+}

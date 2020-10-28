@@ -61,6 +61,26 @@
   display: flex;
   justify-content: center;
   margin-top: 17px;
+  margin-left: 63px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+
+
+
+
+
+
+
+}
+.buttonCenterNotification{
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 1px 5px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
 }
 .TitleWork {
   font-family: "Lobster", cursive;
