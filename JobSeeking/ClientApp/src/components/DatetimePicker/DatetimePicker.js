@@ -17,27 +17,29 @@ const useStyles = makeStyles((theme) => ({
 //    ChangeInputDate:PropTypes.func,
 // }
 export default function DatePickers(props) {
-  const {ChangeInputDate} = props;
+
   const classes = useStyles();
   const getDataDate = new Date();
-  console.log('getDataDate',getDataDate);
-  const changeData = (e) =>{
-      console.log(e.target.value);
-      ChangeInputDate(e);
-  }
+
+  const { field, form, type, label, placeholder, disabled } = props;
+  const { name } = field;
+  const {errors,touched} =  form;
+  const showError = errors[name] && touched[name];
   return (
-    <form className={classes.container} noValidate>
+    // <form className={classes.container} noValidate>
+    <form>
       <TextField
         id="date"
-        onChange={changeData}
+        {...field}
         label=""
         type="date"
+        style={{width: 140}}
         defaultValue={getDataDate}
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
         }}
-      />
+       />
     </form>
   );
 }

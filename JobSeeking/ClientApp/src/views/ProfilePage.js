@@ -29,7 +29,6 @@ const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
   const classes = useStyles();
-  //LoadLanguageForPage();
   const { ...rest } = props;
   const imageClasses = classNames(
     classes.imgRaised,
@@ -39,18 +38,6 @@ export default function ProfilePage(props) {
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   return (
     <div>
-      {/* <Header
-        color="transparent"
-        brand="JOB SEEKING"
-        rightLinks={<HeaderLinks />}
-        fixed
-        changeColorOnScroll={{
-          height: 200,
-          color: "white"
-        }}
-        {...rest}
-      /> */}
-      {/* <Parallax small filter image={require("../assets/img/profile-bg.jpg")} /> */}
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>

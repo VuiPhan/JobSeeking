@@ -20,7 +20,9 @@ SelectField.defaultProps = {
 
 function SelectField(props) {
     const { field, options, lable, placeholder, disabled,label } = props;
+    debugger;
     const { name,value } = field;
+    
     const selectedOption = options.find(options => options.value === value);  
     const HandleSelectedOptionChange = (selectedOption) => {
         debugger;
