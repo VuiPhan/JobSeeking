@@ -26,11 +26,11 @@ function InputField(props) {
     const { name } = field;
     const {errors,touched} =  form;
     const showError = errors[name] && touched[name];
+    // console.log(field);
     return (
         <div>
-            {/* <FormGroup>
-              */}
-                {label && <Label for={name}>{label}</Label>}
+            <FormGroup>
+                <Label for={name}>{label}</Label>
                 <Input
                     id={name}
                     {...field}
@@ -41,7 +41,7 @@ function InputField(props) {
                     ></Input>
             {/* {showError && <FormFeedback>{errors[name]}</FormFeedback>} */}
             <ErrorMessage name={name} component={FormFeedback}/>
-            {/* </FormGroup> */}
+            </FormGroup>
         </div>
     );
 }
