@@ -62,14 +62,14 @@ const validationShema = yup.object().shape({
 
         {LoginInfo.UserLoginDB === '' || typeof LoginInfo.UserLoginDB === 'undefined'
         ?       <Button
-        color="transparent"
+        color="default"
         className={classes.navLink}
         onClick={handleClickOpen}
       >
         <AccountCircleIcon className={classes.icons} /> Đăng nhập
         </Button>
         :       <Button
-        color="transparent"
+        color="default"
         className={classes.navLink}
         onClick={handleLogout}
       >

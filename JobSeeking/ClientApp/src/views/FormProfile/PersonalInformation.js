@@ -30,40 +30,22 @@ function PersonalInformation() {
         password: '',
         rePassword: '',
         email: '',
-        birthDay: '',
+        birthDay: '2020-01-01',
+        birthDayString:'2020-01-01',
         phoneNumber: '',
         gender: 1,
         academicLevel: 1
     });
-    const [test,setTest] = useState('');
     useEffect(() => {
-        setTest('Vui nè');
-        debugger;
-        async function fetchMyAPI() {
-         //   const result = await SeekerAPI.get(LoginInfo.UserID);
-            //debugger;
-            //console.log(result);
-            let dataSet = {
-                firstName: 'Phan',
-                lastName: 'Vui'
-            };
-            
-             //setData(result[0]);
-             //console.log(result[0]);
-             setData(prevState => {
-                // Object.assign would also work
-                return {...prevState, ...dataSet};
-              });
-              console.log('datadataa',data);
-             setTest('Vui nè');
-             console.log('testtest',test);
+        async function fetchData(){
+            const result = await SeekerAPI.get(LoginInfo.UserID);
+            setData(result[0]);
+            console.log(result[0]);
         }
-        fetchMyAPI();
-    }, [LoginInfo.UserID]);
+        fetchData();
+    })
     
     const submitData = async (values) => {
-        setTest('VuiVuiUVi');
-        return;
         const formData = new FormData();
         formData.append('LastName', values.lastName);
         formData.append('FirstName', values.firstName);
@@ -107,14 +89,13 @@ function PersonalInformation() {
         <div>
             <Formik initialValues={data}
                 validationSchema={validationShema}
-                onSubmit={values => submitData(values)}>
+                onSubmit={values => submitData(values)}
+                enableReinitialize >
 
                 {FormikProps => {
                     const { values, errors, touched } = FormikProps;
-                    console.log(values);
                     return (
                         <FormFormik>
-
                             <Form.Group as={Row} controlId="">
                                 <Form.Label column sm="2">{res.TaiKhoan}</Form.Label>
                                 <Col sm="5">
@@ -126,8 +107,6 @@ function PersonalInformation() {
                                     />
                                 </Col>
                             </Form.Group>
-
-
                             <Form.Group as={Row} controlId="">
                                 <Form.Label column sm="2">
                                     {res.MatKhau}
@@ -142,7 +121,6 @@ function PersonalInformation() {
                                 </Col>
                             </Form.Group>
 
-
                             <Form.Group as={Row} controlId="">
                                 <Form.Label column sm="2">
                                     {res.NhapLaiMatKhau}
@@ -156,7 +134,6 @@ function PersonalInformation() {
                                     />
                                 </Col>
                             </Form.Group>
-
 
                             <Form.Group as={Row} controlId="">
                                 <Form.Label column sm="2">
@@ -200,7 +177,7 @@ function PersonalInformation() {
                                 </Form.Label>
                                 <Col sm="3">
                                     <FastField
-                                        name="birthDay"
+                                        name="birthDayString"
                                         component={DatePickers}
                                         label=""
                                         placeholder=""
@@ -222,7 +199,7 @@ function PersonalInformation() {
                                 </Col>
 
                                 <Form.Label column sm="2">
-                                    {res.TrinhDoHV}
+                                    {res.GioiTinh}
                                 </Form.Label>
                                 <Col sm="3">
 
@@ -233,8 +210,6 @@ function PersonalInformation() {
                                         placeholder=""
                                         ListName="GioiTinh" />
                                 </Col>
-
-
                             </Form.Group>
 
 

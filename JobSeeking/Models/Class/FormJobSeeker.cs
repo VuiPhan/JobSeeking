@@ -12,6 +12,7 @@ namespace JobSeeking.Models.Class
         public string Password { get; set; }
         public string Email { get; set; }
         public DateTime BirthDay { get; set; }
+        public string BirthDayString { get; set; }
         public string PhoneNumber { get; set; }
         public int Gender { get; set; }
         public int AcademicLevel { get; set; }
