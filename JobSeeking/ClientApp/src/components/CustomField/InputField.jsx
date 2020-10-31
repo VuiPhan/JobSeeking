@@ -26,11 +26,10 @@ function InputField(props) {
     const { name } = field;
     const {errors,touched} =  form;
     const showError = errors[name] && touched[name];
-    // console.log(field);
     return (
         <div>
             <FormGroup>
-                <Label for={name}>{label}</Label>
+                {label && <Label for={name}>{label}</Label>}
                 <Input
                     id={name}
                     {...field}

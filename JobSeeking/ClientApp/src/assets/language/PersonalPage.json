@@ -4,14 +4,26 @@
       {
         "MaNhanVien":"Mã nhân viên",
         "HoTen":"Họ và tên",
+        "HoVaTenDem":"Họ và đệm",
+        "Ten":"Tên",
         "NgaySinh":"Ngày sinh",
         "GioiTinh":"Giới tính",
         "DiaChiEmail":"Địa chỉ Email",
         "TrinhDoVH":"Trình độ văn hóa",
         "HinhThucDT":"Hình thức đào tạo",
-        "TrinhDoHV":"Trình độ học vấn",
+        "TrinhDoHV":"Trình độ",
         "SDT":"Số điện thoại",
-        "LuuDuLieu":"Lưu dữ liệu"
+        "LuuDuLieu":"Lưu dữ liệu",
+        "TaoTaiKhoan":"Tạo tài khoản",
+        "TaiKhoan":"Tài khoản",
+        "MatKhau":"Mật khẩu",
+        "NhapLaiMatKhau":"Nhập lại mật khẩu"
+    },
+    "Validation":{
+      "MatKhauKK": "Mật khẩu không khớp. Vui lòng kiểm tra lại",
+      "MatKhauQN": "Mật khẩu quá ngắn. Vui lòng nhiều hơn 8 ký tự",
+      "MatKhauInHoa": "Mật khẩu phải chứa ký tự in hoa",
+      "TruongBBNhap": "Trường bắt buộc nhập"
     }
 }
 

@@ -53,7 +53,6 @@ export default function JobsPage(props) {
     fetchMyAPI()
   }, [jobID]);
   const LoginInfo = useSelector(state => state.loginInfo)
-debugger;
   return (
     <div>
 

@@ -16,6 +16,7 @@ namespace JobSeeking.Models.DB
         {
         }
         public DbSet<ValueList> ValueLists { get; set; }
+        public DbSet<FormJobSeeker> FormJobSeekers { get; set; }
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
         public virtual DbSet<UteappAppEducation> UteappAppEducations { get; set; }
@@ -57,6 +58,7 @@ namespace JobSeeking.Models.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ValueList>().HasNoKey();
+            modelBuilder.Entity<FormJobSeeker>().HasNoKey();
             modelBuilder.Entity<UteappAccount>(entity =>
             {
                 entity.HasKey(e => e.UserId)

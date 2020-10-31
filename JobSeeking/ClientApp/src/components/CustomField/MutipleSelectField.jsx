@@ -29,7 +29,6 @@ function MutipleSelectField(props) {
             setoptions(response);
         }
         fetchData();
-        
     }, [])
     const HandleSelectedOptionChange = (selectedOption) => {
         const selectedValue = selectedOption ?  selectedOption.map(e => e.value).join(",") : selectedOption;
