@@ -25,7 +25,7 @@ function PersonalInformation() {
     const dispatch = useDispatch();
     const LoginInfo = useSelector(state => state.loginInfo);
     const [data, setData] = useState({
-        firstName: 'Pha',
+        firstName: '',
         lastName: '',
         password: '',
         rePassword: '',
