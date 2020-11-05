@@ -42,6 +42,7 @@ namespace JobSeeking.Models.DB
         public virtual DbSet<UtesysInformationDatabase> UtesysInformationDatabases { get; set; }
         public virtual DbSet<UtesysValuelist> UtesysValuelists { get; set; }
         public virtual DbSet<UteworkJob> UteworkJobs { get; set; }
+        public virtual DbSet<FormHeaderCompany> FormHeaderCompanys { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -58,6 +59,7 @@ namespace JobSeeking.Models.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ValueList>().HasNoKey();
+            modelBuilder.Entity<FormHeaderCompany>().HasNoKey();
             modelBuilder.Entity<FormJobSeeker>().HasNoKey();
             modelBuilder.Entity<UteappAccount>(entity =>
             {

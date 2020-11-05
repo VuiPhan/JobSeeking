@@ -20,6 +20,8 @@ import InputField from "components/CustomField/InputField";
 import * as yup from 'yup';
 import RegisterCompanyApi from "api/Company/RegisterCompany";
 import LGCompanyPage from "Language/CompanyPage";
+import MyCKEditor from "components/CKEditor/CKEditor";
+import HeaderCompany from "components/HeaderCompany/HeaderCompany";
 const useStyles = makeStyles(styles);
 export default function CompanyPage(props) {
     const classes = useStyles();
@@ -39,7 +41,8 @@ export default function CompanyPage(props) {
         ConfirmPassword: '',
         CompanyName: '',
         TimeWorking: '',
-        CompanyAddress: ''
+        CompanyAddress: '',
+        InfomationCompany:''
     };
     const validationShema = yup.object().shape({
         FullName: yup.string().required(res.TruongBBNhap),
@@ -95,23 +98,13 @@ export default function CompanyPage(props) {
         formData.append('imageName', values.imageName);
         RegisterCompanyApi.post(formData);
     }
+    const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
     return (
         <div>
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div>
                     <div className={classes.container}>
-                        <GridContainer justify="center">
-                            <GridItem xs={12} sm={12} md={6}>
-                                <div className="containerTitle">
-                                    <img src="https://cdn.itviec.com/employers/fpt-software/logo/w170/mir3HT3xtedbECJY5jVeRRgV/fpt-software-logo.png" alt="..." />
-                                    <div>
-                                        <h1>FPT Software</h1>
-                                        <h5><LocationOnIcon></LocationOnIcon> Ho Chi Minh, Ha Noi, Da Nang, Others</h5>
-                                        <h5><AccessAlarmIcon></AccessAlarmIcon > Thứ 2 - Thứ 6. Từ 8h00 - 18h00</h5>
-                                    </div>
-                                </div>
-                            </GridItem>
-                        </GridContainer>
+                        <HeaderCompany data={data}></HeaderCompany>
                     </div>
                 </div>
                 <div className='ContainerForm'>
@@ -171,6 +164,13 @@ export default function CompanyPage(props) {
                                         component={InputField}
                                         label={res.DiaChi}
                                         placeholder={res.DiaChi}
+                                    />
+                                    <Label> Thông tin công ty</Label>
+                                    <FastField
+                                        name="InfomationCompany"
+                                        component={MyCKEditor}
+                                        label="Thông tin công ty"
+                                        placeholder="Thông tin công ty"
                                     />
                                     <FormGroup>
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>

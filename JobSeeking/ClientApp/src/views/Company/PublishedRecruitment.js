@@ -19,6 +19,7 @@ import MyCKEditor from "components/CKEditor/CKEditor";
 import PublishedRecruitmentAPI from "api/Company/PublishedRecruitmentAPI";
 import SelectField from "components/CustomField/SelectField";
 import MutipleSelectField from "components/CustomField/MutipleSelectField";
+import HeaderCompany from "components/HeaderCompany/HeaderCompany";
 
 
 
@@ -92,24 +93,13 @@ export default function PublishedRecruitment(props) {
         formData.append('imageName', values.imageName);
         PublishedRecruitmentAPI.post(formData);
     }
-
+    const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
     return (
         <div>
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div>
                     <div className={classes.container}>
-                        <GridContainer justify="center">
-                            <GridItem xs={12} sm={12} md={6}>
-                                <div className="containerTitle">
-                                    <img src="https://cdn.itviec.com/employers/fpt-software/logo/w170/mir3HT3xtedbECJY5jVeRRgV/fpt-software-logo.png" alt="..." />
-                                    <div>
-                                        <h1>FPT Software</h1>
-                                        <h5><LocationOnIcon></LocationOnIcon> Ho Chi Minh, Ha Noi, Da Nang, Others</h5>
-                                        <h5><AccessAlarmIcon></AccessAlarmIcon > Thứ 2 - Thứ 6. Từ 8h00 - 18h00</h5>
-                                    </div>
-                                </div>
-                            </GridItem>
-                        </GridContainer>
+                        <HeaderCompany data = {data}></HeaderCompany>
                     </div>
                 </div>
                 <div className='ContainerForm'>

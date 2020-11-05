@@ -26,6 +26,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import { useSelector } from "react-redux";
 import ShowCadidate from "components/ShowCandidate/ShowCandidate";
+import HeaderCompany from "components/HeaderCompany/HeaderCompany.js";
 const useStyles = makeStyles(styles);
 
 
@@ -57,27 +58,9 @@ export default function JobsPage(props) {
     <div>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
-
         <div>
           <div className={classes.container}>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={12}>
-                <div className="containerTitle">
-                  <img src={`https://localhost:44351/Images/${data.imageLogo}`} alt="..." />
-                  <div>
-                    <h1 className="CompanyNameTitle">{data.companyName}</h1>
-                    <h5><LocationOnIcon></LocationOnIcon> {data.companyAddress}</h5>
-                    <h5><AccessAlarmIcon></AccessAlarmIcon > {data.timeWorking}</h5>
-                  </div>
-
-                </div>
-                <div className="containerImage">
-                  <img src="https://cdn.itviec.com/photos/39011/jd_photo_thumbnail/jd_photo_thumbnail-1537273.jpg?TKHL8117CQAD1rE2g5Gp8G5J"></img>
-                  <img src="https://cdn.itviec.com/photos/39012/jd_photo_thumbnail/jd_photo_thumbnail-1537276.jpg?AuQcKevkfh3PeLopGrhReQfZ"></img>
-                  <img src="https://cdn.itviec.com/photos/39013/jd_photo_thumbnail/jd_photo_thumbnail-1537274.jpg?pEASJFrheg44uQmxpgkhudc4"></img>
-                </div>
-              </GridItem>
-            </GridContainer>
+            <HeaderCompany CompanyID={jobID} IsCompany={0}></HeaderCompany>
             <div className="row">
               <div className="side">
                 <div className="detail_side">
@@ -109,8 +92,6 @@ export default function JobsPage(props) {
                 <DateRangeIcon  />
                   <p className="detail_side_content"> 5 ngày trước</p>
                 </div>
-
-                
                 <div className="buttonCenter">
                 
                 { LoginInfo.role === "Recruiter" ?
