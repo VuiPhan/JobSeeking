@@ -32,4 +32,27 @@ namespace JobSeeking.Models.Class
 
 
     }
+    public class CompanyPage
+    {
+        public int CompanyID { get;set;}
+        public string CompanyName { get; set; }
+
+        public string CompanyAddress { get; set; }
+
+        public string CompanyType { get; set; }
+
+        public string ImageLogo { get; set; }
+
+        public string Image1 { get; set; }
+
+        public string Image2 { get; set; }
+
+        public string Image3 { get; set; }
+
+        public string TimeWorking { get; set; }
+        public string IntroduceCompany { get; set; }
+        public string LocationProvince { get; set; }
+        public string ScalePeople { get; set; }
+        
+    }
 }

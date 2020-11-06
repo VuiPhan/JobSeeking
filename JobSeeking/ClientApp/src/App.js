@@ -22,7 +22,7 @@ export default class App extends Component {
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/ProfilePage' component={ProfilePage} />
-        <Route path='/Company' component={CompanyPage} />
+        <Route path='/Company/:companyID' component={CompanyPage} />
         <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />
         <PrivateRoute component={PublishedRecruitment} path="/PublishedRecruitment" exact />

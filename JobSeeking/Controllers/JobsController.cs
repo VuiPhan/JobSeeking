@@ -28,6 +28,7 @@ namespace JobSeeking.Controllers
                               jobs.JobRequirements,
                               jobs.ReasonsToJoin,
                               company.CompanyName,
+                              company.CompanyId,
                               jobs.PostingDate,
                               jobs.JobsTitle
                           };
@@ -48,6 +49,7 @@ namespace JobSeeking.Controllers
                               jobs.JobRequirements,
                               jobs.ReasonsToJoin,
                               company.CompanyName,
+                              company.CompanyId,
                               jobs.PostingDate,
                               jobs.JobsTitle,
                               jobs.LoveWorkingHere,

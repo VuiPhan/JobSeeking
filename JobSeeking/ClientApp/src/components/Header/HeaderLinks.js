@@ -17,41 +17,39 @@ import Button from "../../components/CustomButtons/Button.js";
 import styles from "../../assets/jss/material-kit-react/components/headerLinksStyle.js";
 import FormDialog from './../FormLogin/LoginForm';
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
   const classes = useStyles();
-  const LoginInfo = useSelector(state => state.loginInfo)
+  const LoginInfo = useSelector(state => state.loginInfo);
+  
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
       </ListItem>
       <ListItem className={classes.listItem}>
-
+      { LoginInfo.role === "User"?
         <Button
           component={Link} to="/ProfilePage"
           color="transparent"
           className={classes.navLink}
         >
           <AccountCircleIcon className={classes.icons} /> Trang cá nhân
-
         </Button>
+        : ""
+        }
+         { LoginInfo.role === "Recruiter"?
         <Button
           component={Link} to="/Company"
           color="transparent"
           className={classes.navLink}
         >
           <AccountCircleIcon className={classes.icons} /> Trang công ty
-
         </Button>
-        <Button
-          component={Link} to="/Jobs"
-          color="transparent"
-          className={classes.navLink}
-        >
-          <AccountCircleIcon className={classes.icons} /> Trang công việc
-
-        </Button>
+        : ""
+        }
         { LoginInfo.role === "Recruiter"?
           <Button
             component={Link} to="/PublishedRecruitment"
@@ -62,8 +60,6 @@ export default function HeaderLinks(props) {
          </Button>
           :""
         }
-
-
         <FormDialog></FormDialog>
       </ListItem>
     </List>

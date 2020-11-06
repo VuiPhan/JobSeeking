@@ -20,8 +20,7 @@ import PublishedRecruitmentAPI from "api/Company/PublishedRecruitmentAPI";
 import SelectField from "components/CustomField/SelectField";
 import MutipleSelectField from "components/CustomField/MutipleSelectField";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany";
-
-
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
@@ -93,13 +92,15 @@ export default function PublishedRecruitment(props) {
         formData.append('imageName', values.imageName);
         PublishedRecruitmentAPI.post(formData);
     }
+    const LoginInfo = useSelector(state => state.loginInfo);
+    console.log('LoginInfo,LoginInfo',LoginInfo);
     const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
     return (
         <div>
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div>
                     <div className={classes.container}>
-                        <HeaderCompany data = {data}></HeaderCompany>
+                        <HeaderCompany CompanyID={LoginInfo.UserID} IsCompany={1}></HeaderCompany>
                     </div>
                 </div>
                 <div className='ContainerForm'>

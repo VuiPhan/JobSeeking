@@ -16,7 +16,8 @@ import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "../../assets/jss/material-kit-react/components/headerStyle.js";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const useStyles = makeStyles(styles);
 
@@ -63,16 +64,20 @@ export default function Header(props) {
     [classes.fixed]: fixed
   });
   const brandComponent = <Button   component={Link} to="/" className={classes.title}>{brand}</Button>;
+  let history = useHistory();
   return (
+    
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>
+        <ArrowBackIosIcon onClick={() => history.goBack()}>Back</ArrowBackIosIcon>
           {leftLinks !== undefined ? (
             <Hidden smDown implementation="css">
               {leftLinks}
             </Hidden>
           ) : (
+            
             brandComponent
           )}
         </div>

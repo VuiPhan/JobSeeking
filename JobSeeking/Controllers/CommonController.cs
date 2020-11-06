@@ -21,7 +21,7 @@ namespace JobSeeking.Controllers
         }
         [HttpGet("Get")]
         //[Authorize(Policy = Policies.Recruiter)]
-        public async Task<object> ViewSeeker(int CompanyID,int IsCompany)
+        public async Task<object> GetHeader(int CompanyID,int IsCompany)
         {
             var data = await _context.FormHeaderCompanys.FromSqlRaw("EXEC dbo.spUTE_GetHeaderForCompany {0},{1}", CompanyID, IsCompany).ToListAsync();
             var headerCompany = data.AsEnumerable().SingleOrDefault();

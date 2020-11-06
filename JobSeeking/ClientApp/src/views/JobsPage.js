@@ -42,7 +42,7 @@ export default function JobsPage(props) {
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   var parse = require('html-react-parser');
-  const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
+  const [data, setData] = useState({ companyId: 3, companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
   const history = useHistory();
   const { jobID } = useParams();
   useEffect(() => {
@@ -53,7 +53,12 @@ export default function JobsPage(props) {
     }
     fetchMyAPI()
   }, [jobID]);
-  const LoginInfo = useSelector(state => state.loginInfo)
+  const LoginInfo = useSelector(state => state.loginInfo);
+  const HandleRedirectPage = (id) => {
+    const linkRedired = `/Company/${id}`;
+    history.push(linkRedired);
+    window.scrollTo(0, 150);
+  }
   return (
     <div>
 
@@ -68,43 +73,45 @@ export default function JobsPage(props) {
                   <p className="detail_side_content">Không có OT</p>
                 </div>
                 <div className="detail_side">
-                <MonetizationOnIcon color="secondary" />
+                  <MonetizationOnIcon color="secondary" />
                   <p className="detail_side_content"> Mức lương: 700 - 1300$</p>
                 </div>
 
                 <div className="detail_side">
-                <LocationCityIcon color="secondary" />
+                  <LocationCityIcon color="secondary" />
                   <p className="detail_side_content"> Ho Chi Minh</p>
                 </div>
                 <br></br>
 
                 <div className="detail_side">
-                <Brightness7Icon />
+                  <Brightness7Icon />
                   <p className="detail_side_content"> Sản phẩm</p>
                 </div>
                 <br></br>
                 <div className="detail_side">
-                <PeopleIcon  />
+                  <PeopleIcon />
                   <p className="detail_side_content"> 300 - 500</p>
                 </div>
                 <br></br>
                 <div className="detail_side">
-                <DateRangeIcon  />
+                  <DateRangeIcon />
                   <p className="detail_side_content"> 5 ngày trước</p>
                 </div>
-                <div className="buttonCenter">
-                
-                { LoginInfo.role === "Recruiter" ?
-                 <Button variant="outlined" color="secondary">Xem ứng viên</Button>
-          :     <Button variant="outlined" color="secondary">Ứng tuyển ngay</Button>
-                
-        }
-              <span className="buttonCenterNotification">10</span>
+                <div className="CenterButton">
+                  <div className="buttonCenter">
+
+                    {LoginInfo.role === "Recruiter" ?
+                      <Button variant="outlined" color="secondary">Xem ứng viên</Button>
+                      : <div> <Button variant="outlined" color="secondary">Ứng tuyển ngay</Button>
+                      </div>
+                    }
+                    <span className="buttonCenterNotification">10</span>
+                  </div>
+                  <div className="buttonCenter">
+                    <Button onClick={() => HandleRedirectPage(data.companyId)} variant="outlined" color="primary">Về chúng tôi</Button>
+                    
+                  </div>
                 </div>
-             
-               
-
-
               </div>
               <div className="main">
                 <h3 className="TitleWork">{parse(data.jobsTitle)}</h3>
@@ -145,7 +152,7 @@ export default function JobsPage(props) {
             <ListViewKendo></ListViewKendo>
           </div>
         </div>
-      <ShowCadidate></ShowCadidate>
+        <ShowCadidate></ShowCadidate>
 
       </div>
 
