@@ -23,7 +23,10 @@
     "DangNhap": "Đăng nhập",
     "MoiBanNhapDiaChiEmail": "Mời bạn nhập địa chỉ Email",
     "MoiBanNhapMatKhau": "Mời bạn nhập mật khẩu",
-    "DiaChi":"Nơi làm việc"
+    "DiaChi":"Nơi làm việc",
+    "DangKyTD":"Đăng ký nhà tuyển dụng",
+    "DangKyThanhVien":"Đăng ký thành viên"
+
   },
   "PublishedRecruitment": {
     "LyDoGiaNhapCongTy": "3 Lý Do Để Gia Nhập Công Ty",

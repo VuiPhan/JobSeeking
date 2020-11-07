@@ -7,7 +7,7 @@ import queryString from 'query-string';
 var token = localStorage.getItem('token');
 console.log('tokentokentoken',token);
 const axiosClient = axios.create({
-    baseURL: 'https://localhost:44351/api/',
+    baseURL: 'https://jobseeking.conveyor.cloud/api/',
     headers: {
         'content-type': 'application/json',
         Authorization: `Bearer ${token}`

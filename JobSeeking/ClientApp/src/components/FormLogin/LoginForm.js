@@ -12,14 +12,13 @@ import LGCompanyPage from "Language/CompanyPage";
 import InputField from 'components/CustomField/InputField';
 import { FormGroup} from "reactstrap";
 import * as yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(styles);
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  const [userName, setuserName] = React.useState('');
-  const [password, setpassword] = React.useState('');
   const dispatch = useDispatch();
   const LoginInfo = useSelector(state => state.loginInfo)
   const res = LGCompanyPage.CompanyPage;
@@ -37,15 +36,9 @@ export default function FormDialog() {
   };
   const handleLogout = async (user) => {
     const action = Logout();
-    dispatch(action);
+    var x = dispatch(action);
+    debugger;
   };
-
-  const changePassword = (e) => {
-    setpassword(e.target.value);
-  }
-  const changeUserName = (e) => {
-    setuserName(e.target.value);
-  }
   const initialValues = {
     Email: '',
     Password: '',
@@ -56,8 +49,22 @@ const validationShema = yup.object().shape({
       .required(res.TruongBBNhap)
   ,
 })
+const history = useHistory();
+const HandleRedirectPageCompanyRegiter = () =>{
+  setOpen(false);
+    const linkRedired = `/CompanyRegiter`;
+    history.push(linkRedired);
+    window.scrollTo(0, 150);
+}
+const HandleRedirectProfilePage = () =>{
+  setOpen(false);
+  const linkRedired = `/ProfilePage`;
+  history.push(linkRedired);
+  window.scrollTo(0, 150);
+}
   // Cần phải dispath một cái action
   return (
+    
     <div style={{ display: "inline" }}>
 
         {LoginInfo.UserLoginDB === '' || typeof LoginInfo.UserLoginDB === 'undefined'
@@ -79,11 +86,13 @@ const validationShema = yup.object().shape({
     {LoginInfo.UserLoginDB}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogContent>
+          {/* <LoginForm2></LoginForm2> */}
           <Formik initialValues={initialValues}
                         validationSchema={validationShema}
                          onSubmit={values =>handleLogin(values)}>
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
+
                             return (
                                 <Form>
                                     <h1>{res.ThongTinDN}</h1>
@@ -102,7 +111,13 @@ const validationShema = yup.object().shape({
                                         placeholder={res.MoiBanNhapMatKhau}
                                     />
                                     <FormGroup>
-                                        <Button type='submit'>{res.DangNhap}</Button>
+                                        {/* <Button type='submit'>{res.DangNhap}</Button> */}
+                                        <Button type='submit' variant="outlined" color="primary">{res.DangNhap}</Button>
+                                        <br/>
+                                        <p>Bạn chưa có tài khoản? Đăng ký ngay</p>
+                                        <Button onClick={()=>HandleRedirectProfilePage()} variant="outlined" color="secondary">{res.DangKyThanhVien}</Button>
+
+                                        <Button style = {{ marginLeft: 30}} onClick={()=>HandleRedirectPageCompanyRegiter()} variant="outlined" color="secondary">{res.DangKyTD}</Button>
                                     </FormGroup>
                                 </Form>
                             )
