@@ -1,23 +1,9 @@
 ﻿import axiosClient from './axiosClient';
 const LoadJobsApi = {
     getAll: (param) => {
-        const url = '/Jobs/Get';
-        return axiosClient.get(url, { param });
-    },
-    get: (id) => {
-        const url = `/Vocabulary/${id}`;
+        debugger;
+        const url = `/Jobs/Get?CompanyID=${param}`;
         return axiosClient.get(url);
     },
-    post: (data) => {
-        const url = `/Values/`;
-        console.log('data', data);
-        return axiosClient.post(url, JSON.stringify(data));
-    },
-    GetDataFromFilter: (params) => {
-        const url = `/Vocabulary/`;
-        // return axiosClient.get(url,JSON.stringify(data));
-        return axiosClient.post(url, JSON.stringify(params));
-
-    }
 }
 export default LoadJobsApi;

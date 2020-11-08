@@ -28,6 +28,7 @@ import { useSelector } from "react-redux";
 import ShowCadidate from "components/ShowCandidate/ShowCandidate";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany.js";
 import { toast } from "react-toastify";
+import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
 const useStyles = makeStyles(styles);
 
 
@@ -43,7 +44,7 @@ export default function JobsPage(props) {
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   var parse = require('html-react-parser');
-  const [data, setData] = useState({ companyId: 3, companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
+  const [data, setData] = useState({ companyId: null, companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
   const history = useHistory();
   const { jobID } = useParams();
   useEffect(() => {
@@ -152,7 +153,8 @@ export default function JobsPage(props) {
             <h3>
               {res.ViecLamPhuHop}
             </h3>
-            <ListViewKendo></ListViewKendo>
+            {data.companyId}
+            <ListViewKendo2 dataID = {data.companyId} data2 = "VuiVui"></ListViewKendo2>
           </div>
         </div>
         <ShowCadidate></ShowCadidate>

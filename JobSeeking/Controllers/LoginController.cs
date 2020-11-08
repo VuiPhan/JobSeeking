@@ -3,6 +3,7 @@ using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -11,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace JobSeeking.Controllers
 {
@@ -19,19 +21,21 @@ namespace JobSeeking.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
+        private readonly JobSeekingContext _context;
         JobSeekingContext db = new JobSeekingContext();
-        public LoginController(IConfiguration config)
+        public LoginController(JobSeekingContext context,IConfiguration config)
         {
+            _context = context;
             _config = config;
         }   
         [HttpGet]
-        public IActionResult Login(string userName, string pass)
+        public async Task<IActionResult> LoginAsync(string userName, string pass)
         {
             UserLogin login = new UserLogin();
             login.UserName = userName;
             login.Password = pass;
             IActionResult response = Unauthorized();
-            var user = AuthenticationUser(login);
+            var user = await AuthenticationUser(login);
             if (user != null)
             {
                 //var tokenStr = GenerateJSONWebToken(user);
@@ -42,21 +46,11 @@ namespace JobSeeking.Controllers
             return Ok(new { token = "",Message = "Không hợp lệ" });
 
         }
-        private UserLogin AuthenticationUser(UserLogin userLogin)
+        private async Task<UserLogin> AuthenticationUser(UserLogin userLogin)
         {
-            UserLogin user = null;
-            var checkUser = db.UteappAccounts.Where(p => p.UserLogin == userLogin.UserName && p.Password == userLogin.Password).SingleOrDefault();
-            if (checkUser != null)
-            {
-                user = new UserLogin
-                {
-                    UserName = checkUser.UserLogin,
-                    Roles = checkUser.Roles,
-                    UserID = checkUser.UserId
-                };
-            }
-            return user;
-
+            var data = await _context.UserLogins.FromSqlRaw("EXEC dbo.UTE_spLoginSystem {0},{1}", userLogin.UserName, userLogin.Password).ToListAsync();
+            var userLoginResult = data.AsEnumerable().SingleOrDefault();
+            return userLoginResult;
         }
         private string GenerateJSONWebToken(UserLogin userInfo)
         {
@@ -104,7 +98,8 @@ namespace JobSeeking.Controllers
                     new Claim("UserID", userInfo.UserID.ToString()),
                     new Claim("UserLoginDB", userInfo.UserName.ToString()),
                     new Claim("role", userInfo.Roles),
-                    //new Claim(ClaimTypes.Role,userInfo.Roles),
+                    new Claim("companyID", userInfo.CompanyID.ToString()),
+                    new Claim("CadidateCode", userInfo.CandidateCode.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
             var token = new JwtSecurityToken(

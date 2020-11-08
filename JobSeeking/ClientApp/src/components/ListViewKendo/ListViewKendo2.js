@@ -1,13 +1,12 @@
 
-import React from 'react';
 import { ListView, ListViewHeader } from '@progress/kendo-react-listview';
 import { Card, CardTitle, CardImage, CardSubtitle, CardActions } from '@progress/kendo-react-layout';
 import { Pager } from '@progress/kendo-react-data-tools';
-
-import articles from './articles.json';
-import LoadJobsAPI from '../../api/HomePageAPI';
 import './styleListView.scss';
 import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import LoadJobsApi from 'api/HomePageAPI';
+
 const myHeader = () => {
     return (
         <ListViewHeader style={{ color: 'rgb(160, 160, 160)', fontSize: 14 }} className='pl-4 pb-2 pt-2'>
@@ -15,7 +14,6 @@ const myHeader = () => {
         </ListViewHeader>
     );
 }
-
 const MyItemRender = props => {
     let item = props.dataItem;
     var parse = require('html-react-parser');
@@ -49,46 +47,37 @@ const MyItemRender = props => {
         </Card>
     )
 }
-
-class ListViewKendo extends React.Component {
-    constructor(props){
-        debugger;
-        super();
-        var dataArtical = [ {
-            "Title": "How to design with love?",
-            "Subtitle": "7 tips to fall in love with your job.",
-            "Date": "Feb 24,  2020",
-            "Image": "2-220x140.png",
-            "jobRequirements": "<p><i>Hybrid Technologies là công ty công nghệ phần mềm liên doanh Nhật-Việt, cung cấp các dịch vụ và mô hình làm việc đa dạng như Mô hình Hybrid, Mô hình Ủy thác, hay lĩnh vực Trí tuệ nhân tạo (AI).</i></p>"
-        }];
-        this.state = {data:dataArtical,skip: 0,
-            take: 5,dataID:props.dataID};
-    }
-    async componentDidMount(){
-        var x = await LoadJobsAPI.getAll(this.state.dataID);
-       this.setState({data:x});
-
-    }
-    handlePageChange = (e) => {
-        this.setState({
-            skip: e.skip,
-            take: e.take
-        });
-    }
-    render() {
-        const { skip, take } = this.state;
-
-        return (
-            <div>
+function ListViewKendo2(props) {
+    const {dataID} = props;
+    const [data, setData] = useState( [ {
+        "Title": "How to design with love?",
+        "Subtitle": "7 tips to fall in love with your job.",
+        "Date": "Feb 24,  2020",
+        "Image": "2-220x140.png",
+        "jobRequirements": "<p><i>Hybrid Technologies là công ty công nghệ phần mềm liên doanh Nhật-Việt, cung cấp các dịch vụ và mô hình làm việc đa dạng như Mô hình Hybrid, Mô hình Ủy thác, hay lĩnh vực Trí tuệ nhân tạo (AI).</i></p>"
+    }]);
+    useEffect(() => {
+        async function fetchMyAPI() {
+          const result = await LoadJobsApi.getAll(dataID);
+          debugger;
+          setData(result);
+        }
+        fetchMyAPI()
+      }, [dataID]);
+     
+    return (
+        <div>
+               <div>
                 <ListView
-                    data={this.state.data.slice(skip, skip + take)}
+                    data={data}
                     item={MyItemRender}
                     style={{ width: "100%" }}
                     header={myHeader}
                 />
-                <Pager skip={skip} take={take} onPageChange={this.handlePageChange} total={articles.length} />
+                <Pager skip={1} take={1} />
             </div>
-        );
-    }
+        </div>
+    )
 }
-export default ListViewKendo;
+
+export default ListViewKendo2

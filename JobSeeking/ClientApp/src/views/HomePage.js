@@ -64,7 +64,7 @@ export default function HomePage(props) {
                 feel with a solid groove structure.{" "}
               </p>
             </div>
-            <ListViewKendo dataName = "Jobs"></ListViewKendo>
+            <ListViewKendo></ListViewKendo>
           </div>
    
         </div>

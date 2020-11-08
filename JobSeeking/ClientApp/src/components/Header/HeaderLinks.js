@@ -24,7 +24,7 @@ const useStyles = makeStyles(styles);
 export default function HeaderLinks(props) {
   const classes = useStyles();
   const LoginInfo = useSelector(state => state.loginInfo);
-  
+  const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -42,7 +42,7 @@ export default function HeaderLinks(props) {
         }
          { LoginInfo.role === "Recruiter"?
         <Button
-          component={Link} to="/Company"
+          component={Link} to={LinkToPageCompany}
           color="transparent"
           className={classes.navLink}
         >
