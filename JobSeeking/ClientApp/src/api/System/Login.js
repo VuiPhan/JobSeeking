@@ -7,12 +7,13 @@ const LoginApi = {
     get:async (data) =>{
         const url=`/Login?userName=${data.Email}&pass=${data.Password}`;
         let response= await axiosClient.get(url,JSON.stringify(data));
-        if(response){
+        if(response.message === ''){
             localStorage.setItem('token', response.token);
             var data = parseJwt(response.token);
             localStorage.setItem('UserLogin', JSON.stringify(data));
         }
         return data;
+        //return response;
     }
 }
 function parseJwt (token) {

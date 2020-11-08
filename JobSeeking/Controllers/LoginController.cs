@@ -23,7 +23,7 @@ namespace JobSeeking.Controllers
         public LoginController(IConfiguration config)
         {
             _config = config;
-        }
+        }   
         [HttpGet]
         public IActionResult Login(string userName, string pass)
         {
@@ -36,10 +36,10 @@ namespace JobSeeking.Controllers
             {
                 //var tokenStr = GenerateJSONWebToken(user);
                 var tokenStr = GenerateJWTToken(user);
-                response = Ok(new { token = tokenStr });
+                response = Ok(new { token = tokenStr, Message = "" });
                 return response;
             }
-            return null;
+            return Ok(new { token = "",Message = "Không hợp lệ" });
 
         }
         private UserLogin AuthenticationUser(UserLogin userLogin)

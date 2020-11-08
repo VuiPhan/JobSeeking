@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,9 +10,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FastField, Formik, Form } from 'formik';
 import LGCompanyPage from "Language/CompanyPage";
 import InputField from 'components/CustomField/InputField';
-import { FormGroup} from "reactstrap";
+import { FormFeedback, FormGroup, Toast} from "reactstrap";
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import { MyToaStr2 } from 'components/Toastr/Toastr2.js';
+import { toast } from 'react-toastify';
+import MyToastr from 'components/Toastr/Toastr.js';
 
 const useStyles = makeStyles(styles);
 
@@ -25,14 +28,21 @@ export default function FormDialog() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+  const [textError, settextError] = useState('');
   const handleLogin = async (user) => {
     const action = LoginAPIRedux(user);
-    dispatch(action);
+    const result = await dispatch(action);
+    if(!result.payload.UserID){
+      MyToaStr2('Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại');
+      debugger;
+      return;
+    }
     setOpen(false);
+ 
+    
   };
   const handleLogout = async (user) => {
     const action = Logout();
@@ -110,8 +120,9 @@ const HandleRedirectProfilePage = () =>{
                                         type='password'
                                         placeholder={res.MoiBanNhapMatKhau}
                                     />
+                                  <MyToastr></MyToastr>
+                                    <FormFeedback>  {textError}</FormFeedback>
                                     <FormGroup>
-                                        {/* <Button type='submit'>{res.DangNhap}</Button> */}
                                         <Button type='submit' variant="outlined" color="primary">{res.DangNhap}</Button>
                                         <br/>
                                         <p>Bạn chưa có tài khoản? Đăng ký ngay</p>

@@ -15,6 +15,7 @@ import profile from "../assets/img/faces/christian.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import ListViewKendo from "../components/ListViewKendo/ListViewKendo.js";
 
+
 const useStyles = makeStyles(styles);
 
 export default function HomePage(props) {

@@ -27,6 +27,7 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import { useSelector } from "react-redux";
 import ShowCadidate from "components/ShowCandidate/ShowCandidate";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany.js";
+import { toast } from "react-toastify";
 const useStyles = makeStyles(styles);
 
 
@@ -55,6 +56,8 @@ export default function JobsPage(props) {
   }, [jobID]);
   const LoginInfo = useSelector(state => state.loginInfo);
   const HandleRedirectPage = (id) => {
+    toast('Vui');
+    debugger;
     const linkRedired = `/Company/${id}`;
     history.push(linkRedired);
     window.scrollTo(0, 150);

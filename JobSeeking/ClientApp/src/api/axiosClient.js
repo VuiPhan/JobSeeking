@@ -6,29 +6,16 @@ import queryString from 'query-string';
 // Please have a look at here `https://github.com/axios/axios#request-
 var token = localStorage.getItem('token');
 console.log('tokentokentoken',token);
+//https://localhost:44351/
+//https://jobseeking.conveyor.cloud/
 const axiosClient = axios.create({
-    baseURL: 'https://jobseeking.conveyor.cloud/api/',
+    baseURL: 'https://localhost:44351/api/',
     headers: {
         'content-type': 'application/json',
         Authorization: `Bearer ${token}`
     },
     paramsSerializer: params => queryString.stringify(params),
 });
-// axiosClient.interceptors.request.use(async (config) => {
-//     // Handle token here ...
-//     config => {
-//         const token = localStorage.getItem('token');
-//         if (token) {
-//             config.headers['Authorization'] = 'Bearer ' + token;
-//         }
-//         // config.headers['Content-Type'] = 'application/json';
-//         return config;
-//     },
-//     error => {
-//         Promise.reject(error)
-//     }
-//     return config;
-// })
 axiosClient.interceptors.request.use(
     config => {
         const token = localStorage.getItem('token');
