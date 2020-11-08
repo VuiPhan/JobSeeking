@@ -25,7 +25,11 @@
     "MoiBanNhapMatKhau": "Mời bạn nhập mật khẩu",
     "DiaChi":"Nơi làm việc",
     "DangKyTD":"Đăng ký nhà tuyển dụng",
-    "DangKyThanhVien":"Đăng ký thành viên"
+    "DangKyThanhVien":"Đăng ký thành viên",
+    "CacViecLamDangTuyen":"Các việc làm đang tuyển",
+    "TieuDe":"Tiêu đề",
+    "DieuBanThich":"Điều bạn thích",
+    "DeNghiCaiThien":"Đề nghị cải thiện"
 
   },
   "PublishedRecruitment": {
@@ -44,6 +48,7 @@
     "TaiSaoBanYeuThich": "Tại Sao Bạn Sẽ Yêu Thích Làm Việc Tại Đây",
     "DangTin": "Đăng tin tuyển dụng",
     "LyDoNenGiaNhap":"Lý do nên gia nhập công ty?",
-    "ViecLamPhuHop":"Việc làm phù hợp cho bạn"
+    "ViecLamPhuHop":"Việc làm phù hợp cho bạn",
+    "CacCongViecTuongTu":"Các công việc tương tự"
   }
 }

@@ -25,6 +25,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import { useSelector } from "react-redux";
 import CompanyAPI from "api/Company/CompanyAPI.js";
 import { useHistory, useParams } from "react-router-dom";
+import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
 const useStyles = makeStyles(styles);
 
 export default function CompanyPage(props) {
@@ -92,7 +93,7 @@ export default function CompanyPage(props) {
                 </div>
               </div>
               <div>
-                <ListViewKendo dataName="Jobs"></ListViewKendo>
+                <ListViewKendo2 dataID = {companyID}></ListViewKendo2>
               </div>
               <div class="containerReview">
                 <div class='row'>
@@ -106,7 +107,7 @@ export default function CompanyPage(props) {
                 </div>
               </div>
               <AlertDialogSlide></AlertDialogSlide>
-              <Comments dataName="Jobs"></Comments>
+              <Comments dataID = {companyID}></Comments>
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ import profile from "../assets/img/faces/christian.jpg";
 
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import ListViewKendo from "../components/ListViewKendo/ListViewKendo.js";
+import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
 
 
 const useStyles = makeStyles(styles);
@@ -64,7 +65,8 @@ export default function HomePage(props) {
                 feel with a solid groove structure.{" "}
               </p>
             </div>
-            <ListViewKendo></ListViewKendo>
+            {/* <ListViewKendo></ListViewKendo> */}
+            <ListViewKendo2 dataID = {0}></ListViewKendo2>
           </div>
    
         </div>

@@ -16,6 +16,7 @@ const myHeader = () => {
 }
 const MyItemRender = props => {
     let item = props.dataItem;
+    console.log('itemitem',item)
     var parse = require('html-react-parser');
     const history = useHistory();
     const HandleRedirectPage = (id) =>{
@@ -39,11 +40,11 @@ const MyItemRender = props => {
                     </CardSubtitle>
                 </div>
                 <CardActions style={{ padding: 0 }}>
-                    <button onClick={() =>HandleRedirectPage(item.jobId)} className='k-button k-bare'>Xem chi tiết</button>
+                    <button onClick={() =>HandleRedirectPage(item.jobID)} className='k-button k-bare'>Xem chi tiết</button>
                     <button className='k-button k-bare'>Thêm vào yêu thích</button>
                 </CardActions>
             </div>
-            <CardImage src={`https://gist.github.com/simonssspirit/0db46d4292ea8e335eb18544718e2624/raw/2241c020d6d494eaba0ef61862d92b19ef95cbf4/${item.Image}`} style={{ width: 220, height: 140, maxWidth: 220 }} />
+            <CardImage src={`https://gist.github.com/simonssspirit/0db46d4292ea8e335eb18544718e2624/raw/2241c020d6d494eaba0ef61862d92b19ef95cbf4/${item.imageJob}`} style={{ width: 220, height: 140, maxWidth: 220 }} />
         </Card>
     )
 }
@@ -53,9 +54,15 @@ function ListViewKendo2(props) {
         "Title": "How to design with love?",
         "Subtitle": "7 tips to fall in love with your job.",
         "Date": "Feb 24,  2020",
-        "Image": "2-220x140.png",
+        "imageJob": "2-220x140.png",
         "jobRequirements": "<p><i>Hybrid Technologies là công ty công nghệ phần mềm liên doanh Nhật-Việt, cung cấp các dịch vụ và mô hình làm việc đa dạng như Mô hình Hybrid, Mô hình Ủy thác, hay lĩnh vực Trí tuệ nhân tạo (AI).</i></p>"
     }]);
+    const [skip, setskip] = useState(0);
+    const [take, settake] = useState(2);
+    const handlePageChange = (e) => {
+        setskip(e.skip);
+        settake(e.take);
+    }
     useEffect(() => {
         async function fetchMyAPI() {
           const result = await LoadJobsApi.getAll(dataID);
@@ -69,12 +76,12 @@ function ListViewKendo2(props) {
         <div>
                <div>
                 <ListView
-                    data={data}
+                    data={data.slice(skip, skip + take)}
                     item={MyItemRender}
                     style={{ width: "100%" }}
                     header={myHeader}
                 />
-                <Pager skip={1} take={1} />
+                <Pager skip={skip} take={take}  onPageChange={handlePageChange} total={data.length} />
             </div>
         </div>
     )

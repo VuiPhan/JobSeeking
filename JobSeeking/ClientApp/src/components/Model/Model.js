@@ -1,13 +1,15 @@
-import { FormGroup, Input, TextareaAutosize, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import InputField from 'components/CustomField/InputField';
+import { FastField, Formik, Form } from 'formik';
+
 import React from 'react';
-import { Form, Label } from 'reactstrap';
 import '../Model/Model.scss';
+import * as yup from 'yup';
+import LGCompanyPage from "Language/CompanyPage";
+import CompanyAPI from 'api/Company/CompanyAPI';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -17,17 +19,43 @@ export default function AlertDialogSlide() {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const res = LGCompanyPage.CompanyPage;
 
   const handleClose = () => {
     setOpen(false);
   };
+  const initialValues = {
+    TitleReview: '',
+    Improve: '',
+    ILike: '',
+    Star: ''
 
+  };
+  const validationShema = yup.object().shape({
+    Email: yup.string().email().required(res.TruongBBNhap),
+    Password: yup.string()
+      .required(res.TruongBBNhap)
+    ,
+  })
+  const submitData = async (values) => {
+    const formData = new FormData();
+    formData.append('TitleReview', values.TitleReview);
+    formData.append('TitleReview', values.TitleReview);
+    formData.append('TitleReview', values.TitleReview);
+    formData.append('Improve', values.Improve);
+    formData.append('ILike', values.ILike);
+    formData.append('Star', values.Star);
+    
+    let result = await CompanyAPI.addReview(formData);
+
+
+  }
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Viết Review
       </Button>
-
+<div>
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -37,34 +65,43 @@ export default function AlertDialogSlide() {
         aria-describedby="alert-dialog-slide-description"
         className='containerDialog'
       >
-        <DialogTitle id="alert-dialog-slide-title">{"Để lại Review của bạn"}</DialogTitle>
         <DialogContent>
-          <Form>
-            <FormGroup>
-              <Label for='titleID'>Tiêu đề:</Label>
-              <Input name="Title" id='titleID' placeholder='Nội dung tổng quan'></Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for='titleID'>Điều bạn thích:</Label>
-              <Input name="Title" id='titleID' placeholder='Để lại điều bạn thích'></Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for='titleID'>Điều cần cải thiện:</Label>
-              <Input name="Title" type='textarea' id='titleID' placeholder='Để lại điều bạn cho rằng cần phải cải thi'></Input>
-            </FormGroup>
-          </Form>
+          <Formik initialValues={initialValues}
+            // validationSchema={validationShema}
+            onSubmit={values => submitData(values)}>
+            {FormikProps => {
+              const { values, errors, touched } = FormikProps;
+              console.log('valuevalue',values);
+              return (
+                <Form>
+                  <h1>Để lại Review của bạn</h1>
+                  <FastField
+                    name="TitleReview"
+                    component={InputField}
+                    label={res.TieuDe}
+                    placeholder={res.TieuDe}
+                  />
 
+                  <FastField
+                    name="ILike"
+                    component={InputField}
+                    label={res.DieuBanThich}
+                    placeholder={res.DieuBanThich}
+                  />
+                  <FastField
+                    name="Improve"
+                    component={InputField}
+                    label={res.DeNghiCaiThien}
+                    placeholder={res.DeNghiCaiThien}
+                  />
+                  <Button type="submit" variant="outlined" color="primary">Để lại bình luận</Button>
+                </Form>
+              )
+            }}
+          </Formik>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Đăng
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Đóng
-          </Button>
-        </DialogActions>
-
       </Dialog>
+      </div>
     </div>
   );
 }

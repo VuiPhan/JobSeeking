@@ -8,8 +8,6 @@ const ratingChanged = (newRating) => {
         value: PropTypes.number,
         disable: PropTypes.bool,
         size: PropTypes.number,
-
-
   }
   Ratting.defaultProps = {
     value: 0,
@@ -18,7 +16,6 @@ const ratingChanged = (newRating) => {
   }
 export default function Ratting(props) {
     const {value,disable,size} = props;
-    console.log(disable);
   return (
     <div>
       <ReactStars

@@ -19,6 +19,7 @@ namespace JobSeeking.Models.DB
         public DbSet<FormJobSeeker> FormJobSeekers { get; set; }
         public DbSet<CompanyPage> CompanyPages { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
+        public DbSet<ReviewCompany> ReviewCompanys { get; set; }
 
         public DbSet<JobForm> JobForms { get; set; }
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
@@ -68,6 +69,7 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<CompanyPage>().HasNoKey();
             modelBuilder.Entity<UserLogin>().HasNoKey();
             modelBuilder.Entity<JobForm>().HasNoKey();
+            modelBuilder.Entity<ReviewCompany>().HasNoKey(); 
             modelBuilder.Entity<UteappAccount>(entity =>
             {
                 entity.HasKey(e => e.UserId)

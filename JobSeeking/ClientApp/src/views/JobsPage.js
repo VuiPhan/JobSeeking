@@ -151,10 +151,9 @@ export default function JobsPage(props) {
 
             </div>
             <h3>
-              {res.ViecLamPhuHop}
+              {res.CacCongViecTuongTu}
             </h3>
-            {data.companyId}
-            <ListViewKendo2 dataID = {data.companyId} data2 = "VuiVui"></ListViewKendo2>
+            <ListViewKendo2 dataID = {data.companyId}></ListViewKendo2>
           </div>
         </div>
         <ShowCadidate></ShowCadidate>

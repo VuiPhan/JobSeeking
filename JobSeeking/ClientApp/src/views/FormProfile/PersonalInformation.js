@@ -57,9 +57,7 @@ function PersonalInformation() {
         formData.append('AcademicLevel', values.academicLevel);
         let result = await SeekerAPI.post(formData);
         if (result.error === "") {
-
             let dataLogin = { Email: values.Email, Password: values.Password }
-            debugger;
             const action = LoginAPIRedux(dataLogin);
             dispatch(action);
         }
@@ -211,8 +209,6 @@ function PersonalInformation() {
                                         ListName="GioiTinh" />
                                 </Col>
                             </Form.Group>
-
-
                             <Button type="submit" variant="outlined" color="secondary">{res.TaoTaiKhoan}</Button>
                         </FormFormik>
                     )
