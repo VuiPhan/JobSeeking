@@ -10,6 +10,11 @@ import '../Model/Model.scss';
 import * as yup from 'yup';
 import LGCompanyPage from "Language/CompanyPage";
 import CompanyAPI from 'api/Company/CompanyAPI';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { AddDataComment, GetDataCommentRedux } from 'components/ListViewKendo/ListViewKendoSlice';
+import { MyToaStr3 } from 'components/Toastr/Toastr2';
+import MyToastr from 'components/Toastr/Toastr';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -20,7 +25,11 @@ export default function AlertDialogSlide() {
     setOpen(true);
   };
   const res = LGCompanyPage.CompanyPage;
+  const LoginInfo = useSelector(state => state.loginInfo);
+  const DataComment = useSelector(state => state.DataComment);
 
+  const history = useHistory();
+  const { companyID } = useParams();
   const handleClose = () => {
     setOpen(false);
   };
@@ -28,7 +37,7 @@ export default function AlertDialogSlide() {
     TitleReview: '',
     Improve: '',
     ILike: '',
-    Star: ''
+    Star: 3
 
   };
   const validationShema = yup.object().shape({
@@ -37,6 +46,7 @@ export default function AlertDialogSlide() {
       .required(res.TruongBBNhap)
     ,
   })
+  const dispatch = useDispatch();
   const submitData = async (values) => {
     const formData = new FormData();
     formData.append('TitleReview', values.TitleReview);
@@ -45,10 +55,13 @@ export default function AlertDialogSlide() {
     formData.append('Improve', values.Improve);
     formData.append('ILike', values.ILike);
     formData.append('Star', values.Star);
-    
+
+    formData.append('UserID', LoginInfo.UserID);
+    formData.append('CompanyID', companyID);
     let result = await CompanyAPI.addReview(formData);
-
-
+    MyToaStr3('Cảm ơn bạn đã để lại review công ty');
+    const action = GetDataCommentRedux(companyID);
+    const resultdata = await dispatch(action);
   }
   return (
     <div>
@@ -81,7 +94,7 @@ export default function AlertDialogSlide() {
                     label={res.TieuDe}
                     placeholder={res.TieuDe}
                   />
-
+            <MyToastr></MyToastr>
                   <FastField
                     name="ILike"
                     component={InputField}

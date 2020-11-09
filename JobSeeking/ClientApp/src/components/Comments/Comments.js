@@ -7,6 +7,8 @@ import React, { useEffect, useState } from 'react';
 import LoadJobsApi from 'api/HomePageAPI';
 import Ratting from 'components/Rating/Rating';
 import CompanyAPI from 'api/Company/CompanyAPI';
+import { GetDataCommentRedux } from 'components/ListViewKendo/ListViewKendoSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const myHeader = () => {
@@ -39,47 +41,32 @@ const MyItemRender = props => {
     )
 }
 function Comments(props) {
-    const {dataID} = props;
-    const [data, setData] = useState( [ {
-        "titleReview": "How to design with love?",
-        "iLike": "7 tips to fall in love with your job.7 tips to fall in love with your job.7 tips to fall in love with your job.7 tips to fall in love with your job.",
-        "improve": "7 tips to fall in love with your job.",
-        "Date": "Feb 24,  2020",
-        "Image": "2-220x140.png",
-    },
-    {
-        "titleReview": "How to design with love?",
-        "ContentLike": "7 tips to fall in love with your job.",
-        "ContentImprove": "7 tips to fall in love with your job.",
-        "Date": "Feb 24,  2020",
-        "Image": "2-220x140.png",
-    }
-]);
+    const { dataID } = props;
+    const DataComment = useSelector(state => state.DataComment);
     const [skip, setskip] = useState(0);
     const [take, settake] = useState(2);
     const handlePageChange = (e) => {
         setskip(e.skip);
         settake(e.take);
     }
+    const dispatch = useDispatch();
     useEffect(() => {
         async function fetchMyAPI() {
-          const result = await CompanyAPI.getReview(dataID);
-          debugger;
-          setData(result);
+            const action = GetDataCommentRedux(dataID);
+            await dispatch(action);
         }
         fetchMyAPI()
-      }, [dataID]);
-     
+    }, []);
     return (
         <div>
-               <div>
+            <div>
                 <ListView
-                    data={data.slice(skip, skip + take)}
+                    data={DataComment.slice(skip, skip + take)}
                     item={MyItemRender}
                     style={{ width: "100%" }}
                     header={myHeader}
                 />
-                <Pager skip={skip} take={take}  onPageChange={handlePageChange} total={data.length} />
+                <Pager skip={skip} take={take} onPageChange={handlePageChange} total={DataComment.length} />
             </div>
         </div>
     )
