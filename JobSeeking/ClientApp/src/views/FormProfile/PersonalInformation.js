@@ -160,7 +160,7 @@ function PersonalInformation() {
 
                             <Form.Group as={Row} controlId="">
                                 <Form.Label column sm="2">
-                                    {res.DiaChiEmail}
+                                    {res.TrinhDoHV}
                                 </Form.Label>
                                 <Col sm="5">
                                     <FastField

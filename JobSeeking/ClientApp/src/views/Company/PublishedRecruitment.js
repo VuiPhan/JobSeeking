@@ -21,6 +21,7 @@ import SelectField from "components/CustomField/SelectField";
 import MutipleSelectField from "components/CustomField/MutipleSelectField";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany";
 import { useSelector } from "react-redux";
+import CrossArea from "components/Tags/Tags";
 
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
@@ -186,6 +187,7 @@ export default function PublishedRecruitment(props) {
                                     <FormGroup>
                                         <Button type='submit'>{res.DangTin}</Button>
                                     </FormGroup>
+                                    <CrossArea></CrossArea>
                                 </Form>
                             )
                         }}
