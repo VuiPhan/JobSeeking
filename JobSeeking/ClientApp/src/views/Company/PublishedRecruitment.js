@@ -10,7 +10,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import 'assets/scss/view/CompanyPage.scss';
 import 'assets/scss/view/CompanyRegister.scss';
-import { Button, FormGroup, Label } from "reactstrap";
+import { FormGroup, Label } from "reactstrap";
+import Button from '@material-ui/core/Button';
 import { Formik, Form, FastField } from "formik";
 import InputField from "components/CustomField/InputField";
 import * as yup from 'yup';
@@ -22,26 +23,16 @@ import MutipleSelectField from "components/CustomField/MutipleSelectField";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany";
 import { useSelector } from "react-redux";
 import CrossArea from "components/Tags/Tags";
+import { MyToaStr3 } from "components/Toastr/Toastr2";
+import MyToastr from "components/Toastr/Toastr";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
     const classes = useStyles();
     const res = LGCompanyPage.PublishedRecruitment;
     const { ...rest } = props;
-    const validationShema = yup.object().shape({
-        FullName: yup.string().required(res.TruongBBNhap),
-        Email: yup.string().email().required(res.TruongBBNhap),
-        Password: yup.string()
-            .required(res.TruongBBNhap)
-            .min(8, res.MatKhauQN)
-            .matches(/[a-zA-Z]/, res.MatKhauInHoa)
-        ,
-        ConfirmPassword: yup.string()
-            .required(res.TruongBBNhap)
-            .oneOf([yup.ref('Password'), null], res.MatKhauKK),
-        CompanyName: yup.string().required(res.TruongBBNhap),
-        TimeWorking: yup.string().required(res.TruongBBNhap),
-    })
+
     const initialValuesImage = {
         imageName: '',
         imageSrc: '',
@@ -69,6 +60,10 @@ export default function PublishedRecruitment(props) {
             reader.readAsDataURL(imageFile);
         }
     }
+    const validationShema = yup.object().shape({
+        Title: yup.string().required(res.TruongBBNhap),
+        Strengths: yup.string().email().required(res.TruongBBNhap)
+    })
     const initialValues = {
         Title: '',
         categoryId: null,
@@ -79,9 +74,11 @@ export default function PublishedRecruitment(props) {
         reasonsToJoin: '',
         loveWorkingHere:''
     };
+    const history = useHistory();
     const HandleSubmitData = (valuesForm) => {
-        console.log(valuesForm);
+        debugger;
         const formData = new FormData();
+        
         formData.append('Title', valuesForm.Title);
         formData.append('RequireCV', valuesForm.requireCV);
         formData.append('ReasonsToJoin', valuesForm.reasonsToJoin);
@@ -89,25 +86,29 @@ export default function PublishedRecruitment(props) {
         formData.append('LoveWorkingHere', valuesForm.loveWorkingHere);
         formData.append('Strengths', valuesForm.Strengths);
         formData.append('PriorityDegree', valuesForm.PriorityDegree);
-        formData.append('imageFile', values.imageFile);
-        formData.append('imageName', values.imageName);
         PublishedRecruitmentAPI.post(formData);
+
+        MyToaStr3('Đăng tin thành công. Sẽ nhanh chóng chuyển đến trang công ty');
+        setTimeout(() => {
+            const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
+        history.push(LinkToPageCompany);
+        window.scrollTo(0, 150);
+          }, 3000);
+        
     }
     const LoginInfo = useSelector(state => state.loginInfo);
-    console.log('LoginInfo,LoginInfo',LoginInfo);
     const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
     return (
         <div>
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div>
                     <div className={classes.container}>
-                        <HeaderCompany CompanyID={LoginInfo.UserID} IsCompany={1}></HeaderCompany>
+                        <HeaderCompany CompanyID={LoginInfo.companyID} IsCompany={1}></HeaderCompany>
                     </div>
                 </div>
                 <div className='ContainerForm'>
                     <Formik initialValues={initialValues}
                         // validationSchema={validationShema}
-                        // onSubmit={values => HandleSubmitData(values)}>
                         onSubmit={values => HandleSubmitData(values)}>
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
@@ -127,7 +128,7 @@ export default function PublishedRecruitment(props) {
                                         label=""
                                         placeholder={res.LyDoGiaNhapCongTy}
                                     />
-
+                                        <MyToastr></MyToastr>
                                     <h1>{res.MoTaCongViec}</h1>
                                     <FastField
                                         name="jobDescription"
@@ -176,18 +177,10 @@ export default function PublishedRecruitment(props) {
                                     <FormGroup>
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>
                                     </FormGroup>
-
                                     <FormGroup>
-                                        <input type='file' onChange={showPreview} accept='image/*'></input>
+                                        <Button type='submit' variant="outlined" color="secondary">{res.DangTin}</Button>
                                     </FormGroup>
-
-                                    <FormGroup>
-                                        <img className='imageLogoCompany' src={values.imageSrc}></img>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Button type='submit'>{res.DangTin}</Button>
-                                    </FormGroup>
-                                    <CrossArea></CrossArea>
+                                    {/* <CrossArea></CrossArea> */}
                                 </Form>
                             )
                         }}

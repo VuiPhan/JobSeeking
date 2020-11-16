@@ -31,7 +31,7 @@ namespace JobSeeking.Controllers
             await _context.Database.ExecuteSqlRawAsync("dbo.UTECompany_PublishedRecuit" +
                " @CompanyID={0},@JobsTitle={1},@JobDescriptions={2},@JobRequirements={3}," +
                "@Strengths={4},@PriorityDegree={5},@ReasonsToJoin ={6},@LoveWorkingHere ={7},@SalaryFrom={8},@SalaryTO={9},@WorkLocation={10},@OTMode={11}",
-               claims[1].Value,
+               claims[4].Value,
                registerCompanyForm.Title,
                registerCompanyForm.JobDescription,
                registerCompanyForm.RequireCV,

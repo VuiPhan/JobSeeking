@@ -1,9 +1,12 @@
-﻿namespace JobSeeking.Models.DB
+﻿using System;
+using System.Collections.Generic;
+
+namespace JobSeeking.Models.DB
 {
     public partial class UteappAppCertificate
     {
         public int RecId { get; set; }
-        public string CandidateCode { get; set; }
+        public int CandidateCode { get; set; }
         public string CertificateId { get; set; }
         public string Description { get; set; }
 

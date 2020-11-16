@@ -1,4 +1,7 @@
-﻿namespace JobSeeking.Models.DB
+﻿using System;
+using System.Collections.Generic;
+
+namespace JobSeeking.Models.DB
 {
     public partial class UtesysInformationDatabase
     {

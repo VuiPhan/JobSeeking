@@ -5,7 +5,6 @@ namespace JobSeeking.Models.DB
 {
     public partial class UteworkJob
     {
-        public int RecId { get; set; }
         public int JobId { get; set; }
         public int CompanyId { get; set; }
         public string ReasonsToJoin { get; set; }
@@ -14,5 +13,14 @@ namespace JobSeeking.Models.DB
         public string JobRequirements { get; set; }
         public string LoveWorkingHere { get; set; }
         public DateTime? PostingDate { get; set; }
+        public string Strengths { get; set; }
+        public string PriorityDegree { get; set; }
+        public double? SalaryFrom { get; set; }
+        public double? SalaryTo { get; set; }
+        public string WorkLocation { get; set; }
+        public string Otmode { get; set; }
+        public string ImageJob { get; set; }
+
+        public virtual UtecomCompany Company { get; set; }
     }
 }

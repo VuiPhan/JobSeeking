@@ -44,7 +44,7 @@ const MyItemRender = props => {
                     <button className='k-button k-bare'>Thêm vào yêu thích</button>
                 </CardActions>
             </div>
-            <CardImage src={`https://gist.github.com/simonssspirit/0db46d4292ea8e335eb18544718e2624/raw/2241c020d6d494eaba0ef61862d92b19ef95cbf4/${item.imageJob}`} style={{ width: 220, height: 140, maxWidth: 220 }} />
+            <CardImage src={`https://localhost:44351/Images/${item.imageLogo}`} style={{ width: 100, height: 100, maxWidth: 220 }} />
         </Card>
     )
 }

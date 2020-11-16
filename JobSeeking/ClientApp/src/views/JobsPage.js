@@ -51,14 +51,11 @@ export default function JobsPage(props) {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
       setData(result[0]);
-      console.log(result[0]);
     }
     fetchMyAPI()
   }, [jobID]);
   const LoginInfo = useSelector(state => state.loginInfo);
   const HandleRedirectPage = (id) => {
-    toast('Vui');
-    debugger;
     const linkRedired = `/Company/${id}`;
     history.push(linkRedired);
     window.scrollTo(0, 150);

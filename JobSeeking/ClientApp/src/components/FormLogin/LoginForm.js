@@ -37,7 +37,6 @@ export default function FormDialog() {
     const result = await dispatch(action);
     if(!result.payload.UserID){
       MyToaStr2('Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại');
-      debugger;
       return;
     }
     setOpen(false);
