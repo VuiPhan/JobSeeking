@@ -13,50 +13,15 @@ import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginAPIRedux } from 'components/FormLogin/LoginSlice';
 import { useHistory, useParams } from 'react-router-dom';
-function PersonalInformation() {
+function PersonalInformation(props) {
     // Chi cho load lan dau
+    const {disableForm,data} = props;
+    debugger;
     const res = handleGetJson("PersonPage");
     const resValidation = handleGetJson("Validation");
     const dispatch = useDispatch();
-    const LoginInfo = useSelector(state => state.loginInfo);
-    const JobKendo = useSelector(state => state.JobKendo);
-    const history = useHistory();
-    const { CandidateCode } = useParams();
-    const [data, setData] = useState({
-        firstName: '',
-        lastName: '',
-        password: '',
-        rePassword: '',
-        email: '',
-        birthDay: '2020-01-01',
-        birthDayString:'2020-01-01',
-        phoneNumber: '',
-        gender: 1,
-        academicLevel: 1
-    });
-    var disableForm = false;
-    if(CandidateCode){
-        disableForm=true;
-    }
-    useEffect(() => {
-        async function fetchDataView(){
-            debugger;
-            const result = await SeekerAPI.getByRecruiter(CandidateCode,JobKendo.jobID);
-            setData(result);
-        }
-        async function fetchData(){
-            const result = await SeekerAPI.get(LoginInfo.CadidateCode);
-            setData(result[0]);
-            debugger;
-            console.log('LoginInfo.UserID');
-        }
-        if(disableForm){
-            fetchDataView();
-        }
-        else{
-            fetchData();
-        }
-    },[CandidateCode])
+    
+
     const submitData = async (values) => {
         const formData = new FormData();
         formData.append('LastName', values.lastName);
@@ -97,8 +62,7 @@ function PersonalInformation() {
             <Formik initialValues={data}
                 validationSchema={validationShema}
                 onSubmit={values => submitData(values)}
-                disable
-                enableReinitialize >
+                enableReinitialize>
                 {FormikProps => {
                     const { values, errors, touched } = FormikProps;
                     return (

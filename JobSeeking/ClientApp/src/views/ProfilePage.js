@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -17,7 +17,13 @@ import NavPills from "../components/NavPills/NavPills.js";
 import profile from "../assets/img/faces/christian.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import PersonalInformation from "./FormProfile/PersonalInformation.js";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import SeekerAPI from "api/JobSeeker/SeekerAPI.js";
+import FacebookIcon from '@material-ui/icons/Facebook';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import { Tooltip, Zoom } from "@material-ui/core";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
@@ -30,7 +36,48 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+  const dispatch = useDispatch();
+  const LoginInfo = useSelector(state => state.loginInfo);
+  const JobKendo = useSelector(state => state.JobKendo);
+  const history = useHistory();
+  const { CandidateCode } = useParams();
+  var disableForm = false;
+  if(CandidateCode){
+      disableForm=true;
+  }
+  const [data, setData] = useState({
+    firstName: '',
+    lastName: '',
+    password: '',
+    rePassword: '',
+    email: '',
+    birthDay: '2020-01-01',
+    birthDayString:'2020-01-01',
+    phoneNumber: '',
+    gender: 1,
+    academicLevel: 1
+});
+
+  useEffect(() => {
+    async function fetchDataView(){
+        debugger;
+        const result = await SeekerAPI.getByRecruiter(CandidateCode,JobKendo.jobID);
+        setData(result);
+    }
+    async function fetchData(){
+        const result = await SeekerAPI.get(LoginInfo.CadidateCode);
+        setData(result[0]);
+    }
+    if(disableForm){
+        fetchDataView();
+    }
+    else{
+        fetchData();
+    }
+},[CandidateCode])
+
   return (
+    
     <div>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
@@ -44,15 +91,25 @@ export default function ProfilePage(props) {
                   <div className={classes.name}>
                     <h3 className={classes.title}>Christian Louboutin</h3>
                     <h6>DESIGNER</h6>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-twitter"} />
+                    <Tooltip  title="https://www.facebook.com/VuiPhanIT" interactive placement="top" TransitionComponent={Zoom}>
+                    <Button justIcon link className={classes.margin1} href="https://www.facebook.com/VuiPhanIT" target="_blank">
+                        <FacebookIcon  color="primary" fontSize="large"/>
+                        <a href="https://www.facebook.com/VuiPhanIT" target="_blank"></a>
                     </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-instagram"} />
+                    </Tooltip>
+                    <Tooltip  title="https://www.facebook.com/VuiPhanIT" interactive placement="top" TransitionComponent={Zoom}>
+                    <Button justIcon link className={classes.margin1} href="https://www.facebook.com/VuiPhanIT" target="_blank">
+                    <LinkedInIcon  color="primary" fontSize="large"/>
+                        <a href="https://www.facebook.com/VuiPhanIT" target="_blank"></a>
                     </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-facebook"} />
+                    </Tooltip>
+
+                    <Tooltip  title="https://www.facebook.com/VuiPhanIT" interactive placement="top" TransitionComponent={Zoom}>
+                    <Button justIcon link className={classes.margin1} href="https://www.facebook.com/VuiPhanIT" target="_blank">
+                    <GitHubIcon style={{ fontSize: 40 }} />
+                        <a href="https://www.facebook.com/VuiPhanIT" target="_blank"></a>
                     </Button>
+                    </Tooltip>
                   </div>
                 </div>
               </GridItem>
@@ -75,7 +132,7 @@ export default function ProfilePage(props) {
                       tabButton: "Thông tin cá nhân",
                       tabIcon: Camera,
                       tabContent: (
-                        <PersonalInformation></PersonalInformation>
+                        <PersonalInformation disableForm = {disableForm} data={data}></PersonalInformation>
                       )
                     },
                     {

@@ -61,7 +61,9 @@ namespace JobSeeking.Controllers
         //[Authorize(Policy = Policies.Recruiter)]
         public async Task<object> ViewSeeker(int formJobSeeker)
         {
-            var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", formJobSeeker).ToListAsync();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", claims[5].Value).ToListAsync();
             return data;
         }
 
