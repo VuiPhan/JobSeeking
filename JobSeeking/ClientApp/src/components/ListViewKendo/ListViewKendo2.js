@@ -6,12 +6,12 @@ import './styleListView.scss';
 import { useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import LoadJobsApi from 'api/HomePageAPI';
-
-
+import Pagination from '@material-ui/lab/Pagination';
+import { Button } from '@material-ui/core';
 const myHeader = () => {
     return (
-        <ListViewHeader style={{ color: 'rgb(160, 160, 160)', fontSize: 14 }} className='pl-4 pb-2 pt-2'>
-            Những công việc nỗi bật trong tuần
+        <ListViewHeader style={{ color: 'rgb(1817, 80, 92)', fontSize: 40 ,fontFamily: "fantasy",borderBottomStyle: "groove"}} className='pl-4 pb-2 pt-2'>
+            Những công việc nổi bật trong tuần
         </ListViewHeader>
     );
 }
@@ -29,7 +29,7 @@ const MyItemRender = props => {
         <Card style={{ padding: '20px 24px', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)', }} orientation='horizontal' className='d-flex justify-content-between'>
             <div className='k-vbox k-column'>
                 <div style={{ padding: '0 8px', marginRight: '3rem' }}>
-                    <CardTitle style={{ fontSize: 18 }}>
+                    <CardTitle style={{ fontSize: 20,fontWeight:'bold' }}>
                         {item.jobsTitle}
                     </CardTitle>
                     <CardSubtitle style={{ fontSize: 14, marginTop: 0 }}>
@@ -39,9 +39,12 @@ const MyItemRender = props => {
                     {parse(item.jobRequirements)}
                     </CardSubtitle>
                 </div>
-                <CardActions style={{ padding: 0 }}>
-                    <button onClick={() =>HandleRedirectPage(item.jobID,item)} className='k-button k-bare'>Xem chi tiết</button>
-                    <button className='k-button k-bare'>Thêm vào yêu thích</button>
+                <CardActions style={{ padding: 0,margin:3 }}>
+                    <Button onClick={()=>HandleRedirectPage(item.jobID)} 
+                                variant="outlined" color="secondary"
+                              >Xem chi tiết</Button>
+                    <div style={{display:"inline",paddingLeft: 10}}><Button onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Thêm vào yêu thích</Button>
+                    </div>
                 </CardActions>
             </div>
             <CardImage src={`https://localhost:44351/Images/${item.imageLogo}`} style={{ width: 100, height: 100, maxWidth: 220 }} />
@@ -57,11 +60,14 @@ function ListViewKendo2(props) {
         "imageJob": "2-220x140.png",
         "jobRequirements": "<p><i>Hybrid Technologies là công ty công nghệ phần mềm liên doanh Nhật-Việt, cung cấp các dịch vụ và mô hình làm việc đa dạng như Mô hình Hybrid, Mô hình Ủy thác, hay lĩnh vực Trí tuệ nhân tạo (AI).</i></p>"
     }]);
-    const [skip, setskip] = useState(0);
+    const [page, setpage] = useState(1);
+    // Số phần tử lấy.
     const [take, settake] = useState(2);
+    // Phần tử bắt đầu lấy
+    const [begin, setbegin] = useState(0);
     const handlePageChange = (e) => {
-        setskip(e.skip);
-        settake(e.take);
+        setpage(parseInt(e.target.innerText));
+        setbegin((parseInt(e.target.innerText)-1)*take);
     }
     useEffect(() => {
         async function fetchMyAPI() {
@@ -75,12 +81,12 @@ function ListViewKendo2(props) {
         <div>
                <div>
                 <ListView
-                    data={data.slice(skip, skip + take)}
+                    data={data.slice(begin,begin+take)}
                     item={MyItemRender}
                     style={{ width: "100%" }}
                     header={myHeader}
                 />
-                <Pager skip={skip} take={take}  onPageChange={handlePageChange} total={data.length} />
+                <Pagination style={{marginLeft:650,marginTop:10,marginBottom:10}} count={Math.round(data.length/take)} hideNextButton = {false} hidePrevButton={false} page={page} onChange={handlePageChange}  variant="outlined" color="secondary" />
             </div>
         </div>
     )

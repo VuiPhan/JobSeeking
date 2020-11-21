@@ -6,7 +6,7 @@ import { Pager } from '@progress/kendo-react-data-tools';
 
 import articles from './articles.json';
 import LoadJobsAPI from '../../api/HomePageAPI';
-import './styleListView.scss';
+//import './styleListView.scss';
 import { useHistory } from 'react-router-dom';
 const myHeader = () => {
     return (

@@ -9,5 +9,9 @@ const SeekerAPI = {
         const url = `/Seeker/Get?formJobSeeker=${data}`;
         return axiosClient.get(url);
     },
+    getByRecruiter: (data,JobID) => {
+        const url = `/Seeker/GetViewSeekerBy?CandidateCode=${data}&JobID=${JobID}`;
+        return axiosClient.get(url);
+    },
 }
 export default SeekerAPI;

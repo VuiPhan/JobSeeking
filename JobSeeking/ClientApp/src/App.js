@@ -23,8 +23,8 @@ export default class App extends Component {
         <Route exact path='/' component={HomePage} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
-        <Route path='/ProfilePage' component={ProfilePage} />
-        <Route path='/ProfilePage:CandidateCode' component={ProfilePage} />
+        <Route path='/ProfilePage' component={ProfilePage} exact/>
+        <Route path='/ProfilePage/:CandidateCode' component={ProfilePage} exact />
         <Route path='/Company/:companyID' component={CompanyPage} />
         <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />

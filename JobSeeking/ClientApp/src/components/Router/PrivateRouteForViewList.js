@@ -8,8 +8,6 @@ const PrivateRouteForViewList = ({component: Component, ...rest}) => {
     // Đi đến trang hồ sơ nhân viên 
     const IsAccess = useSelector(state => state.JobKendo);
     const LoginInfo = useSelector(state => state.loginInfo);
-    debugger;
-  
     return (
         <Route {...rest} render={props => (
             IsAccess.IsAccess && LoginInfo.companyID?

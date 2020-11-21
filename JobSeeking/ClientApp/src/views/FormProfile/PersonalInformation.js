@@ -19,6 +19,7 @@ function PersonalInformation() {
     const resValidation = handleGetJson("Validation");
     const dispatch = useDispatch();
     const LoginInfo = useSelector(state => state.loginInfo);
+    const JobKendo = useSelector(state => state.JobKendo);
     const history = useHistory();
     const { CandidateCode } = useParams();
     const [data, setData] = useState({
@@ -33,23 +34,28 @@ function PersonalInformation() {
         gender: 1,
         academicLevel: 1
     });
+    var disableForm = false;
+    if(CandidateCode){
+        disableForm=true;
+    }
     useEffect(() => {
-        async function fetchData(){
-            const result = await SeekerAPI.get(LoginInfo.CandidateCode);
+        async function fetchDataView(){
             debugger;
+            const result = await SeekerAPI.getByRecruiter(CandidateCode,JobKendo.jobID);
+            setData(result);
+        }
+        async function fetchData(){
+            const result = await SeekerAPI.get(LoginInfo.CadidateCode);
             setData(result[0]);
+            debugger;
             console.log('LoginInfo.UserID');
         }
-        fetchData();
-    },[LoginInfo.CandidateCode])
-    useEffect(() => {
-        async function fetchData(){
-            debugger;
-            const result = await SeekerAPI.get(CandidateCode);
-            setData(result[0]);
-            console.log('CandidateCode');
+        if(disableForm){
+            fetchDataView();
         }
-        fetchData();
+        else{
+            fetchData();
+        }
     },[CandidateCode])
     const submitData = async (values) => {
         const formData = new FormData();
@@ -67,9 +73,6 @@ function PersonalInformation() {
             const action = LoginAPIRedux(dataLogin);
             dispatch(action);
         }
-
-
-
     }
     const validationShema = yup.object().shape({
         firstName: yup.string().required(resValidation.TruongBBNhap),
@@ -94,24 +97,26 @@ function PersonalInformation() {
             <Formik initialValues={data}
                 validationSchema={validationShema}
                 onSubmit={values => submitData(values)}
+                disable
                 enableReinitialize >
-
                 {FormikProps => {
                     const { values, errors, touched } = FormikProps;
                     return (
                         <FormFormik>
-                            <Form.Group as={Row} controlId="">
+                            <Form.Group as={Row} >
                                 <Form.Label column sm="2">{res.TaiKhoan}</Form.Label>
                                 <Col sm="5">
                                     <FastField
                                         name="email"
+                                        disabled={disableForm}
                                         component={InputField}
                                         label=""
                                         placeholder={res.DiaChiEmail}
                                     />
                                 </Col>
                             </Form.Group>
-                            <Form.Group as={Row} controlId="">
+
+                            {disableForm?null: <Form.Group as={Row} >
                                 <Form.Label column sm="2">
                                     {res.MatKhau}
                                 </Form.Label>
@@ -123,9 +128,10 @@ function PersonalInformation() {
                                         placeholder={res.MatKhau}
                                     />
                                 </Col>
-                            </Form.Group>
+                            </Form.Group>}
+                           
 
-                            <Form.Group as={Row} controlId="">
+                            {disableForm?null: <Form.Group as={Row} >
                                 <Form.Label column sm="2">
                                     {res.NhapLaiMatKhau}
                                 </Form.Label>
@@ -137,15 +143,16 @@ function PersonalInformation() {
                                         placeholder={res.NhapLaiMatKhau}
                                     />
                                 </Col>
-                            </Form.Group>
+                            </Form.Group>}
 
-                            <Form.Group as={Row} controlId="">
+                            <Form.Group as={Row} >
                                 <Form.Label column sm="2">
                                     {res.HoVaTenDem}
                                 </Form.Label>
                                 <Col sm="5">
                                     <FastField
                                         name="lastName"
+                                        disabled={disableForm}
                                         component={InputField}
                                         label=""
                                         placeholder={res.HoVaTenDem}
@@ -157,6 +164,7 @@ function PersonalInformation() {
                                 <Col sm="3">
                                     <FastField
                                         name="firstName"
+                                        disabled={disableForm}
                                         component={InputField}
                                         label=""
                                         placeholder={res.Ten}
@@ -164,7 +172,7 @@ function PersonalInformation() {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row} controlId="">
+                            <Form.Group as={Row} >
                                 <Form.Label column sm="2">
                                     {res.TrinhDoHV}
                                 </Form.Label>
@@ -189,7 +197,7 @@ function PersonalInformation() {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row} controlId="">
+                            <Form.Group as={Row}>
                                 <Form.Label column sm="2">
                                     {res.SDT}
                                 </Form.Label>

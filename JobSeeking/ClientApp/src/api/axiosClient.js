@@ -5,7 +5,6 @@ import queryString from 'query-string';
 
 // Please have a look at here `https://github.com/axios/axios#request-
 var token = localStorage.getItem('token');
-console.log('tokentokentoken',token);
 //https://localhost:44351/
 //https://jobseeking.conveyor.cloud/
 const axiosClient = axios.create({
@@ -22,7 +21,6 @@ axiosClient.interceptors.request.use(
         if (token) {
             config.headers['Authorization'] = 'Bearer ' + token;
         }
-        // config.headers['Content-Type'] = 'application/json';
         return config;
     },
     error => {

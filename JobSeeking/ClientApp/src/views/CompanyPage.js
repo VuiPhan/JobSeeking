@@ -6,19 +6,15 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
 import Footer from "../components/Footer/Footer.js";
-import GridContainer from "../components/Grid/GridContainer.js";
-import GridItem from "../components/Grid/GridItem.js";
 import Ratting from "../components/Rating/Rating.js";
 
 import styles from "../assets/jss/material-kit-react/views/CompanyPage.js";
 import '../../src/assets/css/TitleCompany.scss';
-import ListViewKendo from "../components/ListViewKendo/ListViewKendo.js";
 import Comments from "../components/Comments/Comments.js";
 import '../assets/scss/view/CompanyPage.scss';
 import AlertDialogSlide from "../components/Model/Model.js";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany.js";
-import { Button, Icon } from "@material-ui/core";
-import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
+import { AccessAlarm } from '@material-ui/icons';
 import LocationCityIcon from '@material-ui/icons/LocationCity';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import PeopleIcon from '@material-ui/icons/People';
@@ -86,7 +82,7 @@ export default function CompanyPage(props) {
                     {parse(data.introduceCompany)}
                   </div>
                 </div>
-                <div class='row'>
+                <div class='row'  style={{marginLeft:0}}>
                   <div>
                     <h1 className="textTuyenDung"> {data.companyName} Tuyển Dụng</h1>
                   </div>

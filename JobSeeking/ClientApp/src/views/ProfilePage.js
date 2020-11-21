@@ -83,21 +83,21 @@ export default function ProfilePage(props) {
                       tabIcon: Palette,
                       tabContent: (
                        
-                        <PersonalInformation></PersonalInformation>
+                        <Button></Button>
                       )
                     },
                     {
                       tabButton: "Chứng chỉ",
                       tabIcon: Favorite,
                       tabContent: (
-                        <PersonalInformation></PersonalInformation>
+                        <Button></Button>
                       )
                     },
                     {
                       tabButton: "Quá trình làm việc",
                       tabIcon: Favorite,
                       tabContent: (
-                        <PersonalInformation></PersonalInformation>
+                        <Button></Button>
                       )
                     }
                   ]}

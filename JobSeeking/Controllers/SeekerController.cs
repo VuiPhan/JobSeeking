@@ -67,11 +67,11 @@ namespace JobSeeking.Controllers
 
         [HttpGet("GetViewSeekerBy")]
         [Authorize(Policy = Policies.Recruiter)]
-        public async Task<object> ViewSeekerByCandidateCode(int CandidateCode,int CompanyID)
+        public async Task<object> ViewSeekerByCandidateCode(int CandidateCode, int JobID)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomationByRecruiter {0},{1}", CandidateCode, claims[4].Value).ToListAsync();
+            var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomationByRecruiter {0},{1},{2}", CandidateCode, claims[4].Value,JobID).ToListAsync();
             return data.AsEnumerable().SingleOrDefault();
         }
 
