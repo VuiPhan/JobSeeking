@@ -24,6 +24,8 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { Tooltip, Zoom } from "@material-ui/core";
+import ClickEditInput from "components/ClickEditInput/ClickEditInput.js";
+import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
@@ -55,18 +57,27 @@ export default function ProfilePage(props) {
     birthDayString:'2020-01-01',
     phoneNumber: '',
     gender: 1,
-    academicLevel: 1
+    academicLevel: 1,
+    selfIntroduce:'',
+    aliasesName:'',
+    titleJob:''
 });
-
+const [selfIntroduce, setselfIntroduce] = useState(data.selfIntroduce);
+const [aliasName, setAliasName] = useState("Bí danh của bạn");
+const [major, setMajor] = useState("Nghành nghề");
   useEffect(() => {
     async function fetchDataView(){
-        debugger;
+        
         const result = await SeekerAPI.getByRecruiter(CandidateCode,JobKendo.jobID);
         setData(result);
     }
     async function fetchData(){
         const result = await SeekerAPI.get(LoginInfo.CadidateCode);
+        debugger;
         setData(result[0]);
+        setselfIntroduce(result[0].selfIntroduce);
+        setAliasName(result[0].aliasesName);
+        setMajor(result[0].titleJob);
     }
     if(disableForm){
         fetchDataView();
@@ -75,6 +86,7 @@ export default function ProfilePage(props) {
         fetchData();
     }
 },[CandidateCode])
+
 
   return (
     
@@ -87,41 +99,47 @@ export default function ProfilePage(props) {
                 <div className={classes.profile}>
                   <div>
                     <img src={profile} alt="..." className={imageClasses} />
+                    <Tooltip  title="Mời bạn chọn hình đại diện" interactive placement="top" TransitionComponent={Zoom}>
+                    <LinkedCameraIcon style={{ fontSize: 40 }} />
+                    </Tooltip>
+
+
                   </div>
                   <div className={classes.name}>
-                    <h3 className={classes.title}>Christian Louboutin</h3>
-                    <h6>DESIGNER</h6>
-                    <Tooltip  title="https://www.facebook.com/VuiPhanIT" interactive placement="top" TransitionComponent={Zoom}>
-                    <Button justIcon link className={classes.margin1} href="https://www.facebook.com/VuiPhanIT" target="_blank">
+                    <h3 className={classes.title}><ClickEditInput text={aliasName} onSetText={text => setAliasName(text)} /></h3>
+                    <h6> <ClickEditInput text={major} onSetText={text => setMajor(text)} /></h6>
+                    <Tooltip  title={data.facebook} interactive placement="top" TransitionComponent={Zoom}>
+                    <Button justIcon link className={classes.margin1} href={data.facebook}  target="_blank">
                         <FacebookIcon  color="primary" fontSize="large"/>
-                        <a href="https://www.facebook.com/VuiPhanIT" target="_blank"></a>
+                        <a href={data.facebook}  target="_blank"></a>
                     </Button>
                     </Tooltip>
-                    <Tooltip  title="https://www.facebook.com/VuiPhanIT" interactive placement="top" TransitionComponent={Zoom}>
-                    <Button justIcon link className={classes.margin1} href="https://www.facebook.com/VuiPhanIT" target="_blank">
+                    <Tooltip  title={data.linkin} interactive placement="top" TransitionComponent={Zoom}>
+                    <Button justIcon link className={classes.margin1} href={data.linkin} target="_blank">
                     <LinkedInIcon  color="primary" fontSize="large"/>
-                        <a href="https://www.facebook.com/VuiPhanIT" target="_blank"></a>
+                        <a href={data.linkin} target="_blank"></a>
                     </Button>
                     </Tooltip>
 
-                    <Tooltip  title="https://www.facebook.com/VuiPhanIT" interactive placement="top" TransitionComponent={Zoom}>
-                    <Button justIcon link className={classes.margin1} href="https://www.facebook.com/VuiPhanIT" target="_blank">
+                    <Tooltip  title={data.github} interactive placement="top" TransitionComponent={Zoom}>
+                    <Button justIcon link className={classes.margin1} href={data.github} target="_blank">
                     <GitHubIcon style={{ fontSize: 40 }} />
-                        <a href="https://www.facebook.com/VuiPhanIT" target="_blank"></a>
+                        <a href={data.github} target="_blank"></a>
                     </Button>
                     </Tooltip>
                   </div>
                 </div>
               </GridItem>
             </GridContainer>
+            
             <div className={classes.description}>
               <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
+              <ClickEditInput text={selfIntroduce} onSetText={text => setselfIntroduce(text)} />
               </p>
-            </div>
+              <h2>
+          
+      </h2>
+            </div>  
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                 <NavPills
