@@ -2,15 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { TextField, Collapse, Button } from '@material-ui/core'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Col, Row, Form } from 'react-bootstrap';
-import DatePicker from "react-datepicker";
-import jsonData from '../../assets/language/PersonalPage.json'
 import "react-datepicker/dist/react-datepicker.css";
 import handleGetJson from '../../common/ReadJson';
 import DatePickers from '../../components/DatetimePicker/DatetimePicker';
-import ComboBox from '../../components/Combobox/Combobox';
-import ControllableStates from '../../components/Combobox/ComboboxController';
-import ComboboxKendo, { ComboBoxList } from '../../components/Kendo/Combobox';
-import loadInfomation from '../../api/UTE_Applicant/Infomation';
 import { FastField, Formik, Form as FormFormik } from 'formik';
 import InputField from 'components/CustomField/InputField';
 import SelectField from 'components/CustomField/SelectField';
@@ -18,12 +12,15 @@ import * as yup from 'yup';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginAPIRedux } from 'components/FormLogin/LoginSlice';
+import { useHistory, useParams } from 'react-router-dom';
 function PersonalInformation() {
     // Chi cho load lan dau
     const res = handleGetJson("PersonPage");
     const resValidation = handleGetJson("Validation");
     const dispatch = useDispatch();
     const LoginInfo = useSelector(state => state.loginInfo);
+    const history = useHistory();
+    const { CandidateCode } = useParams();
     const [data, setData] = useState({
         firstName: '',
         lastName: '',
@@ -38,13 +35,22 @@ function PersonalInformation() {
     });
     useEffect(() => {
         async function fetchData(){
-            const result = await SeekerAPI.get(LoginInfo.UserID);
+            const result = await SeekerAPI.get(LoginInfo.CandidateCode);
+            debugger;
             setData(result[0]);
-            console.log(result[0]);
+            console.log('LoginInfo.UserID');
         }
         fetchData();
-    })
-    
+    },[LoginInfo.CandidateCode])
+    useEffect(() => {
+        async function fetchData(){
+            debugger;
+            const result = await SeekerAPI.get(CandidateCode);
+            setData(result[0]);
+            console.log('CandidateCode');
+        }
+        fetchData();
+    },[CandidateCode])
     const submitData = async (values) => {
         const formData = new FormData();
         formData.append('LastName', values.lastName);

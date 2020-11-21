@@ -15,13 +15,6 @@ import GridItem from "../components/Grid/GridItem.js";
 import NavPills from "../components/NavPills/NavPills.js";
 
 import profile from "../assets/img/faces/christian.jpg";
-import studio1 from "../assets/img/examples/studio-1.jpg";
-import studio3 from "../assets/img/examples/studio-3.jpg";
-import work1 from "../assets/img/examples/olu-eletu.jpg";
-import work2 from "../assets/img/examples/clem-onojeghuo.jpg";
-import work3 from "../assets/img/examples/cynthia-del-rio.jpg";
-import work4 from "../assets/img/examples/mariya-georgieva.jpg";
-import work5 from "../assets/img/examples/clem-onojegaw.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import PersonalInformation from "./FormProfile/PersonalInformation.js";
 
@@ -39,18 +32,6 @@ export default function ProfilePage(props) {
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   return (
     <div>
-      {/* <Header
-        color="transparent"
-        brand="JOB SEEKING"
-        rightLinks={<HeaderLinks />}
-        fixed
-        changeColorOnScroll={{
-          height: 200,
-          color: "white"
-        }}
-        {...rest}
-      /> */}
-      {/* <Parallax small filter image={require("../assets/img/profile-bg.jpg")} /> */}
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
@@ -98,116 +79,25 @@ export default function ProfilePage(props) {
                       )
                     },
                     {
-                      tabButton: "Thông tin công việc",
+                      tabButton: "Chuyên ngành đào tạo",
                       tabIcon: Palette,
                       tabContent: (
-                        <GridContainer justify="center">
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work1}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work2}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work3}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work4}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work5}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                        </GridContainer>
+                       
+                        <PersonalInformation></PersonalInformation>
                       )
                     },
                     {
-                      tabButton: "Kiến thức và chứng chỉ",
+                      tabButton: "Chứng chỉ",
                       tabIcon: Favorite,
                       tabContent: (
-                        <GridContainer justify="center">
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work4}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={studio3}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work2}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work1}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={studio1}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          
-                        </GridContainer>
+                        <PersonalInformation></PersonalInformation>
                       )
                     },
                     {
                       tabButton: "Quá trình làm việc",
                       tabIcon: Favorite,
                       tabContent: (
-                        <GridContainer justify="center">
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work4}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={studio3}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src={work2}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={work1}
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src={studio1}
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          
-                        </GridContainer>
+                        <PersonalInformation></PersonalInformation>
                       )
                     }
                   ]}

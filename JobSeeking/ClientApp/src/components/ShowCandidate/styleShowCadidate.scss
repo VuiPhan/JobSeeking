@@ -16,6 +16,7 @@
     -moz-transition-delay: 0.4s;
     -o-transition-delay: 0.4s;
     transition-delay: 0.4s;
+    z-index: 99;
     ul {
       opacity: 0;
       transition: opacity 0.5s ease-in-out;
@@ -28,8 +29,9 @@
   &.active {
     background: #eee;
     width: 450px;
-    height: 300px;
+    height: 400px;
     transition: all 0.5s ease-in-out;
+    z-index: 99;
     ul {
       opacity: 1;
       transition: opacity 0.5s ease-in-out;

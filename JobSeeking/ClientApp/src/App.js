@@ -11,6 +11,8 @@ import JobsPage from './views/JobsPage';
 import CompanyRegiter from 'views/Register/CompanyRegister/CompanyRegiter';
 import PublishedRecruitment from 'views/Company/PublishedRecruitment';
 import PrivateRoute from 'components/Router/PrivateRoute';
+import ShowCadidate from 'components/ShowCandidate/ShowCandidate';
+import PrivateRouteForViewList from 'components/Router/PrivateRouteForViewList';
 
 
 export default class App extends Component {
@@ -22,11 +24,12 @@ export default class App extends Component {
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/ProfilePage' component={ProfilePage} />
+        <Route path='/ProfilePage:CandidateCode' component={ProfilePage} />
         <Route path='/Company/:companyID' component={CompanyPage} />
         <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />
         <PrivateRoute component={PublishedRecruitment} path="/PublishedRecruitment" exact />
-        
+        <PrivateRouteForViewList path= {["/Jobs/:jobID", "/ProfilePage/:CandidateCode"]} component={ShowCadidate} />
       </Layout>
     );
   }

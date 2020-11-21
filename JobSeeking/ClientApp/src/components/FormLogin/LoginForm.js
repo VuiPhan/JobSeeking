@@ -46,7 +46,6 @@ export default function FormDialog() {
   const handleLogout = async (user) => {
     const action = Logout();
     var x = dispatch(action);
-    debugger;
   };
   const initialValues = {
     Email: '',

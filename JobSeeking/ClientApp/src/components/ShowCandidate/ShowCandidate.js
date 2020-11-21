@@ -1,4 +1,4 @@
-import ListViewKendo from "components/ListViewKendo/ListViewKendo";
+import ListViewCandidate from "components/ListViewCandidate/ListViewCandidate";
 import React, { Component } from "react";
 import './styleShowCadidate.scss';
 class Hamburger extends Component {
@@ -12,14 +12,8 @@ class Hamburger extends Component {
 }
 class Menu extends Component {
   render() {
-    return <div className="menu">
-      {/* <ul>
-        <li>Home</li>
-        <li>About</li>
-        <li>Work</li>
-        <li>Contact</li>
-      </ul> */}
-      <ListViewKendo></ListViewKendo>
+    return <div className="menu" >
+      <ListViewCandidate></ListViewCandidate>
     </div>;
   }
 }

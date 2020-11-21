@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JobSeeking.Models.Class;
 using JobSeeking.Models.DB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,14 @@ namespace JobSeeking.Controllers
         public async Task<object> GetTags(int CompanyID)
         {
             var data = await _context.UtelsTags.Where(p => p.Major == 1).ToListAsync();
+            return data;
+        }
+
+        [HttpGet("GetListCandidateApply")]
+        [Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> GetListCandidateApply(int JobID)
+        {
+            var data = await _context.ListCandidateApplys.FromSqlRaw("EXEC dbo.UTE_spGetListCandidateByJobID {0}", JobID).ToListAsync();
             return data;
         }
 

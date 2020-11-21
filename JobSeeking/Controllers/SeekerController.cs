@@ -65,5 +65,15 @@ namespace JobSeeking.Controllers
             return data;
         }
 
+        [HttpGet("GetViewSeekerBy")]
+        [Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> ViewSeekerByCandidateCode(int CandidateCode,int CompanyID)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomationByRecruiter {0},{1}", CandidateCode, claims[4].Value).ToListAsync();
+            return data.AsEnumerable().SingleOrDefault();
+        }
+
     }
 }

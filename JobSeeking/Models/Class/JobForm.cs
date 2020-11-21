@@ -18,4 +18,13 @@ namespace JobSeeking.Models.Class
         public string ImageJob { get; set; }
         public string ImageLogo { get; set; }
     }
+    public class ListCandidateApply
+    {
+        public int RecID { get; set; }
+        public int CandidateCode { get; set; }
+        public int JobID { get; set; }
+        public string DateApply { get; set; }
+        public string FullNameCandidate { get; set; }
+        public string Major { get; set; }
+    }
 }

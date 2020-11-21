@@ -6,15 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
 import Footer from "../components/Footer/Footer.js";
-import GridContainer from "../components/Grid/GridContainer.js";
-import GridItem from "../components/Grid/GridItem.js";
-
 import styles from "../assets/jss/material-kit-react/views/CompanyPage.js";
 import '../../src/assets/css/TitleCompany.scss';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import LGCompanyPage from "Language/CompanyPage";
-import ListViewKendo from "components/ListViewKendo/ListViewKendo.js";
 import JobsApi from "api/Company/JobsAPI.js";
 import { useHistory, useParams } from "react-router-dom";
 import { Button, Icon } from "@material-ui/core";
@@ -24,18 +18,16 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import PeopleIcon from '@material-ui/icons/People';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import { useSelector } from "react-redux";
-import ShowCadidate from "components/ShowCandidate/ShowCandidate";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany.js";
-import { toast } from "react-toastify";
 import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
+import { useDispatch, useSelector } from 'react-redux';
+import { ChooseJob } from "components/ListViewKendo/ListViewKendo2Slice.js";
 const useStyles = makeStyles(styles);
 
 
 export default function JobsPage(props) {
   const classes = useStyles();
   const res = LGCompanyPage.JobPage;
-  //LoadLanguageForPage();
   const { ...rest } = props;
   const imageClasses = classNames(
     classes.imgRaised,
@@ -47,14 +39,26 @@ export default function JobsPage(props) {
   const [data, setData] = useState({ companyId: null, companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
   const history = useHistory();
   const { jobID } = useParams();
+  const dispatch = useDispatch();
+  const LoginInfo = useSelector(state => state.loginInfo);
   useEffect(() => {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
       setData(result[0]);
+      debugger;
+      if (LoginInfo.companyID == result[0].companyId) {
+        const action = ChooseJob({jobID:jobID,IsAccess:true});
+        var x = dispatch(action);
+      }
+      else{
+        const action = ChooseJob({jobID:jobID,IsAccess:false});
+        var x = dispatch(action);
+      }
+      
     }
-    fetchMyAPI()
+    fetchMyAPI();
+   
   }, [jobID]);
-  const LoginInfo = useSelector(state => state.loginInfo);
   const HandleRedirectPage = (id) => {
     const linkRedired = `/Company/${id}`;
     history.push(linkRedired);
@@ -110,7 +114,7 @@ export default function JobsPage(props) {
                   </div>
                   <div className="buttonCenter">
                     <Button onClick={() => HandleRedirectPage(data.companyId)} variant="outlined" color="primary">Về chúng tôi</Button>
-                    
+
                   </div>
                 </div>
               </div>
@@ -150,11 +154,9 @@ export default function JobsPage(props) {
             <h3>
               {res.CacCongViecTuongTu}
             </h3>
-            <ListViewKendo2 dataID = {data.companyId}></ListViewKendo2>
+            <ListViewKendo2 dataID={data.companyId}></ListViewKendo2>
           </div>
         </div>
-        <ShowCadidate></ShowCadidate>
-
       </div>
 
       <Footer />

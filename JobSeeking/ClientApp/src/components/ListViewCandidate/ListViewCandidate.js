@@ -5,23 +5,21 @@ import { Pager } from '@progress/kendo-react-data-tools';
 import './styleListView.scss';
 import { useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import LoadJobsApi from 'api/HomePageAPI';
-
+import JobsApi from 'api/Company/JobsAPI';
+import { useSelector } from 'react-redux';
 
 const myHeader = () => {
     return (
         <ListViewHeader style={{ color: 'rgb(160, 160, 160)', fontSize: 14 }} className='pl-4 pb-2 pt-2'>
-            Những công việc nỗi bật trong tuần
+            Những ứng viên đã Apply
         </ListViewHeader>
     );
 }
 const MyItemRender = props => {
     let item = props.dataItem;
-    var parse = require('html-react-parser');
     const history = useHistory();
-
     const HandleRedirectPage = (id) =>{
-        const linkRedired = `/Jobs/${id}`;
+        const linkRedired = `/ProfilePage/${id}`;
         history.push(linkRedired);
         window.scrollTo(0, 150);
     }
@@ -30,17 +28,17 @@ const MyItemRender = props => {
             <div className='k-vbox k-column'>
                 <div style={{ padding: '0 8px', marginRight: '3rem' }}>
                     <CardTitle style={{ fontSize: 18 }}>
-                        {item.jobsTitle}
+                        {item.fullNameCandidate}
                     </CardTitle>
                     <CardSubtitle style={{ fontSize: 14, marginTop: 0 }}>
-                        {item.companyName}
+                        {item.major}
                     </CardSubtitle>
                     <CardSubtitle style={{ fontSize: 12 }}>
-                    {parse(item.jobRequirements)}
+                    {item.jobRequirements}
                     </CardSubtitle>
                 </div>
                 <CardActions style={{ padding: 0 }}>
-                    <button onClick={() =>HandleRedirectPage(item.jobID,item)} className='k-button k-bare'>Xem chi tiết</button>
+                    <button onClick={() =>HandleRedirectPage(item.candidateCode)} className='k-button k-bare'>Xem chi tiết</button>
                     <button className='k-button k-bare'>Thêm vào yêu thích</button>
                 </CardActions>
             </div>
@@ -48,28 +46,31 @@ const MyItemRender = props => {
         </Card>
     )
 }
-function ListViewKendo2(props) {
+function ListViewCandidate(props) {
     const {dataID} = props;
     const [data, setData] = useState( [ {
-        "Title": "How to design with love?",
-        "Subtitle": "7 tips to fall in love with your job.",
-        "Date": "Feb 24,  2020",
-        "imageJob": "2-220x140.png",
-        "jobRequirements": "<p><i>Hybrid Technologies là công ty công nghệ phần mềm liên doanh Nhật-Việt, cung cấp các dịch vụ và mô hình làm việc đa dạng như Mô hình Hybrid, Mô hình Ủy thác, hay lĩnh vực Trí tuệ nhân tạo (AI).</i></p>"
-    }]);
+        "recID": "2",
+        "candidateCode": "2",
+        "jobID": "2",
+        "dateApply": "01/01/2020",
+        "fullNameCandidate": "Phan Đăng Vẻ",
+        "major":""
+    },
+    ]);
     const [skip, setskip] = useState(0);
     const [take, settake] = useState(2);
     const handlePageChange = (e) => {
         setskip(e.skip);
         settake(e.take);
     }
+    const IsAccess = useSelector(state => state.JobKendo);
     useEffect(() => {
         async function fetchMyAPI() {
-          const result = await LoadJobsApi.getAll(dataID);
+          const result = await JobsApi.getListCandidate(IsAccess.jobID);
           setData(result);
         }
         fetchMyAPI()
-      }, [dataID]);
+      }, [IsAccess.jobID]);
      
     return (
         <div>
@@ -86,4 +87,4 @@ function ListViewKendo2(props) {
     )
 }
 
-export default ListViewKendo2
+export default ListViewCandidate

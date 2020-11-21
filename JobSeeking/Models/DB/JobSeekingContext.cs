@@ -22,6 +22,7 @@ namespace JobSeeking.Models.DB
         public DbSet<FormHeaderCompany> FormHeaderCompanys { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
         public DbSet<ReviewCompany> ReviewCompanys { get; set; }
+        public DbSet<ListCandidateApply> ListCandidateApplys { get; set; }
 
         public DbSet<JobForm> JobForms { get; set; }
 
@@ -68,6 +69,8 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<UserLogin>().HasNoKey();
             modelBuilder.Entity<JobForm>().HasNoKey();
             modelBuilder.Entity<ReviewCompany>().HasNoKey();
+            modelBuilder.Entity<ListCandidateApply>().HasNoKey();
+            
             modelBuilder.Entity<UteappAccount>(entity =>
             {
                 entity.HasKey(e => e.UserId)
