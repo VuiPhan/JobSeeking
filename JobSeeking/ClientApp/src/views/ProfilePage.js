@@ -23,9 +23,11 @@ import SeekerAPI from "api/JobSeeker/SeekerAPI.js";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { Tooltip, Zoom } from "@material-ui/core";
+import { Grid, TextField, Tooltip, Zoom } from "@material-ui/core";
 import ClickEditInput from "components/ClickEditInput/ClickEditInput.js";
 import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
+import { AccountCircle } from "@material-ui/icons";
+import { LoginAPIRedux } from "components/FormLogin/LoginSlice.js";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
@@ -37,6 +39,7 @@ export default function ProfilePage(props) {
     classes.imgRoundedCircle,
     classes.imgFluid
   );
+  const dispatch = useDispatch();
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   const LoginInfo = useSelector(state => state.loginInfo);
   const JobKendo = useSelector(state => state.JobKendo);
@@ -85,24 +88,67 @@ export default function ProfilePage(props) {
       fetchData();
     }
   }, [CandidateCode, LoginInfo.CadidateCode])
-
-
+  const initialValuesImage = {
+    imageName: '',
+    imageSrc: profile,
+    imageFile: null
+  };
+  const [valuesImage, setValuesImage] = useState(initialValuesImage);
+  const [FaceBook, setFaceBook] = useState('');
+  const showPreview = e => {
+    if (e.target.files && e.target.files[0]) {
+      let imageFile = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = x => {
+        setValuesImage({
+          ...valuesImage,
+          imageFile: imageFile,
+          imageSrc: x.target.result
+        })
+      };
+      reader.readAsDataURL(imageFile);
+    }
+  }
+  const SubmitDataFinal = async (values) => {
+    const formData = new FormData();
+    
+    var x = FaceBook;
+    debugger
+    formData.append('LastName', values.lastName);
+    formData.append('FirstName', values.firstName);
+    formData.append('Password', values.password);
+    formData.append('Email', values.email);
+    formData.append('BirthDay', values.birthDay);
+    formData.append('PhoneNumber', values.phoneNumber);
+    formData.append('Gender', values.gender);
+    formData.append('AcademicLevel', values.academicLevel);
+    let result = await SeekerAPI.post(formData);
+    if (result.error === "") {
+      let dataLogin = { Email: values.Email, Password: values.Password }
+      const action = LoginAPIRedux(dataLogin);
+      dispatch(action);
+    }
+  }
   return (
-
     <div>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12} sm={12} md={9}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={profile} alt="..." className={imageClasses} />
-                    <Tooltip title="Mời bạn chọn hình đại diện" interactive placement="top" TransitionComponent={Zoom}>
-                      <LinkedCameraIcon style={{ fontSize: 40 }} />
-                    </Tooltip>
+                    <img src={valuesImage.imageSrc} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
 
-
+                    <label htmlFor="myInput" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
+                      <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />
+                    </label>
+                    <input
+                      id="myInput"
+                      style={{ display: 'none' }}
+                      type={"file"}
+                      onChange={showPreview}
+                    />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}><ClickEditInput disabled={disableForm} text={aliasName} onSetText={text => setAliasName(text)} /></h3>
@@ -127,6 +173,34 @@ export default function ProfilePage(props) {
                       </Button>
                     </Tooltip>
                   </div>
+                  <div>
+                    <div style={{ display: 'flex' }}>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <FacebookIcon color="primary" style={{ fontSize: 30 }} />
+                        </Grid>
+                        <Grid item>
+                          <TextField id="input-with-icon-grid" onChange={e => setFaceBook(e.target.value)} label="Facebook" />
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <LinkedInIcon color="primary" style={{ fontSize: 30 }} />
+                        </Grid>
+                        <Grid item>
+                          <TextField id="input-with-icon-grid" label="LinkedIn" />
+                        </Grid>
+                      </Grid>
+                      <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                          <GitHubIcon style={{ fontSize: 30 }} />
+                        </Grid>
+                        <Grid item>
+                          <TextField id="input-with-icon-grid" label="GitHub" />
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </div>
                 </div>
               </GridItem>
             </GridContainer>
@@ -136,11 +210,10 @@ export default function ProfilePage(props) {
                 <ClickEditInput disabled={disableForm} text={selfIntroduce} onSetText={text => setselfIntroduce(text)} />
               </p>
               <h2>
-
               </h2>
             </div>
             <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
+              <GridItem xs={12} sm={12} md={9} className={classes.navWrapper}>
                 <NavPills
                   alignCenter
                   color="primary"
@@ -149,7 +222,7 @@ export default function ProfilePage(props) {
                       tabButton: "Thông tin cá nhân",
                       tabIcon: Camera,
                       tabContent: (
-                        <PersonalInformation disableForm={disableForm} data={data}></PersonalInformation>
+                        <PersonalInformation SubmitDataFinal={SubmitDataFinal} disableForm={disableForm} data={data}></PersonalInformation>
                       )
                     },
                     {

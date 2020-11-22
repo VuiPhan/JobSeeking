@@ -52,7 +52,7 @@ export default function CompanyPage(props) {
           <div className={classes.container}>
             <HeaderCompany CompanyID={companyID} IsCompany={1}></HeaderCompany>
             <div >
-              <div class='some-page-wrapper'>
+              <div className='some-page-wrapper'>
                 <div className="row">
                   <div className="side">
                     <div className="detail_side">
@@ -82,7 +82,7 @@ export default function CompanyPage(props) {
                     {parse(data.introduceCompany)}
                   </div>
                 </div>
-                <div class='row'  style={{marginLeft:0}}>
+                <div className='row'  style={{marginLeft:0}}>
                   <div>
                     <h1 className="textTuyenDung"> {data.companyName} Tuyển Dụng</h1>
                   </div>
@@ -91,13 +91,13 @@ export default function CompanyPage(props) {
               <div>
                 <ListViewKendo2 dataID = {companyID}></ListViewKendo2>
               </div>
-              <div class="containerReview">
-                <div class='row'>
+              <div className="containerReview">
+                <div className='row'>
                   <div>
                     <h1 className="textReview">Review đánh giá</h1>
                   </div>
                 </div>
-                <div class='row'>
+                <div className='row'>
                   <div><Ratting value={3}></Ratting></div>
                   <div><p>4.5 sao trên tổng số 10 đánh giá</p></div>
                 </div>

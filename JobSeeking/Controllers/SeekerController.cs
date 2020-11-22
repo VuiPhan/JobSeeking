@@ -34,10 +34,11 @@ namespace JobSeeking.Controllers
         [HttpPost("Post")]
         public async Task<object> RegisterSeeker([FromForm] FormJobSeeker formJobSeeker)
         {
+          //  string PathAvatar = await SaveImage(registerCompanyForm.ImageFile);
 
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_Register" +
             " @LastName={0},@FirstName={1},@PassWord={2},@BirthDay={3}," +
-            "@PhoneNumber={4},@Gender={5},@AcademicLevel={6},@Email={7}",
+            "@PhoneNumber={4},@Gender={5},@AcademicLevel={6},@Email={7},@Facebook={8},@Linkin={9},@Github={10},@SelfIntroduce={11},@PathAvatar={12},@TitleJob={13},@AliasesName={14}",
             formJobSeeker.LastName,
             formJobSeeker.FirstName,
             formJobSeeker.Password,

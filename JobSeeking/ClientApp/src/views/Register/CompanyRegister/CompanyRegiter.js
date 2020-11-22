@@ -18,6 +18,8 @@ import RegisterCompanyApi from "api/Company/RegisterCompany";
 import LGCompanyPage from "Language/CompanyPage";
 import MyCKEditor from "components/CKEditor/CKEditor";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany";
+import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
+import { Tooltip, Zoom } from "@material-ui/core";
 const useStyles = makeStyles(styles);
 export default function CompanyPage(props) {
     const classes = useStyles();
@@ -38,7 +40,7 @@ export default function CompanyPage(props) {
         CompanyName: '',
         TimeWorking: '',
         CompanyAddress: '',
-        InfomationCompany:''
+        InfomationCompany: ''
     };
     const validationShema = yup.object().shape({
         FullName: yup.string().required(res.TruongBBNhap),
@@ -173,7 +175,25 @@ export default function CompanyPage(props) {
                                     </FormGroup>
 
                                     <FormGroup>
-                                        <input type='file' onChange={showPreview} accept='image/*'></input>
+                                        {/* <input type='file' onChange={showPreview} accept='image/*'></input> */}
+                                        <div>
+                                            <label htmlFor="myInput">
+                                                {/* <Tooltip title="Mời bạn chọn hình đại diện" interactive placement="top" TransitionComponent={Zoom}> */}
+                                                    {/* <Button justIcon> */}
+                                                        <LinkedCameraIcon style={{ fontSize: 40,cursor:'pointer'}} />
+                                                    {/* </Button> */}
+                                                {/* </Tooltip> */}
+                                                {/* <Icon style={{ fontSize: '20px' }} type="camera" /> */}
+                                            </label>
+                                            <input
+                                                id="myInput"
+                                                style={{ display: 'none' }}
+                                                type={"file"}
+                                                onChange={showPreview}
+                                            />
+                                        </div>
+
+
                                     </FormGroup>
 
                                     <FormGroup>

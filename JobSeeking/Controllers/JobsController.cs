@@ -1,8 +1,11 @@
-﻿using JobSeeking.Models.DB;
+﻿using JobSeeking.Models.Class;
+using JobSeeking.Models.DB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace JobSeeking.Controllers
@@ -47,5 +50,17 @@ namespace JobSeeking.Controllers
 
             return dataJob;
         }
+        [HttpPost("ApplyJob")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> ApplyJob(int JobID)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spInsertApplyJob" +
+               " @CandidateCode={0},@JobID={1}", claims[5].Value, JobID
+               );
+            return StatusCode(201);
+        }
+
     }
 }

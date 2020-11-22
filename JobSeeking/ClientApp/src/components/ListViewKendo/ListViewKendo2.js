@@ -58,7 +58,6 @@ const MyItemRender = props => {
 }
 function ListViewKendo2(props) {
     const {dataID} = props;
-    debugger;
     const [data, setData] = useState( [ {
         "Title": "How to design with love?",
         "Subtitle": "7 tips to fall in love with your job.",

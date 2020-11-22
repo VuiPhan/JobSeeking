@@ -14,29 +14,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LoginAPIRedux } from 'components/FormLogin/LoginSlice';
 function PersonalInformation(props) {
     // Chi cho load lan dau
-    const {disableForm,data} = props;
+    const {disableForm,data,SubmitDataFinal} = props;
     const res = handleGetJson("PersonPage");
     const resValidation = handleGetJson("Validation");
     const dispatch = useDispatch();
     
 
-    const submitData = async (values) => {
-        const formData = new FormData();
-        formData.append('LastName', values.lastName);
-        formData.append('FirstName', values.firstName);
-        formData.append('Password', values.password);
-        formData.append('Email', values.email);
-        formData.append('BirthDay', values.birthDay);
-        formData.append('PhoneNumber', values.phoneNumber);
-        formData.append('Gender', values.gender);
-        formData.append('AcademicLevel', values.academicLevel);
-        let result = await SeekerAPI.post(formData);
-        if (result.error === "") {
-            let dataLogin = { Email: values.Email, Password: values.Password }
-            const action = LoginAPIRedux(dataLogin);
-            dispatch(action);
-        }
-    }
+   
     const validationShema = yup.object().shape({
         firstName: yup.string().required(resValidation.TruongBBNhap),
         lastName: yup.string().required(resValidation.TruongBBNhap),
@@ -48,7 +32,7 @@ function PersonalInformation(props) {
         ,
         rePassword: yup.string()
             .required(resValidation.TruongBBNhap)
-            .oneOf([yup.ref('Password'), null], resValidation.MatKhauKK),
+            .oneOf([yup.ref('password'), null], resValidation.MatKhauKK),
         birthDay: yup.string().required(resValidation.TruongBBNhap),
         gender: yup.number().required(resValidation.TruongBBNhap).nullable(),
         academicLevel: yup.number().required(resValidation.TruongBBNhap).nullable(),
@@ -59,7 +43,7 @@ function PersonalInformation(props) {
         <div>
             <Formik initialValues={data}
                 validationSchema={validationShema}
-                onSubmit={values => submitData(values)}
+                onSubmit={values => SubmitDataFinal(values)}
                 enableReinitialize>
                 {FormikProps => {
                     const { values, errors, touched } = FormikProps;

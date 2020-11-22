@@ -48,6 +48,7 @@ export default function JobsPage(props) {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
       setData(result[0]);
+      debugger;
       if (LoginInfo.companyID == result[0].companyId) {
         const action = ChooseJob({jobID:jobID,IsAccess:true});
         var x = dispatch(action);
@@ -61,14 +62,16 @@ export default function JobsPage(props) {
     fetchMyAPI();
    
   }, [jobID]);
-  const submitApply = () => {
+  const  submitApply =  () => {
     confirmAlert({
       title: 'Ứng tuyển',
       message: 'Bạn sẽ gửi hồ sơ của bạn đến nhà tuyển dụng?',
       buttons: [
         {
           label: 'Yes',
-          onClick: () => alert('Click Yes')
+          onClick:async () => {
+            await JobsApi.postApply(jobID);
+          }
         },
         {
           label: 'No',

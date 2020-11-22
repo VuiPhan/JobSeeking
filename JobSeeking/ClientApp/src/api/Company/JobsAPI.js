@@ -9,5 +9,9 @@ const JobsApi = {
         const url = `/Common/GetListCandidateApply?JobID=${data}`;
         return axiosClient.get(url,data);
     },
+    postApply: (data) => {
+        const url = `/Jobs/ApplyJob?JobID=${data}`;
+        return axiosClient.post(url,data);
+    },
 }
 export default JobsApi;
