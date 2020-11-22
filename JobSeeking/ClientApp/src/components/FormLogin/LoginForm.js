@@ -10,11 +10,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FastField, Formik, Form } from 'formik';
 import LGCompanyPage from "Language/CompanyPage";
 import InputField from 'components/CustomField/InputField';
-import { FormFeedback, FormGroup, Toast} from "reactstrap";
+import { FormFeedback, FormGroup} from "reactstrap";
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { MyToaStr2 } from 'components/Toastr/Toastr2.js';
-import { toast } from 'react-toastify';
 import MyToastr from 'components/Toastr/Toastr.js';
 
 const useStyles = makeStyles(styles);
@@ -31,7 +30,7 @@ export default function FormDialog() {
   const handleClose = () => {
     setOpen(false);
   };
-  const [textError, settextError] = useState('');
+
   const handleLogin = async (user) => {
     const action = LoginAPIRedux(user);
     const result = await dispatch(action);
@@ -45,7 +44,7 @@ export default function FormDialog() {
   };
   const handleLogout = async (user) => {
     const action = Logout();
-    var x = dispatch(action);
+    dispatch(action);
   };
   const initialValues = {
     Email: '',
@@ -99,8 +98,6 @@ const HandleRedirectProfilePage = () =>{
                         validationSchema={validationShema}
                          onSubmit={values =>handleLogin(values)}>
                         {FormikProps => {
-                            const { value, errors, touched } = FormikProps;
-
                             return (
                                 <Form>
                                     <h1>{res.ThongTinDN}</h1>
@@ -119,7 +116,6 @@ const HandleRedirectProfilePage = () =>{
                                         placeholder={res.MoiBanNhapMatKhau}
                                     />
                                   <MyToastr></MyToastr>
-                                    <FormFeedback>  {textError}</FormFeedback>
                                     <FormGroup>
                                         <Button type='submit' variant="outlined" color="primary">{res.DangNhap}</Button>
                                         <br/>

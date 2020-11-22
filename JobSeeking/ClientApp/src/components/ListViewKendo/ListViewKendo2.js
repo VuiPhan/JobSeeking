@@ -32,7 +32,7 @@ const MyItemRender = props => {
                     <CardTitle style={{ fontSize: 20,fontWeight:'bold' }}>
                         {item.jobsTitle}
                     </CardTitle>
-                    <CardSubtitle style={{ fontSize: 14, marginTop: 0 }}>
+                    <CardSubtitle style={{ fontSize: 14, marginTop: 0 ,fontWeight:'bold', fontStyle: 'italic'}}>
                         {item.companyName}
                     </CardSubtitle>
                     <CardSubtitle style={{ fontSize: 12 }}>
@@ -43,16 +43,22 @@ const MyItemRender = props => {
                     <Button onClick={()=>HandleRedirectPage(item.jobID)} 
                                 variant="outlined" color="secondary"
                               >Xem chi tiết</Button>
-                    <div style={{display:"inline",paddingLeft: 10}}><Button onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Thêm vào yêu thích</Button>
-                    </div>
+                    <div style={{display:"inline",paddingLeft: 10}}><Button onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Thêm vào yêu thích</Button></div>
+                    
                 </CardActions>
             </div>
+            <div>
             <CardImage src={`https://localhost:44351/Images/${item.imageLogo}`} style={{ width: 100, height: 100, maxWidth: 220 }} />
+            <h6 style={{textAlign:'center',marginTop:10}}>Ha Noi</h6>
+            <h6 style={{textAlign:'center',marginTop:10, fontStyle: 'italic'}}>20 ngày trước</h6>
+            </div>
+            
         </Card>
     )
 }
 function ListViewKendo2(props) {
     const {dataID} = props;
+    debugger;
     const [data, setData] = useState( [ {
         "Title": "How to design with love?",
         "Subtitle": "7 tips to fall in love with your job.",
@@ -71,10 +77,13 @@ function ListViewKendo2(props) {
     }
     useEffect(() => {
         async function fetchMyAPI() {
+            debugger;
           const result = await LoadJobsApi.getAll(dataID);
           setData(result);
         }
-        fetchMyAPI()
+        if(dataID){
+            fetchMyAPI();
+        }
       }, [dataID]);
      
     return (

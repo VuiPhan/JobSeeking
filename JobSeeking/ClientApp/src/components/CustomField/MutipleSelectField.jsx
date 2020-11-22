@@ -29,7 +29,7 @@ function MutipleSelectField(props) {
             setoptions(response);
         }
         fetchData();
-    }, [])
+    }, [ListName])
     const HandleSelectedOptionChange = (selectedOption) => {
         const selectedValue = selectedOption ?  selectedOption.map(e => e.value).join(",") : selectedOption;
         const changeEvent = {

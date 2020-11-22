@@ -65,8 +65,7 @@ export default function HomePage(props) {
                 feel with a solid groove structure.{" "}
               </p>
             </div>
-            {/* <ListViewKendo></ListViewKendo> */}
-            <ListViewKendo2 dataID = {0}></ListViewKendo2>
+            <ListViewKendo2 dataID = {-1}></ListViewKendo2>
           </div>
    
         </div>

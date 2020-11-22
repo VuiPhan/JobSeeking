@@ -1,12 +1,9 @@
 
 import { ListView, ListViewHeader } from '@progress/kendo-react-listview';
-import { Card, CardTitle, CardImage, CardSubtitle, CardActions } from '@progress/kendo-react-layout';
+import { Card, CardTitle } from '@progress/kendo-react-layout';
 import { Pager } from '@progress/kendo-react-data-tools';
-import { useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import LoadJobsApi from 'api/HomePageAPI';
 import Ratting from 'components/Rating/Rating';
-import CompanyAPI from 'api/Company/CompanyAPI';
 import { GetDataCommentRedux } from 'components/ListViewKendo/ListViewKendoSlice';
 import { useDispatch, useSelector } from 'react-redux';
 

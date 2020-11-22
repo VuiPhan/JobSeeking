@@ -3,7 +3,6 @@ import GridItem from 'components/Grid/GridItem';
 import React, { useEffect, useState } from 'react';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-import { Button } from 'reactstrap';
 import CommonAPI from 'api/System/CommonAPI';
 import Skeleton from 'react-loading-skeleton';
 function HeaderCompany(props) {

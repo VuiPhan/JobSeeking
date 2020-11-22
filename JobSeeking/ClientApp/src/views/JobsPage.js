@@ -22,6 +22,9 @@ import HeaderCompany from "components/HeaderCompany/HeaderCompany.js";
 import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
 import { useDispatch, useSelector } from 'react-redux';
 import { ChooseJob } from "components/ListViewKendo/ListViewKendo2Slice.js";
+import { confirmAlert } from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 const useStyles = makeStyles(styles);
 
 
@@ -58,6 +61,22 @@ export default function JobsPage(props) {
     fetchMyAPI();
    
   }, [jobID]);
+  const submitApply = () => {
+    confirmAlert({
+      title: 'Ứng tuyển',
+      message: 'Bạn sẽ gửi hồ sơ của bạn đến nhà tuyển dụng?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => alert('Click Yes')
+        },
+        {
+          label: 'No',
+          onClick: () => alert('Click No')
+        }
+      ]
+    });
+  };
   const HandleRedirectPage = (id) => {
     const linkRedired = `/Company/${id}`;
     history.push(linkRedired);
@@ -106,7 +125,7 @@ export default function JobsPage(props) {
 
                     {LoginInfo.role === "Recruiter" ?
                       <Button variant="outlined" color="secondary">Xem ứng viên</Button>
-                      : <div> <Button variant="outlined" color="secondary">Ứng tuyển ngay</Button>
+                      : <div> <Button variant="outlined" onClick={() => submitApply()} color="secondary">Ứng tuyển ngay</Button>
                       </div>
                     }
                     <span className="buttonCenterNotification">10</span>

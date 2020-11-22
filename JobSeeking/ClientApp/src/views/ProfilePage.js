@@ -38,10 +38,8 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-  const dispatch = useDispatch();
   const LoginInfo = useSelector(state => state.loginInfo);
   const JobKendo = useSelector(state => state.JobKendo);
-  const history = useHistory();
   const { CandidateCode } = useParams();
   var disableForm = false;
   if (CandidateCode) {
@@ -110,22 +108,22 @@ export default function ProfilePage(props) {
                     <h3 className={classes.title}><ClickEditInput disabled={disableForm} text={aliasName} onSetText={text => setAliasName(text)} /></h3>
                     <h6> <ClickEditInput disabled={disableForm} text={major} onSetText={text => setMajor(text)} /></h6>
                     <Tooltip title={data.facebook} interactive placement="top" TransitionComponent={Zoom}>
-                      <Button justIcon link className={classes.margin1} href={data.facebook} target="_blank">
+                      <Button justIcon link className={classes.margin1} href={data.facebook} target="_blank" rel="noopener noreferrer">
                         <FacebookIcon color="primary" fontSize="large" />
-                        <a href={data.facebook} target="_blank"></a>
+                        <a href={data.facebook} target="_blank" rel="noopener noreferrer"></a>
                       </Button>
                     </Tooltip>
                     <Tooltip title={data.linkin} interactive placement="top" TransitionComponent={Zoom}>
-                      <Button justIcon link className={classes.margin1} href={data.linkin} target="_blank">
+                      <Button justIcon link className={classes.margin1} href={data.linkin} target="_blank" rel="noopener noreferrer">
                         <LinkedInIcon color="primary" fontSize="large" />
-                        <a href={data.linkin} target="_blank"></a>
+                        <a href={data.linkin} target="_blank" rel="noopener noreferrer"></a>
                       </Button>
                     </Tooltip>
 
                     <Tooltip title={data.github} interactive placement="top" TransitionComponent={Zoom}>
-                      <Button justIcon link className={classes.margin1} href={data.github} target="_blank">
+                      <Button justIcon link className={classes.margin1} href={data.github} target="_blank" rel="noopener noreferrer">
                         <GitHubIcon style={{ fontSize: 40 }} />
-                        <a href={data.github} target="_blank"></a>
+                        <a href={data.github} target="_blank" rel="noopener noreferrer"></a>
                       </Button>
                     </Tooltip>
                   </div>

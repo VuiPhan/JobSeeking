@@ -6,15 +6,11 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
 import Footer from "components/Footer/Footer.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
 import styles from "assets/jss/material-kit-react/views/CompanyPage.js";
 import 'assets/css/TitleCompany.scss';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import 'assets/scss/view/CompanyPage.scss';
 import 'assets/scss/view/CompanyRegister.scss';
-import { Button, Collapse, FormGroup, Label } from "reactstrap";
+import { Button, FormGroup, Label } from "reactstrap";
 import { Formik, Form, FastField } from "formik";
 import InputField from "components/CustomField/InputField";
 import * as yup from 'yup';

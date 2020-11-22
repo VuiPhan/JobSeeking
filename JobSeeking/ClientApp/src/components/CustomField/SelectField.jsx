@@ -32,7 +32,7 @@ function SelectField(props) {
         }
         fetchData();
         
-    }, [])
+    }, [ListName])
     const HandleSelectedOptionChange = (selectedOption) => {
         
         const selectedValue = selectedOption ? selectedOption.value : selectedOption;
