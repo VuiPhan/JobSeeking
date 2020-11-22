@@ -15,8 +15,11 @@ function ClickEditInput(props) {
   const enter = useKeypress("Enter");
   const esc = useKeypress("Escape");
 
-  const { onSetText } = props;
-
+  const { onSetText,disabled } = props;
+  var isDisable ="";
+  if(disabled){
+    isDisable='disabled';
+  }
   // check to see if the user clicked outside of this component
   useOnClickOutside(wrapperRef, () => {
     if (isInputActive) {
@@ -82,6 +85,7 @@ function ClickEditInput(props) {
         ref={inputRef}
         // set the width to the input length multiplied by the x height
         // it's not quite right but gets it close
+        disabled={isDisable}
         style={{ minWidth: Math.ceil(inputValue.length) + "ch" }}
         value={inputValue}
         onChange={handleInputChange}

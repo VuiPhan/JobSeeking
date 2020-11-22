@@ -44,8 +44,8 @@ export default function ProfilePage(props) {
   const history = useHistory();
   const { CandidateCode } = useParams();
   var disableForm = false;
-  if(CandidateCode){
-      disableForm=true;
+  if (CandidateCode) {
+    disableForm = true;
   }
   const [data, setData] = useState({
     firstName: '',
@@ -54,42 +54,43 @@ export default function ProfilePage(props) {
     rePassword: '',
     email: '',
     birthDay: '2020-01-01',
-    birthDayString:'2020-01-01',
+    birthDayString: '2020-01-01',
     phoneNumber: '',
     gender: 1,
     academicLevel: 1,
-    selfIntroduce:'',
-    aliasesName:'',
-    titleJob:''
-});
-const [selfIntroduce, setselfIntroduce] = useState(data.selfIntroduce);
-const [aliasName, setAliasName] = useState("Bí danh của bạn");
-const [major, setMajor] = useState("Nghành nghề");
+    selfIntroduce: '',
+    aliasesName: '',
+    titleJob: ''
+  });
+  const [selfIntroduce, setselfIntroduce] = useState(data.selfIntroduce);
+  const [aliasName, setAliasName] = useState("Bí danh của bạn");
+  const [major, setMajor] = useState("Nghành nghề");
   useEffect(() => {
-    async function fetchDataView(){
-        
-        const result = await SeekerAPI.getByRecruiter(CandidateCode,JobKendo.jobID);
-        setData(result);
+    async function fetchDataView() {
+      const result = await SeekerAPI.getByRecruiter(CandidateCode, JobKendo.jobID);
+      setData(result);
+      setselfIntroduce(result.selfIntroduce);
+      setAliasName(result.aliasesName);
+      setMajor(result.titleJob);
     }
-    async function fetchData(){
-        const result = await SeekerAPI.get(LoginInfo.CadidateCode);
-        debugger;
-        setData(result[0]);
-        setselfIntroduce(result[0].selfIntroduce);
-        setAliasName(result[0].aliasesName);
-        setMajor(result[0].titleJob);
+    async function fetchData() {
+      const result = await SeekerAPI.get(LoginInfo.CadidateCode);
+      setData(result[0]);
+      setselfIntroduce(result[0].selfIntroduce);
+      setAliasName(result[0].aliasesName);
+      setMajor(result[0].titleJob);
     }
-    if(disableForm){
-        fetchDataView();
+    if (disableForm) {
+      fetchDataView();
     }
-    else{
-        fetchData();
+    if (disableForm == false && LoginInfo.CadidateCode) {
+      fetchData();
     }
-},[CandidateCode])
+  }, [CandidateCode, LoginInfo.CadidateCode])
 
 
   return (
-    
+
     <div>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
@@ -99,47 +100,47 @@ const [major, setMajor] = useState("Nghành nghề");
                 <div className={classes.profile}>
                   <div>
                     <img src={profile} alt="..." className={imageClasses} />
-                    <Tooltip  title="Mời bạn chọn hình đại diện" interactive placement="top" TransitionComponent={Zoom}>
-                    <LinkedCameraIcon style={{ fontSize: 40 }} />
+                    <Tooltip title="Mời bạn chọn hình đại diện" interactive placement="top" TransitionComponent={Zoom}>
+                      <LinkedCameraIcon style={{ fontSize: 40 }} />
                     </Tooltip>
 
 
                   </div>
                   <div className={classes.name}>
-                    <h3 className={classes.title}><ClickEditInput text={aliasName} onSetText={text => setAliasName(text)} /></h3>
-                    <h6> <ClickEditInput text={major} onSetText={text => setMajor(text)} /></h6>
-                    <Tooltip  title={data.facebook} interactive placement="top" TransitionComponent={Zoom}>
-                    <Button justIcon link className={classes.margin1} href={data.facebook}  target="_blank">
-                        <FacebookIcon  color="primary" fontSize="large"/>
-                        <a href={data.facebook}  target="_blank"></a>
-                    </Button>
+                    <h3 className={classes.title}><ClickEditInput disabled={disableForm} text={aliasName} onSetText={text => setAliasName(text)} /></h3>
+                    <h6> <ClickEditInput disabled={disableForm} text={major} onSetText={text => setMajor(text)} /></h6>
+                    <Tooltip title={data.facebook} interactive placement="top" TransitionComponent={Zoom}>
+                      <Button justIcon link className={classes.margin1} href={data.facebook} target="_blank">
+                        <FacebookIcon color="primary" fontSize="large" />
+                        <a href={data.facebook} target="_blank"></a>
+                      </Button>
                     </Tooltip>
-                    <Tooltip  title={data.linkin} interactive placement="top" TransitionComponent={Zoom}>
-                    <Button justIcon link className={classes.margin1} href={data.linkin} target="_blank">
-                    <LinkedInIcon  color="primary" fontSize="large"/>
+                    <Tooltip title={data.linkin} interactive placement="top" TransitionComponent={Zoom}>
+                      <Button justIcon link className={classes.margin1} href={data.linkin} target="_blank">
+                        <LinkedInIcon color="primary" fontSize="large" />
                         <a href={data.linkin} target="_blank"></a>
-                    </Button>
+                      </Button>
                     </Tooltip>
 
-                    <Tooltip  title={data.github} interactive placement="top" TransitionComponent={Zoom}>
-                    <Button justIcon link className={classes.margin1} href={data.github} target="_blank">
-                    <GitHubIcon style={{ fontSize: 40 }} />
+                    <Tooltip title={data.github} interactive placement="top" TransitionComponent={Zoom}>
+                      <Button justIcon link className={classes.margin1} href={data.github} target="_blank">
+                        <GitHubIcon style={{ fontSize: 40 }} />
                         <a href={data.github} target="_blank"></a>
-                    </Button>
+                      </Button>
                     </Tooltip>
                   </div>
                 </div>
               </GridItem>
             </GridContainer>
-            
+
             <div className={classes.description}>
               <p>
-              <ClickEditInput text={selfIntroduce} onSetText={text => setselfIntroduce(text)} />
+                <ClickEditInput disabled={disableForm} text={selfIntroduce} onSetText={text => setselfIntroduce(text)} />
               </p>
               <h2>
-          
-      </h2>
-            </div>  
+
+              </h2>
+            </div>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                 <NavPills
@@ -150,14 +151,14 @@ const [major, setMajor] = useState("Nghành nghề");
                       tabButton: "Thông tin cá nhân",
                       tabIcon: Camera,
                       tabContent: (
-                        <PersonalInformation disableForm = {disableForm} data={data}></PersonalInformation>
+                        <PersonalInformation disableForm={disableForm} data={data}></PersonalInformation>
                       )
                     },
                     {
                       tabButton: "Chuyên ngành đào tạo",
                       tabIcon: Palette,
                       tabContent: (
-                       
+
                         <Button></Button>
                       )
                     },

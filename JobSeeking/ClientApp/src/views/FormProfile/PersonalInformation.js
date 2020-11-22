@@ -12,11 +12,9 @@ import * as yup from 'yup';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginAPIRedux } from 'components/FormLogin/LoginSlice';
-import { useHistory, useParams } from 'react-router-dom';
 function PersonalInformation(props) {
     // Chi cho load lan dau
     const {disableForm,data} = props;
-    debugger;
     const res = handleGetJson("PersonPage");
     const resValidation = handleGetJson("Validation");
     const dispatch = useDispatch();
