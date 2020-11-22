@@ -95,6 +95,8 @@ export default function ProfilePage(props) {
   };
   const [valuesImage, setValuesImage] = useState(initialValuesImage);
   const [FaceBook, setFaceBook] = useState('');
+  const [GitHub, setGitHub] = useState('');
+  const [LinkIn, setLinkIn] = useState('');
   const showPreview = e => {
     if (e.target.files && e.target.files[0]) {
       let imageFile = e.target.files[0];
@@ -111,9 +113,14 @@ export default function ProfilePage(props) {
   }
   const SubmitDataFinal = async (values) => {
     const formData = new FormData();
-    
-    var x = FaceBook;
     debugger
+    formData.append('Facebook',FaceBook);
+    formData.append('Github', GitHub);
+    formData.append('Linkin',LinkIn);
+    formData.append('SelfIntroduce', selfIntroduce);
+    formData.append('AliasesName', aliasName);
+    formData.append('TitleJob', major);
+
     formData.append('LastName', values.lastName);
     formData.append('FirstName', values.firstName);
     formData.append('Password', values.password);
@@ -122,6 +129,8 @@ export default function ProfilePage(props) {
     formData.append('PhoneNumber', values.phoneNumber);
     formData.append('Gender', values.gender);
     formData.append('AcademicLevel', values.academicLevel);
+    formData.append('ImageFile', valuesImage.imageFile);
+    formData.append('ImageName', valuesImage.imageFile.name);
     let result = await SeekerAPI.post(formData);
     if (result.error === "") {
       let dataLogin = { Email: values.Email, Password: values.Password }
@@ -185,7 +194,7 @@ export default function ProfilePage(props) {
                       </Grid>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <LinkedInIcon color="primary" style={{ fontSize: 30 }} />
+                          <LinkedInIcon color="primary"  onChange={e => setLinkIn(e.target.value)} style={{ fontSize: 30 }} />
                         </Grid>
                         <Grid item>
                           <TextField id="input-with-icon-grid" label="LinkedIn" />
@@ -193,7 +202,7 @@ export default function ProfilePage(props) {
                       </Grid>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <GitHubIcon style={{ fontSize: 30 }} />
+                          <GitHubIcon  onChange={e => setGitHub(e.target.value)} style={{ fontSize: 30 }} />
                         </Grid>
                         <Grid item>
                           <TextField id="input-with-icon-grid" label="GitHub" />

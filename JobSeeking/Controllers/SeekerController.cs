@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using JobSeeking.Common;
 using JobSeeking.Models.Class;
 using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Authorization;
@@ -24,21 +26,26 @@ namespace JobSeeking.Controllers
     {
         private readonly JobSeekingContext _context;
         private IConfiguration _config;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public SeekerController(JobSeekingContext context, IConfiguration config)
+        public SeekerController(JobSeekingContext context, IConfiguration config, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _config = config;
+            this._hostEnvironment = hostEnvironment;
 
         }
         [HttpPost("Post")]
-        public async Task<object> RegisterSeeker([FromForm] FormJobSeeker formJobSeeker)
+        public async Task<object> RegisterSeeker([FromForm] FormJobSeekerAddUpdate formJobSeeker)
         {
-          //  string PathAvatar = await SaveImage(registerCompanyForm.ImageFile);
+        //    UploadImage uploadImage = new UploadImage();
+            string PathAvatar = await SaveImage(formJobSeeker.ImageFile);
 
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_Register" +
             " @LastName={0},@FirstName={1},@PassWord={2},@BirthDay={3}," +
-            "@PhoneNumber={4},@Gender={5},@AcademicLevel={6},@Email={7},@Facebook={8},@Linkin={9},@Github={10},@SelfIntroduce={11},@PathAvatar={12},@TitleJob={13},@AliasesName={14}",
+            "@PhoneNumber={4},@Gender={5},@AcademicLevel={6},@Email={7}," +
+            "@Facebook={8},@Linkin={9},@Github={10},@SelfIntroduce={11}," +
+            "@PathAvatar={12},@TitleJob={13},@AliasesName={14}",
             formJobSeeker.LastName,
             formJobSeeker.FirstName,
             formJobSeeker.Password,
@@ -46,7 +53,15 @@ namespace JobSeeking.Controllers
             formJobSeeker.PhoneNumber,
             formJobSeeker.Gender,
             formJobSeeker.AcademicLevel,
-            formJobSeeker.Email
+            formJobSeeker.Email,
+
+            formJobSeeker.Facebook,
+            formJobSeeker.Linkin,
+            formJobSeeker.Github,
+            formJobSeeker.SelfIntroduce,
+            PathAvatar,
+            formJobSeeker.TitleJob,
+            formJobSeeker.AliasesName
             );
             IActionResult response = Unauthorized();
             if (result > 1)
@@ -76,6 +91,18 @@ namespace JobSeeking.Controllers
             IList<Claim> claims = identity.Claims.ToList();
             var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomationByRecruiter {0},{1},{2}", CandidateCode, claims[4].Value,JobID).ToListAsync();
             return data.AsEnumerable().SingleOrDefault();
+        }
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+            return imageName;
         }
 
     }
