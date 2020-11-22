@@ -56,7 +56,6 @@ export default function MultipleSelect(props) {
   const [names, setNames] = useState([]);
   const fetchDataValueList = async (nameValueList) =>{
     try{
-      debugger;
        let responseUpdate = await LoadValueListApi.get(nameValueList);
        setNames(responseUpdate);
     }
@@ -75,7 +74,6 @@ export default function MultipleSelect(props) {
 
     setPersonName(names => event.target.value);
     ListSelect(event);
-    console.log('personName',personName);
   };
 
   const handleChangeMultiple = (event) => {
@@ -101,7 +99,6 @@ export default function MultipleSelect(props) {
           onChange={handleChange}
           input={<Input/>}
           // renderValue={(selected) => selected.join(', ')}
-          //console.log('selected',selected[0].Value)
           renderValue={(selected) =>  selected.map(item => item.Name).join(", ")}
           MenuProps={MenuProps}
         >

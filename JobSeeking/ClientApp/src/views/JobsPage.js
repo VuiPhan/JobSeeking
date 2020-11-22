@@ -45,7 +45,6 @@ export default function JobsPage(props) {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
       setData(result[0]);
-      debugger;
       if (LoginInfo.companyID == result[0].companyId) {
         const action = ChooseJob({jobID:jobID,IsAccess:true});
         var x = dispatch(action);

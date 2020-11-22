@@ -154,7 +154,6 @@ export default function ControlledBoard() {
     setBoard(updatedBoard);
   }
   const onCardClick2 = (cardId, metadata, laneId) =>{
-    debugger;
   }
 
 

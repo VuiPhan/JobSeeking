@@ -21,7 +21,6 @@ const MyItemRender = props => {
     var parse = require('html-react-parser');
     const history = useHistory();
     const HandleRedirectPage = (id) =>{
-        debugger;
         const linkRedired = `/Jobs/${id}`;
         history.push(linkRedired);
         window.scrollTo(0, 150);
@@ -52,7 +51,6 @@ const MyItemRender = props => {
 
 class ListViewKendo extends React.Component {
     constructor(props){
-        debugger;
         super();
         var dataArtical = [ {
             "Title": "How to design with love?",

@@ -6,7 +6,6 @@ const DataKendoJob = createSlice({
     reducers: {
          ChooseJob:(state, action) => {
             state = action.payload;
-            debugger;
             return state;
         },
     }

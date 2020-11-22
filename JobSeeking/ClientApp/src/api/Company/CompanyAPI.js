@@ -10,7 +10,6 @@ const CompanyAPI = {
         return axiosClient.get(url,data);
     },
     addReview: (data) => {
-        debugger;
         const url = `/Company/PostReview/`;
         return axiosClient.post(url,data);
     },

@@ -18,7 +18,6 @@ const DataKendoComment = createSlice({
     },
     extraReducers: {
         [GetDataCommentRedux.fulfilled]: (state, action) => {
-            debugger;
             state = action.payload;
             return state;
         },

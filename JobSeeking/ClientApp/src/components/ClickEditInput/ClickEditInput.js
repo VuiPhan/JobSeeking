@@ -31,6 +31,7 @@ function ClickEditInput(props) {
   const onEnter = useCallback(() => {
     if (enter) {
       onSetText(inputValue);
+      
       setIsInputActive(false);
     }
   }, [enter, inputValue, onSetText]);

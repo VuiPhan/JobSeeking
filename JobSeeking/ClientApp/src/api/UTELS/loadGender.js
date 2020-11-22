@@ -10,7 +10,6 @@ const loadGender = {
     },
     post:(data) =>{
         const url=`/Values/`;
-        console.log('data',data);
         return axiosClient.post(url,JSON.stringify(data));
     },
 }

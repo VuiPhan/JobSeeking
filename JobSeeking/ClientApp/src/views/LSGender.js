@@ -6,7 +6,6 @@ function LSGender(props) {
     const [genderList, setGenderList] = useState([]);
     const { ...rest } = props;
     const fetchGenderList = async () =>{
-        debugger;
         try{
            let responseUpdate = await loadGender.getAll();
            setGenderList(responseUpdate);

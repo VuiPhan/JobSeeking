@@ -18,7 +18,6 @@ export class ComboBoxList extends React.Component {
         let dataAPI = await LoadComboboxApi.get(this.state.ComboboxName);
         this.setState({data:dataAPI});
         allData =  dataAPI;
-        console.log("data",dataAPI);
     }
     state = {
         data: allData.slice()
@@ -27,8 +26,6 @@ export class ComboBoxList extends React.Component {
         this.setState({
             value: event.target.value
         });
-        console.log('this.setState.value',this.state.value); 
-        console.log('',); 
         this.state.handleChangeCombobox(event.target.value);
     }
     filterChange = (event) => {

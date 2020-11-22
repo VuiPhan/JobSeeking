@@ -10,7 +10,6 @@ class Example extends React.Component {
    }
   createNotification = (type) => {
     return () => {
-        debugger;
       switch (this.props.Type) {
         case 'info':
           NotificationManager.info(this.props.Message);

@@ -76,7 +76,6 @@ export default function PublishedRecruitment(props) {
     };
     const history = useHistory();
     const HandleSubmitData = (valuesForm) => {
-        debugger;
         const formData = new FormData();
         
         formData.append('Title', valuesForm.Title);

@@ -84,7 +84,6 @@ export default function AlertDialogSlide() {
             onSubmit={values => submitData(values)}>
             {FormikProps => {
               const { values, errors, touched } = FormikProps;
-              console.log('valuevalue',values);
               return (
                 <Form>
                   <h1>Để lại Review của bạn</h1>

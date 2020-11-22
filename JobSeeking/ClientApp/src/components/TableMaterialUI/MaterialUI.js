@@ -238,7 +238,6 @@ export default function EnhancedTable(props) {
     }
 
     setSelected(newSelected);
-    console.log('selected',selected);
   };
 
   const handleChangePage = (event, newPage) => {
