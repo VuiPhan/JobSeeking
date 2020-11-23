@@ -50,6 +50,8 @@ namespace JobSeeking.Models.Class
         public string ImageName { get; set; }
         public IFormFile ImageFile { get; set; }
 
+        public string CVName { get; set; }
+        public IFormFile CVFile { get; set; }
     }
     public class FormHeaderCompany
     {

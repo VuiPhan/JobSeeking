@@ -40,6 +40,7 @@ namespace JobSeeking.Controllers
         {
         //    UploadImage uploadImage = new UploadImage();
             string PathAvatar = await SaveImage(formJobSeeker.ImageFile);
+            string CV = await SaveImage(formJobSeeker.CVFile);
 
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_Register" +
             " @LastName={0},@FirstName={1},@PassWord={2},@BirthDay={3}," +

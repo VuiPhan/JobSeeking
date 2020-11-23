@@ -93,7 +93,6 @@ const HandleRedirectProfilePage = () =>{
     {LoginInfo.UserLoginDB}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogContent>
-          {/* <LoginForm2></LoginForm2> */}
           <Formik initialValues={initialValues}
                         validationSchema={validationShema}
                          onSubmit={values =>handleLogin(values)}>

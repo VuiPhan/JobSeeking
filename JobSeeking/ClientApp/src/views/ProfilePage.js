@@ -18,7 +18,7 @@ import profile from "../assets/img/faces/christian.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import PersonalInformation from "./FormProfile/PersonalInformation.js";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import SeekerAPI from "api/JobSeeker/SeekerAPI.js";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -28,6 +28,7 @@ import ClickEditInput from "components/ClickEditInput/ClickEditInput.js";
 import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 import { AccountCircle } from "@material-ui/icons";
 import { LoginAPIRedux } from "components/FormLogin/LoginSlice.js";
+import ConstCommon from "common/ConstInApp.js";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
@@ -49,6 +50,16 @@ export default function ProfilePage(props) {
     imageFile: null
   };
   const [valuesImage, setValuesImage] = useState(initialValuesImage);
+
+  const initialValuesCV = {
+    CVName: '',
+    CVFile: null
+  };
+  const [valuesCV, setValuesCV] = useState(initialValuesCV);
+
+
+
+
   const { CandidateCode } = useParams();
   var disableForm = false;
   if (CandidateCode) {
@@ -71,6 +82,9 @@ export default function ProfilePage(props) {
   const [selfIntroduce, setselfIntroduce] = useState('Hello');
   const [aliasName, setAliasName] = useState('Harry Pham');
   const [major, setMajor] = useState('Dev-OPS');
+  const [FaceBook, setFaceBook] = useState('');
+  const [GitHub, setGitHub] = useState('');
+  const [LinkIn, setLinkIn] = useState('');
   useEffect(() => {
     async function fetchDataView() {
       const result = await SeekerAPI.getByRecruiter(CandidateCode, JobKendo.jobID);
@@ -78,21 +92,32 @@ export default function ProfilePage(props) {
       setselfIntroduce(result.selfIntroduce);
       setAliasName(result.aliasesName);
       setMajor(result.titleJob);
+      setFaceBook(result.facebook);
+      setGitHub(result.github);
+      setLinkIn(result.linkin);
+      let initialValuesImage = {
+        imageName: '',
+        imageSrc: `${ConstCommon.LinkImage}${result.pathAvatar}`,
+        imageFile: null
+      };
+      setValuesImage(initialValuesImage);
     }
+
     async function fetchData() {
       const result = await SeekerAPI.get(LoginInfo.CadidateCode);
       setData(result[0]);
-
-      debugger;
       setselfIntroduce(result[0].selfIntroduce);
       let initialValuesImage = {
         imageName: '',
-        imageSrc: `https://localhost:44351/Images/${result[0].pathAvatar}`,
+        imageSrc: `${ConstCommon.LinkImage}${result[0].pathAvatar}`,
         imageFile: null
       };
       setValuesImage(initialValuesImage);
       setAliasName(result[0].aliasesName);
       setMajor(result[0].titleJob);
+      setFaceBook(result[0].facebook);
+      setGitHub(result[0].github);
+      setLinkIn(result[0].linkin);
     }
     if (disableForm) {
       fetchDataView();
@@ -102,9 +127,7 @@ export default function ProfilePage(props) {
     }
   }, [CandidateCode, LoginInfo.CadidateCode])
 
-  const [FaceBook, setFaceBook] = useState('');
-  const [GitHub, setGitHub] = useState('');
-  const [LinkIn, setLinkIn] = useState('');
+
   const showPreview = e => {
     if (e.target.files && e.target.files[0]) {
       let imageFile = e.target.files[0];
@@ -117,6 +140,21 @@ export default function ProfilePage(props) {
         })
       };
       reader.readAsDataURL(imageFile);
+    }
+  }
+  
+  const HandleCV = e => {
+    if (e.target.files && e.target.files[0]) {
+      let CVFile = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = x => {
+        setValuesCV({
+          ...valuesCV,
+          CVFile: CVFile,
+          CVSrc: x.target.result
+        })
+      };
+      reader.readAsDataURL(CVFile);
     }
   }
   const SubmitDataFinal = async (values) => {
@@ -139,6 +177,10 @@ export default function ProfilePage(props) {
     formData.append('AcademicLevel', values.academicLevel);
     formData.append('ImageFile', valuesImage.imageFile);
     formData.append('ImageName', valuesImage.imageFile.name);
+
+    debugger;
+    formData.append('CVFile', valuesCV.CVFile);
+    formData.append('CVName', valuesCV.CVFile.name);
     let result = await SeekerAPI.post(formData);
     if (result.error === "") {
       let dataLogin = { Email: values.email, Password: values.password }
@@ -167,13 +209,16 @@ export default function ProfilePage(props) {
                       onChange={showPreview}
                     />
                   </div>
+
+
                   <div className={classes.name}>
                     <h3 className={classes.title}><ClickEditInput disabled={disableForm} text={aliasName} placeholder="Bí danh của bạn" onSetText={text => setAliasName(text)} /></h3>
                     <h6> <ClickEditInput disabled={disableForm} text={major} onSetText={text => setMajor(text)} /></h6>
                     <Tooltip title={data.facebook} interactive placement="top" TransitionComponent={Zoom}>
                       <Button justIcon link className={classes.margin1} href={data.facebook} target="_blank" rel="noopener noreferrer">
                         <FacebookIcon color="primary" fontSize="large" />
-                        <a href={data.facebook} target="_blank" rel="noopener noreferrer"></a>
+                        {/* <a href={data.facebook} target="_blank" rel="noopener noreferrer"></a> */}
+                        
                       </Button>
                     </Tooltip>
                     <Tooltip title={data.linkin} interactive placement="top" TransitionComponent={Zoom}>
@@ -197,7 +242,7 @@ export default function ProfilePage(props) {
                           <FacebookIcon color="primary" style={{ fontSize: 30 }} />
                         </Grid>
                         <Grid item>
-                          <TextField id="input-with-icon-grid" onChange={e => setFaceBook(e.target.value)} label="Facebook" />
+                          <TextField id="input-with-icon-grid" value={FaceBook} onChange={e => setFaceBook(e.target.value)} label="Facebook" />
                         </Grid>
                       </Grid>
                       <Grid container spacing={1} alignItems="flex-end">
@@ -222,6 +267,26 @@ export default function ProfilePage(props) {
               </GridItem>
             </GridContainer>
 
+            <a href="http://localhost:44351/Images/20-K%E1%BB%B8-N%C4%82NG202246275.pdf" download>VuiVui</a>
+
+            <a href='http://localhost:44351/Images/Screenshot202506402.png' download target="_blank">Click to download</a>
+            <Link to="http://localhost:44351/Images/20-K%E1%BB%B8-N%C4%82NG202246275.pdf" target="_blank" download>Download</Link>
+            <label htmlFor="myInputCV" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
+                      <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />
+                    </label>
+                  <input
+                      id="myInputCV"
+                      style={{ display: 'none' }}
+                      type={"file"}
+                      onChange={HandleCV}
+                    />
+             
+
+
+
+
+
+
             <div className={classes.description}>
               <p>
                 <ClickEditInput disabled={disableForm} text={selfIntroduce} onSetText={text => setselfIntroduce(text)} />
@@ -230,6 +295,7 @@ export default function ProfilePage(props) {
               </h2>
             </div>
             <GridContainer justify="center">
+          
               <GridItem xs={12} sm={12} md={9} className={classes.navWrapper}>
                 <NavPills
                   alignCenter

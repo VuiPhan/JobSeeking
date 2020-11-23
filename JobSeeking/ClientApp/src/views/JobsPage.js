@@ -24,6 +24,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChooseJob } from "components/ListViewKendo/ListViewKendo2Slice.js";
 import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { MyToaStr2 } from "components/Toastr/Toastr2.js";
+import MyToastr from "components/Toastr/Toastr.js";
 
 const useStyles = makeStyles(styles);
 
@@ -71,6 +73,8 @@ export default function JobsPage(props) {
           label: 'Yes',
           onClick:async () => {
             await JobsApi.postApply(jobID);
+              MyToaStr2('Bạn đã ứng tuyển thành công. Hãy chờ thông tin từ nhà tuyển dụng!');
+              return;
           }
         },
         {
@@ -87,7 +91,7 @@ export default function JobsPage(props) {
   }
   return (
     <div>
-
+      <MyToastr></MyToastr>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>

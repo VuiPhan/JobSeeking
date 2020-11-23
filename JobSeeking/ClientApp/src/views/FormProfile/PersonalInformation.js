@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { TextField, Collapse, Button } from '@material-ui/core'
+import React from 'react'
+import { Button } from '@material-ui/core'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Col, Row, Form } from 'react-bootstrap';
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,16 +9,16 @@ import { FastField, Formik, Form as FormFormik } from 'formik';
 import InputField from 'components/CustomField/InputField';
 import SelectField from 'components/CustomField/SelectField';
 import * as yup from 'yup';
-import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { useDispatch, useSelector } from 'react-redux';
-import { LoginAPIRedux } from 'components/FormLogin/LoginSlice';
 function PersonalInformation(props) {
     // Chi cho load lan dau
     const {disableForm,data,SubmitDataFinal} = props;
+    debugger;
     const res = handleGetJson("PersonPage");
     const resValidation = handleGetJson("Validation");
-    const dispatch = useDispatch();
-    
+    const LoginInfo = useSelector(state => state.loginInfo);
+    const isAddMode = !LoginInfo.CadidateCode ? true : false;
+    const isView = !LoginInfo.companyID ? true : false;
 
    
     const validationShema = yup.object().shape({
@@ -42,7 +42,7 @@ function PersonalInformation(props) {
     return (
         <div>
             <Formik initialValues={data}
-                validationSchema={validationShema}
+                // validationSchema={validationShema}
                 onSubmit={values => SubmitDataFinal(values)}
                 enableReinitialize>
                 {FormikProps => {
@@ -169,7 +169,8 @@ function PersonalInformation(props) {
                                         ListName="GioiTinh" />
                                 </Col>
                             </Form.Group>
-                            <Button type="submit" variant="outlined" color="secondary">{res.TaoTaiKhoan}</Button>
+                            {/* {isView ? <Button type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button>:null} */}
+                            <Button type="submit" variant="outlined" color="secondary">Tạo</Button>
                         </FormFormik>
                     )
                 }}
