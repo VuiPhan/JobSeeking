@@ -87,7 +87,7 @@ function ClickEditInput(props) {
         // set the width to the input length multiplied by the x height
         // it's not quite right but gets it close
         disabled={isDisable}
-        style={{ minWidth: Math.ceil(inputValue.length) + "ch" }}
+        // style={{ minWidth: Math.ceil(inputValue.length) + "ch" }}
         value={inputValue}
         onChange={handleInputChange}
         className={`inline-text_input inline-text_input--${

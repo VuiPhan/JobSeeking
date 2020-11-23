@@ -18,15 +18,14 @@ namespace JobSeeking.Models.Class
         public int Gender { get; set; }
         public int AcademicLevel { get; set; }
 
-        //public string Facebook { get; set; }
-        //public string Linkin { get; set; }
-        //public string Github { get; set; }
-        //public string SelfIntroduce { get; set; }
-        //public string PathAvatar { get; set; }
-        //public string TitleJob { get; set; }
-        //public string AliasesName { get; set; }
-        //public string ImageName { get; set; }
-        //public IFormFile ImageFile { get; set; }
+        public string Facebook { get; set; }
+        public string Linkin { get; set; }
+        public string Github { get; set; }
+        public string SelfIntroduce { get; set; }
+        public string PathAvatar { get; set; }
+        public string TitleJob { get; set; }
+        public string AliasesName { get; set; }
+
 
     }
     public class FormJobSeekerAddUpdate

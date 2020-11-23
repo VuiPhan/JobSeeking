@@ -43,6 +43,12 @@ export default function ProfilePage(props) {
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   const LoginInfo = useSelector(state => state.loginInfo);
   const JobKendo = useSelector(state => state.JobKendo);
+  const initialValuesImage = {
+    imageName: '',
+    imageSrc: profile,
+    imageFile: null
+  };
+  const [valuesImage, setValuesImage] = useState(initialValuesImage);
   const { CandidateCode } = useParams();
   var disableForm = false;
   if (CandidateCode) {
@@ -54,7 +60,6 @@ export default function ProfilePage(props) {
     password: '',
     rePassword: '',
     email: '',
-    birthDay: '2020-01-01',
     birthDayString: '2020-01-01',
     phoneNumber: '',
     gender: 1,
@@ -63,9 +68,9 @@ export default function ProfilePage(props) {
     aliasesName: '',
     titleJob: ''
   });
-  const [selfIntroduce, setselfIntroduce] = useState(data.selfIntroduce);
-  const [aliasName, setAliasName] = useState("Bí danh của bạn");
-  const [major, setMajor] = useState("Nghành nghề");
+  const [selfIntroduce, setselfIntroduce] = useState('Hello');
+  const [aliasName, setAliasName] = useState('Harry Pham');
+  const [major, setMajor] = useState('Dev-OPS');
   useEffect(() => {
     async function fetchDataView() {
       const result = await SeekerAPI.getByRecruiter(CandidateCode, JobKendo.jobID);
@@ -77,7 +82,15 @@ export default function ProfilePage(props) {
     async function fetchData() {
       const result = await SeekerAPI.get(LoginInfo.CadidateCode);
       setData(result[0]);
+
+      debugger;
       setselfIntroduce(result[0].selfIntroduce);
+      let initialValuesImage = {
+        imageName: '',
+        imageSrc: `https://localhost:44351/Images/${result[0].pathAvatar}`,
+        imageFile: null
+      };
+      setValuesImage(initialValuesImage);
       setAliasName(result[0].aliasesName);
       setMajor(result[0].titleJob);
     }
@@ -88,12 +101,7 @@ export default function ProfilePage(props) {
       fetchData();
     }
   }, [CandidateCode, LoginInfo.CadidateCode])
-  const initialValuesImage = {
-    imageName: '',
-    imageSrc: profile,
-    imageFile: null
-  };
-  const [valuesImage, setValuesImage] = useState(initialValuesImage);
+
   const [FaceBook, setFaceBook] = useState('');
   const [GitHub, setGitHub] = useState('');
   const [LinkIn, setLinkIn] = useState('');
@@ -125,7 +133,7 @@ export default function ProfilePage(props) {
     formData.append('FirstName', values.firstName);
     formData.append('Password', values.password);
     formData.append('Email', values.email);
-    formData.append('BirthDay', values.birthDay);
+    formData.append('BirthDay', values.birthDayString);
     formData.append('PhoneNumber', values.phoneNumber);
     formData.append('Gender', values.gender);
     formData.append('AcademicLevel', values.academicLevel);
@@ -133,7 +141,7 @@ export default function ProfilePage(props) {
     formData.append('ImageName', valuesImage.imageFile.name);
     let result = await SeekerAPI.post(formData);
     if (result.error === "") {
-      let dataLogin = { Email: values.Email, Password: values.Password }
+      let dataLogin = { Email: values.email, Password: values.password }
       const action = LoginAPIRedux(dataLogin);
       dispatch(action);
     }
@@ -160,7 +168,7 @@ export default function ProfilePage(props) {
                     />
                   </div>
                   <div className={classes.name}>
-                    <h3 className={classes.title}><ClickEditInput disabled={disableForm} text={aliasName} onSetText={text => setAliasName(text)} /></h3>
+                    <h3 className={classes.title}><ClickEditInput disabled={disableForm} text={aliasName} placeholder="Bí danh của bạn" onSetText={text => setAliasName(text)} /></h3>
                     <h6> <ClickEditInput disabled={disableForm} text={major} onSetText={text => setMajor(text)} /></h6>
                     <Tooltip title={data.facebook} interactive placement="top" TransitionComponent={Zoom}>
                       <Button justIcon link className={classes.margin1} href={data.facebook} target="_blank" rel="noopener noreferrer">
