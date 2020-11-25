@@ -14,9 +14,8 @@ namespace JobSeeking.Controllers
         [HttpGet]
         public async Task<IActionResult> Download()
         {
-            var path = @"https://cdn.itviec.com/photos/39011/jd_photo_thumbnail/jd_photo_thumbnail-1537273.jpg?TKHL8117CQAD1rE2g5Gp8G5J";
-            string variableName = "Trọn bộ EBOOK ĐỘC QUYỀN 2020.pdf";
-            string source_dir = String.Format("D:\\{0}", variableName);
+            string variableName = "Screenshot201807318.png";
+            string source_dir = String.Format("E:\\Nam4HKI\\ProjectFinal\\JobSeeking\\JobSeeking\\Images\\{0}", variableName);
             var memory = new MemoryStream();
             using (var stream = new FileStream(source_dir, FileMode.Open))
             {
@@ -27,7 +26,7 @@ namespace JobSeeking.Controllers
             var ext = Path.GetExtension(source_dir).ToLowerInvariant();
             return File(memory, GetMineTypes()[ext], Path.GetFileName(source_dir));
         }
-        private Dictionary<string,string> GetMineTypes()
+        private Dictionary<string, string> GetMineTypes()
         {
             return new Dictionary<string, string>
             {
@@ -38,6 +37,6 @@ namespace JobSeeking.Controllers
             };
         }
     }
-    
+
 
 }

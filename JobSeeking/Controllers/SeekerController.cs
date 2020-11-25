@@ -40,8 +40,6 @@ namespace JobSeeking.Controllers
         {
         //    UploadImage uploadImage = new UploadImage();
             string PathAvatar = await SaveImage(formJobSeeker.ImageFile);
-            string CV = await SaveImage(formJobSeeker.CVFile);
-
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_Register" +
             " @LastName={0},@FirstName={1},@PassWord={2},@BirthDay={3}," +
             "@PhoneNumber={4},@Gender={5},@AcademicLevel={6},@Email={7}," +
@@ -83,7 +81,17 @@ namespace JobSeeking.Controllers
             var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", claims[5].Value).ToListAsync();
             return data;
         }
-
+        [HttpGet("SubmitCV")]
+        [Authorize(Policy = Policies.User)]
+        //[Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> SubmitCV([FromForm] SubmitCVSeeker formJobSeeker)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            //var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", claims[5].Value).ToListAsync();
+            return new object { };
+            
+        }
         [HttpGet("GetViewSeekerBy")]
         [Authorize(Policy = Policies.Recruiter)]
         public async Task<object> ViewSeekerByCandidateCode(int CandidateCode, int JobID)

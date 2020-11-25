@@ -65,6 +65,11 @@ export default function JobsPage(props) {
    
   }, [jobID]);
   const  submitApply =  () => {
+    debugger;
+    if(!LoginInfo.CadidateCode){
+      MyToaStr2('Bạn hãy đăng nhập để sử dụng tính năng này!');
+      return;
+    }
     confirmAlert({
       title: 'Ứng tuyển',
       message: 'Bạn sẽ gửi hồ sơ của bạn đến nhà tuyển dụng?',
@@ -79,7 +84,7 @@ export default function JobsPage(props) {
         },
         {
           label: 'No',
-          onClick: () => alert('Click No')
+          onClick: () => {}
         }
       ]
     });
@@ -128,15 +133,12 @@ export default function JobsPage(props) {
                   <p className="detail_side_content"> 5 ngày trước</p>
                 </div>
                 <div className="CenterButton">
-                  <div className="buttonCenter">
-
                     {LoginInfo.role === "Recruiter" ?
-                      <Button variant="outlined" color="secondary">Xem ứng viên</Button>
-                      : <div> <Button variant="outlined" onClick={() => submitApply()} color="secondary">Ứng tuyển ngay</Button>
+                        null
+                      : <div className="buttonCenter"> <Button variant="outlined" onClick={() => submitApply()} color="secondary">Ứng tuyển ngay</Button>
                       </div>
                     }
-                    <span className="buttonCenterNotification">10</span>
-                  </div>
+                    {/* <span className="buttonCenterNotification">10</span> */}
                   <div className="buttonCenter">
                     <Button onClick={() => HandleRedirectPage(data.companyId)} variant="outlined" color="primary">Về chúng tôi</Button>
 

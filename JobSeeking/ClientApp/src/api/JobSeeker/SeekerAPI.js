@@ -13,5 +13,13 @@ const SeekerAPI = {
         const url = `/Seeker/GetViewSeekerBy?CandidateCode=${data}&JobID=${JobID}`;
         return axiosClient.get(url);
     },
+    downloadCV: () => {
+        const url = `/Download`;
+        return axiosClient.get(url);
+    },
+    submitCV: () => {
+        const url = `/Download`;
+        return axiosClient.post(url);
+    },
 }
 export default SeekerAPI;

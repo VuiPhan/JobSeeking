@@ -26,5 +26,7 @@ namespace JobSeeking.Models.Class
         public string DateApply { get; set; }
         public string FullNameCandidate { get; set; }
         public string Major { get; set; }
+        public string PathAvatar { get; set; }
+
     }
 }

@@ -1,3 +1,4 @@
+import { Tooltip, Zoom } from "@material-ui/core";
 import ListViewCandidate from "components/ListViewCandidate/ListViewCandidate";
 import React, { Component } from "react";
 import './styleShowCadidate.scss';
@@ -28,13 +29,15 @@ export default class ShowCadidate extends Component {
   }
   render() {
     return (
-      <div className="ContainerMenu">
+      <div className="ContainerMenu" >
+        <Tooltip title="XEM HỒ SƠ ỨNG VIÊN" interactive placement="top" TransitionComponent={Zoom}>
         <div className={this.state.condition ? "hamburger inactive" : "hamburger active"}>
           <div onClick={this.onButtonClick}>
             <Hamburger />
           </div>
           <Menu />
         </div>
+        </Tooltip>
       </div>
     );
   }

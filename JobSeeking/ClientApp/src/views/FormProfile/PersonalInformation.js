@@ -169,8 +169,8 @@ function PersonalInformation(props) {
                                         ListName="GioiTinh" />
                                 </Col>
                             </Form.Group>
-                            {/* {isView ? <Button type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button>:null} */}
-                            <Button type="submit" variant="outlined" color="secondary">Tạo</Button>
+                            {isView ? <Button type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button>:null}
+                            {/* <Button type="submit" variant="outlined" color="secondary">Tạo</Button> */}
                         </FormFormik>
                     )
                 }}

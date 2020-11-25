@@ -18,7 +18,7 @@ import profile from "../assets/img/faces/christian.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import PersonalInformation from "./FormProfile/PersonalInformation.js";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import SeekerAPI from "api/JobSeeker/SeekerAPI.js";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -26,14 +26,15 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import { Grid, TextField, Tooltip, Zoom } from "@material-ui/core";
 import ClickEditInput from "components/ClickEditInput/ClickEditInput.js";
 import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
-import { AccountCircle } from "@material-ui/icons";
 import { LoginAPIRedux } from "components/FormLogin/LoginSlice.js";
 import ConstCommon from "common/ConstInApp.js";
+import CVPage from "./FormProfile/CVPage.js";
+import { MyToaStr2 } from "components/Toastr/Toastr2.js";
+import MyToastr from "components/Toastr/Toastr.js";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
   const classes = useStyles();
-  //LoadLanguageForPage();
   const { ...rest } = props;
   const imageClasses = classNames(
     classes.imgRaised,
@@ -50,16 +51,10 @@ export default function ProfilePage(props) {
     imageFile: null
   };
   const [valuesImage, setValuesImage] = useState(initialValuesImage);
-
   const initialValuesCV = {
     CVName: '',
     CVFile: null
   };
-  const [valuesCV, setValuesCV] = useState(initialValuesCV);
-
-
-
-
   const { CandidateCode } = useParams();
   var disableForm = false;
   if (CandidateCode) {
@@ -143,23 +138,9 @@ export default function ProfilePage(props) {
     }
   }
   
-  const HandleCV = e => {
-    if (e.target.files && e.target.files[0]) {
-      let CVFile = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = x => {
-        setValuesCV({
-          ...valuesCV,
-          CVFile: CVFile,
-          CVSrc: x.target.result
-        })
-      };
-      reader.readAsDataURL(CVFile);
-    }
-  }
+ 
   const SubmitDataFinal = async (values) => {
     const formData = new FormData();
-    debugger
     formData.append('Facebook',FaceBook);
     formData.append('Github', GitHub);
     formData.append('Linkin',LinkIn);
@@ -177,12 +158,9 @@ export default function ProfilePage(props) {
     formData.append('AcademicLevel', values.academicLevel);
     formData.append('ImageFile', valuesImage.imageFile);
     formData.append('ImageName', valuesImage.imageFile.name);
-
-    debugger;
-    formData.append('CVFile', valuesCV.CVFile);
-    formData.append('CVName', valuesCV.CVFile.name);
     let result = await SeekerAPI.post(formData);
     if (result.error === "") {
+      MyToaStr2('Tạo tài khoản thành công! Hãy đến bước tiếp theo');
       let dataLogin = { Email: values.email, Password: values.password }
       const action = LoginAPIRedux(dataLogin);
       dispatch(action);
@@ -190,6 +168,7 @@ export default function ProfilePage(props) {
   }
   return (
     <div>
+      <MyToastr></MyToastr>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
@@ -197,7 +176,7 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={9}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={valuesImage.imageSrc} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
+                    <img src={valuesImage.imageSrc?valuesImage.imageSrc:profile} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
 
                     <label htmlFor="myInput" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
                       <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />
@@ -217,8 +196,6 @@ export default function ProfilePage(props) {
                     <Tooltip title={data.facebook} interactive placement="top" TransitionComponent={Zoom}>
                       <Button justIcon link className={classes.margin1} href={data.facebook} target="_blank" rel="noopener noreferrer">
                         <FacebookIcon color="primary" fontSize="large" />
-                        {/* <a href={data.facebook} target="_blank" rel="noopener noreferrer"></a> */}
-                        
                       </Button>
                     </Tooltip>
                     <Tooltip title={data.linkin} interactive placement="top" TransitionComponent={Zoom}>
@@ -266,27 +243,6 @@ export default function ProfilePage(props) {
                 </div>
               </GridItem>
             </GridContainer>
-
-            <a href="http://localhost:44351/Images/20-K%E1%BB%B8-N%C4%82NG202246275.pdf" download>VuiVui</a>
-
-            <a href='http://localhost:44351/Images/Screenshot202506402.png' download target="_blank">Click to download</a>
-            <Link to="http://localhost:44351/Images/20-K%E1%BB%B8-N%C4%82NG202246275.pdf" target="_blank" download>Download</Link>
-            <label htmlFor="myInputCV" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
-                      <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />
-                    </label>
-                  <input
-                      id="myInputCV"
-                      style={{ display: 'none' }}
-                      type={"file"}
-                      onChange={HandleCV}
-                    />
-             
-
-
-
-
-
-
             <div className={classes.description}>
               <p>
                 <ClickEditInput disabled={disableForm} text={selfIntroduce} onSetText={text => setselfIntroduce(text)} />
@@ -328,6 +284,13 @@ export default function ProfilePage(props) {
                       tabIcon: Favorite,
                       tabContent: (
                         <Button></Button>
+                      )
+                    },
+                    {
+                      tabButton: "CV",
+                      tabIcon: Favorite,
+                      tabContent: (
+                        <CVPage></CVPage>
                       )
                     }
                   ]}

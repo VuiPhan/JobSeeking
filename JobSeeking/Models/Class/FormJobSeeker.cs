@@ -53,7 +53,13 @@ namespace JobSeeking.Models.Class
         public string CVName { get; set; }
         public IFormFile CVFile { get; set; }
     }
-    public class FormHeaderCompany
+    public class SubmitCVSeeker
+    {
+        public string CVName { get; set; }
+        public IFormFile CVFile { get; set; }
+    }
+    
+        public class FormHeaderCompany
     {
         public int CompanyID { get; set; }
         public string CompanyName { get; set; }
