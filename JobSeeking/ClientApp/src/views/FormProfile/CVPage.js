@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
-import { Button } from 'reactstrap';
+import { Button } from '@material-ui/core';
+import OpenForm from 'views/Forms/OpenForm';
+import CVAddForm from 'views/Forms/CVAddForm';
 
 function CVPage() {
     
@@ -29,23 +31,12 @@ function CVPage() {
     const formData = new FormData();
         formData.append('CVFile', valuesCV.CVFile);
         formData.append('CVName', valuesCV.CVFile.name);
-        let result = await SeekerAPI.post(formData);
+        let result = await SeekerAPI.submitCV(formData);
       }
     return (
         <div>
-            <a href='https://localhost:44351/api/Download' download target="_blank">Click to download</a>
-
-
-            <label htmlFor="myInputCV" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
-                <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />
-            </label>
-            <input
-                id="myInputCV"
-                style={{ display: 'none' }}
-                type={"file"}
-                onChange={HandleCV}
-            />
-            <Button type="submit" variant="outlined" color="secondary" onClick={()=>{}}>Thêm mới CV</Button>
+          
+            <OpenForm ComponentForm={CVAddForm}></OpenForm>
         </div>
     )
 }

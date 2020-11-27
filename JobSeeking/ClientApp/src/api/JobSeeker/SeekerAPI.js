@@ -17,9 +17,10 @@ const SeekerAPI = {
         const url = `/Download`;
         return axiosClient.get(url);
     },
-    submitCV: () => {
-        const url = `/Download`;
-        return axiosClient.post(url);
+    submitCV: (data) => {
+        debugger;
+        const url = `/UploadAndDownload/UploadCV`;
+        return axiosClient.post(url,data);
     },
 }
 export default SeekerAPI;

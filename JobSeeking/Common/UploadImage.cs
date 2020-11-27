@@ -12,7 +12,7 @@ namespace JobSeeking.Common
     public class UploadImage
     {
         private readonly IWebHostEnvironment _hostEnvironment;
-        public UploadImage(IWebHostEnvironment hostEnvironment = null)
+        public UploadImage(IWebHostEnvironment hostEnvironment)
         {
             this._hostEnvironment = hostEnvironment;
         }
