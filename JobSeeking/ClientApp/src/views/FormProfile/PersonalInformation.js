@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 function PersonalInformation(props) {
     // Chi cho load lan dau
     const {disableForm,data,SubmitDataFinal} = props;
-    debugger;
     const res = handleGetJson("PersonPage");
     const resValidation = handleGetJson("Validation");
     const LoginInfo = useSelector(state => state.loginInfo);

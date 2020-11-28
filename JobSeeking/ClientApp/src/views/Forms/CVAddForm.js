@@ -8,57 +8,39 @@ import { Form } from "formik";
 import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 import PresentToAllIcon from '@material-ui/icons/PresentToAll';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
-
-
 function CVAddForm(props) {
-    const { isOpen, handleClose } = props;
-    const initialValuesCV = {
-        CVName: 'Mời bạn chọn CV',
-        CVType: 1,
-        CVFile: null
-    };
-    const [valuesCV, setValuesCV] = useState(initialValuesCV);
-    const HandleCV = e => {
-        if (e.target.files && e.target.files[0]) {
-            let CVFile = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = x => {
-
-                setValuesCV({
-                    ...valuesCV,
-                    CVFile: CVFile,
-                    CVSrc: x.target.result,
-                    CVName: CVFile.name
-                })
-            };
-            reader.readAsDataURL(CVFile);
-        }
-    }
+    const { isOpen, handleClose,initialValuesCV,HandleCV,refreshData } = props;
     const SubmitCV = async (values) => {
+        debugger;
         const formData = new FormData();
-        formData.append('CVFile', valuesCV.CVFile);
-        formData.append('CVName', valuesCV.CVFile.name);
+        formData.append('CVFile', initialValuesCV.CVFile);
+        formData.append('CVName', initialValuesCV.CVFile.name);
+        formData.append('JobTitleID', values.jobTitleID);
+        formData.append('Description', values.description);
         let result = await SeekerAPI.submitCV(formData);
+        refreshData();
     }
+    const LinkDownLoad = `https://localhost:44351/api/UploadAndDownload?FileName=${initialValuesCV.pathCV}`;
     return (
         <div >
             <Dialog open={isOpen} onClose={handleClose} aria-labelledby="form-dialog-title" >
                 <DialogContent >
                     <Formik initialValues={initialValuesCV}
                         // validationSchema={validationShema} 
-                        onSubmit={values => SubmitCV(values)}>
+                        onSubmit={values => SubmitCV(values)}
+                        enableReinitialize>
                         {FormikProps => {
                             return (
                                 <Form >
                                     <FastField
-                                        name="CVType"
+                                        name="jobTitleID"
                                         component={SelectField}
                                         label="Chức danh công việc"
                                         placeholder=""
                                         ListName="HinhThucLamViec"
                                     />
                                     <h3>CV của bạn</h3>
-                                    {/* <a href='https://localhost:44351/api/Download' download target="_blank">Click to download</a> */}
+                                    <a href={LinkDownLoad} download target="_blank">Click to download</a>
                                     <div style={{ display: 'flex' }}>
 
                                         <label htmlFor="myInputCV" style={{ color: 'black' }}>
@@ -71,7 +53,7 @@ function CVAddForm(props) {
                                             type={"file"}
                                             onChange={HandleCV}
                                         />
-                                        <p style={{ paddingLeft: 20 }}>{valuesCV.CVName}</p>
+                                        <p style={{ paddingLeft: 20 }}>{initialValuesCV.pathCV}</p>
                                     </div>
                                     <FormGroup>
                                         <Button type='submit' variant="outlined" color="secondary">Lưu thông tin CV</Button>
@@ -79,6 +61,7 @@ function CVAddForm(props) {
                                     <FormGroup>
                                         <Button variant="outlined" color="secondary" onClick={handleClose}>Đóng</Button>
                                     </FormGroup>
+                                    
                                 </Form>
                             )
                         }}

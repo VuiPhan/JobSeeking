@@ -13,7 +13,18 @@ namespace JobSeeking.Models.Class
     }
     public class UpLoadCV
     {
+        public int JobTitleID { get; set; }
         public string CVName { get; set; }
+        public string Description { get; set; }
         public IFormFile CVFile { get; set; }
+    }
+    public class ListCVOfCandidate
+    {
+        public int RecID { get; set; }
+        public int CandidateCode { get; set; }
+        public int JobTitleID { get; set; }
+        public string Description { get; set; }
+        public string PathCV { get; set; }
+        public string JobTitleName { get; set; }
     }
 }

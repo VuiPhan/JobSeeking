@@ -81,15 +81,15 @@ namespace JobSeeking.Controllers
             var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", claims[5].Value).ToListAsync();
             return data;
         }
-        [HttpGet("SubmitCV")]
+        [HttpGet("GetListCV")]
         [Authorize(Policy = Policies.User)]
         //[Authorize(Policy = Policies.Recruiter)]
-        public async Task<object> SubmitCV([FromForm] SubmitCVSeeker formJobSeeker)
+        public async Task<object> GetListCV()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            //var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", claims[5].Value).ToListAsync();
-            return new object { };
+            var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0}", claims[5].Value).ToListAsync();
+            return data;
             
         }
         [HttpGet("GetViewSeekerBy")]
