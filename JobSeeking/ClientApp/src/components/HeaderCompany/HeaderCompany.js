@@ -5,6 +5,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import CommonAPI from 'api/System/CommonAPI';
 import Skeleton from 'react-loading-skeleton';
+import ConstCommon from 'common/ConstInApp';
 function HeaderCompany(props) {
     const {CompanyID,IsCompany} = props;
     const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
@@ -20,7 +21,7 @@ function HeaderCompany(props) {
             <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={12}>
                     <div className="containerTitle">
-                        <img src={`https://localhost:44351/Images/${data.imageLogo}`} alt="..." />
+                        <img src={`${ConstCommon.LinkImage}${data.imageLogo}`} alt="..." />
                         <div>
                             <h1 className="CompanyNameTitle">{data.companyName|| <Skeleton />}</h1>
                             <h5><LocationOnIcon></LocationOnIcon> {data.companyAddress}</h5>

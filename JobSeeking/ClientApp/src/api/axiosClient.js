@@ -1,14 +1,16 @@
 // api/axiosClient.js
 import axios from 'axios';
+import ConstCommon from 'common/ConstInApp';
 import queryString from 'query-string';
 // Set up default config for http requests here
 
 // Please have a look at here `https://github.com/axios/axios#request-
 var token = localStorage.getItem('token');
+
 //https://localhost:44351/
 //https://jobseeking.conveyor.cloud/
 const axiosClient = axios.create({
-    baseURL: 'https://localhost:44351/api/',
+    baseURL: ConstCommon.LinkConnectAPILocal,
     headers: {
         'content-type': 'application/json',
         Authorization: `Bearer ${token}`

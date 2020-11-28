@@ -28,5 +28,12 @@ namespace JobSeeking.Controllers
             data = await _context.ValueLists.FromSqlRaw("EXEC dbo.spUTE_GetValueList {0},{1}", nameValuelist, "VN").ToListAsync();
             return data;
         }
+        [HttpGet("GetCombobox")]
+        public async Task<Object> GetCombobox(string nameCombobox)
+        {
+            List<ValueList> data = new List<ValueList>();
+            data = await _context.ValueLists.FromSqlRaw("EXEC dbo.spUTE_GetCombobox {0},{1}", nameCombobox, "VN").ToListAsync();
+            return data;
+        }
     }
 }

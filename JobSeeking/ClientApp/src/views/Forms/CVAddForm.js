@@ -9,6 +9,8 @@ import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 import PresentToAllIcon from '@material-ui/icons/PresentToAll';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { MyToaStr3 } from 'components/Toastr/Toastr2';
+import ConstCommon from 'common/ConstInApp';
+import ComboboxField from 'components/CustomField/ComboboxField';
 function CVAddForm(props) {
     const { isOpen, handleClose,FClose,initialValuesCV,HandleCV,refreshData } = props;
     const SubmitCV = async (values) => {
@@ -23,7 +25,8 @@ function CVAddForm(props) {
         refreshData();
         FClose(!isOpen);
     }
-    const LinkDownLoad = `https://localhost:44351/api/UploadAndDownload?FileName=${initialValuesCV.pathCV}`;
+    
+    const LinkDownLoad = `${ConstCommon.LinkConnectAPILocal}UploadAndDownload?FileName=${initialValuesCV.pathCV}`;
     return (
         <div >
             <Dialog open={isOpen} onClose={handleClose} aria-labelledby="form-dialog-title" >
@@ -37,10 +40,10 @@ function CVAddForm(props) {
                                 <Form >
                                     <FastField
                                         name="jobTitleID"
-                                        component={SelectField}
-                                        label="Chức danh công việc"
+                                        component={ComboboxField}
+                                        label="Việc làm IT theo cấp bậc"
                                         placeholder=""
-                                        ListName="HinhThucLamViec"
+                                        ListName="UTELS_GetJobTitle"
                                     />
                                     <h3>CV của bạn</h3>
                                     
