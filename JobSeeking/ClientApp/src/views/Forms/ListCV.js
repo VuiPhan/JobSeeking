@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ListCV(props) {
-  const {handleClose,data} = props;
+  const {handleClose,data,deleteCV} = props;
   debugger;
 
   const classes = useStyles();
@@ -28,9 +28,6 @@ export default function ListCV(props) {
   };
   const openForm =(value) => {
     handleClose(value);
-  };
-  const deleteCV =(value) => {
-    
   };
   debugger;
   return (
@@ -45,7 +42,7 @@ export default function ListCV(props) {
               <IconButton edge="end" aria-label="comments" onClick={()=>openForm(value.recID)}>
                 <EditIcon />
               </IconButton>
-              <IconButton edge="end" aria-label="delete" onClick={deleteCV(value.recID)}>
+              <IconButton edge="end" aria-label="delete" onClick={()=>deleteCV(value.recID)}>
                 <DeleteForeverIcon />
               </IconButton>
             </ListItemSecondaryAction>

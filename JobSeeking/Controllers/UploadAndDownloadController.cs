@@ -30,7 +30,7 @@ namespace JobSeeking.Controllers
         [HttpGet]
         public async Task<IActionResult> Download(string FileName)
         {
-            //string variableName = "Screenshot201807318.png";
+            
             string source_dir = String.Format("E:\\Nam4HKI\\ProjectFinal\\JobSeeking\\JobSeeking\\Images\\{0}", FileName);
             var memory = new MemoryStream();
             using (var stream = new FileStream(source_dir, FileMode.Open))
@@ -68,6 +68,28 @@ namespace JobSeeking.Controllers
             null,
             fileCV.JobTitleID,
             fileCV.Description
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
+        [Authorize(Policy = Policies.User)]
+        [HttpPost("DeleteCV")]
+        public async Task<object> DeleteCV([FromForm] ListCVOfCandidate dataDelete)
+        {
+            UploadImage uploadImage = new UploadImage(_hostEnvironment);
+            string pathCV = await uploadImage.DeleteFile(dataDelete.PathCV);
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_DeleteCV " +
+            "@CandidateCode={0},@RecID={1}",
+            claims[5].Value,
+            dataDelete.RecID
             );
             IActionResult response = Unauthorized();
             if (result > 0)

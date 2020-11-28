@@ -28,5 +28,17 @@ namespace JobSeeking.Common
             }
             return imageName;
         }
+        [NonAction]
+        public async Task<string> DeleteFile(string FileName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", FileName);
+            if (File.Exists(imagePath))
+            {
+                // If file found, delete it    
+                File.Delete(imagePath);
+                Console.WriteLine("File deleted.");
+            }
+            return null;
+        }
     }
 }

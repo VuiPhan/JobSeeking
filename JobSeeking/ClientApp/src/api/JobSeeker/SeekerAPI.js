@@ -22,9 +22,12 @@ const SeekerAPI = {
         return axiosClient.post(url,data);
     },
     getListCV: (data) => {
-        debugger;
         const url = `/Seeker/GetListCV`;
         return axiosClient.get(url);
+    },
+    deleteCV: (data) => {
+        const url = `/UploadAndDownload/DeleteCV`;
+        return axiosClient.post(url,data);
     },
 }
 export default SeekerAPI;

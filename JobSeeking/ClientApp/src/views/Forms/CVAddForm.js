@@ -8,8 +8,9 @@ import { Form } from "formik";
 import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 import PresentToAllIcon from '@material-ui/icons/PresentToAll';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
+import { MyToaStr3 } from 'components/Toastr/Toastr2';
 function CVAddForm(props) {
-    const { isOpen, handleClose,initialValuesCV,HandleCV,refreshData } = props;
+    const { isOpen, handleClose,FClose,initialValuesCV,HandleCV,refreshData } = props;
     const SubmitCV = async (values) => {
         debugger;
         const formData = new FormData();
@@ -18,7 +19,9 @@ function CVAddForm(props) {
         formData.append('JobTitleID', values.jobTitleID);
         formData.append('Description', values.description);
         let result = await SeekerAPI.submitCV(formData);
+        MyToaStr3('Bạn đã thêm CV thành công!');
         refreshData();
+        FClose(!isOpen);
     }
     const LinkDownLoad = `https://localhost:44351/api/UploadAndDownload?FileName=${initialValuesCV.pathCV}`;
     return (
@@ -40,7 +43,7 @@ function CVAddForm(props) {
                                         ListName="HinhThucLamViec"
                                     />
                                     <h3>CV của bạn</h3>
-                                    <a href={LinkDownLoad} download target="_blank">Click to download</a>
+                                    
                                     <div style={{ display: 'flex' }}>
 
                                         <label htmlFor="myInputCV" style={{ color: 'black' }}>
@@ -54,6 +57,7 @@ function CVAddForm(props) {
                                             onChange={HandleCV}
                                         />
                                         <p style={{ paddingLeft: 20 }}>{initialValuesCV.pathCV}</p>
+                                        {initialValuesCV.recID ?<a style={{ paddingLeft: 20 }} href={LinkDownLoad} download target="_blank">Click to download</a>:null}
                                     </div>
                                     <FormGroup>
                                         <Button type='submit' variant="outlined" color="secondary">Lưu thông tin CV</Button>
