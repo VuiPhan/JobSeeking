@@ -29,5 +29,13 @@ const SeekerAPI = {
         const url = `/UploadAndDownload/DeleteCV`;
         return axiosClient.post(url,data);
     },
+    getWorkInfo: (data) => {
+        const url = `/Seeker/GetWorkInfo?CandidateCode=${data}`;
+        return axiosClient.get(url);
+    },
+    updateWorkInfo: (data) => {
+        const url = `/Seeker/UpdateWorkInfo`;
+        return axiosClient.post(url,data);
+    },
 }
 export default SeekerAPI;

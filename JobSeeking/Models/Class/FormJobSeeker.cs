@@ -56,8 +56,8 @@ namespace JobSeeking.Models.Class
         public string CVName { get; set; }
         public IFormFile CVFile { get; set; }
     }
-    
-        public class FormHeaderCompany
+
+    public class FormHeaderCompany
     {
         public int CompanyID { get; set; }
         public string CompanyName { get; set; }
@@ -67,6 +67,14 @@ namespace JobSeeking.Models.Class
         public string Image1 { get; set; }
         public string Image3 { get; set; }
         public string Image2 { get; set; }
+
+    }
+    public class WorkInfo
+    {
+        public int CandidateCode { get; set; }
+        public string JobSkillIDs { get; set; }
+        public string JobTitleIDs { get; set; }
+        public string JobLocations { get; set; }
 
     }
 }

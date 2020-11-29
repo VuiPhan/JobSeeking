@@ -22,7 +22,7 @@ import profile from "../assets/img/faces/christian.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import PersonalInformation from "./FormProfile/PersonalInformation.js";
 import { useDispatch, useSelector } from "react-redux";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SeekerAPI from "api/JobSeeker/SeekerAPI.js";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -79,6 +79,7 @@ export default function ProfilePage(props) {
     aliasesName: '',
     titleJob: ''
   });
+
   const [selfIntroduce, setselfIntroduce] = useState('Hello');
   const [aliasName, setAliasName] = useState('Harry Pham');
   const [major, setMajor] = useState('Dev-OPS');
@@ -143,12 +144,12 @@ export default function ProfilePage(props) {
     }
   }
   
- 
+
   const SubmitDataFinal = async (values) => {
     const formData = new FormData();
-    formData.append('Facebook',FaceBook);
+    formData.append('Facebook', FaceBook);
     formData.append('Github', GitHub);
-    formData.append('Linkin',LinkIn);
+    formData.append('Linkin', LinkIn);
     formData.append('SelfIntroduce', selfIntroduce);
     formData.append('AliasesName', aliasName);
     formData.append('TitleJob', major);
@@ -181,7 +182,7 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={9}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={valuesImage.imageSrc?valuesImage.imageSrc:profile} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
+                    <img src={valuesImage.imageSrc ? valuesImage.imageSrc : profile} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
 
                     <label htmlFor="myInput" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
                       <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />
@@ -229,7 +230,7 @@ export default function ProfilePage(props) {
                       </Grid>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <LinkedInIcon color="primary"  onChange={e => setLinkIn(e.target.value)} style={{ fontSize: 30 }} />
+                          <LinkedInIcon color="primary" onChange={e => setLinkIn(e.target.value)} style={{ fontSize: 30 }} />
                         </Grid>
                         <Grid item>
                           <TextField id="input-with-icon-grid" label="LinkedIn" />
@@ -237,7 +238,7 @@ export default function ProfilePage(props) {
                       </Grid>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <GitHubIcon  onChange={e => setGitHub(e.target.value)} style={{ fontSize: 30 }} />
+                          <GitHubIcon onChange={e => setGitHub(e.target.value)} style={{ fontSize: 30 }} />
                         </Grid>
                         <Grid item>
                           <TextField id="input-with-icon-grid" label="GitHub" />
@@ -256,7 +257,7 @@ export default function ProfilePage(props) {
               </h2>
             </div>
             <GridContainer justify="center">
-          
+
               <GridItem xs={12} sm={12} md={9} className={classes.navWrapper}>
                 <NavPills
                   alignCenter
@@ -298,7 +299,7 @@ export default function ProfilePage(props) {
                         <Button></Button>
                       )
                     },
-                    
+
                     {
                       tabButton: "CV",
                       tabIcon: ReceiptIcon,

@@ -22,7 +22,6 @@ function OpenForm(props) {
     const [listCV, setlistCV] = React.useState([{ RecID: 1, JobTitleName: "DEV-WEB-C#" }]);
     async function fetchData() {
         const result = await SeekerAPI.getListCV(1);
-        debugger;
         setlistCV(result);
     }
     useEffect(() => {
@@ -50,7 +49,6 @@ function OpenForm(props) {
                 label: 'Xóa',
                 onClick:async () => {
                     if (Number.isInteger(values)) {
-                        debugger;
                         let objDelete =  (listCV.find(data => data.recID === values));
                         const formData = new FormData();
                         formData.append('RecId', objDelete.recID);

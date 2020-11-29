@@ -71,7 +71,6 @@ function ListViewCandidate(props) {
         async function fetchMyAPI() {
           const result = await JobsApi.getListCandidate(IsAccess.jobID);
           setData(result);
-          debugger;
         }
         fetchMyAPI()
       }, [IsAccess.jobID]);

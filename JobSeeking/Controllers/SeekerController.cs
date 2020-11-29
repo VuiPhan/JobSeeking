@@ -81,6 +81,40 @@ namespace JobSeeking.Controllers
             var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", claims[5].Value).ToListAsync();
             return data;
         }
+        [HttpGet("GetWorkInfo")]
+        [Authorize(Policy = Policies.User)]
+        //[Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> GetWorkInfo(int CandidateCode)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var data = await _context.WorkInfos.FromSqlRaw("EXEC dbo.UTE_Seeker_GetWorkInfo {0}", claims[5].Value).ToListAsync();
+            return data;
+        }
+
+        [HttpPost("UpdateWorkInfo")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> UpdateWorkInfo([FromForm] WorkInfo workInfo)
+        {
+            //    UploadImage uploadImage = new UploadImage();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_UpdateWorkInfo" +
+            " @CandidateCode={0},@JobSkillIDs={1},@JobTitleIDs={2},@JobLocations={3}",
+            claims[5].Value,
+            workInfo.JobSkillIDs,
+            workInfo.JobTitleIDs,
+            workInfo.JobLocations
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
         [HttpGet("GetListCV")]
         [Authorize(Policy = Policies.User)]
         //[Authorize(Policy = Policies.Recruiter)]
@@ -89,7 +123,8 @@ namespace JobSeeking.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0}", claims[5].Value).ToListAsync();
-            return data;
+
+            return data.AsEnumerable().SingleOrDefault();
             
         }
         [HttpGet("GetViewSeekerBy")]

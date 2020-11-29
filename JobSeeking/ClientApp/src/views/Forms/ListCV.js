@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ListCV(props) {
   const {handleClose,data,deleteCV} = props;
-  debugger;
 
   const classes = useStyles();
   const handleToggle = (value) => () => {
@@ -30,7 +29,6 @@ export default function ListCV(props) {
   const openForm =(value) => {
     handleClose(value);
   };
-  debugger;
   return (
     <div style={{display: 'flex',justifyContent: 'center',marginTop:20}}>
     <List className={classes.root}>

@@ -1,49 +1,74 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import MutipleCombobox from 'components/CustomField/MutipleCombobox';
 import { FastField, Form, Formik } from 'formik';
 import MutipleCombobox from 'components/CustomField/MutipleCombobox.js';
-import { Row } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import ComboboxField from 'components/CustomField/ComboboxField';
-import { FormGroup } from '@material-ui/core';
+import { Button, FormGroup } from '@material-ui/core';
 import MutipleSelectField from 'components/CustomField/MutipleSelectField';
-function WorkInfomation() {
-    const datainitialValuesCV = {
-        jobTitleID: 1,
-        jobSkillID: 1,
-        jobLocationID: 1,
+import SaveIcon from '@material-ui/icons/Save';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 
-    };
-    const [initialValuesCV, setinitialValuesCV] = React.useState(datainitialValuesCV);
+
+function WorkInfomation(props) {
+    //const {data} = props;
+    const { CandidateCode } = useParams();
+    const LoginInfo = useSelector(state => state.loginInfo);
+    var disableForm = false;
+    if (CandidateCode) {
+      disableForm = true;
+    }
+    const [dataWorkInfo, setDataWorkInfo] = useState({
+        candidateCode:'',
+        jobTitleIDs: "1,2",
+        jobSkillIDs: "1",
+        jobLocations: "1",
+      });
+      async function fetchDataWorkInfo() {
+        const result = await SeekerAPI.getWorkInfo(LoginInfo.CadidateCode);
+        setDataWorkInfo(result[0]);
+      }
+      useEffect(() => {
+        fetchDataWorkInfo();
+      }, [CandidateCode, LoginInfo.CadidateCode])
+      const UpdateWorkInfo = async (data) => {
+        const formData = new FormData();
+        formData.append('JobSkillIDs', data.jobSkillIDs);
+        formData.append('JobTitleIDs', data.jobTitleIDs);
+        formData.append('JobLocations', data.jobLocations);
+        const result = await SeekerAPI.updateWorkInfo(formData);
+      }
     return (
         <div>
-            <p>Vui nè</p>
-            <Formik initialValues={initialValuesCV}
+            <Formik initialValues={dataWorkInfo}
                 // validationSchema={validationShema} 
-                onSubmit={values => console.log(values)}
+                onSubmit={values => UpdateWorkInfo(values)}
                 enableReinitialize>
                 {FormikProps => {
                     return (
                         <Form >
-                            <h3>Thông tin CV</h3>
-                            <h4>Việc làm IT theo cấp bậc</h4>
+                            <h4>Chọn việc làm theo cấp bậc</h4>
                             <FastField
-                                name="jobTitleID"
+                                name="jobTitleIDs"
                                 component={MutipleCombobox}
                                 label=""
                                 placeholder=""
                                 ListName="UTELS_GetJobTitle"
                             />
-
+                            <h4>Chọn việc làm theo kỹ năng</h4>
                             <FastField
-                                name="jobSkillID"
+                                name="jobSkillIDs"
                                 component={MutipleCombobox}
                                 label=""
                                 placeholder=""
                                 ListName="UTELS_GetJobSkill"
                             />
-
+                            <h4>Chọn việc làm theo nơi làm việc</h4>
                             <FastField
-                                name="jobLocationID"
+                                name="jobLocations"
                                 component={MutipleSelectField}
                                 label=""
                                 placeholder=""
@@ -51,8 +76,8 @@ function WorkInfomation() {
                             />
                             <FormGroup>
                                 <Row className='clearfix'>
-                                    {/* <Col xs="9" sm="9"><Button type='submit' style={{ float: 'right' }} variant="outlined" startIcon={<CloudUploadIcon />} color="secondary">Lưu thông tin CV</Button></Col>
-                                    <Col xs="3" sm="3" ><Button style={{ float: 'right' }} variant="outlined" color="primary" onClick={handleClose} startIcon={<CloseIcon />} >Đóng</Button></Col> */}
+                                <Col xs="12" sm="12"> <Button type='submit' style={{ float: 'right' }} variant="outlined" color="secondary" startIcon={<SaveIcon/>} >Lưu thông tin </Button>
+                                </Col>
                                 </Row>
                             </FormGroup>
                         </Form>

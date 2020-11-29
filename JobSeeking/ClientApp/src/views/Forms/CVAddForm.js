@@ -18,7 +18,6 @@ import { Col, Row } from 'reactstrap';
 function CVAddForm(props) {
     const { isOpen, handleClose, FClose, initialValuesCV, HandleCV, refreshData } = props;
     const SubmitCV = async (values) => {
-        debugger;
         const formData = new FormData();
         formData.append('CVFile', initialValuesCV.CVFile);
         formData.append('CVName', initialValuesCV.CVFile.name);

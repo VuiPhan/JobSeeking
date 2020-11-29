@@ -79,7 +79,6 @@ function ListViewKendo2(props) {
     }
     useEffect(() => {
         async function fetchMyAPI() {
-            debugger;
           const result = await LoadJobsApi.getAll(dataID);
           setData(result);
         }

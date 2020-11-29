@@ -22,7 +22,11 @@ function MutipleSelectField(props) {
     const { field, lable, placeholder, disabled,label,ListName } = props;
     const { name,value } = field;
     const [options, setoptions] = useState([])
-    const selectedOption = options.find(options => options.value === value);  
+    const selectedOption = options.filter(function (el) {
+        if(el.value === null || value=== null)
+        {return;}
+        return el.value !== null && value.includes(el.value) == true ;
+      });
     useEffect(() => {
         async function fetchData(){
             let response  = await LoadValueListApi.get(ListName);
