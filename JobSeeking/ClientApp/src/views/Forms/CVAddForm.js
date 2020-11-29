@@ -11,8 +11,12 @@ import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { MyToaStr3 } from 'components/Toastr/Toastr2';
 import ConstCommon from 'common/ConstInApp';
 import ComboboxField from 'components/CustomField/ComboboxField';
+import TextAreaField from 'components/CustomField/TextAreaField';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CloseIcon from '@material-ui/icons/Close';
+import { Col, Row } from 'reactstrap';
 function CVAddForm(props) {
-    const { isOpen, handleClose,FClose,initialValuesCV,HandleCV,refreshData } = props;
+    const { isOpen, handleClose, FClose, initialValuesCV, HandleCV, refreshData } = props;
     const SubmitCV = async (values) => {
         debugger;
         const formData = new FormData();
@@ -25,7 +29,7 @@ function CVAddForm(props) {
         refreshData();
         FClose(!isOpen);
     }
-    
+
     const LinkDownLoad = `${ConstCommon.LinkConnectAPILocal}UploadAndDownload?FileName=${initialValuesCV.pathCV}`;
     return (
         <div >
@@ -38,15 +42,17 @@ function CVAddForm(props) {
                         {FormikProps => {
                             return (
                                 <Form >
+                                    <h3>Thông tin CV</h3>
+                                    <h4>Việc làm IT theo cấp bậc</h4>
                                     <FastField
                                         name="jobTitleID"
                                         component={ComboboxField}
-                                        label="Việc làm IT theo cấp bậc"
+                                        label=""
                                         placeholder=""
                                         ListName="UTELS_GetJobTitle"
                                     />
-                                    <h3>CV của bạn</h3>
-                                    
+                                    <h4>CV của bạn</h4>
+
                                     <div style={{ display: 'flex' }}>
 
                                         <label htmlFor="myInputCV" style={{ color: 'black' }}>
@@ -60,15 +66,21 @@ function CVAddForm(props) {
                                             onChange={HandleCV}
                                         />
                                         <p style={{ paddingLeft: 20 }}>{initialValuesCV.pathCV}</p>
-                                        {initialValuesCV.recID ?<a style={{ paddingLeft: 20 }} href={LinkDownLoad} download target="_blank">Click to download</a>:null}
+                                        {initialValuesCV.recID ? <a style={{ paddingLeft: 20 }} href={LinkDownLoad} download target="_blank">Click to download</a> : null}
                                     </div>
+                                    <h4>Mô tả thêm</h4>
+                                    <FastField
+                                        name="description"
+                                        component={TextAreaField}
+                                        label=""
+                                        placeholder=""
+                                    />
                                     <FormGroup>
-                                        <Button type='submit' variant="outlined" color="secondary">Lưu thông tin CV</Button>
+                                        <Row className='clearfix'>
+                                            <Col xs="9" sm="9"><Button type='submit'  style={{float:'right'}} variant="outlined" startIcon={<CloudUploadIcon />} color="secondary">Lưu thông tin CV</Button></Col>
+                                            <Col xs="3" sm="3" ><Button style={{float:'right'}} variant="outlined" color="primary" onClick={handleClose} startIcon={<CloseIcon />} >Đóng</Button></Col>
+                                        </Row>
                                     </FormGroup>
-                                    <FormGroup>
-                                        <Button variant="outlined" color="secondary" onClick={handleClose}>Đóng</Button>
-                                    </FormGroup>
-                                    
                                 </Form>
                             )
                         }}

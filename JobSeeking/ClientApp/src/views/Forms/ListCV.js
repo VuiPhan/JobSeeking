@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
+import { Tooltip, Zoom } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -31,6 +32,7 @@ export default function ListCV(props) {
   };
   debugger;
   return (
+    <div style={{display: 'flex',justifyContent: 'center',marginTop:20}}>
     <List className={classes.root}>
       {data.map((value) => {
         const labelId = `checkbox-list-label-${value.jobTitleName}`;
@@ -39,16 +41,23 @@ export default function ListCV(props) {
           <ListItem key={value.recID} role={undefined} dense button onClick={handleToggle(value.recID)}>
             <ListItemText id={labelId} primary={`${value.jobTitleName}`} />
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments" onClick={()=>openForm(value.recID)}>
+            <Tooltip title="Chỉnh sửa" interactive placement="top" TransitionComponent={Zoom}>
+            <IconButton color='primary' edge="end" aria-label="comments" onClick={()=>openForm(value.recID)}>
                 <EditIcon />
               </IconButton>
-              <IconButton edge="end" aria-label="delete" onClick={()=>deleteCV(value.recID)}>
+                    </Tooltip>
+
+            <Tooltip title="Xóa" interactive placement="top" TransitionComponent={Zoom}>
+              <IconButton color='secondary' edge="end" aria-label="delete" onClick={()=>deleteCV(value.recID)}>
                 <DeleteForeverIcon />
               </IconButton>
+              </Tooltip>
+
             </ListItemSecondaryAction>
           </ListItem>
         );
       })}
     </List>
+    </div>
   );
 }

@@ -10,6 +10,7 @@ import InputField from 'components/CustomField/InputField';
 import SelectField from 'components/CustomField/SelectField';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import SaveIcon from '@material-ui/icons/Save';
 function PersonalInformation(props) {
     // Chi cho load lan dau
     const {disableForm,data,SubmitDataFinal} = props;
@@ -168,7 +169,7 @@ function PersonalInformation(props) {
                                         ListName="GioiTinh" />
                                 </Col>
                             </Form.Group>
-                            {isView ? <Button type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button>:null}
+                            {isView ? <Button startIcon={<SaveIcon/>} type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button>:null}
                             {/* <Button type="submit" variant="outlined" color="secondary">Tạo</Button> */}
                         </FormFormik>
                     )

@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import { confirmAlert } from 'react-confirm-alert';
 import { useSelector } from 'react-redux';
 import ListCV from './ListCV';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 function OpenForm(props) {
     const { ComponentForm } = props;
@@ -94,7 +95,7 @@ function OpenForm(props) {
     return (
         <div>
             <MyToastr></MyToastr>
-            <Button type="submit" variant="outlined" color="secondary" onClick={() => { handleClickOpen(0) }}>Thêm mới CV</Button>
+            <Button startIcon={<PostAddIcon />} type="submit" variant="outlined" color="secondary" onClick={() => { handleClickOpen(0) }}>Thêm mới CV</Button>
             <ComponentForm refreshData={fetchData} HandleCV={HandleCV} isOpen={open} FClose={setOpen} handleClose={handleClickOpen} initialValuesCV={initialValuesCV}></ComponentForm>
             <ListCV handleClose={handleClickOpen} deleteCV={deleteCV} data={listCV}></ListCV>
         </div>

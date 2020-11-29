@@ -8,6 +8,8 @@ import React, { useEffect, useState } from 'react';
 import LoadJobsApi from 'api/HomePageAPI';
 import Pagination from '@material-ui/lab/Pagination';
 import { Button } from '@material-ui/core';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 const myHeader = () => {
     return (
         <ListViewHeader style={{ color: 'rgb(1817, 80, 92)', fontSize: 40 ,fontFamily: "fantasy",borderBottomStyle: "groove"}} className='pl-4 pb-2 pt-2'>
@@ -42,8 +44,9 @@ const MyItemRender = props => {
                 <CardActions style={{ padding: 0,margin:3 }}>
                     <Button onClick={()=>HandleRedirectPage(item.jobID)} 
                                 variant="outlined" color="secondary"
+                                startIcon={<VisibilityIcon />}
                               >Xem chi tiết</Button>
-                    <div style={{display:"inline",paddingLeft: 10}}><Button onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Thêm vào yêu thích</Button></div>
+                    <div style={{display:"inline",paddingLeft: 10}}><Button startIcon={<FavoriteIcon />} onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Thêm vào yêu thích</Button></div>
                     
                 </CardActions>
             </div>

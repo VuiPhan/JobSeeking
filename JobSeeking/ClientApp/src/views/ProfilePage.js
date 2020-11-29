@@ -6,7 +6,11 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
+import ApartmentIcon from '@material-ui/icons/Apartment';
+import WorkIcon from '@material-ui/icons/Work';
+import SchoolIcon from '@material-ui/icons/School';
 import Favorite from "@material-ui/icons/Favorite";
+import ReceiptIcon from '@material-ui/icons/Receipt';
 // core components
 import Footer from "../components/Footer/Footer.js";
 import Button from "../components/CustomButtons/Button.js";
@@ -31,6 +35,7 @@ import ConstCommon from "common/ConstInApp.js";
 import CVPage from "./FormProfile/CVPage.js";
 import { MyToaStr2 } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
+import WorkInfomation from "./FormProfile/WorkInfomation.js";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
@@ -265,8 +270,15 @@ export default function ProfilePage(props) {
                       )
                     },
                     {
+                      tabButton: "Thông tin công việc",
+                      tabIcon: WorkIcon,
+                      tabContent: (
+                        <WorkInfomation></WorkInfomation>
+                      )
+                    },
+                    {
                       tabButton: "Chuyên ngành đào tạo",
-                      tabIcon: Palette,
+                      tabIcon: SchoolIcon,
                       tabContent: (
 
                         <Button></Button>
@@ -281,14 +293,15 @@ export default function ProfilePage(props) {
                     },
                     {
                       tabButton: "Quá trình làm việc",
-                      tabIcon: Favorite,
+                      tabIcon: ApartmentIcon,
                       tabContent: (
                         <Button></Button>
                       )
                     },
+                    
                     {
                       tabButton: "CV",
-                      tabIcon: Favorite,
+                      tabIcon: ReceiptIcon,
                       tabContent: (
                         <CVPage></CVPage>
                       )
