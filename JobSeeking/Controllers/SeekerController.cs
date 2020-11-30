@@ -124,7 +124,7 @@ namespace JobSeeking.Controllers
             IList<Claim> claims = identity.Claims.ToList();
             var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0}", claims[5].Value).ToListAsync();
 
-            return data.AsEnumerable().SingleOrDefault();
+            return data;
             
         }
         [HttpGet("GetViewSeekerBy")]

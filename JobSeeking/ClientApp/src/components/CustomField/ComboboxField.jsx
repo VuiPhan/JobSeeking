@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormFeedback, FormGroup, Label } from 'reactstrap';
 import LoadValueListApi from 'api/loadValuelist';
 import { ErrorMessage } from 'formik';
+import './ComboboxStyle.scss';
 ComboboxField.propTypes = {
     field: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired,

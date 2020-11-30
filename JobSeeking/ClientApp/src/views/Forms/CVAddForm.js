@@ -65,7 +65,7 @@ function CVAddForm(props) {
                                             onChange={HandleCV}
                                         />
                                         <p style={{ paddingLeft: 20 }}>{initialValuesCV.pathCV}</p>
-                                        {initialValuesCV.recID ? <a style={{ paddingLeft: 20 }} href={LinkDownLoad} download target="_blank">Click to download</a> : null}
+                                        {initialValuesCV.recID ? <a style={{ paddingLeft: 20 }} href={LinkDownLoad} download target="_blank">Tải xuống CV</a> : null}
                                     </div>
                                     <h4>Mô tả thêm</h4>
                                     <FastField

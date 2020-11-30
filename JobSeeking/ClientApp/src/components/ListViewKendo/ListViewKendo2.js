@@ -10,6 +10,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { Button } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { useSelector } from 'react-redux';
 const myHeader = () => {
     return (
         <ListViewHeader style={{ color: 'rgb(1817, 80, 92)', fontSize: 40 ,fontFamily: "fantasy",borderBottomStyle: "groove"}} className='pl-4 pb-2 pt-2'>
@@ -77,15 +78,17 @@ function ListViewKendo2(props) {
         setpage(parseInt(e.target.innerText));
         setbegin((parseInt(e.target.innerText)-1)*take);
     }
+    const LoginInfo = useSelector(state => state.loginInfo);
     useEffect(() => {
+        debugger;
         async function fetchMyAPI() {
-          const result = await LoadJobsApi.getAll(dataID);
+          const result = await LoadJobsApi.getAll(dataID,LoginInfo.CadidateCode);
           setData(result);
         }
         if(dataID){
             fetchMyAPI();
         }
-      }, [dataID]);
+      }, [dataID,LoginInfo.CadidateCode]);
      
     return (
         <div>

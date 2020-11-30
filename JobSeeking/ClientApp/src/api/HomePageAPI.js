@@ -1,8 +1,14 @@
 ﻿import axiosClient from './axiosClient';
 const LoadJobsApi = {
-    getAll: (param) => {
-        const url = `/Jobs/Get?CompanyID=${param}`;
-        return axiosClient.get(url);
+    getAll: (CompanyID,CandidateCode) => {
+        if(CandidateCode){
+            const url = `/Jobs/Get?CompanyID=${CompanyID}&CandidateCode=${CandidateCode}`;
+            return axiosClient.get(url);
+        }
+        else{
+            const url = `/Jobs/Get?CompanyID=${CompanyID}`;
+            return axiosClient.get(url);
+        }
     },
 }
 export default LoadJobsApi;

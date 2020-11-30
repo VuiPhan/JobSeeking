@@ -42,7 +42,13 @@ export default function FormDialog() {
  
     
   };
+  const history = useHistory();
   const handleLogout = async (user) => {
+    debugger;
+    if(history.location.pathname === '/ProfilePage' || history.location.pathname.substring(0, 13) == '/ProfilePage/'){
+      
+      history.push('/');
+    }
     const action = Logout();
     dispatch(action);
   };
@@ -56,7 +62,6 @@ const validationShema = yup.object().shape({
       .required(res.TruongBBNhap)
   ,
 })
-const history = useHistory();
 const HandleRedirectPageCompanyRegiter = () =>{
   setOpen(false);
     const linkRedired = `/CompanyRegiter`;

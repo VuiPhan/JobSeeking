@@ -20,9 +20,9 @@ namespace JobSeeking.Controllers
             _context = context;
         }
         [HttpGet("Get")]
-        public async Task<object> Get(int? CompanyID)
+        public async Task<object> Get(int? CompanyID,int? CandidateCode)
         {
-            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo {0}",CompanyID).ToListAsync();
+            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo {0},{1}",CompanyID, CandidateCode).ToListAsync();
             return dataJob;
         }
         [HttpGet("GetJobByID")]
