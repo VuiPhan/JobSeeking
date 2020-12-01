@@ -1,11 +1,8 @@
 import { Button, Dialog, DialogContent, FormGroup } from '@material-ui/core'
-import InputField from 'components/CustomField/InputField';
-import SelectField from 'components/CustomField/SelectField';
 import MyToastr from 'components/Toastr/Toastr';
 import { FastField, Formik } from 'formik'
 import React, { useState } from 'react'
 import { Form } from "formik";
-import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 import PresentToAllIcon from '@material-ui/icons/PresentToAll';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { MyToaStr3 } from 'components/Toastr/Toastr2';
@@ -15,16 +12,37 @@ import TextAreaField from 'components/CustomField/TextAreaField';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloseIcon from '@material-ui/icons/Close';
 import { Col, Row } from 'reactstrap';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 function CVAddForm(props) {
     const { isOpen, handleClose, FClose, initialValuesCV, HandleCV, refreshData } = props;
+    const LoginInfo = useSelector(state => state.loginInfo);
     const SubmitCV = async (values) => {
-        const formData = new FormData();
-        formData.append('CVFile', initialValuesCV.CVFile);
-        formData.append('CVName', initialValuesCV.CVFile.name);
-        formData.append('JobTitleID', values.jobTitleID);
-        formData.append('Description', values.description);
-        let result = await SeekerAPI.submitCV(formData);
-        MyToaStr3('Bạn đã thêm CV thành công!');
+        if(initialValuesCV.recID){
+            // Update
+            const formData = new FormData();
+            formData.append('OrdinalCVName', initialValuesCV.ordinalCVName);
+            formData.append('CVFile', initialValuesCV.CVFile);
+            formData.append('RecID', initialValuesCV.recID);
+            if(initialValuesCV.CVFile){
+                formData.append('CVName', initialValuesCV.CVFile.name);
+            }
+            formData.append('JobTitleID', values.jobTitleID);
+            formData.append('Description', values.description);
+            let result = await SeekerAPI.submitCV(formData);
+            MyToaStr3('Bạn chỉnh sửa CV thành công!');
+        }
+        else{
+            // New
+            const formData = new FormData();
+            formData.append('CVFile', initialValuesCV.CVFile);
+            formData.append('CVName', initialValuesCV.CVFile.name);
+            formData.append('JobTitleID', values.jobTitleID);
+            formData.append('Description', values.description);
+            let result = await SeekerAPI.submitCV(formData);
+            MyToaStr3('Bạn đã thêm CV thành công!');
+        }
+
         refreshData();
         FClose(!isOpen);
     }
@@ -76,7 +94,15 @@ function CVAddForm(props) {
                                     />
                                     <FormGroup>
                                         <Row className='clearfix'>
-                                            <Col xs="9" sm="9"><Button type='submit'  style={{float:'right'}} variant="outlined" startIcon={<CloudUploadIcon />} color="secondary">Lưu thông tin CV</Button></Col>
+                                            <Col xs="9" sm="9">
+                                            {!LoginInfo.companyID ?
+
+                                                <Button type='submit'   
+                                                style={{float:'right'}} variant="outlined"
+                                                 startIcon={<CloudUploadIcon />} color="secondary"
+                                                 >Lưu thông tin CV</Button>
+                                                 :null}
+                                                 </Col>
                                             <Col xs="3" sm="3" ><Button style={{float:'right'}} variant="outlined" color="primary" onClick={handleClose} startIcon={<CloseIcon />} >Đóng</Button></Col>
                                         </Row>
                                     </FormGroup>

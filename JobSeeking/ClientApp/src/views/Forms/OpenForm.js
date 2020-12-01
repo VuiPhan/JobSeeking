@@ -7,26 +7,41 @@ import { confirmAlert } from 'react-confirm-alert';
 import { useSelector } from 'react-redux';
 import ListCV from './ListCV';
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import { useParams } from 'react-router-dom';
 
 function OpenForm(props) {
     const { ComponentForm } = props;
     const [open, setOpen] = React.useState(false);
     const LoginInfo = useSelector(state => state.loginInfo);
+    const { CandidateCode } = useParams();
     const datainitialValuesCV = {
         pathCV: 'Mời bạn chọn CV',
         jobTitleID: 1,
         CVFile: null,
-        description: 'Việc làm'
+        description: 'Việc làm',
+        OrdinalCVName:''
     };
     const [initialValuesCV, setinitialValuesCV] = React.useState(datainitialValuesCV);
     const [listCV, setlistCV] = React.useState([{ RecID: 1, JobTitleName: "DEV-WEB-C#" }]);
     async function fetchData() {
-        const result = await SeekerAPI.getListCV(1);
+        const result = await SeekerAPI.getListCV(CandidateCode);
         setlistCV(result);
     }
     useEffect(() => {
+        async function fetchData() {
+            if(CandidateCode){
+                const result = await SeekerAPI.getListCV(CandidateCode);
+            setlistCV(result);
+
+            }
+            else{
+                const result = await SeekerAPI.getListCV(LoginInfo.CadidateCode);
+            setlistCV(result);
+
+            }
+        }
         fetchData();
-    }, [])
+    }, [CandidateCode,LoginInfo.CadidateCode])
     
     const handleClickOpen = (values) => {
         setOpen(!open);
@@ -93,7 +108,7 @@ function OpenForm(props) {
     return (
         <div>
             <MyToastr></MyToastr>
-            <Button startIcon={<PostAddIcon />} type="submit" variant="outlined" color="secondary" onClick={() => { handleClickOpen(0) }}>Thêm mới CV</Button>
+            {!LoginInfo.companyID ?<Button startIcon={<PostAddIcon />} type="submit" variant="outlined" color="secondary" onClick={() => { handleClickOpen(0) }}>Thêm mới CV</Button>:null}
             <ComponentForm refreshData={fetchData} HandleCV={HandleCV} isOpen={open} FClose={setOpen} handleClose={handleClickOpen} initialValuesCV={initialValuesCV}></ComponentForm>
             <ListCV handleClose={handleClickOpen} deleteCV={deleteCV} data={listCV}></ListCV>
         </div>

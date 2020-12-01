@@ -22,7 +22,7 @@ const SeekerAPI = {
         return axiosClient.post(url,data);
     },
     getListCV: (data) => {
-        const url = `/Seeker/GetListCV`;
+        const url = `/Seeker/GetListCV?CandidateCode=${data}`;
         return axiosClient.get(url);
     },
     deleteCV: (data) => {

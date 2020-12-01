@@ -57,7 +57,16 @@ namespace JobSeeking.Controllers
         public async Task<object> UploadCV([FromForm] UpLoadCV fileCV)
         {
             UploadImage uploadImage = new UploadImage(_hostEnvironment);
-            string pathCV = await uploadImage.SaveImage(fileCV.CVFile);
+            string pathCV = null;
+            if (fileCV.CVFile!=null)
+            {
+                pathCV = await uploadImage.SaveImage(fileCV.CVFile);
+            }
+            if (fileCV.OrdinalCVName != null)
+            {
+                await uploadImage.DeleteFile(fileCV.OrdinalCVName);
+            }
+            
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_InsertOrUpdateCV " +
@@ -65,7 +74,7 @@ namespace JobSeeking.Controllers
             "@Description={4}",
             claims[5].Value,
             pathCV,
-            null,
+            fileCV.RecID,
             fileCV.JobTitleID,
             fileCV.Description
             );

@@ -116,16 +116,12 @@ namespace JobSeeking.Controllers
             return response;
         }
         [HttpGet("GetListCV")]
-        [Authorize(Policy = Policies.User)]
-        //[Authorize(Policy = Policies.Recruiter)]
-        public async Task<object> GetListCV()
+        public async Task<object> GetListCV(int? CandidateCode)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0}", claims[5].Value).ToListAsync();
-
+            var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0}", CandidateCode).ToListAsync();
             return data;
-            
         }
         [HttpGet("GetViewSeekerBy")]
         [Authorize(Policy = Policies.Recruiter)]
