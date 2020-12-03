@@ -77,7 +77,8 @@ export default function ProfilePage(props) {
     academicLevel: 1,
     selfIntroduce: '',
     aliasesName: '',
-    titleJob: ''
+    titleJob: '',
+    isAcceptWork:true
   });
 
   const [selfIntroduce, setselfIntroduce] = useState('Hello');
@@ -146,10 +147,13 @@ export default function ProfilePage(props) {
   
 
   const SubmitDataFinal = async (values) => {
+    
     const formData = new FormData();
     formData.append('Facebook', FaceBook);
     formData.append('Github', GitHub);
     formData.append('Linkin', LinkIn);
+    debugger;
+    return;
     formData.append('SelfIntroduce', selfIntroduce);
     formData.append('AliasesName', aliasName);
     formData.append('TitleJob', major);
@@ -162,6 +166,7 @@ export default function ProfilePage(props) {
     formData.append('PhoneNumber', values.phoneNumber);
     formData.append('Gender', values.gender);
     formData.append('AcademicLevel', values.academicLevel);
+    formData.append('IsAcceptWork', values.isAcceptWork);
     formData.append('ImageFile', valuesImage.imageFile);
     formData.append('ImageName', valuesImage.imageFile.name);
     let result = await SeekerAPI.post(formData);

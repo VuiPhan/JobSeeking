@@ -11,9 +11,11 @@ import SelectField from 'components/CustomField/SelectField';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import SaveIcon from '@material-ui/icons/Save';
+import SwitchLabels from 'components/Checkbox/Checkbox';
 function PersonalInformation(props) {
     // Chi cho load lan dau
     const {disableForm,data,SubmitDataFinal} = props;
+    console.log('datadata',data);
     const res = handleGetJson("PersonPage");
     const resValidation = handleGetJson("Validation");
     const LoginInfo = useSelector(state => state.loginInfo);
@@ -58,6 +60,14 @@ function PersonalInformation(props) {
                                         component={InputField}
                                         label=""
                                         placeholder={res.DiaChiEmail}
+                                    />
+                                </Col>
+                                <Form.Label column sm="3">Tôi muốn nhận việc</Form.Label>
+                                <Col sm="2">
+                                   <FastField
+                                        name="isAcceptWork"
+                                        component={SwitchLabels}
+                                        label=""
                                     />
                                 </Col>
                             </Form.Group>

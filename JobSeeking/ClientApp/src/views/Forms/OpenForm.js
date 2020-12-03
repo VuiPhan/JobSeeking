@@ -24,22 +24,18 @@ function OpenForm(props) {
     const [initialValuesCV, setinitialValuesCV] = React.useState(datainitialValuesCV);
     const [listCV, setlistCV] = React.useState([{ RecID: 1, JobTitleName: "DEV-WEB-C#" }]);
     async function fetchData() {
-        const result = await SeekerAPI.getListCV(CandidateCode);
+        if(CandidateCode){
+            const result = await SeekerAPI.getListCV(CandidateCode);
         setlistCV(result);
+
+        }
+        else{
+            const result = await SeekerAPI.getListCV(LoginInfo.CadidateCode);
+        setlistCV(result);
+
+        }
     }
     useEffect(() => {
-        async function fetchData() {
-            if(CandidateCode){
-                const result = await SeekerAPI.getListCV(CandidateCode);
-            setlistCV(result);
-
-            }
-            else{
-                const result = await SeekerAPI.getListCV(LoginInfo.CadidateCode);
-            setlistCV(result);
-
-            }
-        }
         fetchData();
     }, [CandidateCode,LoginInfo.CadidateCode])
     

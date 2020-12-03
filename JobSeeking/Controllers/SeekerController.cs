@@ -44,7 +44,7 @@ namespace JobSeeking.Controllers
             " @LastName={0},@FirstName={1},@PassWord={2},@BirthDay={3}," +
             "@PhoneNumber={4},@Gender={5},@AcademicLevel={6},@Email={7}," +
             "@Facebook={8},@Linkin={9},@Github={10},@SelfIntroduce={11}," +
-            "@PathAvatar={12},@TitleJob={13},@AliasesName={14}",
+            "@PathAvatar={12},@TitleJob={13},@AliasesName={14},@IsAcceptWork={15}",
             formJobSeeker.LastName,
             formJobSeeker.FirstName,
             formJobSeeker.Password,
@@ -60,7 +60,9 @@ namespace JobSeeking.Controllers
             formJobSeeker.SelfIntroduce,
             PathAvatar,
             formJobSeeker.TitleJob,
-            formJobSeeker.AliasesName
+            formJobSeeker.AliasesName,
+            formJobSeeker.IsAcceptWork
+
             );
             IActionResult response = Unauthorized();
             if (result > 1)

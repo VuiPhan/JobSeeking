@@ -25,6 +25,7 @@ namespace JobSeeking.Models.Class
         public string PathAvatar { get; set; }
         public string TitleJob { get; set; }
         public string AliasesName { get; set; }
+        public bool IsAcceptWork { get; set; }
 
 
     }
@@ -49,6 +50,7 @@ namespace JobSeeking.Models.Class
         public string AliasesName { get; set; }
         public string ImageName { get; set; }
         public IFormFile ImageFile { get; set; }
+        public bool IsAcceptWork { get; set; }
 
     }
     public class SubmitCVSeeker
