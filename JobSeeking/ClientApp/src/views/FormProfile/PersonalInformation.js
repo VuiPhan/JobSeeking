@@ -72,7 +72,7 @@ function PersonalInformation(props) {
                                 </Col>
                             </Form.Group>
 
-                            {disableForm?null: <Form.Group as={Row} >
+                            {disableForm || LoginInfo.CadidateCode ?null: <Form.Group as={Row} >
                                 <Form.Label column sm="2">
                                     {res.MatKhau}
                                 </Form.Label>
@@ -87,7 +87,7 @@ function PersonalInformation(props) {
                             </Form.Group>}
                            
 
-                            {disableForm?null: <Form.Group as={Row} >
+                            {disableForm || LoginInfo.CadidateCode?null: <Form.Group as={Row} >
                                 <Form.Label column sm="2">
                                     {res.NhapLaiMatKhau}
                                 </Form.Label>

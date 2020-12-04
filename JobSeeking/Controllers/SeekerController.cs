@@ -38,13 +38,17 @@ namespace JobSeeking.Controllers
         [HttpPost("Post")]
         public async Task<object> RegisterSeeker([FromForm] FormJobSeekerAddUpdate formJobSeeker)
         {
-        //    UploadImage uploadImage = new UploadImage();
-            string PathAvatar = await SaveImage(formJobSeeker.ImageFile);
+            //    UploadImage uploadImage = new UploadImage();
+            string PathAvatar = null;
+            if (formJobSeeker.ImageFile != null)
+            {
+                PathAvatar = await SaveImage(formJobSeeker.ImageFile);
+            }
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_Register" +
             " @LastName={0},@FirstName={1},@PassWord={2},@BirthDay={3}," +
             "@PhoneNumber={4},@Gender={5},@AcademicLevel={6},@Email={7}," +
             "@Facebook={8},@Linkin={9},@Github={10},@SelfIntroduce={11}," +
-            "@PathAvatar={12},@TitleJob={13},@AliasesName={14},@IsAcceptWork={15}",
+            "@PathAvatar={12},@TitleJob={13},@AliasesName={14},@IsAcceptWork={15},@CandidateCode={16}",
             formJobSeeker.LastName,
             formJobSeeker.FirstName,
             formJobSeeker.Password,
@@ -61,10 +65,15 @@ namespace JobSeeking.Controllers
             PathAvatar,
             formJobSeeker.TitleJob,
             formJobSeeker.AliasesName,
-            formJobSeeker.IsAcceptWork
-
+            formJobSeeker.IsAcceptWork,
+            formJobSeeker.CandidateCode
             );
             IActionResult response = Unauthorized();
+            if (formJobSeeker.CandidateCode != null && result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
             if (result > 1)
             {
                 response = Ok(new { Error = "" });

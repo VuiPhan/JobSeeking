@@ -33,7 +33,7 @@ import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 import { LoginAPIRedux } from "components/FormLogin/LoginSlice.js";
 import ConstCommon from "common/ConstInApp.js";
 import CVPage from "./FormProfile/CVPage.js";
-import { MyToaStr2 } from "components/Toastr/Toastr2.js";
+import { MyToaStrError,MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
 import WorkInfomation from "./FormProfile/WorkInfomation.js";
 const useStyles = makeStyles(styles);
@@ -152,12 +152,9 @@ export default function ProfilePage(props) {
     formData.append('Facebook', FaceBook);
     formData.append('Github', GitHub);
     formData.append('Linkin', LinkIn);
-    debugger;
-    return;
     formData.append('SelfIntroduce', selfIntroduce);
     formData.append('AliasesName', aliasName);
     formData.append('TitleJob', major);
-
     formData.append('LastName', values.lastName);
     formData.append('FirstName', values.firstName);
     formData.append('Password', values.password);
@@ -167,15 +164,39 @@ export default function ProfilePage(props) {
     formData.append('Gender', values.gender);
     formData.append('AcademicLevel', values.academicLevel);
     formData.append('IsAcceptWork', values.isAcceptWork);
-    formData.append('ImageFile', valuesImage.imageFile);
-    formData.append('ImageName', valuesImage.imageFile.name);
-    let result = await SeekerAPI.post(formData);
-    if (result.error === "") {
-      MyToaStr2('Tạo tài khoản thành công! Hãy đến bước tiếp theo');
-      let dataLogin = { Email: values.email, Password: values.password }
-      const action = LoginAPIRedux(dataLogin);
-      dispatch(action);
+
+    // Trường hợp không muốn lại update lại hình. 
+    if(valuesImage.imageFile){
+      formData.append('ImageFile', valuesImage.imageFile);
+      formData.append('ImageName', valuesImage.imageFile.name);
     }
+    // Kiểm tra xem là đã có CandidateCode chưa, nếu có rồi thì sẽ là Update còn không thì đó sẽ là tạo mới
+    if(!LoginInfo.CadidateCode){
+      // Sẽ tạo mới
+      let result = await SeekerAPI.post(formData);
+      if (result.error === "") {
+        MyToaStrSuccess('Tạo tài khoản thành công! Hãy đến bước tiếp theo');
+        let dataLogin = { Email: values.email, Password: values.password }
+        const action = LoginAPIRedux(dataLogin);
+        dispatch(action);
+      }
+    }
+    else{
+      // Sẽ đi cập nhật
+      formData.append('CandidateCode', LoginInfo.CadidateCode);
+      let result = await SeekerAPI.post(formData);
+      if (result.error === "") {
+        // Cập nhật thành công 
+
+        MyToaStrSuccess('Lưu thông tin thành công');
+      }
+      else{
+
+        MyToaStrError('Cập nhật thất bại, Vui lòng thử lại');
+
+      }
+    }
+   
   }
   return (
     <div>
@@ -235,18 +256,18 @@ export default function ProfilePage(props) {
                       </Grid>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <LinkedInIcon color="primary" onChange={e => setLinkIn(e.target.value)} style={{ fontSize: 30 }} />
+                          <LinkedInIcon color="primary" style={{ fontSize: 30 }} />
                         </Grid>
                         <Grid item>
-                          <TextField id="input-with-icon-grid" label="LinkedIn" />
+                          <TextField id="input-with-icon-grid" value={LinkIn} onChange={e => setLinkIn(e.target.value)} label="LinkedIn" />
                         </Grid>
                       </Grid>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <GitHubIcon onChange={e => setGitHub(e.target.value)} style={{ fontSize: 30 }} />
+                          <GitHubIcon  style={{ fontSize: 30 }} />
                         </Grid>
                         <Grid item>
-                          <TextField id="input-with-icon-grid" label="GitHub" />
+                          <TextField id="input-with-icon-grid" value={GitHub} onChange={e => setGitHub(e.target.value)} label="GitHub" />
                         </Grid>
                       </Grid>
                     </div>

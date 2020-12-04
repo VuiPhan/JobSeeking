@@ -13,7 +13,7 @@ import InputField from 'components/CustomField/InputField';
 import { FormFeedback, FormGroup} from "reactstrap";
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
-import { MyToaStr2 } from 'components/Toastr/Toastr2.js';
+import { MyToaStrError } from 'components/Toastr/Toastr2.js';
 import MyToastr from 'components/Toastr/Toastr.js';
 
 const useStyles = makeStyles(styles);
@@ -35,7 +35,7 @@ export default function FormDialog() {
     const action = LoginAPIRedux(user);
     const result = await dispatch(action);
     if(!result.payload.UserID){
-      MyToaStr2('Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại');
+      MyToaStrError('Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại');
       return;
     }
     setOpen(false);

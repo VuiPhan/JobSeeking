@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core'
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import MyToastr from 'components/Toastr/Toastr';
-import { MyToaStr2, MyToaStr3 } from 'components/Toastr/Toastr2';
+import { MyToaStr2, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import React, { useEffect } from 'react'
 import { confirmAlert } from 'react-confirm-alert';
 import { useSelector } from 'react-redux';
@@ -65,7 +65,7 @@ function OpenForm(props) {
                         formData.append('RecId', objDelete.recID);
                         formData.append('PathCV', objDelete.pathCV);
                         await SeekerAPI.deleteCV(formData);
-                        MyToaStr3('Bạn đã gỡ CV thành công!');
+                        MyToaStrSuccess('Bạn đã gỡ CV thành công!');
                         fetchData();
                     }
                     
@@ -103,7 +103,7 @@ function OpenForm(props) {
     }
     return (
         <div>
-            <MyToastr></MyToastr>
+        
             {!LoginInfo.companyID ?<Button startIcon={<PostAddIcon />} type="submit" variant="outlined" color="secondary" onClick={() => { handleClickOpen(0) }}>Thêm mới CV</Button>:null}
             <ComponentForm refreshData={fetchData} HandleCV={HandleCV} isOpen={open} FClose={setOpen} handleClose={handleClickOpen} initialValuesCV={initialValuesCV}></ComponentForm>
             <ListCV handleClose={handleClickOpen} deleteCV={deleteCV} data={listCV}></ListCV>

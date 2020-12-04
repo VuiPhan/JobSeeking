@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
+import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 
 
 function WorkInfomation(props) {
@@ -40,6 +41,7 @@ function WorkInfomation(props) {
         formData.append('JobTitleIDs', data.jobTitleIDs);
         formData.append('JobLocations', data.jobLocations);
         const result = await SeekerAPI.updateWorkInfo(formData);
+        MyToaStrSuccess('Cập nhật thành công');
       }
     return (
         <div>

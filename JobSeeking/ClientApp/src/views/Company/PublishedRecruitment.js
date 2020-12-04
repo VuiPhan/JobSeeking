@@ -18,9 +18,10 @@ import SelectField from "components/CustomField/SelectField";
 import MutipleSelectField from "components/CustomField/MutipleSelectField";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany";
 import { useSelector } from "react-redux";
-import { MyToaStr3 } from "components/Toastr/Toastr2";
+import { MyToaStrSuccess } from "components/Toastr/Toastr2";
 import MyToastr from "components/Toastr/Toastr";
 import { useHistory } from "react-router-dom";
+import MutipleCombobox from "components/CustomField/MutipleCombobox";
 
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
@@ -67,7 +68,10 @@ export default function PublishedRecruitment(props) {
         jobDescription: '',
         requireCV: '',
         reasonsToJoin: '',
-        loveWorkingHere:''
+        loveWorkingHere:'',
+        jobTitleIDs: "1,2",
+        jobSkillIDs: "1",
+        jobLocations: "1",
     };
     const history = useHistory();
     const HandleSubmitData = (valuesForm) => {
@@ -82,7 +86,7 @@ export default function PublishedRecruitment(props) {
         formData.append('PriorityDegree', valuesForm.PriorityDegree);
         PublishedRecruitmentAPI.post(formData);
 
-        MyToaStr3('Đăng tin thành công. Sẽ nhanh chóng chuyển đến trang công ty');
+        MyToaStrSuccess('Đăng tin thành công. Sẽ nhanh chóng chuyển đến trang công ty');
         setTimeout(() => {
             const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
         history.push(LinkToPageCompany);
@@ -168,6 +172,30 @@ export default function PublishedRecruitment(props) {
                                         ListName="BangCapUuTien"
                                         placeholder="Mời bạn chọn các bằng cấp được ưu tiên"
                                     />
+                                       <h4>Chọn việc làm theo cấp bậc</h4>
+                            <FastField
+                                name="jobTitleIDs"
+                                component={MutipleCombobox}
+                                label=""
+                                placeholder=""
+                                ListName="UTELS_GetJobTitle"
+                            />
+                            <h4>Chọn việc làm theo kỹ năng</h4>
+                            <FastField
+                                name="jobSkillIDs"
+                                component={MutipleCombobox}
+                                label=""
+                                placeholder=""
+                                ListName="UTELS_GetJobSkill"
+                            />
+                            <h4>Chọn việc làm theo nơi làm việc</h4>
+                            <FastField
+                                name="jobLocations"
+                                component={MutipleSelectField}
+                                label=""
+                                placeholder=""
+                                ListName="NoiLamViec"
+                            />
                                     <FormGroup>
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>
                                     </FormGroup>

@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // minified version is also included
 // import 'react-toastify/dist/ReactToastify.min.css';
 
-export const MyToaStr2 = error => {
+export const MyToaStrError = error => {
     toast.error(`🦄 ${error}`, {
         position: "bottom-right",
         autoClose: 5000,
@@ -16,7 +16,7 @@ export const MyToaStr2 = error => {
         progress: undefined,
     });;
 }
-export const MyToaStr3 = error => {
+export const MyToaStrSuccess = error => {
     toast.success(`🦄 ${error}`, {
         position: "bottom-right",
         autoClose: 5000,

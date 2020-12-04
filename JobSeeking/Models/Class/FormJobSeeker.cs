@@ -49,6 +49,7 @@ namespace JobSeeking.Models.Class
         public string TitleJob { get; set; }
         public string AliasesName { get; set; }
         public string ImageName { get; set; }
+        public string CandidateCode { get; set; }
         public IFormFile ImageFile { get; set; }
         public bool IsAcceptWork { get; set; }
 

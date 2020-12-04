@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { Form } from "formik";
 import PresentToAllIcon from '@material-ui/icons/PresentToAll';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
-import { MyToaStr3 } from 'components/Toastr/Toastr2';
+import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import ConstCommon from 'common/ConstInApp';
 import ComboboxField from 'components/CustomField/ComboboxField';
 import TextAreaField from 'components/CustomField/TextAreaField';
@@ -30,7 +30,7 @@ function CVAddForm(props) {
             formData.append('JobTitleID', values.jobTitleID);
             formData.append('Description', values.description);
             let result = await SeekerAPI.submitCV(formData);
-            MyToaStr3('Bạn chỉnh sửa CV thành công!');
+            MyToaStrSuccess('Bạn chỉnh sửa CV thành công!');
         }
         else{
             // New
@@ -40,7 +40,7 @@ function CVAddForm(props) {
             formData.append('JobTitleID', values.jobTitleID);
             formData.append('Description', values.description);
             let result = await SeekerAPI.submitCV(formData);
-            MyToaStr3('Bạn đã thêm CV thành công!');
+            MyToaStrSuccess('Bạn đã thêm CV thành công!');
         }
 
         refreshData();

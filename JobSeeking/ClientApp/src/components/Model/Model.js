@@ -13,7 +13,7 @@ import CompanyAPI from 'api/Company/CompanyAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { AddDataComment, GetDataCommentRedux } from 'components/ListViewKendo/ListViewKendoSlice';
-import { MyToaStr3 } from 'components/Toastr/Toastr2';
+import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import MyToastr from 'components/Toastr/Toastr';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -59,7 +59,7 @@ export default function AlertDialogSlide() {
     formData.append('UserID', LoginInfo.UserID);
     formData.append('CompanyID', companyID);
     let result = await CompanyAPI.addReview(formData);
-    MyToaStr3('Cảm ơn bạn đã để lại review công ty');
+    MyToaStrSuccess('Cảm ơn bạn đã để lại review công ty');
     const action = GetDataCommentRedux(companyID);
     const resultdata = await dispatch(action);
   }
