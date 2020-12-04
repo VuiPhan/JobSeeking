@@ -17,7 +17,9 @@
         public string WorkLocation { get; set; }
 
         public string OTMode { get; set; }
-
+        public string JobSkillIDs { get; set; }
+        public string JobTitleIDs { get; set; }
+        public string JobLocations { get; set; }
 
     }
 }

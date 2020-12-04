@@ -22,7 +22,7 @@ import { MyToaStrSuccess } from "components/Toastr/Toastr2";
 import MyToastr from "components/Toastr/Toastr";
 import { useHistory } from "react-router-dom";
 import MutipleCombobox from "components/CustomField/MutipleCombobox";
-
+import './PublishCss.scss';
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
     const classes = useStyles();
@@ -84,8 +84,11 @@ export default function PublishedRecruitment(props) {
         formData.append('LoveWorkingHere', valuesForm.loveWorkingHere);
         formData.append('Strengths', valuesForm.Strengths);
         formData.append('PriorityDegree', valuesForm.PriorityDegree);
-        PublishedRecruitmentAPI.post(formData);
 
+        formData.append('JobTitleIDs', valuesForm.jobTitleIDs);
+        formData.append('JobSkillIDs', valuesForm.jobSkillIDs);
+        formData.append('JobLocations', valuesForm.jobLocations);
+        PublishedRecruitmentAPI.post(formData);
         MyToaStrSuccess('Đăng tin thành công. Sẽ nhanh chóng chuyển đến trang công ty');
         setTimeout(() => {
             const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
@@ -112,6 +115,7 @@ export default function PublishedRecruitment(props) {
                             const { value, errors, touched } = FormikProps;
                             return (
                                 <Form>
+                                    <h1 className='headerThongTinCV'> THÔNG TIN CÔNG VIỆC</h1>
                                     <h1>{res.TieuDeCongViec}</h1>
                                     <FastField
                                         name="Title"
@@ -151,20 +155,20 @@ export default function PublishedRecruitment(props) {
                                         placeholder={res.TaiSaoBanYeuThich}
                                     />
 
-                                    <FastField
+                                    {/* <FastField
                                         name="categoryId"
                                         component={SelectField}
                                         label="Category"
                                         placeholder="Category"
                                         ListName="HinhThucLamViec"
-                                    />
-                                    <FastField
+                                    /> */}
+                                    {/* <FastField
                                         name="Strengths"
                                         component={MutipleSelectField}
                                         label="Các thế mạnh của chúng tôi"
                                         placeholder="Category"
                                         ListName="TheManhCongTy"
-                                    />
+                                    /> */}
                                     <FastField
                                         name="PriorityDegree"
                                         component={MutipleSelectField}
