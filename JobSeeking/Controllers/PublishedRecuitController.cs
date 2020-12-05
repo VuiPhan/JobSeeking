@@ -35,7 +35,7 @@ namespace JobSeeking.Controllers
                "@JobSkillIDs={12},@JobTitleIDs={13},@JobLocations={14},@JobID={15}",
                claims[4].Value,
                publishedRecuitForm.Title,
-               publishedRecuitForm.JobDescription,
+               publishedRecuitForm.JobDescriptions,
                publishedRecuitForm.RequireCV,
                publishedRecuitForm.Strengths,
                publishedRecuitForm.PriorityDegree,
@@ -51,6 +51,13 @@ namespace JobSeeking.Controllers
                publishedRecuitForm.JobID
                );
             return StatusCode(201);
+        }
+        [HttpGet("GetForEdit")]
+        //[Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> GetInfoJob(int? jobid)
+        {
+            var dataJob = await _context.PublishedRecuitForms.FromSqlRaw("EXEC dbo.UTE_Job_GetInfomationToEdit {0}", jobid).ToListAsync();
+            return dataJob.AsEnumerable().SingleOrDefault();
         }
     }
 }

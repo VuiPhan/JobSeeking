@@ -11,7 +11,7 @@ function MyCKEditor(props) {
       <CKEditor
         id={name}
         editor={ClassicEditor}
-        data=""
+        data={value}
         onInit={editor => {
         }}
         onChange={(event, editor) => {

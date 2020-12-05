@@ -5,6 +5,10 @@ const JobsApi = {
         const url = `/Jobs/GetJobByID?jobid=${data}`;
         return axiosClient.get(url,data);
     },
+    getForEdit: (data) => {
+        const url = `/PublishedRecuit/GetForEdit?jobid=${data}`;
+        return axiosClient.get(url);
+    },
     getListCandidate: (data) => {
         const url = `/Common/GetListCandidateApply?JobID=${data}`;
         return axiosClient.get(url,data);

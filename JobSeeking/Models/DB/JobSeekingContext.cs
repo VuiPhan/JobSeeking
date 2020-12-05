@@ -29,7 +29,8 @@ namespace JobSeeking.Models.DB
         public DbSet<ListCVOfCandidate> ListCVOfCandidates { get; set; }
         public DbSet<WorkInfo> WorkInfos { get; set; }
         public DbSet<JobPage> JobPages { get; set; }
-        
+        public DbSet<PublishedRecuitForm> PublishedRecuitForms { get; set; }
+
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
         public virtual DbSet<UteappAppEducation> UteappAppEducations { get; set; }
@@ -77,7 +78,10 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<ListCandidateApply>().HasNoKey();
             modelBuilder.Entity<WorkInfo>().HasNoKey();
             modelBuilder.Entity<JobPage>().HasNoKey();
+            modelBuilder.Entity<PublishedRecuitForm>().HasNoKey();
             
+
+
             modelBuilder.Entity<UteappAccount>(entity =>
             {
                 entity.HasKey(e => e.UserId)

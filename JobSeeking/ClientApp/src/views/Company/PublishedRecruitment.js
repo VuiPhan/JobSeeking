@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "components/Footer/Footer.js";
@@ -20,18 +20,20 @@ import HeaderCompany from "components/HeaderCompany/HeaderCompany";
 import { useSelector } from "react-redux";
 import { MyToaStrSuccess } from "components/Toastr/Toastr2";
 import MyToastr from "components/Toastr/Toastr";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import MutipleCombobox from "components/CustomField/MutipleCombobox";
 import './PublishCss.scss';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import NumberFormatCustom from 'components/InputNumber/InputNumber';
 import { TextField } from "@material-ui/core";
 import SwitchLabels from "components/Checkbox/Checkbox";
+import JobsApi from "api/Company/JobsAPI";
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
     const classes = useStyles();
     const res = LGCompanyPage.PublishedRecruitment;
     const { ...rest } = props;
+    const { jobID } = useParams();
 
     const initialValuesImage = {
         imageName: '',
@@ -61,22 +63,23 @@ export default function PublishedRecruitment(props) {
         }
     }
     const validationShema = yup.object().shape({
-        Title: yup.string().required(res.TruongBBNhap),
+        title: yup.string().required(res.TruongBBNhap),
         Strengths: yup.string().email().required(res.TruongBBNhap)
     })
-    const initialValues = {
-        Title: '',
+    const [initialValues, setinitialValues] = React.useState({
+        title: '',
         categoryId: null,
         Strengths: '',
-        PriorityDegree: '',
-        jobDescription: '',
+        priorityDegree: '1',
+        jobDescriptions: '',
         requireCV: '',
         reasonsToJoin: '',
         loveWorkingHere: '',
         jobTitleIDs: "1,2",
         jobSkillIDs: "1",
         jobLocations: "1",
-    };
+        isAcceptCandidate: false,
+    });
     const history = useHistory();
     const [valuesSalary, setvaluesSalary] = React.useState({
         salaryFrom: '500',
@@ -88,16 +91,28 @@ export default function PublishedRecruitment(props) {
             [event.target.name]: event.target.value,
         });
     };
+    useEffect(() => {
+        async function fetchDataView() {
+            let result = await JobsApi.getForEdit(jobID);
+            setinitialValues(result);
+            console.log('initialValues', initialValues);
+            console.log('result', result);
+
+        }
+        if (jobID) {
+            fetchDataView();
+        }
+    }, [jobID])
     const HandleSubmitData = (valuesForm) => {
         const formData = new FormData();
 
-        formData.append('Title', valuesForm.Title);
+        formData.append('Title', valuesForm.title);
         formData.append('RequireCV', valuesForm.requireCV);
         formData.append('ReasonsToJoin', valuesForm.reasonsToJoin);
-        formData.append('JobDescription', valuesForm.jobDescription);
+        formData.append('JobDescriptions', valuesForm.jobDescriptions);
         formData.append('LoveWorkingHere', valuesForm.loveWorkingHere);
         formData.append('Strengths', valuesForm.Strengths);
-        formData.append('PriorityDegree', valuesForm.PriorityDegree);
+        formData.append('PriorityDegree', valuesForm.priorityDegree);
 
         formData.append('SalaryFrom', valuesSalary.salaryFrom);
         formData.append('SalaryTo', valuesSalary.salaryTo);
@@ -116,7 +131,6 @@ export default function PublishedRecruitment(props) {
     }
 
     const LoginInfo = useSelector(state => state.loginInfo);
-    const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
     return (
         <div>
             <div className={classNames(classes.main, classes.mainRaised)}>
@@ -128,15 +142,18 @@ export default function PublishedRecruitment(props) {
                 <div className='ContainerForm'>
                     <Formik initialValues={initialValues}
                         // validationSchema={validationShema}
-                        onSubmit={values => HandleSubmitData(values)}>
+                        enableReinitialize
+                        onSubmit={values => HandleSubmitData(values)}
+                        >
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
+                            console.log('initialValues2',initialValues);
                             return (
                                 <Form>
                                     <h1 className='headerThongTinCV'> THÔNG TIN CÔNG VIỆC</h1>
                                     <h1>{res.TieuDeCongViec}</h1>
                                     <FastField
-                                        name="Title"
+                                        name="title"
                                         component={InputField}
                                         label=""
                                         placeholder={res.TieuDeCongViec}
@@ -151,7 +168,7 @@ export default function PublishedRecruitment(props) {
                                     <MyToastr></MyToastr>
                                     <h1>{res.MoTaCongViec}</h1>
                                     <FastField
-                                        name="jobDescription"
+                                        name="jobDescriptions"
                                         component={MyCKEditor}
                                         label=""
                                         placeholder={res.YeuCauCongViec}
@@ -174,7 +191,7 @@ export default function PublishedRecruitment(props) {
                                     />
                                     <h1>Mức lương</h1>
                                     <p>Nếu để trống thì hệ thống sẽ hiểu:"You'll love it"</p>
-                                    <div style={{display:"flex" }}>
+                                    <div style={{ display: "flex" }}>
                                         <TextField
                                             label="Mức lương từ"
                                             value={valuesSalary.salaryFrom}
@@ -187,7 +204,7 @@ export default function PublishedRecruitment(props) {
                                         />
                                         <TextField
                                             label="Mức lương đến"
-                                            style={{marginLeft:30}}
+                                            style={{ marginLeft: 30 }}
                                             value={valuesSalary.salaryTo}
                                             onChange={handleChange}
                                             name="salaryTo"
@@ -196,8 +213,8 @@ export default function PublishedRecruitment(props) {
                                                 inputComponent: NumberFormatCustom,
                                             }}
                                         />
-                                       
-                                    
+
+
                                     </div>
                                     {/* <FastField
                                         name="categoryId"
@@ -215,7 +232,7 @@ export default function PublishedRecruitment(props) {
                                     /> */}
                                     <h4>Các bằng cấp ưu tiên</h4>
                                     <FastField
-                                        name="PriorityDegree"
+                                        name="priorityDegree"
                                         component={MutipleSelectField}
                                         label=""
                                         ListName="BangCapUuTien"
@@ -245,11 +262,16 @@ export default function PublishedRecruitment(props) {
                                         placeholder=""
                                         ListName="NoiLamViec"
                                     />
+                                    {/* <FastField
+                                        name="isAcceptCandidate"
+                                        component={SwitchLabels}
+                                        label="Đã nhận đủ ứng viên"
+                                    /> */}
                                     <FormGroup>
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Button IconStart={ReceiptIcon} type='submit' variant="outlined" color="secondary">{res.DangTin}</Button>
+                                        <Button type='submit' variant="outlined" color="secondary">{res.DangTin}</Button>
                                     </FormGroup>
                                     {/* <CrossArea></CrossArea> */}
                                 </Form>
