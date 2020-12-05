@@ -95,15 +95,13 @@ export default function PublishedRecruitment(props) {
         async function fetchDataView() {
             let result = await JobsApi.getForEdit(jobID);
             setinitialValues(result);
-            console.log('initialValues', initialValues);
-            console.log('result', result);
-
+            setvaluesSalary( {...valuesSalary,salaryFrom:result.salaryFrom,salaryTo:result.salaryTo})
         }
         if (jobID) {
             fetchDataView();
         }
     }, [jobID])
-    const HandleSubmitData = (valuesForm) => {
+    const HandleSubmitData = async (valuesForm) => {
         const formData = new FormData();
 
         formData.append('Title', valuesForm.title);
@@ -120,14 +118,23 @@ export default function PublishedRecruitment(props) {
         formData.append('JobTitleIDs', valuesForm.jobTitleIDs);
         formData.append('JobSkillIDs', valuesForm.jobSkillIDs);
         formData.append('JobLocations', valuesForm.jobLocations);
-        PublishedRecruitmentAPI.post(formData);
-        MyToaStrSuccess('Đăng tin thành công. Sẽ nhanh chóng chuyển đến trang công ty');
+        if (jobID) {
+            // Update 
+            formData.append('JobID', jobID);
+            await PublishedRecruitmentAPI.post(formData);
+            MyToaStrSuccess('Cập nhật thông tin thành công');
+        }
+        else {
+            // Tạo mới
+            await PublishedRecruitmentAPI.post(formData);
+            MyToaStrSuccess('Đăng tin thành công. Sẽ nhanh chóng chuyển đến trang công ty');
+
+        }
         setTimeout(() => {
             const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
             history.push(LinkToPageCompany);
             window.scrollTo(0, 150);
         }, 3000);
-
     }
 
     const LoginInfo = useSelector(state => state.loginInfo);
@@ -144,10 +151,10 @@ export default function PublishedRecruitment(props) {
                         // validationSchema={validationShema}
                         enableReinitialize
                         onSubmit={values => HandleSubmitData(values)}
-                        >
+                    >
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
-                            console.log('initialValues2',initialValues);
+                            console.log('initialValues2', initialValues);
                             return (
                                 <Form>
                                     <h1 className='headerThongTinCV'> THÔNG TIN CÔNG VIỆC</h1>
@@ -271,7 +278,7 @@ export default function PublishedRecruitment(props) {
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Button type='submit' variant="outlined" color="secondary">{res.DangTin}</Button>
+                                        <Button type='submit' variant="outlined" color="secondary">{jobID ? "Cập nhật tin" : res.DangTin}</Button>
                                     </FormGroup>
                                     {/* <CrossArea></CrossArea> */}
                                 </Form>

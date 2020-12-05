@@ -14,7 +14,7 @@ const DraggableArea1 = group.addArea();
 const DraggableArea2 = group.addArea();
 
 
-export default class CrossArea extends Component {
+export default class TagListDetail extends Component {
   constructor() {
     super();
     this.state = {
@@ -27,8 +27,6 @@ export default class CrossArea extends Component {
     const rightTags = this.state.rightTags.filter(t => tag.id !== t.id);
     this.setState({rightTags});
   }
-
-
   render() {
     return (
       <div className="CrossArea">
@@ -42,25 +40,6 @@ export default class CrossArea extends Component {
             )}
             onChange={leftTags => {
               this.setState({leftTags});
-            }}
-          />
-        </div>
-        <div className="square right">
-          <DraggableArea2
-            tags={this.state.rightTags}
-            render={({tag}) => (
-              <div className="tag">
-                <img
-                  className="delete"
-                  src={deleteBtn}
-                  srcSet={`${deleteBtn2x} 2x`}
-                  onClick={() => this.handleClickDelete(tag)}
-                />
-                {tag.content}
-              </div>
-            )}
-            onChange={rightTags => {
-              this.setState({rightTags});
             }}
           />
         </div>

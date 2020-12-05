@@ -3,6 +3,7 @@ using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -28,27 +29,14 @@ namespace JobSeeking.Controllers
         [HttpGet("GetJobByID")]
         public async Task<object> GetJobByID(int jobid)
         {
-            //var dataJob = from jobs in _context.UteworkJobs
-            //              join company in _context.UtecomCompanies
-            //                     on jobs.CompanyId equals company.CompanyId
-            //              where jobs.JobId == jobid
-            //              select new
-            //              {
-            //                  jobs.JobId,
-            //                  jobs.JobDescriptions,
-            //                  jobs.JobRequirements,
-            //                  jobs.ReasonsToJoin,
-            //                  company.CompanyName,
-            //                  company.CompanyId,
-            //                  jobs.PostingDate,
-            //                  jobs.JobsTitle,
-            //                  jobs.LoveWorkingHere,
-            //                  company.ImageLogo,
-            //                  company.TimeWorking,
-            //                  company.CompanyAddress,
-            //              };
             var dataJob = await _context.JobPages.FromSqlRaw("EXEC dbo.UTE_Job_GetInfomation {0}", jobid).ToListAsync();
-            return dataJob.AsEnumerable().SingleOrDefault();
+            var dataTagSkill = await _context.ValueLists.FromSqlRaw("EXEC dbo.spUTE_GetComboboxForJob {0},{1},{2},{3}", "UTELS_GetJobSkill","VN", jobid,1).ToListAsync();
+            var dataTagTitle = await _context.ValueLists.FromSqlRaw("EXEC dbo.spUTE_GetComboboxForJob {0},{1},{2},{3}", "UTELS_GetJobTitle", "VN", jobid, 2).ToListAsync();
+            var arlist2 = new ArrayList()
+                {
+                    dataJob, dataTagSkill, dataTagTitle
+                };
+            return arlist2;
         }
         [HttpPost("ApplyJob")]
         [Authorize(Policy = Policies.User)]

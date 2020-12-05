@@ -26,6 +26,7 @@ import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { MyToaStrError, MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
+import TagList from "@progress/kendo-react-dropdowns/dist/npm/MultiSelect/TagList";
 
 const useStyles = makeStyles(styles);
 
@@ -54,12 +55,20 @@ export default function JobsPage(props) {
   const { jobID } = useParams();
   const dispatch = useDispatch();
   const LoginInfo = useSelector(state => state.loginInfo);
+
+  var TagJobWorking = null;
+  var TagSkill = null;
+
   useEffect(() => {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
-      setData(result);
-      debugger;
-      if (LoginInfo.companyID == result.companyId) {
+      let dataJob =  result[0][0];
+      TagJobWorking = result[2];
+      TagSkill = result[1];
+      console.log('TagJobWorking',TagJobWorking);
+      console.log('TagSkill',TagSkill);
+      setData(dataJob);
+      if (LoginInfo.companyID == dataJob.companyId) {
         const action = ChooseJob({ jobID: jobID, IsAccess: true });
         var x = dispatch(action);
       }
@@ -112,7 +121,7 @@ export default function JobsPage(props) {
               <div className="side">
                 <div className="detail_side">
                   <AccessAlarm />
-                  <p className="detail_side_content">{data.otMode}</p>
+                  <p className="detail_side_content">OT:{data.otMode}</p>
                 </div>
                 <div className="detail_side">
                   <MonetizationOnIcon color="secondary" />
@@ -139,6 +148,35 @@ export default function JobsPage(props) {
                   <DateRangeIcon />
                   <p className="detail_side_content"> {data.postingDate}</p>
                 </div>
+                <br></br>
+                <div className="">
+                  <p>Kỹ năng:</p>
+                  <div className="">
+                  <ul>
+                    <li>HTML</li>
+                    <li>ReactJS</li>
+                  </ul>
+                  </div>
+                </div>
+                <div className="">
+                  <p>Chức danh công việc:</p>
+                  <div className="">
+                  <ul>
+                    <li>HTML</li>
+                    <li>ReactJS</li>
+                  </ul>
+                  </div>
+                </div>
+                <div className="">
+                  <p>Bằng cấp ưu tiên:</p>
+                  <div className="">
+                  <ul>
+                    <li><a>HTML</a></li>
+                    <li>ReactJS</li>
+                  </ul>
+                  </div>
+                </div>
+
                 <div className="CenterButton">
                   {LoginInfo.role === "Recruiter" ?
                     null

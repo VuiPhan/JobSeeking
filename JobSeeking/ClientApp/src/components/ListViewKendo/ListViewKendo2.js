@@ -11,6 +11,7 @@ import { Button } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useSelector } from 'react-redux';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 const myHeader = () => {
     return (
         <ListViewHeader style={{ color: 'rgb(1817, 80, 92)', fontSize: 40 ,fontFamily: "fantasy",borderBottomStyle: "groove"}} className='pl-4 pb-2 pt-2'>
@@ -25,6 +26,11 @@ const MyItemRender = props => {
     const LoginInfo = useSelector(state => state.loginInfo);
     const HandleRedirectPage = (id) =>{
         const linkRedired = `/Jobs/${id}`;
+        history.push(linkRedired);
+        window.scrollTo(0, 150);
+    }
+    const HandleRedirectPageEdit = (id) =>{
+        const linkRedired = `/PublishedRecruitment/${id}`;
         history.push(linkRedired);
         window.scrollTo(0, 150);
     }
@@ -47,11 +53,18 @@ const MyItemRender = props => {
                                 variant="outlined" color="secondary"
                                 startIcon={<VisibilityIcon />}
                               >Xem chi tiết</Button>
-                    <div style={{display:"inline",paddingLeft: 10}}><Button startIcon={<FavoriteIcon />} onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Yêu thích</Button></div>
-                    {LoginInfo.companyID == item.companyID ?<Button onClick={()=>HandleRedirectPage(item.jobID)} 
+                    <div style={{display:"inline",paddingLeft: 10}}>
+                        <Button startIcon={<FavoriteIcon />} onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Yêu thích</Button>
+
+                      
+                        </div>
+                        <div style={{display:"inline",paddingLeft: 10}}>
+                        {LoginInfo.companyID == item.companyID ?<Button onClick={()=>HandleRedirectPageEdit(item.jobID)} 
                                 variant="outlined" color="secondary"
-                                startIcon={<VisibilityIcon />}
+                                startIcon={<EditOutlinedIcon />}
                               >Chỉnh sửa</Button>:null}
+                            </div>
+                 
                 </CardActions>
             </div>
             <div>
