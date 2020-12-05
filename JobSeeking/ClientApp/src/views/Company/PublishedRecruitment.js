@@ -6,7 +6,7 @@ import styles from "assets/jss/material-kit-react/views/CompanyPage.js";
 import 'assets/css/TitleCompany.scss';
 import 'assets/scss/view/CompanyPage.scss';
 import 'assets/scss/view/CompanyRegister.scss';
-import { FormGroup, Label } from "reactstrap";
+import { Col, FormGroup, Label, Row } from "reactstrap";
 import Button from '@material-ui/core/Button';
 import { Formik, Form, FastField } from "formik";
 import InputField from "components/CustomField/InputField";
@@ -23,6 +23,10 @@ import MyToastr from "components/Toastr/Toastr";
 import { useHistory } from "react-router-dom";
 import MutipleCombobox from "components/CustomField/MutipleCombobox";
 import './PublishCss.scss';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import NumberFormatCustom from 'components/InputNumber/InputNumber';
+import { TextField } from "@material-ui/core";
+import SwitchLabels from "components/Checkbox/Checkbox";
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
     const classes = useStyles();
@@ -68,15 +72,25 @@ export default function PublishedRecruitment(props) {
         jobDescription: '',
         requireCV: '',
         reasonsToJoin: '',
-        loveWorkingHere:'',
+        loveWorkingHere: '',
         jobTitleIDs: "1,2",
         jobSkillIDs: "1",
         jobLocations: "1",
     };
     const history = useHistory();
+    const [valuesSalary, setvaluesSalary] = React.useState({
+        salaryFrom: '500',
+        salaryTo: '1000',
+    });
+    const handleChange = (event) => {
+        setvaluesSalary({
+            ...valuesSalary,
+            [event.target.name]: event.target.value,
+        });
+    };
     const HandleSubmitData = (valuesForm) => {
         const formData = new FormData();
-        
+
         formData.append('Title', valuesForm.Title);
         formData.append('RequireCV', valuesForm.requireCV);
         formData.append('ReasonsToJoin', valuesForm.reasonsToJoin);
@@ -85,6 +99,9 @@ export default function PublishedRecruitment(props) {
         formData.append('Strengths', valuesForm.Strengths);
         formData.append('PriorityDegree', valuesForm.PriorityDegree);
 
+        formData.append('SalaryFrom', valuesSalary.salaryFrom);
+        formData.append('SalaryTo', valuesSalary.salaryTo);
+
         formData.append('JobTitleIDs', valuesForm.jobTitleIDs);
         formData.append('JobSkillIDs', valuesForm.jobSkillIDs);
         formData.append('JobLocations', valuesForm.jobLocations);
@@ -92,11 +109,12 @@ export default function PublishedRecruitment(props) {
         MyToaStrSuccess('Đăng tin thành công. Sẽ nhanh chóng chuyển đến trang công ty');
         setTimeout(() => {
             const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
-        history.push(LinkToPageCompany);
-        window.scrollTo(0, 150);
-          }, 3000);
-        
+            history.push(LinkToPageCompany);
+            window.scrollTo(0, 150);
+        }, 3000);
+
     }
+
     const LoginInfo = useSelector(state => state.loginInfo);
     const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
     return (
@@ -130,7 +148,7 @@ export default function PublishedRecruitment(props) {
                                         label=""
                                         placeholder={res.LyDoGiaNhapCongTy}
                                     />
-                                        <MyToastr></MyToastr>
+                                    <MyToastr></MyToastr>
                                     <h1>{res.MoTaCongViec}</h1>
                                     <FastField
                                         name="jobDescription"
@@ -154,7 +172,33 @@ export default function PublishedRecruitment(props) {
                                         label=""
                                         placeholder={res.TaiSaoBanYeuThich}
                                     />
-
+                                    <h1>Mức lương</h1>
+                                    <p>Nếu để trống thì hệ thống sẽ hiểu:"You'll love it"</p>
+                                    <div style={{display:"flex" }}>
+                                        <TextField
+                                            label="Mức lương từ"
+                                            value={valuesSalary.salaryFrom}
+                                            onChange={handleChange}
+                                            name="salaryFrom"
+                                            id="formatted-numberformat-input"
+                                            InputProps={{
+                                                inputComponent: NumberFormatCustom,
+                                            }}
+                                        />
+                                        <TextField
+                                            label="Mức lương đến"
+                                            style={{marginLeft:30}}
+                                            value={valuesSalary.salaryTo}
+                                            onChange={handleChange}
+                                            name="salaryTo"
+                                            id="formatted-numberformat-input"
+                                            InputProps={{
+                                                inputComponent: NumberFormatCustom,
+                                            }}
+                                        />
+                                       
+                                    
+                                    </div>
                                     {/* <FastField
                                         name="categoryId"
                                         component={SelectField}
@@ -169,42 +213,43 @@ export default function PublishedRecruitment(props) {
                                         placeholder="Category"
                                         ListName="TheManhCongTy"
                                     /> */}
+                                    <h4>Các bằng cấp ưu tiên</h4>
                                     <FastField
                                         name="PriorityDegree"
                                         component={MutipleSelectField}
-                                        label="Các bằng cấp ưu tiên"
+                                        label=""
                                         ListName="BangCapUuTien"
                                         placeholder="Mời bạn chọn các bằng cấp được ưu tiên"
                                     />
-                                       <h4>Chọn việc làm theo cấp bậc</h4>
-                            <FastField
-                                name="jobTitleIDs"
-                                component={MutipleCombobox}
-                                label=""
-                                placeholder=""
-                                ListName="UTELS_GetJobTitle"
-                            />
-                            <h4>Chọn việc làm theo kỹ năng</h4>
-                            <FastField
-                                name="jobSkillIDs"
-                                component={MutipleCombobox}
-                                label=""
-                                placeholder=""
-                                ListName="UTELS_GetJobSkill"
-                            />
-                            <h4>Chọn việc làm theo nơi làm việc</h4>
-                            <FastField
-                                name="jobLocations"
-                                component={MutipleSelectField}
-                                label=""
-                                placeholder=""
-                                ListName="NoiLamViec"
-                            />
+                                    <h4>Chọn việc làm theo cấp bậc</h4>
+                                    <FastField
+                                        name="jobTitleIDs"
+                                        component={MutipleCombobox}
+                                        label=""
+                                        placeholder=""
+                                        ListName="UTELS_GetJobTitle"
+                                    />
+                                    <h4>Chọn việc làm theo kỹ năng</h4>
+                                    <FastField
+                                        name="jobSkillIDs"
+                                        component={MutipleCombobox}
+                                        label=""
+                                        placeholder=""
+                                        ListName="UTELS_GetJobSkill"
+                                    />
+                                    <h4>Chọn việc làm theo nơi làm việc</h4>
+                                    <FastField
+                                        name="jobLocations"
+                                        component={MutipleSelectField}
+                                        label=""
+                                        placeholder=""
+                                        ListName="NoiLamViec"
+                                    />
                                     <FormGroup>
                                         <Label for='FirstName'>{res.LogoCongTy}</Label>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Button type='submit' variant="outlined" color="secondary">{res.DangTin}</Button>
+                                        <Button IconStart={ReceiptIcon} type='submit' variant="outlined" color="secondary">{res.DangTin}</Button>
                                     </FormGroup>
                                     {/* <CrossArea></CrossArea> */}
                                 </Form>

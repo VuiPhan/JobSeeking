@@ -23,26 +23,32 @@ namespace JobSeeking.Controllers
         }
         [HttpPost("Post")]
         [Authorize(Policy = Policies.Recruiter)]
-        public async Task<ActionResult<PublishedRecuitForm>> PublishedRecuit([FromForm] PublishedRecuitForm registerCompanyForm)
+        public async Task<ActionResult<PublishedRecuitForm>> PublishedRecuit([FromForm] PublishedRecuitForm publishedRecuitForm)
         {
 
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             await _context.Database.ExecuteSqlRawAsync("dbo.UTECompany_PublishedRecuit" +
                " @CompanyID={0},@JobsTitle={1},@JobDescriptions={2},@JobRequirements={3}," +
-               "@Strengths={4},@PriorityDegree={5},@ReasonsToJoin ={6},@LoveWorkingHere ={7},@SalaryFrom={8},@SalaryTO={9},@WorkLocation={10},@OTMode={11}",
+               "@Strengths={4},@PriorityDegree={5},@ReasonsToJoin ={6},@LoveWorkingHere ={7}," +
+               "@SalaryFrom={8},@SalaryTO={9},@WorkLocation={10},@OTMode={11}," +
+               "@JobSkillIDs={12},@JobTitleIDs={13},@JobLocations={14},@JobID={15}",
                claims[4].Value,
-               registerCompanyForm.Title,
-               registerCompanyForm.JobDescription,
-               registerCompanyForm.RequireCV,
-               registerCompanyForm.Strengths,
-               registerCompanyForm.PriorityDegree,
-               registerCompanyForm.ReasonsToJoin,
-               registerCompanyForm.LoveWorkingHere,
-               registerCompanyForm.SalaryFrom,
-               registerCompanyForm.SalaryTo,
-               registerCompanyForm.WorkLocation,
-               registerCompanyForm.OTMode
+               publishedRecuitForm.Title,
+               publishedRecuitForm.JobDescription,
+               publishedRecuitForm.RequireCV,
+               publishedRecuitForm.Strengths,
+               publishedRecuitForm.PriorityDegree,
+               publishedRecuitForm.ReasonsToJoin,
+               publishedRecuitForm.LoveWorkingHere,
+               publishedRecuitForm.SalaryFrom,
+               publishedRecuitForm.SalaryTo,
+               publishedRecuitForm.WorkLocation,
+               publishedRecuitForm.OTMode,
+               publishedRecuitForm.JobSkillIDs,
+               publishedRecuitForm.JobTitleIDs,
+               publishedRecuitForm.JobLocations,
+               publishedRecuitForm.JobID
                );
             return StatusCode(201);
         }

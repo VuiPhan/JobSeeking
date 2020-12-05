@@ -29,4 +29,24 @@ namespace JobSeeking.Models.Class
         public string PathAvatar { get; set; }
 
     }
+    public class JobPage
+    {
+        public int JobId { get; set; }
+        public string JobDescriptions { get; set; }
+        public string JobRequirements { get; set; }
+        public string ReasonsToJoin { get; set; }
+        public string PostingDate { get; set; }
+        public string JobsTitle { get; set; }
+        public string LoveWorkingHere { get; set; }
+        public string CompanyName { get; set; }
+        public int CompanyId { get; set; }
+        public string ImageLogo { get; set; }
+        public string TimeWorking { get; set; }
+        public string CompanyAddress { get; set; }
+        public string ScalePeople { get; set; }
+        public string CompanyType { get; set; }
+        public string OTMode { get; set; }
+        public string Salary { get; set; }
+
+    }
 }

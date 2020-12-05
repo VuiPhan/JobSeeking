@@ -11,7 +11,7 @@ export default function SwitchLabels(props) {
     <FormGroup row>
       <FormControlLabel
         control={<Switch {...field} checked={value} />}
-        label=""
+        label={label}
       />
     </FormGroup>
   );

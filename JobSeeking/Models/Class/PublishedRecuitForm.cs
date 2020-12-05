@@ -10,9 +10,9 @@
         public string ReasonsToJoin { get; set; }
         public string LoveWorkingHere { get; set; }
 
-        public float SalaryFrom { get; set; }
+        public int SalaryFrom { get; set; }
 
-        public float SalaryTo { get; set; }
+        public int SalaryTo { get; set; }
 
         public string WorkLocation { get; set; }
 
@@ -20,6 +20,8 @@
         public string JobSkillIDs { get; set; }
         public string JobTitleIDs { get; set; }
         public string JobLocations { get; set; }
+        public int JobID { get; set; }
+
 
     }
 }

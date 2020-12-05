@@ -22,7 +22,7 @@ const MyItemRender = props => {
     let item = props.dataItem;
     var parse = require('html-react-parser');
     const history = useHistory();
-
+    const LoginInfo = useSelector(state => state.loginInfo);
     const HandleRedirectPage = (id) =>{
         const linkRedired = `/Jobs/${id}`;
         history.push(linkRedired);
@@ -47,8 +47,11 @@ const MyItemRender = props => {
                                 variant="outlined" color="secondary"
                                 startIcon={<VisibilityIcon />}
                               >Xem chi tiết</Button>
-                    <div style={{display:"inline",paddingLeft: 10}}><Button startIcon={<FavoriteIcon />} onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Thêm vào yêu thích</Button></div>
-                    
+                    <div style={{display:"inline",paddingLeft: 10}}><Button startIcon={<FavoriteIcon />} onClick={()=>HandleRedirectPage(item.jobID)} variant="outlined" color="primary">Yêu thích</Button></div>
+                    {LoginInfo.companyID == item.companyID ?<Button onClick={()=>HandleRedirectPage(item.jobID)} 
+                                variant="outlined" color="secondary"
+                                startIcon={<VisibilityIcon />}
+                              >Chỉnh sửa</Button>:null}
                 </CardActions>
             </div>
             <div>

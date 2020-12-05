@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChooseJob } from "components/ListViewKendo/ListViewKendo2Slice.js";
 import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import { MyToaStrError,MyToaStrSuccess } from "components/Toastr/Toastr2.js";
+import { MyToaStrError, MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
 
 const useStyles = makeStyles(styles);
@@ -41,7 +41,15 @@ export default function JobsPage(props) {
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   var parse = require('html-react-parser');
-  const [data, setData] = useState({ companyId: null, companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
+  const [data, setData] = useState({ 
+    companyId: null, companyName: '', TimeWorking: '',
+     jobsTitle: '', jobDescriptions: 'a', jobRequirements:
+      'b', reasonsToJoin: 'c', loveWorkingHere: 'd'
+      ,postingDate:'',
+      scalePeople:'',
+      CompanyType:''
+
+     });
   const history = useHistory();
   const { jobID } = useParams();
   const dispatch = useDispatch();
@@ -49,22 +57,23 @@ export default function JobsPage(props) {
   useEffect(() => {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
-      setData(result[0]);
-      if (LoginInfo.companyID == result[0].companyId) {
-        const action = ChooseJob({jobID:jobID,IsAccess:true});
+      setData(result);
+      debugger;
+      if (LoginInfo.companyID == result.companyId) {
+        const action = ChooseJob({ jobID: jobID, IsAccess: true });
         var x = dispatch(action);
       }
-      else{
-        const action = ChooseJob({jobID:jobID,IsAccess:false});
+      else {
+        const action = ChooseJob({ jobID: jobID, IsAccess: false });
         var x = dispatch(action);
       }
-      
+
     }
     fetchMyAPI();
-   
+
   }, [jobID]);
-  const  submitApply =  () => {
-    if(!LoginInfo.CadidateCode){
+  const submitApply = () => {
+    if (!LoginInfo.CadidateCode) {
       MyToaStrError('Bạn hãy đăng nhập để sử dụng tính năng này!');
       return;
     }
@@ -74,15 +83,15 @@ export default function JobsPage(props) {
       buttons: [
         {
           label: 'Yes',
-          onClick:async () => {
+          onClick: async () => {
             await JobsApi.postApply(jobID);
             MyToaStrSuccess('Bạn đã ứng tuyển thành công. Hãy chờ thông tin từ nhà tuyển dụng!');
-              return;
+            return;
           }
         },
         {
           label: 'No',
-          onClick: () => {}
+          onClick: () => { }
         }
       ]
     });
@@ -103,40 +112,40 @@ export default function JobsPage(props) {
               <div className="side">
                 <div className="detail_side">
                   <AccessAlarm />
-                  <p className="detail_side_content">Không có OT</p>
+                  <p className="detail_side_content">{data.otMode}</p>
                 </div>
                 <div className="detail_side">
                   <MonetizationOnIcon color="secondary" />
-                  <p className="detail_side_content"> Mức lương: 700 - 1300$</p>
+                  <p className="detail_side_content"> Mức lương: $ {data.salary}</p>
                 </div>
 
                 <div className="detail_side">
                   <LocationCityIcon color="secondary" />
-                  <p className="detail_side_content"> Ho Chi Minh</p>
+                  <p className="detail_side_content">{data.companyAddress}</p>
                 </div>
                 <br></br>
 
                 <div className="detail_side">
                   <Brightness7Icon />
-                  <p className="detail_side_content"> Sản phẩm</p>
+                  <p className="detail_side_content"> {data.companyType}</p>
                 </div>
                 <br></br>
                 <div className="detail_side">
                   <PeopleIcon />
-                  <p className="detail_side_content"> 300 - 500</p>
+                  <p className="detail_side_content"> {data.scalePeople}</p>
                 </div>
                 <br></br>
                 <div className="detail_side">
                   <DateRangeIcon />
-                  <p className="detail_side_content"> 5 ngày trước</p>
+                  <p className="detail_side_content"> {data.postingDate}</p>
                 </div>
                 <div className="CenterButton">
-                    {LoginInfo.role === "Recruiter" ?
-                        null
-                      : <div className="buttonCenter"> <Button variant="outlined" onClick={() => submitApply()} color="secondary">Ứng tuyển ngay</Button>
-                      </div>
-                    }
-                    {/* <span className="buttonCenterNotification">10</span> */}
+                  {LoginInfo.role === "Recruiter" ?
+                    null
+                    : <div className="buttonCenter"> <Button variant="outlined" onClick={() => submitApply()} color="secondary">Ứng tuyển ngay</Button>
+                    </div>
+                  }
+                  {/* <span className="buttonCenterNotification">10</span> */}
                   <div className="buttonCenter">
                     <Button onClick={() => HandleRedirectPage(data.companyId)} variant="outlined" color="primary">Về chúng tôi</Button>
 
