@@ -3,7 +3,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Slide from '@material-ui/core/Slide';
 import InputField from 'components/CustomField/InputField';
+import TextAreaField from 'components/CustomField/TextAreaField';
 import { FastField, Formik, Form } from 'formik';
+import SaveIcon from '@material-ui/icons/Save';
+
 
 import React from 'react';
 import '../Model/Model.scss';
@@ -15,6 +18,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { AddDataComment, GetDataCommentRedux } from 'components/ListViewKendo/ListViewKendoSlice';
 import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import MyToastr from 'components/Toastr/Toastr';
+import EditIcon from '@material-ui/icons/Edit';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -65,54 +69,59 @@ export default function AlertDialogSlide() {
   }
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <div style={{display:'flex'}}>
+      <Button startIcon={<EditIcon/>} style={{marginLeft:'auto',marginBottom:10}} variant="outlined" color="primary" onClick={handleClickOpen}>
         Viết Review
       </Button>
-<div>
-      <Dialog
-        open={open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-        className='containerDialog'
-      >
-        <DialogContent>
-          <Formik initialValues={initialValues}
-            // validationSchema={validationShema}
-            onSubmit={values => submitData(values)}>
-            {FormikProps => {
-              const { values, errors, touched } = FormikProps;
-              return (
-                <Form>
-                  <h1>Để lại Review của bạn</h1>
-                  <FastField
-                    name="TitleReview"
-                    component={InputField}
-                    label={res.TieuDe}
-                    placeholder={res.TieuDe}
-                  />
-            <MyToastr></MyToastr>
-                  <FastField
-                    name="ILike"
-                    component={InputField}
-                    label={res.DieuBanThich}
-                    placeholder={res.DieuBanThich}
-                  />
-                  <FastField
-                    name="Improve"
-                    component={InputField}
-                    label={res.DeNghiCaiThien}
-                    placeholder={res.DeNghiCaiThien}
-                  />
-                  <Button type="submit" variant="outlined" color="primary">Để lại bình luận</Button>
-                </Form>
-              )
-            }}
-          </Formik>
-        </DialogContent>
-      </Dialog>
+      </div>
+      <div>
+        <Dialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+          className='containerDialog'
+          style={{height:600}}
+        >
+          <DialogContent>
+            <Formik initialValues={initialValues}
+              // validationSchema={validationShema}
+              onSubmit={values => submitData(values)}>
+              {FormikProps => {
+                const { values, errors, touched } = FormikProps;
+                return (
+                  <Form>
+                    <h1 style={{paddingTop:0}}>Để lại Review của bạn</h1>
+                    <FastField
+                      name="TitleReview"
+                      component={InputField}
+                      label={res.TieuDe}
+                      placeholder={res.TieuDe}
+                    />
+                    <MyToastr></MyToastr>
+                    <FastField
+                      name="ILike"
+                      component={TextAreaField}
+                      label={res.DieuBanThich}
+                      placeholder={res.DieuBanThich}
+                    />
+                    <FastField
+                      name="Improve"
+                      component={TextAreaField}
+                      label={res.DeNghiCaiThien}
+                      placeholder={res.DeNghiCaiThien}
+                    />
+                    <div style={{display:'flex'}}>
+                    <Button style={{marginLeft:'auto'}} startIcon={<SaveIcon/>} type="submit" variant="outlined" color="secondary">Để lại bình luận</Button>
+                    </div>
+                  </Form>
+                )
+              }}
+            </Formik>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ namespace JobSeeking.Models.Class
         public string PostingDateString { get; set; }
         public string JobsTitle { get; set; }
         public string ImageJob { get; set; }
+        public string JobAddress { get; set; }
         public string ImageLogo { get; set; }
     }
     public class ListCandidateApply

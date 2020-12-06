@@ -32,7 +32,7 @@ namespace JobSeeking.Controllers
                " @CompanyID={0},@JobsTitle={1},@JobDescriptions={2},@JobRequirements={3}," +
                "@Strengths={4},@PriorityDegree={5},@ReasonsToJoin ={6},@LoveWorkingHere ={7}," +
                "@SalaryFrom={8},@SalaryTO={9},@WorkLocation={10},@OTMode={11}," +
-               "@JobSkillIDs={12},@JobTitleIDs={13},@JobLocations={14},@JobID={15}",
+               "@JobSkillIDs={12},@JobTitleIDs={13},@JobLocations={14},@JobID={15},@IsPublic={16}",
                claims[4].Value,
                publishedRecuitForm.Title,
                publishedRecuitForm.JobDescriptions,
@@ -48,7 +48,8 @@ namespace JobSeeking.Controllers
                publishedRecuitForm.JobSkillIDs,
                publishedRecuitForm.JobTitleIDs,
                publishedRecuitForm.JobLocations,
-               publishedRecuitForm.JobID
+               publishedRecuitForm.JobID,
+               publishedRecuitForm.IsPublic
                );
             return StatusCode(201);
         }

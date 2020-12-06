@@ -3,7 +3,7 @@ import { ListView, ListViewHeader } from '@progress/kendo-react-listview';
 import { Card, CardTitle, CardImage, CardSubtitle, CardActions } from '@progress/kendo-react-layout';
 import { Pager } from '@progress/kendo-react-data-tools';
 import './styleListView.scss';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import LoadJobsApi from 'api/HomePageAPI';
 import Pagination from '@material-ui/lab/Pagination';
@@ -41,8 +41,11 @@ const MyItemRender = props => {
                     <CardTitle style={{ fontSize: 20,fontWeight:'bold' }}>
                         {item.jobsTitle}
                     </CardTitle>
-                    <CardSubtitle style={{ fontSize: 14, marginTop: 0 ,fontWeight:'bold', fontStyle: 'italic'}}>
+                    <CardSubtitle  className = "HoverColorCompany" style={{ fontSize: 16, marginTop: 0 ,fontWeight:'bold', fontStyle: 'italic'}}>
                         {item.companyName}
+                    </CardSubtitle>
+                    <CardSubtitle className = "HoverColorLocation" style={{ fontSize: 14, marginTop: 0 ,fontStyle: 'italic'}}>
+                    {item.jobAddress}
                     </CardSubtitle>
                     <CardSubtitle style={{ fontSize: 12 }}>
                     {parse(item.jobRequirements)}
@@ -69,8 +72,7 @@ const MyItemRender = props => {
             </div>
             <div>
             <CardImage src={`https://localhost:44351/Images/${item.imageLogo}`} style={{ width: 100, height: 100, maxWidth: 220 }} />
-            <h6 style={{textAlign:'center',marginTop:10}}>Ha Noi</h6>
-            <h6 style={{textAlign:'center',marginTop:10, fontStyle: 'italic'}}>20 ngày trước</h6>
+            <h6 style={{fontFamily:'Anton', textAlign:'center',marginTop:20}}>  {item.postingDateString}</h6>
             </div>
             
         </Card>
@@ -95,10 +97,15 @@ function ListViewKendo2(props) {
         setbegin((parseInt(e.target.innerText)-1)*take);
     }
     const LoginInfo = useSelector(state => state.loginInfo);
+    const { companyID } = useParams();
     useEffect(() => {
-        debugger;
+        // Kiêm tra xem trang đang đứng có phải là công ty của mình hay không? -- Nếu thật thì trả false otherwise true
+        var OwnCompany = true;
+        if(companyID == LoginInfo.companyID && typeof LoginInfo.companyID !== 'undefined' ){
+            OwnCompany = false;
+        }
         async function fetchMyAPI() {
-          const result = await LoadJobsApi.getAll(dataID,LoginInfo.CadidateCode);
+          const result = await LoadJobsApi.getAll(dataID,LoginInfo.CadidateCode,OwnCompany);
           setData(result);
         }
         if(dataID){
@@ -115,7 +122,9 @@ function ListViewKendo2(props) {
                     style={{ width: "100%" }}
                     header={myHeader}
                 />
-                <Pagination style={{marginLeft:650,marginTop:10,marginBottom:10}} count={Math.round(data.length/take)} hideNextButton = {false} hidePrevButton={false} page={page} onChange={handlePageChange}  variant="outlined" color="secondary" />
+                <div style={{display:'flex'}}>
+                <Pagination style={{marginLeft:'auto',marginTop:10,marginBottom:10}} count={Math.round(data.length/take)} hideNextButton = {false} hidePrevButton={false} page={page} onChange={handlePageChange}  variant="outlined" color="secondary" />
+                </div>
             </div>
         </div>
     )

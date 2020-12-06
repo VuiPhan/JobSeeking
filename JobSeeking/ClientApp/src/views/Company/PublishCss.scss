@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;500&display=swap');
 h1{
     font-family: 'Lobster', cursive;
      padding-top: 25px;
@@ -11,4 +12,8 @@ h1{
     padding:5px;
     color: #FF9304;
     padding-top: 10px !important;
+}
+h4{
+    font-family: 'Oswald', sans-serif;
+     padding-top: 25px;
 }

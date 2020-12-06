@@ -28,6 +28,7 @@ import NumberFormatCustom from 'components/InputNumber/InputNumber';
 import { TextField } from "@material-ui/core";
 import SwitchLabels from "components/Checkbox/Checkbox";
 import JobsApi from "api/Company/JobsAPI";
+import BackupIcon from '@material-ui/icons/Backup';
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
     const classes = useStyles();
@@ -78,7 +79,7 @@ export default function PublishedRecruitment(props) {
         jobTitleIDs: "1,2",
         jobSkillIDs: "1",
         jobLocations: "1",
-        isAcceptCandidate: false,
+        isPublic: false,
     });
     const history = useHistory();
     const [valuesSalary, setvaluesSalary] = React.useState({
@@ -111,13 +112,12 @@ export default function PublishedRecruitment(props) {
         formData.append('LoveWorkingHere', valuesForm.loveWorkingHere);
         formData.append('Strengths', valuesForm.Strengths);
         formData.append('PriorityDegree', valuesForm.priorityDegree);
-
-        formData.append('SalaryFrom', valuesSalary.salaryFrom);
-        formData.append('SalaryTo', valuesSalary.salaryTo);
-
+        formData.append('SalaryFrom', valuesSalary.salaryFrom == ""? 0 : valuesSalary.salaryFrom);
+        formData.append('SalaryTo', valuesSalary.salaryTo == ""? 0 : valuesSalary.salaryTo);
         formData.append('JobTitleIDs', valuesForm.jobTitleIDs);
         formData.append('JobSkillIDs', valuesForm.jobSkillIDs);
         formData.append('JobLocations', valuesForm.jobLocations);
+        formData.append('IsPublic', valuesForm.isPublic);
         if (jobID) {
             // Update 
             formData.append('JobID', jobID);
@@ -237,7 +237,7 @@ export default function PublishedRecruitment(props) {
                                         placeholder="Category"
                                         ListName="TheManhCongTy"
                                     /> */}
-                                    <h4>Các bằng cấp ưu tiên</h4>
+                                    <h4 style={{marginTop:20}}>Các bằng cấp ưu tiên</h4>
                                     <FastField
                                         name="priorityDegree"
                                         component={MutipleSelectField}
@@ -245,7 +245,7 @@ export default function PublishedRecruitment(props) {
                                         ListName="BangCapUuTien"
                                         placeholder="Mời bạn chọn các bằng cấp được ưu tiên"
                                     />
-                                    <h4>Chọn việc làm theo cấp bậc</h4>
+                                    <h4>Việc làm theo cấp bậc</h4>
                                     <FastField
                                         name="jobTitleIDs"
                                         component={MutipleCombobox}
@@ -253,7 +253,7 @@ export default function PublishedRecruitment(props) {
                                         placeholder=""
                                         ListName="UTELS_GetJobTitle"
                                     />
-                                    <h4>Chọn việc làm theo kỹ năng</h4>
+                                    <h4>Việc làm theo kỹ năng</h4>
                                     <FastField
                                         name="jobSkillIDs"
                                         component={MutipleCombobox}
@@ -261,7 +261,7 @@ export default function PublishedRecruitment(props) {
                                         placeholder=""
                                         ListName="UTELS_GetJobSkill"
                                     />
-                                    <h4>Chọn việc làm theo nơi làm việc</h4>
+                                    <h4>Việc làm theo nơi làm việc</h4>
                                     <FastField
                                         name="jobLocations"
                                         component={MutipleSelectField}
@@ -269,18 +269,14 @@ export default function PublishedRecruitment(props) {
                                         placeholder=""
                                         ListName="NoiLamViec"
                                     />
-                                    {/* <FastField
-                                        name="isAcceptCandidate"
+                                    <FastField
+                                        name="isPublic"
                                         component={SwitchLabels}
-                                        label="Đã nhận đủ ứng viên"
-                                    /> */}
-                                    <FormGroup>
-                                        <Label for='FirstName'>{res.LogoCongTy}</Label>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Button type='submit' variant="outlined" color="secondary">{jobID ? "Cập nhật tin" : res.DangTin}</Button>
-                                    </FormGroup>
-                                    {/* <CrossArea></CrossArea> */}
+                                        label="Tiếp tục đăng tin"
+                                    />
+                                    <div style={{display:'flex'}}>
+                                        <Button  startIcon={<BackupIcon />} style={{marginLeft: 'auto'}} type='submit' variant="outlined" color="secondary">{jobID ? "Cập nhật tin" : res.DangTin}</Button>
+                                        </div>
                                 </Form>
                             )
                         }}

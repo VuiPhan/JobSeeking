@@ -22,6 +22,8 @@
         public string JobLocations { get; set; }
         public int JobID { get; set; }
 
+        public bool IsPublic { get; set; }
+
 
     }
 }

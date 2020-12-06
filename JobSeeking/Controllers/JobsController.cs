@@ -21,9 +21,9 @@ namespace JobSeeking.Controllers
             _context = context;
         }
         [HttpGet("Get")]
-        public async Task<object> Get(int? CompanyID,int? CandidateCode)
+        public async Task<object> Get(int? CompanyID,int? CandidateCode,bool IsOwnCompany)
         {
-            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo {0},{1}",CompanyID, CandidateCode).ToListAsync();
+            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo {0},{1},{2}",CompanyID, CandidateCode,IsOwnCompany).ToListAsync();
             return dataJob;
         }
         [HttpGet("GetJobByID")]

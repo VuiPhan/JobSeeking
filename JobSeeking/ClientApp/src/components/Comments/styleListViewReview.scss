@@ -14,13 +14,25 @@
     color: red;
     font-weight: bold;
 }
-.k-card:hover .HoverColorCompany{
-    color: #FB8500;
-    font-weight: bold;
-}
-.k-card:hover .HoverColorLocation{
+.k-card:hover .Ilike{
     color: #4CB946;
+    // font-weight: bold;
+    font-size: 25px;
+}
+.k-card:hover .TitleReview{
+    color: red;
+    // font-weight: bold;
+    font-size: 25px;
+}
+
+.k-card:hover .Improve{
+    color:#FB8500 ;
+    // font-weight: bold;
+    font-size: 25px;
 }
 .k-listview.k-widget {
     border-style: groove;
+}
+.DetailComment{
+    font-size: 25px !important;
 }
