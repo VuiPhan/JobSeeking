@@ -56,19 +56,18 @@ export default function JobsPage(props) {
   const dispatch = useDispatch();
   const LoginInfo = useSelector(state => state.loginInfo);
 
-  var TagJobWorking = null;
-  var TagSkill = null;
-
+  const [dataJobWorking, setJobWorking] = useState([{value:1,label:''},{value:2,label:''}]);
+  const [dataTagSkill, setTagSkill] = useState([]);
+  const [dataPriorityDegree, setPriorityDegree] = useState([]);
   useEffect(() => {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
-      let dataJob =  result[0][0];
-      TagJobWorking = result[2];
-      TagSkill = result[1];
-      console.log('TagJobWorking',TagJobWorking);
-      console.log('TagSkill',TagSkill);
-      setData(dataJob);
-      if (LoginInfo.companyID == dataJob.companyId) {
+      setData(result[0][0]);
+      setJobWorking(result[2]);
+      setTagSkill(result[1]);
+      setPriorityDegree(result[3])
+      debugger;
+      if (LoginInfo.companyID == result[0][0].companyId) {
         const action = ChooseJob({ jobID: jobID, IsAccess: true });
         var x = dispatch(action);
       }
@@ -123,11 +122,13 @@ export default function JobsPage(props) {
                   <AccessAlarm />
                   <p className="detail_side_content">OT:{data.otMode}</p>
                 </div>
+                <br></br>
                 <div className="detail_side">
                   <MonetizationOnIcon color="secondary" />
                   <p className="detail_side_content"> Mức lương: $ {data.salary}</p>
+                  <br></br>
                 </div>
-
+                <br></br>
                 <div className="detail_side">
                   <LocationCityIcon color="secondary" />
                   <p className="detail_side_content">{data.companyAddress}</p>
@@ -153,8 +154,9 @@ export default function JobsPage(props) {
                   <p>Kỹ năng:</p>
                   <div className="">
                   <ul>
-                    <li>HTML</li>
-                    <li>ReactJS</li>
+                  {dataTagSkill.map((item) =>
+      <li key={item.value}><a href={'/Tag/Skill/'+item.value+''} target="_blank" rel="noopener noreferrer">{item.label}</a></li>
+    )}
                   </ul>
                   </div>
                 </div>
@@ -162,8 +164,9 @@ export default function JobsPage(props) {
                   <p>Chức danh công việc:</p>
                   <div className="">
                   <ul>
-                    <li>HTML</li>
-                    <li>ReactJS</li>
+                  {dataJobWorking.map((item) =>
+      <li key={item.value}><a href="#">{item.label}</a></li>
+    )}
                   </ul>
                   </div>
                 </div>
@@ -171,8 +174,9 @@ export default function JobsPage(props) {
                   <p>Bằng cấp ưu tiên:</p>
                   <div className="">
                   <ul>
-                    <li><a>HTML</a></li>
-                    <li>ReactJS</li>
+                  {dataPriorityDegree.map((item) =>
+      <li key={item.value}><a href="#">{item.label}</a></li>
+    )}
                   </ul>
                   </div>
                 </div>

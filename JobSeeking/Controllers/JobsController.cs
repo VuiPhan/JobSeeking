@@ -32,9 +32,10 @@ namespace JobSeeking.Controllers
             var dataJob = await _context.JobPages.FromSqlRaw("EXEC dbo.UTE_Job_GetInfomation {0}", jobid).ToListAsync();
             var dataTagSkill = await _context.ValueLists.FromSqlRaw("EXEC dbo.spUTE_GetComboboxForJob {0},{1},{2},{3}", "UTELS_GetJobSkill","VN", jobid,1).ToListAsync();
             var dataTagTitle = await _context.ValueLists.FromSqlRaw("EXEC dbo.spUTE_GetComboboxForJob {0},{1},{2},{3}", "UTELS_GetJobTitle", "VN", jobid, 2).ToListAsync();
+            var dataTagPriorityDegree = await _context.ValueLists.FromSqlRaw("EXEC dbo.spUTE_GetComboboxForJob {0},{1},{2},{3}", "UTELS_GetPriorityDegree", "VN", jobid, 3).ToListAsync();
             var arlist2 = new ArrayList()
                 {
-                    dataJob, dataTagSkill, dataTagTitle
+                    dataJob, dataTagSkill, dataTagTitle,dataTagPriorityDegree
                 };
             return arlist2;
         }

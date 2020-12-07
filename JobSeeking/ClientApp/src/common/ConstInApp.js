@@ -1,9 +1,18 @@
 const ConstCommon ={
+    // LinkImage: 'http://localhost:45312/Images/',
+    // LinkConnectAPILocal:'http://localhost:45312/api/',
+    // LinkConnectAPICloud:'https://jobseeking.conveyor.cloud/'
+
+
+
+
     LinkImage:'https://localhost:44351/Images/',
     LinkConnectAPILocal:'https://localhost:44351/api/',
     LinkConnectAPICloud:'https://jobseeking.conveyor.cloud/'
 
-    // LinkImage:'https://jobseeking.conveyor.cloud/Images/',
+
+
+    // LinkImage:'https://jobseeking.conveyor.cloud/Images/', 44351
     // LinkConnectAPILocal:'https://jobseeking.conveyor.cloud/api/',
     // LinkConnectAPICloud:'https://jobseeking.conveyor.cloud/'
 

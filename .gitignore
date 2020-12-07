@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/JobSeeking/aws-beanstalk-tools-defaults.json

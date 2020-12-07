@@ -13,6 +13,7 @@ import PublishedRecruitment from 'views/Company/PublishedRecruitment';
 import PrivateRoute from 'components/Router/PrivateRoute';
 import ShowCadidate from 'components/ShowCandidate/ShowCandidate';
 import PrivateRouteForViewList from 'components/Router/PrivateRouteForViewList';
+import TagPage from 'views/TagPage/TagPage';
 
 
 export default class App extends Component {
@@ -26,6 +27,7 @@ export default class App extends Component {
         <Route path='/ProfilePage' component={ProfilePage} exact/>
         <Route path='/ProfilePage/:CandidateCode' component={ProfilePage} exact />
         <Route path='/Company/:companyID' component={CompanyPage} />
+        <Route path='/Tag/:Tag/:tagID' component={TagPage} />
         <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />
         <PrivateRoute component={PublishedRecruitment} path="/PublishedRecruitment" exact />
