@@ -15,6 +15,8 @@ import profile from "../assets/img/faces/christian.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import ListViewKendo from "../components/ListViewKendo/ListViewKendo.js";
 import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
+import SelectGroup from "components/SelectGroup/SelectGroup.js";
+import CompanyList from "components/ListViewCompany/CompanyList.js";
 
 
 const useStyles = makeStyles(styles);
@@ -34,7 +36,7 @@ export default function HomePage(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
-            <GridContainer justify="center">
+            {/* <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={6}>
                 <div className={classes.profile}>
                   <div>
@@ -55,19 +57,16 @@ export default function HomePage(props) {
                   </div>
                 </div>
               </GridItem>
-            </GridContainer>
-            <div className={classes.description}>
-              <p>
-                Vui
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
-              </p>
+            </GridContainer> */}
+            {/* <SelectGroup></SelectGroup> */}
+            <h3 style={{ paddingLeft: 30, paddingTop: 36 }}>Nhà Tuyển Dụng Hàng Đầu</h3>
+            <CompanyList></CompanyList>
+            <div style={{ marginTop: 40 }}>
+              <ListViewKendo2 dataID={-1}></ListViewKendo2>
+
             </div>
-            <ListViewKendo2 dataID = {-1}></ListViewKendo2>
           </div>
-   
+
         </div>
       </div>
       <Footer />

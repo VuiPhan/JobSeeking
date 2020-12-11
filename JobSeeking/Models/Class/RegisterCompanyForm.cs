@@ -9,12 +9,16 @@ namespace JobSeeking.Models.Class
         public string PhoneNumber { get; set; }
         public string CompanyAddress { get; set; }
         public int CompanyType { get; set; }
+        public int OTMode { get; set; }
+        public string ScalePeople { get; set; }
+        public string LocationProvince { get; set; }
 
         public string Password { get; set; }
         public string CompanyName { get; set; }
         public string TimeWorking { get; set; }
 
         public string ImageName { get; set; }
+        public string IntroduceCompany { get; set; }
         public IFormFile ImageFile { get; set; }
 
 

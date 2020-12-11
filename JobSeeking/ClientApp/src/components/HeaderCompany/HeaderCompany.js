@@ -22,7 +22,7 @@ function HeaderCompany(props) {
                 <GridItem xs={12} sm={12} md={12}>
                     <div className="containerTitle">
                         <img src={`${ConstCommon.LinkImage}${data.imageLogo}`} alt="..." />
-                        <div>
+                        <div style={{paddingLeft: 21}}>
                             <h1 className="CompanyNameTitle">{data.companyName|| <Skeleton />}</h1>
                             <h5><LocationOnIcon></LocationOnIcon> {data.companyAddress}</h5>
                             <h5><AccessAlarmIcon></AccessAlarmIcon > {data.timeWorking}</h5>

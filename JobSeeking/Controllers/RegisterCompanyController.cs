@@ -23,16 +23,17 @@ namespace JobSeeking.Controllers
             this._hostEnvironment = hostEnvironment;
         }
         [HttpPost]
-        public async Task<ActionResult<RegisterCompanyForm>> RegisterCompany([FromForm] RegisterCompanyForm registerCompanyForm)
+        public async Task<object> RegisterCompany([FromForm] RegisterCompanyForm registerCompanyForm)
         {
             registerCompanyForm.ImageName = await SaveImage(registerCompanyForm.ImageFile);
-            registerCompanyForm.Image1 = await SaveImage(registerCompanyForm.ImageFile1);
-            registerCompanyForm.Image2 = await SaveImage(registerCompanyForm.ImageFile2);
-            registerCompanyForm.Image3 = await SaveImage(registerCompanyForm.ImageFile3);
+            //registerCompanyForm.Image1 = await SaveImage(registerCompanyForm.ImageFile1);
+            //registerCompanyForm.Image2 = await SaveImage(registerCompanyForm.ImageFile2);
+            //registerCompanyForm.Image3 = await SaveImage(registerCompanyForm.ImageFile3);
 
-            _context.Database.ExecuteSqlRaw("dbo.UTE_Company_Register" +
+            var result = _context.Database.ExecuteSqlRaw("dbo.UTE_Company_Register" +
                 " @FullName={0},@EmailAddress={1},@PassWord={2},@CompanyName={3}," +
-                "@CompanyAddress={4},@TimeWorking={5},@ImageLogo={6},@CompanyType={7},@Image1={8},@Image2={9},@Image3={10}",
+                "@CompanyAddress={4},@TimeWorking={5},@ImageLogo={6},@CompanyType={7},@Image1={8},@Image2={9}," +
+                "@Image3={10},@IntroduceCompany={11},@OTMode={12},@ScalePeople={13},@LocationProvince={14}",
                 registerCompanyForm.FullName,
                 registerCompanyForm.Email,
                 registerCompanyForm.Password,
@@ -43,10 +44,20 @@ namespace JobSeeking.Controllers
                 registerCompanyForm.CompanyType,
                 registerCompanyForm.Image1,
                 registerCompanyForm.Image2,
-                registerCompanyForm.Image3
+                registerCompanyForm.Image3,
+                registerCompanyForm.IntroduceCompany,
+                registerCompanyForm.OTMode,
+                registerCompanyForm.ScalePeople,
+                registerCompanyForm.LocationProvince
                 );
-
-            return StatusCode(201);
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi xảy ra" });
+            return response;
         }
 
 

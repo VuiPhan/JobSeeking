@@ -10,7 +10,7 @@ import styles from "assets/jss/material-kit-react/views/CompanyPage.js";
 import 'assets/css/TitleCompany.scss';
 import 'assets/scss/view/CompanyPage.scss';
 import 'assets/scss/view/CompanyRegister.scss';
-import { Button, FormGroup, Label } from "reactstrap";
+import { FormGroup, Label } from "reactstrap";
 import { Formik, Form, FastField } from "formik";
 import InputField from "components/CustomField/InputField";
 import * as yup from 'yup';
@@ -19,7 +19,16 @@ import LGCompanyPage from "Language/CompanyPage";
 import MyCKEditor from "components/CKEditor/CKEditor";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany";
 import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
-import { Tooltip, Zoom } from "@material-ui/core";
+import { Button, Tooltip, Zoom } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { MyToaStrError, MyToaStrSuccess } from "components/Toastr/Toastr2";
+import { LoginAPIRedux } from "components/FormLogin/LoginSlice";
+import MyToastr from "components/Toastr/Toastr";
+import SelectField from "components/CustomField/SelectField";
+import SaveIcon from '@material-ui/icons/Save';
+import MutipleCombobox from "components/CustomField/MutipleCombobox";
+
 const useStyles = makeStyles(styles);
 export default function CompanyPage(props) {
     const classes = useStyles();
@@ -40,7 +49,11 @@ export default function CompanyPage(props) {
         CompanyName: '',
         TimeWorking: '',
         CompanyAddress: '',
-        InfomationCompany: ''
+        InfomationCompany: '',
+        CompanyType:1,
+        OTMode:1,
+        ScalePeople:'500-800',
+        LocationProvince:''
     };
     const validationShema = yup.object().shape({
         FullName: yup.string().required(res.TruongBBNhap),
@@ -83,7 +96,10 @@ export default function CompanyPage(props) {
             reader.readAsDataURL(imageFile);
         }
     }
-    const HandleSubmitData = (valuesForm) => {
+    const LoginInfo = useSelector(state => state.loginInfo);
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const HandleSubmitData = async (valuesForm) => {
         const formData = new FormData();
         formData.append('FullName', valuesForm.FullName);
         formData.append('Email', valuesForm.Email);
@@ -91,14 +107,36 @@ export default function CompanyPage(props) {
         formData.append('Password', valuesForm.Password);
         formData.append('CompanyName', valuesForm.CompanyName);
         formData.append('TimeWorking', valuesForm.TimeWorking);
+        formData.append('IntroduceCompany', valuesForm.InfomationCompany);
         formData.append('CompanyAddress', valuesForm.CompanyAddress);
+        formData.append('LocationProvince', valuesForm.LocationProvince);
+        
+        formData.append('CompanyType', valuesForm.CompanyType);
+        formData.append('OTMode', valuesForm.OTMode);
+        formData.append('ScalePeople', valuesForm.ScalePeople);
         formData.append('imageFile', values.imageFile);
         formData.append('imageName', values.imageName);
-        RegisterCompanyApi.post(formData);
+        let result = await RegisterCompanyApi.post(formData);
+        if (result.error === "") {
+            MyToaStrSuccess('Đăng ký tài khoản thành công! Chuyển đến trang công ty');
+            let dataLogin = { Email: valuesForm.Email, Password: valuesForm.Password }
+            const action = LoginAPIRedux(dataLogin);
+            dispatch(action);
+            setTimeout(() => {
+                const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
+                history.push(LinkToPageCompany);
+                window.scrollTo(0, 150);
+            }, 5000);
+          }
+        else{
+            MyToaStrError('Địa chỉ Email đã tồn tại. Vui lòng sử dụng một địa chỉ Email khác!');
+        }
     }
+   
     const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
     return (
         <div>
+            <MyToastr></MyToastr>
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div>
                     <div className={classes.container}>
@@ -163,6 +201,34 @@ export default function CompanyPage(props) {
                                         label={res.DiaChi}
                                         placeholder={res.DiaChi}
                                     />
+                                      <FastField
+                                        name="LocationProvince"
+                                        component={MutipleCombobox}
+                                        label="Tỉnh thành"
+                                        placeholder="Tỉnh thành"
+                                        ListName="UTELS_GetProvince"
+                                    />
+                                    <FastField
+                                        name="CompanyType"
+                                        component={SelectField}
+                                        label="Loại công ty"
+                                        placeholder="Loại công ty"
+                                        ListName="CompanyType"
+                                    />
+                                     <FastField
+                                        name="OTMode"
+                                        component={SelectField}
+                                        label="Chế độ OT"
+                                        placeholder="Chế độ OT"
+                                        ListName="CheDoOT"
+                                    />
+                                     <FastField
+                                        name="ScalePeople"
+                                        component={InputField}
+                                        label="Quy mô nhân viên"
+                                        placeholder="500-800"
+                                    />
+
                                     <Label> Thông tin công ty</Label>
                                     <FastField
                                         name="InfomationCompany"
@@ -200,7 +266,9 @@ export default function CompanyPage(props) {
                                         <img className='imageLogoCompany' src={values.imageSrc}></img>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Button type='submit'>{res.DangKy}</Button>
+                                    <div style={{display:'flex'}}>
+                                    <Button style={{marginLeft: 'auto'}} variant="outlined" type='submit' color="secondary" startIcon={<SaveIcon />} >{res.DangKy}</Button>
+                                        </div>
                                     </FormGroup>
                                 </Form>
                             )

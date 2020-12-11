@@ -70,9 +70,9 @@ export default function AlertDialogSlide() {
   return (
     <div>
       <div style={{display:'flex'}}>
-      <Button startIcon={<EditIcon/>} style={{marginLeft:'auto',marginBottom:10}} variant="outlined" color="primary" onClick={handleClickOpen}>
+        {LoginInfo.CadidateCode ? <Button startIcon={<EditIcon/>} style={{marginLeft:'auto',marginBottom:10}} variant="outlined" color="primary" onClick={handleClickOpen}>
         Viết Review
-      </Button>
+      </Button>:null}
       </div>
       <div>
         <Dialog

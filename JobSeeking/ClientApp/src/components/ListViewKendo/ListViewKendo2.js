@@ -89,7 +89,7 @@ function ListViewKendo2(props) {
     }]);
     const [page, setpage] = useState(1);
     // Số phần tử lấy.
-    const [take, settake] = useState(2);
+    const [take, settake] = useState(5);
     // Phần tử bắt đầu lấy
     const [begin, setbegin] = useState(0);
     const handlePageChange = (e) => {
@@ -116,14 +116,22 @@ function ListViewKendo2(props) {
     return (
         <div>
                <div>
-                <ListView
-                    data={data.slice(begin,begin+take)}
-                    item={MyItemRender}
-                    style={{ width: "100%" }}
-                    header={myHeader}
-                />
+                   {
+                       data.length > 0 ? 
+                       <div>
+                       <ListView
+                       data={data.slice(begin,begin+take)}
+                       item={MyItemRender}
+                       style={{ width: "100%" }}
+                       header={myHeader}
+                       
+                   />
+                   <Pagination style={{marginLeft:'auto',marginTop:10,marginBottom:10}} count={Math.round(data.length/take)} hideNextButton = {false} hidePrevButton={false} page={page} onChange={handlePageChange}  variant="outlined" color="secondary" />
+                   </div>: <div><p style={{textAlign: 'center',padding: 40,fontSize: 24}}>Chưa có việc làm nào được đăng. Hãy chờ thêm chút thời gian bạn nhé!</p></div>
+                   }
+                
                 <div style={{display:'flex'}}>
-                <Pagination style={{marginLeft:'auto',marginTop:10,marginBottom:10}} count={Math.round(data.length/take)} hideNextButton = {false} hidePrevButton={false} page={page} onChange={handlePageChange}  variant="outlined" color="secondary" />
+                
                 </div>
             </div>
         </div>

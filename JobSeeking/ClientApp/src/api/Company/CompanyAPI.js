@@ -5,6 +5,10 @@ const CompanyAPI = {
         const url = `/Company/GetCompanyByID?CompanyID=${data}`;
         return axiosClient.get(url,data);
     },
+    getListCompanyTop: () => {
+        const url = `/Common/GetListCompanyTop`;
+        return axiosClient.get(url);
+    },
     getReview: (data) => {
         const url = `/Company/GetReviewCompany?CompanyID=${data}`;
         return axiosClient.get(url,data);

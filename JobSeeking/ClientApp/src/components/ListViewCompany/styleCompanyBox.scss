@@ -1,0 +1,9 @@
+.hoverItem:hover{
+    border-color: chocolate;
+    background-color: blanchedalmond;
+}
+.hoverItem {
+    -webkit-box-shadow: 4px 12px 43px -5px rgba(0, 32, 0, 0.47);
+    -moz-box-shadow: 4px 12px 43px -5px rgba(0, 32, 0, 0.47);
+    box-shadow: 4px 12px 43px -5px rgba(135, 109, 250, 0.616);
+  }

@@ -29,6 +29,12 @@ namespace JobSeeking.Controllers
             var headerCompany = data.AsEnumerable().SingleOrDefault();
             return headerCompany;
         }
+        [HttpGet("GetListCompanyTop")]
+        public async Task<object> GetListCompanyTop()
+        {
+            var data = await _context.ListCompanyTops.FromSqlRaw("EXEC dbo.UTE_Company_GetCompanyTop").ToListAsync();
+            return data;
+        }
         [HttpGet("GetTags")]
         //[Authorize(Policy = Policies.Recruiter)]
         public async Task<object> GetTags(int CompanyID)
