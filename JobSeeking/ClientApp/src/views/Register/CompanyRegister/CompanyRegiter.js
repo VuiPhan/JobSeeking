@@ -28,6 +28,7 @@ import MyToastr from "components/Toastr/Toastr";
 import SelectField from "components/CustomField/SelectField";
 import SaveIcon from '@material-ui/icons/Save';
 import MutipleCombobox from "components/CustomField/MutipleCombobox";
+import TelegramIcon from '@material-ui/icons/Telegram';
 
 const useStyles = makeStyles(styles);
 export default function CompanyPage(props) {
@@ -99,6 +100,11 @@ export default function CompanyPage(props) {
     const LoginInfo = useSelector(state => state.loginInfo);
     const history = useHistory();
     const dispatch = useDispatch();
+    const HandleRedirectPageCompany = () =>{
+        const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
+        history.push(LinkToPageCompany);
+        window.scrollTo(0, 150);
+    }
     const HandleSubmitData = async (valuesForm) => {
         const formData = new FormData();
         formData.append('FullName', valuesForm.FullName);
@@ -117,16 +123,11 @@ export default function CompanyPage(props) {
         formData.append('imageFile', values.imageFile);
         formData.append('imageName', values.imageName);
         let result = await RegisterCompanyApi.post(formData);
-        if (result.error === "") {
-            MyToaStrSuccess('Đăng ký tài khoản thành công! Chuyển đến trang công ty');
+        if (result.error == "") {
+            MyToaStrSuccess('Đăng ký tài khoản thành công! Hãy chuyển đến trang công ty');
             let dataLogin = { Email: valuesForm.Email, Password: valuesForm.Password }
             const action = LoginAPIRedux(dataLogin);
             dispatch(action);
-            setTimeout(() => {
-                const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
-                history.push(LinkToPageCompany);
-                window.scrollTo(0, 150);
-            }, 5000);
           }
         else{
             MyToaStrError('Địa chỉ Email đã tồn tại. Vui lòng sử dụng một địa chỉ Email khác!');
@@ -267,7 +268,8 @@ export default function CompanyPage(props) {
                                     </FormGroup>
                                     <FormGroup>
                                     <div style={{display:'flex'}}>
-                                    <Button style={{marginLeft: 'auto'}} variant="outlined" type='submit' color="secondary" startIcon={<SaveIcon />} >{res.DangKy}</Button>
+                                    <Button style={{marginLeft: 'auto'}} variant="outlined" type='submit' color="secondary" startIcon={<SaveIcon />} >{LoginInfo.companyID ?"Cập nhật":res.DangKy}</Button>
+                                   {LoginInfo.companyID ?<Button style={{marginLeft: 5}} onClick={()=>{HandleRedirectPageCompany()}} variant="outlined" type='submit' color="primary" startIcon={<TelegramIcon />} >Đi đến trang công ty</Button> : null} 
                                         </div>
                                     </FormGroup>
                                 </Form>

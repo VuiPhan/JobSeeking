@@ -1,13 +1,12 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import PropTypes from 'prop-types';
-const ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
+
   Ratting.propTypes = {
         value: PropTypes.number,
         disable: PropTypes.bool,
         size: PropTypes.number,
+        ChangeStar: PropTypes.func,
   }
   Ratting.defaultProps = {
     value: 0,
@@ -15,7 +14,11 @@ const ratingChanged = (newRating) => {
     size:50   
   }
 export default function Ratting(props) {
-    const {value,disable,size} = props;
+  const {value,disable,size,ChangeStar} = props;
+  const ratingChanged = (newRating) => {
+    ChangeStar(newRating);
+  };
+    
   return (
     <div>
       <ReactStars

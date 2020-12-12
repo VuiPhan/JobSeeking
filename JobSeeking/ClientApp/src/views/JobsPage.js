@@ -90,7 +90,7 @@ export default function JobsPage(props) {
       message: 'Bạn sẽ gửi hồ sơ của bạn đến nhà tuyển dụng?',
       buttons: [
         {
-          label: 'Yes',
+          label: 'Vâng tôi muốn ứng tuyển',
           onClick: async () => {
             await JobsApi.postApply(jobID);
             MyToaStrSuccess('Bạn đã ứng tuyển thành công. Hãy chờ thông tin từ nhà tuyển dụng!');
@@ -98,7 +98,7 @@ export default function JobsPage(props) {
           }
         },
         {
-          label: 'No',
+          label: 'Đóng',
           onClick: () => { }
         }
       ]
@@ -230,7 +230,7 @@ export default function JobsPage(props) {
             <h3>
               {res.CacCongViecTuongTu}
             </h3>
-            <ListViewKendo2 dataID={data.companyId}></ListViewKendo2>
+            <ListViewKendo2 dataID={-1}></ListViewKendo2>
           </div>
         </div>
       </div>

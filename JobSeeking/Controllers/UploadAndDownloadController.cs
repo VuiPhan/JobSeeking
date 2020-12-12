@@ -12,6 +12,7 @@ using JobSeeking.Models.DB;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Reflection;
 
 namespace JobSeeking.Controllers
 {
@@ -30,8 +31,8 @@ namespace JobSeeking.Controllers
         [HttpGet]
         public async Task<IActionResult> Download(string FileName)
         {
-            
-            string source_dir = String.Format("E:\\Nam4HKI\\ProjectFinal\\JobSeeking\\JobSeeking\\Images\\{0}", FileName);
+            var source_dir = Path.Combine(_hostEnvironment.ContentRootPath, "Images", FileName);
+         //  string source_dir = String.Format("E:\\Nam4HKI\\ProjectFinal\\JobSeeking\\JobSeeking\\Images\\{0}", FileName);
             var memory = new MemoryStream();
             using (var stream = new FileStream(source_dir, FileMode.Open))
             {

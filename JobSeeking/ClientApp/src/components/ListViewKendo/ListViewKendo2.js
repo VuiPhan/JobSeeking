@@ -37,7 +37,7 @@ const MyItemRender = props => {
     return (
         <Card style={{ padding: '20px 24px', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)', }} orientation='horizontal' className='d-flex justify-content-between'>
             <div className='k-vbox k-column'>
-                <div style={{ padding: '0 8px', marginRight: '3rem' }}>
+                <div style={{ padding: '0 8px', marginRight: '3rem' ,height:162,overflow:'hidden',msTextOverflow:'ellipsis'}}>
                     <CardTitle style={{ fontSize: 20,fontWeight:'bold' }}>
                         {item.jobsTitle}
                     </CardTitle>
@@ -51,7 +51,7 @@ const MyItemRender = props => {
                     {parse(item.jobRequirements)}
                     </CardSubtitle>
                 </div>
-                <CardActions style={{ padding: 0,margin:3 }}>
+                <CardActions style={{ padding: 0,margin:5 }}>
                     <Button onClick={()=>HandleRedirectPage(item.jobID)} 
                                 variant="outlined" color="secondary"
                                 startIcon={<VisibilityIcon />}

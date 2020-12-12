@@ -79,7 +79,7 @@ export default function PublishedRecruitment(props) {
         jobTitleIDs: "1,2",
         jobSkillIDs: "1",
         jobLocations: "1",
-        isPublic: false,
+        isPublic: true,
     });
     const history = useHistory();
     const [valuesSalary, setvaluesSalary] = React.useState({
