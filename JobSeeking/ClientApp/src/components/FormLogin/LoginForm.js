@@ -15,6 +15,7 @@ import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { MyToaStrError } from 'components/Toastr/Toastr2.js';
 import MyToastr from 'components/Toastr/Toastr.js';
+import CustomizedMenus from 'components/FeatureMenu/FeatureMenu.js';
 
 const useStyles = makeStyles(styles);
 
@@ -44,7 +45,6 @@ export default function FormDialog() {
   };
   const history = useHistory();
   const handleLogout = async (user) => {
-    debugger;
     if(history.location.pathname === '/ProfilePage' || history.location.pathname.substring(0, 13) == '/ProfilePage/'){
       
       history.push('/');
@@ -94,7 +94,9 @@ const HandleRedirectProfilePage = () =>{
       >
         <AccountCircleIcon className={classes.icons} /> Đăng xuất
         </Button>
+        
       }
+      
     {LoginInfo.UserLoginDB}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogContent>

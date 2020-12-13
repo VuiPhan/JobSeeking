@@ -52,28 +52,6 @@ namespace JobSeeking.Controllers
             var userLoginResult = data.AsEnumerable().SingleOrDefault();
             return userLoginResult;
         }
-        private string GenerateJSONWebToken(UserLogin userInfo)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new[]
-            {
-               // new Claim(JwtRegisteredClaimNames.Sub,userInfo.UserName),
-                new Claim(JwtRegisteredClaimNames.UniqueName,userInfo.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role,userInfo.Roles),
-                new Claim(ClaimTypes.NameIdentifier,userInfo.UserName)
-
-            };
-            var token = new JwtSecurityToken(
-                    issuer: _config["Jwt:Issuer"],
-                    audience: _config["Jwt:Issuer"],
-                    claims,
-                    expires: DateTime.Now.AddMinutes(60),
-                    signingCredentials: credentials);
-            var encodetoken = new JwtSecurityTokenHandler().WriteToken(token);
-            return encodetoken;
-        }
         [HttpPost("Post")]
         [Authorize(Policy = Policies.User)]
         public string Post()
@@ -106,7 +84,7 @@ namespace JobSeeking.Controllers
             issuer: _config["Jwt:Issuer"],
             audience: _config["Jwt:Audience"],
             claims: claims,
-            expires: DateTime.Now.AddMinutes(30),
+            expires: DateTime.Now.AddMonths(6),
             signingCredentials: credentials
             );
             return new JwtSecurityTokenHandler().WriteToken(token);

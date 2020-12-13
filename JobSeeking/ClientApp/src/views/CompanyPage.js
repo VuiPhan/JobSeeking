@@ -26,7 +26,7 @@ const useStyles = makeStyles(styles);
 
 export default function CompanyPage(props) {
   const classes = useStyles();
-  const [data, setData] = useState({ companyName: '', introduceCompany: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
+  const [data, setData] = useState({companyName: '', introduceCompany: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
   const { ...rest } = props;
   const imageClasses = classNames(
     classes.imgRaised,
@@ -37,11 +37,12 @@ export default function CompanyPage(props) {
   const LoginInfo = useSelector(state => state.loginInfo);
   const history = useHistory();
   const { companyID } = useParams();
+  async function fetchMyAPI() {
+    const result = await CompanyAPI.get(companyID);
+    setData(result);
+  }
   useEffect(() => {
-    async function fetchMyAPI() {
-      const result = await CompanyAPI.get(companyID);
-      setData(result);
-    }
+
     fetchMyAPI()
   }, [companyID]);
   var parse = require('html-react-parser');
@@ -98,11 +99,11 @@ export default function CompanyPage(props) {
                   </div>
                 </div>
                 <div className='row'>
-                  <div><Ratting value={3}></Ratting></div>
-                  <div><p>4.5 sao trên tổng số 10 đánh giá</p></div>
+                  {data.avgStar ? <div><Ratting value={parseInt(data.avgStar)}></Ratting></div>:null}
+                  <div><p>{data.avgStar} sao trên tổng số {data.numberReview} đánh giá</p></div>
                 </div>
               </div>
-              <AlertDialogSlide></AlertDialogSlide>
+              <AlertDialogSlide onRefresh = {fetchMyAPI}></AlertDialogSlide>
               <Comments dataID = {companyID}></Comments>
             </div>
           </div>

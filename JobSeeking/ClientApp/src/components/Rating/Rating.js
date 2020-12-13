@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
   }
 export default function Ratting(props) {
   const {value,disable,size,ChangeStar} = props;
+  debugger;
   const ratingChanged = (newRating) => {
     ChangeStar(newRating);
   };

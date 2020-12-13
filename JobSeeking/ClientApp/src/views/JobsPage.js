@@ -27,6 +27,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { MyToaStrError, MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
 import TagList from "@progress/kendo-react-dropdowns/dist/npm/MultiSelect/TagList";
+import { changeSearch } from "components/ListViewKendo/ForSearchSlice.js";
 
 const useStyles = makeStyles(styles);
 
@@ -92,8 +93,13 @@ export default function JobsPage(props) {
         {
           label: 'Vâng tôi muốn ứng tuyển',
           onClick: async () => {
-            await JobsApi.postApply(jobID);
+            const result = await JobsApi.postApply(jobID);
+            if (result.error === "") {
             MyToaStrSuccess('Bạn đã ứng tuyển thành công. Hãy chờ thông tin từ nhà tuyển dụng!');
+            }
+            else{
+              MyToaStrError('Bạn đã ứng tuyển công việc này rồi! Hãy chờ thông tin từ nhà tuyển dụng!');
+            }
             return;
           }
         },
@@ -108,6 +114,23 @@ export default function JobsPage(props) {
     const linkRedired = `/Company/${id}`;
     history.push(linkRedired);
     window.scrollTo(0, 150);
+  }
+  const HandleRedirectPageTag = (id,IsJobTitle,label) => {
+    let ChucDanhValue = null;
+    let KyNangValue = null;
+    if(IsJobTitle == true){
+      ChucDanhValue = id;
+    }
+    else{
+      KyNangValue = id;
+    }
+
+    const dataSearch = { ChucDanhValue: ChucDanhValue, KyNangValue: KyNangValue,NameValue:label };
+    const action = changeSearch(dataSearch);
+    dispatch(action);
+    const linkRedired = `/Tag`;
+    history.push(linkRedired);
+    window.scrollTo(0, 450);
   }
   return (
     <div>
@@ -155,7 +178,7 @@ export default function JobsPage(props) {
                   <div className="">
                   <ul>
                   {dataTagSkill.map((item) =>
-      <li key={item.value}><a href={'/Tag/Skill/'+item.value+''} target="_blank" rel="noopener noreferrer">{item.label}</a></li>
+      <li key={item.value}><a href="javascript:void(0)" onClick={()=> {HandleRedirectPageTag(item.value,false,item.label)}} >{item.label}</a></li>
     )}
                   </ul>
                   </div>
@@ -165,7 +188,7 @@ export default function JobsPage(props) {
                   <div className="">
                   <ul>
                   {dataJobWorking.map((item) =>
-      <li key={item.value}><a href="#">{item.label}</a></li>
+      <li key={item.value}><a href="javascript:void(0)" onClick={()=> {HandleRedirectPageTag(item.value,true,item.label)}} >{item.label}</a></li>
     )}
                   </ul>
                   </div>

@@ -17,5 +17,10 @@ const JobsApi = {
         const url = `/Jobs/ApplyJob?JobID=${data}`;
         return axiosClient.post(url,data);
     },
+    countJob: () => {
+        const url = `/Jobs/CountJob`;
+        return axiosClient.get(url);
+    },
+
 }
 export default JobsApi;

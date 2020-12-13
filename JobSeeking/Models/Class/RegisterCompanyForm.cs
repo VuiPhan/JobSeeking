@@ -57,6 +57,7 @@ namespace JobSeeking.Models.Class
         public string IntroduceCompany { get; set; }
         public string LocationProvince { get; set; }
         public string ScalePeople { get; set; }
-        
+        public decimal AvgStar { get; set; }
+        public int NumberReview { get; set; }
     }
 }

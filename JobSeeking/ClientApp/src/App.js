@@ -27,7 +27,7 @@ export default class App extends Component {
         <Route path='/ProfilePage' component={ProfilePage} exact/>
         <Route path='/ProfilePage/:CandidateCode' component={ProfilePage} exact />
         <Route path='/Company/:companyID' component={CompanyPage} />
-        <Route path='/Tag/:Tag/:tagID' component={TagPage} />
+        <Route path='/Tag' component={TagPage} />
         <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />
         <PrivateRoute component={PublishedRecruitment} path="/PublishedRecruitment" exact />

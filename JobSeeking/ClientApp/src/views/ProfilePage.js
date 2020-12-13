@@ -114,6 +114,7 @@ export default function ProfilePage(props) {
         imageSrc: `${ConstCommon.LinkImage}${result[0].pathAvatar}`,
         imageFile: null
       };
+      debugger;
       setValuesImage(initialValuesImage);
       setAliasName(result[0].aliasesName);
       setMajor(result[0].titleJob);
@@ -180,6 +181,9 @@ export default function ProfilePage(props) {
         const action = LoginAPIRedux(dataLogin);
         dispatch(action);
       }
+      else{
+        MyToaStrError('Địa chỉ Email đã tồn tại. Vui lòng sử dụng một địa chỉ Email khác');
+      }
     }
     else{
       // Sẽ đi cập nhật
@@ -208,7 +212,7 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={9}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={valuesImage.imageSrc ? valuesImage.imageSrc : profile} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
+                    <img src={valuesImage.imageSrc.slice(-4) !== "null" ? valuesImage.imageSrc : profile} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
 
                     <label htmlFor="myInput" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
                       <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />

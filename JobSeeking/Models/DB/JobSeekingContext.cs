@@ -17,6 +17,7 @@ namespace JobSeeking.Models.DB
         {
         }
         public DbSet<ValueList> ValueLists { get; set; }
+        public DbSet<ValueListString> ValueListStrings { get; set; }
         public DbSet<FormJobSeeker> FormJobSeekers { get; set; }
         public DbSet<CompanyPage> CompanyPages { get; set; }
         public DbSet<FormHeaderCompany> FormHeaderCompanys { get; set; }
@@ -70,6 +71,7 @@ namespace JobSeeking.Models.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ValueList>().HasNoKey();
+            modelBuilder.Entity<ValueListString>().HasNoKey();
             modelBuilder.Entity<FormHeaderCompany>().HasNoKey();
             modelBuilder.Entity<FormJobSeeker>().HasNoKey();
             modelBuilder.Entity<CompanyPage>().HasNoKey();

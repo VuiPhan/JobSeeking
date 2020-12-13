@@ -17,6 +17,7 @@ import ListViewKendo from "../components/ListViewKendo/ListViewKendo.js";
 import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
 import SelectGroup from "components/SelectGroup/SelectGroup.js";
 import CompanyList from "components/ListViewCompany/CompanyList.js";
+import Skeleton from "react-loading-skeleton";
 
 
 const useStyles = makeStyles(styles);
@@ -36,29 +37,6 @@ export default function HomePage(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
-            {/* <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={6}>
-                <div className={classes.profile}>
-                  <div>
-                    <img src={profile} alt="..." className={imageClasses} />
-                  </div>
-                  <div className={classes.name}>
-                    <h3 className={classes.title}>Christian Louboutin</h3>
-                    <h6>DESIGNER</h6>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-twitter"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-instagram"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-facebook"} />
-                    </Button>
-                  </div>
-                </div>
-              </GridItem>
-            </GridContainer> */}
-            {/* <SelectGroup></SelectGroup> */}
             <h3 style={{ paddingLeft: 30, paddingTop: 36 }}>Nhà Tuyển Dụng Hàng Đầu</h3>
             <CompanyList></CompanyList>
             <div style={{ marginTop: 40 }}>

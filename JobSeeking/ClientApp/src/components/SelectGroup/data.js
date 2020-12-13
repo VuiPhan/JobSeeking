@@ -1,20 +1,28 @@
 export const KyNangOptions = [
-    { value: 1, label: 'HTML',group: 'Kỹ năng' },
-    { value: 2, label: 'Cloud', group: 'Kỹ năng' },
+    { value: '1KN', label: 'HTML',group: 'Kỹ năng' },
+    { value: '2KN', label: 'Cloud', group: 'Kỹ năng' },
    
   ];
   export const ChucDanhOptions = [
-    { value: 3, label: 'Dev',group: 'Chức danh' },
-    { value: 4, label: 'BA',group: 'Chức danh'},
+    { value: '3CD', label: 'Dev',group: 'Chức danh' },
+    { value: '4CD', label: 'BA',group: 'Chức danh'},
+  ];
+  export const CongTyOptions = [
+    { value: '6CT', label: 'HYBRID TECHNOLOGIES - New view with you !',group: 'Công ty' },
+    { value: '9CT', label: 'FPT',group: 'Công ty'},
   ];
   export const groupedOptions = [
     {
       label: 'Kỹ năng',
-      options: KyNangOptions,
+      options: [],
     },
     {
       label: 'Chức danh công việc',
-      options: ChucDanhOptions,
+      options: [],
+    },
+    {
+      label: 'Công ty',
+      options: [],
     },
   ];
   

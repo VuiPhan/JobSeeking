@@ -19,6 +19,7 @@ import FormDialog from './../FormLogin/LoginForm';
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import CustomizedMenus from "components/FeatureMenu/FeatureMenu.js";
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
@@ -61,6 +62,7 @@ export default function HeaderLinks(props) {
           :""
         }
         <FormDialog></FormDialog>
+        <CustomizedMenus className={classes.navLink}></CustomizedMenus>
       </ListItem>
     </List>
   );

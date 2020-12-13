@@ -26,6 +26,12 @@ namespace JobSeeking.Controllers
             var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo {0},{1},{2}",CompanyID, CandidateCode,IsOwnCompany).ToListAsync();
             return dataJob;
         }
+        [HttpGet("GetJobForSearch")]
+        public async Task<object> GetJobForSearch(string JobSkillIDs,string JobTitleIDs)
+        {
+            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForSearch {0},{1}", JobSkillIDs, JobTitleIDs).ToListAsync();
+            return dataJob;
+        }
         [HttpGet("GetJobByID")]
         public async Task<object> GetJobByID(int jobid)
         {
@@ -45,10 +51,24 @@ namespace JobSeeking.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spInsertApplyJob" +
+           var result =  await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spInsertApplyJob" +
                " @CandidateCode={0},@JobID={1}", claims[5].Value, JobID
                );
-            return StatusCode(201);
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
+        [HttpGet("CountJob")]
+        public async Task<object> CountJob(int JobID)
+        {
+            var CountJob = (from job in _context.UteworkJobs select JobID).Count();
+            return CountJob;
+
         }
 
     }

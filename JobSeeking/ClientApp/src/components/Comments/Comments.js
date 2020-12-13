@@ -43,9 +43,9 @@ const MyItemRender = props => {
                     <h1 className='TitleReview DetailComment'>{item.titleReview}</h1>
                     <Ratting key={item.recID} value={item.star} size={25}></Ratting>
                     <h1 className='Ilike DetailComment' >Điều tôi thích</h1>
-                        {item.iLike}
+                        <p>{item.iLike}</p>
                     <h1 className='Improve DetailComment'>Đề nghị cải thiện</h1>
-                        {item.improve}
+                        <p>{item.improve}</p>
                 </div>
             </div>
         </Card>

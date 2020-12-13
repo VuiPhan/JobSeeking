@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,7 +51,30 @@ namespace JobSeeking.Controllers
             var data = await _context.ListCandidateApplys.FromSqlRaw("EXEC dbo.UTE_spGetListCandidateByJobID {0}", JobID).ToListAsync();
             return data;
         }
-
+        [HttpGet("ListSearch")]
+        public async Task<object> ListSearch()
+        {
+            var ListJobSkill = await _context.ValueListStrings.FromSqlRaw("EXEC dbo.spUTE_GetComboboxSearch {0},{1}", "UTELS_GetJobSkill", "VN").ToListAsync();
+            foreach (ValueListString element in ListJobSkill)
+            {
+                element.value += "JS";
+            }
+            var ListJobTitle = await _context.ValueListStrings.FromSqlRaw("EXEC dbo.spUTE_GetComboboxSearch {0},{1}", "UTELS_GetJobTitle", "VN").ToListAsync();
+            foreach (ValueListString element in ListJobTitle)
+            {
+                element.value += "JT";
+            }
+            var ListCompany = await _context.ValueListStrings.FromSqlRaw("EXEC dbo.spUTE_GetComboboxSearch {0},{1}", "UTELS_GetCompany", "VN").ToListAsync();
+            foreach (ValueListString element in ListCompany)
+            {
+                element.value += "CP";
+            }
+            var arlist2 = new ArrayList()
+                {
+                    ListJobSkill, ListJobTitle,ListCompany
+                };
+            return arlist2;
+        }
 
 
 

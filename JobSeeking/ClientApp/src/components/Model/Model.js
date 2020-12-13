@@ -25,7 +25,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide() {
+export default function AlertDialogSlide(props) {
+  const {onRefresh} = props;
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -72,6 +73,7 @@ export default function AlertDialogSlide() {
     const action = GetDataCommentRedux(companyID);
     const resultdata = await dispatch(action);
     handleClose();
+    onRefresh();
   }
   return (
     <div>
