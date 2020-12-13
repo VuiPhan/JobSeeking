@@ -15,8 +15,8 @@ function CompanyBox(props) {
             <Card.Img variant="top" style={{height:139,width: 185,minHeight: 185,paddingTop: 16}} src={`${ConstCommon.LinkImage}${imageLogo}`} />
             </div>
             <Card.Body>
-              <Card.Title style={{textAlign: 'center',fontSize: 25}}>{companyName}</Card.Title>
-              <div>
+              <Card.Title style={{textAlign: 'center',fontSize: 25,height:100}}>{companyName}</Card.Title>
+              <div style={{}}>
               <a href={'/Company/'+companyID} target="_blank" rel="noopener noreferrer">{numJobsRecruited} việc làm đang tuyển</a>
               </div>
               {/* <Button variant="primary">Add to Cart</Button> */}
