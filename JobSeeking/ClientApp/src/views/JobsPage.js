@@ -80,7 +80,7 @@ export default function JobsPage(props) {
     }
     fetchMyAPI();
 
-  }, [jobID]);
+  }, [jobID,LoginInfo]);
   const submitApply = () => {
     if (!LoginInfo.CadidateCode) {
       MyToaStrError('Bạn hãy đăng nhập để sử dụng tính năng này!');

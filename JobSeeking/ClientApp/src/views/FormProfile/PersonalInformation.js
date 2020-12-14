@@ -15,12 +15,11 @@ import SwitchLabels from 'components/Checkbox/Checkbox';
 function PersonalInformation(props) {
     // Chi cho load lan dau
     const {disableForm,data,SubmitDataFinal} = props;
-    console.log('datadata',data);
     const res = handleGetJson("PersonPage");
     const resValidation = handleGetJson("Validation");
     const LoginInfo = useSelector(state => state.loginInfo);
-    const isAddMode = !LoginInfo.CadidateCode ? true : false;
-    const isView = !LoginInfo.companyID ? true : false;
+    const isAddMode = LoginInfo.CadidateCode ? false : true;
+    const isView = LoginInfo.companyID ? false : true;
 
    
     const validationShema = yup.object().shape({

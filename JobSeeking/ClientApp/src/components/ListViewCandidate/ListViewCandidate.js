@@ -53,7 +53,7 @@ function ListViewCandidate(props) {
         "candidateCode": "2",
         "jobID": "2",
         "dateApply": "01/01/2020",
-        "fullNameCandidate": "Phan Đăng Vẻ",
+        "fullNameCandidate": "Phan Đăng Vui",
         "major":""
     },
     ]);

@@ -214,9 +214,9 @@ export default function ProfilePage(props) {
                   <div>
                     <img src={valuesImage.imageSrc.slice(-4) !== "null" ? valuesImage.imageSrc : profile} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
 
-                    <label htmlFor="myInput" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
+                    {disableForm ? "":<label htmlFor="myInput" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
                       <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />
-                    </label>
+                    </label>}
                     <input
                       id="myInput"
                       style={{ display: 'none' }}

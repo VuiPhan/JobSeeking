@@ -52,7 +52,7 @@ function WorkInfomation(props) {
                 {FormikProps => {
                     return (
                         <Form >
-                            <h4>Chọn việc làm theo cấp bậc</h4>
+                            <h4>Việc làm theo cấp bậc</h4>
                             <FastField
                                 name="jobTitleIDs"
                                 component={MutipleCombobox}
@@ -60,7 +60,7 @@ function WorkInfomation(props) {
                                 placeholder=""
                                 ListName="UTELS_GetJobTitle"
                             />
-                            <h4>Chọn việc làm theo kỹ năng</h4>
+                            <h4>Việc làm theo kỹ năng</h4>
                             <FastField
                                 name="jobSkillIDs"
                                 component={MutipleCombobox}
@@ -68,7 +68,7 @@ function WorkInfomation(props) {
                                 placeholder=""
                                 ListName="UTELS_GetJobSkill"
                             />
-                            <h4>Chọn việc làm theo nơi làm việc</h4>
+                            <h4>Việc làm theo nơi làm việc</h4>
                             <FastField
                                 name="jobLocations"
                                 component={MutipleSelectField}

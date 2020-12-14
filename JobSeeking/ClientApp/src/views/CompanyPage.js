@@ -100,7 +100,7 @@ export default function CompanyPage(props) {
                 </div>
                 <div className='row'>
                   {data.avgStar ? <div><Ratting value={parseInt(data.avgStar)}></Ratting></div>:null}
-                  <div><p>{data.avgStar} sao trên tổng số {data.numberReview} đánh giá</p></div>
+                  <div style={{    marginTop: 'auto',paddingLeft: 10,fontFamily: 'Lobster'}}><p style={{fontSize:22,color:'#FF505C'}}>{data.avgStar} sao trên tổng số {data.numberReview} đánh giá</p></div>
                 </div>
               </div>
               <AlertDialogSlide onRefresh = {fetchMyAPI}></AlertDialogSlide>

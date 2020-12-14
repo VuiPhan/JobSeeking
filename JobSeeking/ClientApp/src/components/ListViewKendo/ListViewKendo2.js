@@ -71,8 +71,11 @@ const MyItemRender = props => {
                 </CardActions>
             </div>
             <div>
-            <CardImage src={`https://localhost:44351/Images/${item.imageLogo}`} style={{ width: 100, height: 100, maxWidth: 220 }} />
+            <CardImage src={`https://localhost:44351/Images/${item.imageLogo}`} style={{ width: 100, height: 100, maxWidth: 220}} />
             <h6 style={{fontFamily:'Anton', textAlign:'center',marginTop:20}}>  {item.postingDateString}</h6>
+            {LoginInfo.companyID == item.companyID ? 
+            <h6 style={{fontFamily:'Anton', textAlign:'center',marginTop:20,fontFamily: 'initial',    color: 'green',fontWeight: 'bold'}}>{item.numCandidate} ứng viên</h6>
+            :""}
             </div>
             
         </Card>

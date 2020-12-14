@@ -16,7 +16,7 @@ import Ratting from 'components/Rating/Rating';
 import { GetDataCommentRedux } from 'components/ListViewKendo/ListViewKendoSlice';
 const myHeader = () => {
     return (
-        <ListViewHeader style={{ color: 'rgb(1817, 80, 92)', fontSize: 40 ,fontFamily: "fantasy",borderBottomStyle: "groove"}} className='pl-4 pb-2 pt-2'>
+        <ListViewHeader style={{ color: 'rgb(1817, 80, 92)', fontSize: 40, fontFamily: "fantasy", borderBottomStyle: "groove" }} className='pl-4 pb-2 pt-2'>
             Review đánh giá công ty
         </ListViewHeader>
     );
@@ -26,12 +26,12 @@ const MyItemRender = props => {
     var parse = require('html-react-parser');
     const history = useHistory();
     const LoginInfo = useSelector(state => state.loginInfo);
-    const HandleRedirectPage = (id) =>{
+    const HandleRedirectPage = (id) => {
         const linkRedired = `/Jobs/${id}`;
         history.push(linkRedired);
         window.scrollTo(0, 150);
     }
-    const HandleRedirectPageEdit = (id) =>{
+    const HandleRedirectPageEdit = (id) => {
         const linkRedired = `/PublishedRecruitment/${id}`;
         history.push(linkRedired);
         window.scrollTo(0, 150);
@@ -43,17 +43,17 @@ const MyItemRender = props => {
                     <h1 className='TitleReview DetailComment'>{item.titleReview}</h1>
                     <Ratting key={item.recID} value={item.star} size={25}></Ratting>
                     <h1 className='Ilike DetailComment' >Điều tôi thích</h1>
-                        <p>{item.iLike}</p>
+                    <p>{item.iLike}</p>
                     <h1 className='Improve DetailComment'>Đề nghị cải thiện</h1>
-                        <p>{item.improve}</p>
+                    <p>{item.improve}</p>
                 </div>
             </div>
         </Card>
     )
 }
 function Comments(props) {
-    const {dataID} = props;
-    const [data, setData] = useState( [ {
+    const { dataID } = props;
+    const [data, setData] = useState([{
         "Title": "How to design with love?",
         "Subtitle": "7 tips to fall in love with your job.",
         "Date": "Feb 24,  2020",
@@ -67,7 +67,7 @@ function Comments(props) {
     const [begin, setbegin] = useState(0);
     const handlePageChange = (e) => {
         setpage(parseInt(e.target.innerText));
-        setbegin((parseInt(e.target.innerText)-1)*take);
+        setbegin((parseInt(e.target.innerText) - 1) * take);
     }
     const LoginInfo = useSelector(state => state.loginInfo);
     const { companyID } = useParams();
@@ -80,19 +80,24 @@ function Comments(props) {
         }
         fetchMyAPI()
     }, []);
-     
     return (
         <div>
-               <div>
-                <ListView
-                    data={DataComment.slice(begin,begin+take)}
-                    item={MyItemRender}
-                    style={{ width: "100%" }}
-                    header={myHeader}
-                />
-                <div style={{display:'flex'}}>
-                <Pagination style={{marginLeft:'auto',marginTop:10,marginBottom:10}} count={Math.round(DataComment.length/take)} hideNextButton = {false} hidePrevButton={false} page={page} onChange={handlePageChange}  variant="outlined" color="secondary" />
-                </div>
+            <div>
+                {
+                    DataComment.length > 0 ?
+                        <div>
+                            <ListView
+                                data={DataComment.slice(begin, begin + take)}
+                                item={MyItemRender}
+                                style={{ width: "100%" }}
+                                header={myHeader}
+                            />
+                            <div style={{ display: 'flex' }}>
+                                <Pagination style={{ marginLeft: 'auto', marginTop: 10, marginBottom: 10 }} count={Math.round(DataComment.length / take)} hideNextButton={false} hidePrevButton={false} page={page} onChange={handlePageChange} variant="outlined" color="secondary" />
+                            </div>
+                        </div> :
+                        <div><p style={{ textAlign: 'center', padding: 40, fontSize: 24 }}>Chưa có thông tin. Hãy chờ thêm chút thời gian bạn nhé!</p></div>
+                }
             </div>
         </div>
     )
