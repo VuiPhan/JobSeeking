@@ -63,6 +63,10 @@ export default function JobsPage(props) {
   useEffect(() => {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
+      // Nếu có candidate code thì update luôn số lần click
+      if(LoginInfo.CadidateCode){
+        const resultClick = await JobsApi.insertClick(LoginInfo.CadidateCode,jobID);
+      }
       setData(result[0][0]);
       setJobWorking(result[2]);
       setTagSkill(result[1]);

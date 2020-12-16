@@ -82,6 +82,23 @@ namespace JobSeeking.Controllers
             response = Ok(new {Error = "Có lỗi" });
             return response;
         }
+        [HttpPost("AddClick")]
+        public async Task<object> AddClick(int CandidateCode, int JobID)
+        {
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spInsertCandidateClick" +
+            " @CandidateCode={0},@JobID={1}",
+            CandidateCode,
+            JobID
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
         [HttpGet("Get")]
         [Authorize(Policy = Policies.User)]
         //[Authorize(Policy = Policies.Recruiter)]

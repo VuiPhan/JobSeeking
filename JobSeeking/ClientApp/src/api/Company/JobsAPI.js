@@ -21,6 +21,9 @@ const JobsApi = {
         const url = `/Jobs/CountJob`;
         return axiosClient.get(url);
     },
-
+    insertClick: (CandidateCode,JobID) => {
+        const url = `/Seeker/AddClick?CandidateCode=${CandidateCode}&JobID=${JobID}`;
+        return axiosClient.post(url);
+    },
 }
 export default JobsApi;

@@ -59,6 +59,11 @@ namespace JobSeeking.Models.Class
         public string CVName { get; set; }
         public IFormFile CVFile { get; set; }
     }
+    //public class CandidateClick
+    //{
+    //    public int CandidateCode { get; set; }
+    //    public int JobID { get; set; }
+    //}
 
     public class FormHeaderCompany
     {
