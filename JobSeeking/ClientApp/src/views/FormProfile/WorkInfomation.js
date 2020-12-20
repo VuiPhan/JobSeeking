@@ -29,10 +29,19 @@ function WorkInfomation(props) {
         jobLocations: "1",
       });
       async function fetchDataWorkInfo() {
-        const result = await SeekerAPI.getWorkInfo(LoginInfo.CadidateCode);
-        setDataWorkInfo(result[0]);
+          if(LoginInfo.CadidateCode){
+            const result = await SeekerAPI.getWorkInfo(LoginInfo.CadidateCode);
+            console.log('resultresult',result);
+            setDataWorkInfo(result[0]);
+          }
+          else{
+            const result = await SeekerAPI.getWorkInfo(CandidateCode);
+            setDataWorkInfo(result[0]);
+        }
+        
       }
       useEffect(() => {
+          debugger;
         fetchDataWorkInfo();
       }, [CandidateCode, LoginInfo.CadidateCode])
       const UpdateWorkInfo = async (data) => {
@@ -57,6 +66,7 @@ function WorkInfomation(props) {
                                 name="jobTitleIDs"
                                 component={MutipleCombobox}
                                 label=""
+                                disabled={disableForm}
                                 placeholder=""
                                 ListName="UTELS_GetJobTitle"
                             />
@@ -64,6 +74,7 @@ function WorkInfomation(props) {
                             <FastField
                                 name="jobSkillIDs"
                                 component={MutipleCombobox}
+                                disabled={disableForm}
                                 label=""
                                 placeholder=""
                                 ListName="UTELS_GetJobSkill"
@@ -74,14 +85,16 @@ function WorkInfomation(props) {
                                 component={MutipleSelectField}
                                 label=""
                                 placeholder=""
+                                disabled={disableForm}
                                 ListName="NoiLamViec"
                             />
-                            <FormGroup>
+                            {LoginInfo.CadidateCode ?<FormGroup>
                                 <Row className='clearfix'>
-                                <Col xs="12" sm="12"> <Button type='submit' style={{ float: 'right' }} variant="outlined" color="secondary" startIcon={<SaveIcon/>} >Lưu thông tin </Button>
+                                 <Col xs="12" sm="12"> <Button type='submit' style={{ float: 'right' }} variant="outlined" color="secondary" startIcon={<SaveIcon/>} >Lưu thông tin </Button>
                                 </Col>
                                 </Row>
                             </FormGroup>
+                            :null}
                         </Form>
                     )
                 }}

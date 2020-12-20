@@ -70,8 +70,7 @@ export default function JobsPage(props) {
       setData(result[0][0]);
       setJobWorking(result[2]);
       setTagSkill(result[1]);
-      setPriorityDegree(result[3])
-      debugger;
+      setPriorityDegree(result[3]);
       if (LoginInfo.companyID == result[0][0].companyId) {
         const action = ChooseJob({ jobID: jobID, IsAccess: true });
         var x = dispatch(action);
@@ -85,6 +84,27 @@ export default function JobsPage(props) {
     fetchMyAPI();
 
   }, [jobID,LoginInfo]);
+  const lookingForCandidates = () => {
+    confirmAlert({
+      title: 'Tìm kiếm ứng viên',
+      message: 'Bạn sẽ được hệ thống hỗ trợ tìm kiếm các ứng viên phù hợp với yêu cầu công việc',
+      buttons: [
+        {
+          label: 'Tìm kiếm ngay',
+          onClick: async () => {
+            const action = ChooseJob({ jobID: jobID, IsAccess: true ,IsSearch :true});
+            var x = dispatch(action);
+            MyToaStrSuccess('Hệ thống đã lọc những ứng viên có khả năng ở góc dưới bên phải màn hình');
+            return;
+          }
+        },
+        {
+          label: 'Đóng',
+          onClick: () => { }
+        }
+      ]
+    });
+  };
   const submitApply = () => {
     if (!LoginInfo.CadidateCode) {
       MyToaStrError('Bạn hãy đăng nhập để sử dụng tính năng này!');
@@ -202,7 +222,7 @@ export default function JobsPage(props) {
                   <div className="">
                   <ul>
                   {dataPriorityDegree.map((item) =>
-      <li key={item.value}><a href="#">{item.label}</a></li>
+      <li key={item.value}><a>{item.label}</a></li>
     )}
                   </ul>
                   </div>
@@ -214,11 +234,18 @@ export default function JobsPage(props) {
                     : <div className="buttonCenter"> <Button variant="outlined" onClick={() => submitApply()} color="secondary">Ứng tuyển ngay</Button>
                     </div>
                   }
-                  {/* <span className="buttonCenterNotification">10</span> */}
                   <div className="buttonCenter">
                     <Button onClick={() => HandleRedirectPage(data.companyId)} variant="outlined" color="primary">Về chúng tôi</Button>
 
                   </div>
+                </div>
+                <div className="CenterButton">
+                  {LoginInfo.companyID == data.companyId  ?
+                    <div className="buttonCenter"> <Button variant="outlined" onClick={() => lookingForCandidates()} color="secondary">Tìm kiếm ứng viên</Button>
+                   
+                    </div>
+                     : null
+                  }
                 </div>
               </div>
               <div className="main">

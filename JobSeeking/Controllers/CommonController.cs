@@ -46,9 +46,9 @@ namespace JobSeeking.Controllers
 
         [HttpGet("GetListCandidateApply")]
         [Authorize(Policy = Policies.Recruiter)]
-        public async Task<object> GetListCandidateApply(int JobID)
+        public async Task<object> GetListCandidateApply(int JobID, bool IsSearch)
         {
-            var data = await _context.ListCandidateApplys.FromSqlRaw("EXEC dbo.UTE_spGetListCandidateByJobID {0}", JobID).ToListAsync();
+            var data = await _context.ListCandidateApplys.FromSqlRaw("EXEC dbo.UTE_spGetListCandidateByJobID {0},{1}", JobID, IsSearch).ToListAsync();
             return data;
         }
         [HttpGet("ListSearch")]

@@ -65,7 +65,15 @@ export default function PublishedRecruitment(props) {
     }
     const validationShema = yup.object().shape({
         title: yup.string().required(res.TruongBBNhap),
-        Strengths: yup.string().email().required(res.TruongBBNhap)
+        requireCV: yup.string().required(res.TruongBBNhap),
+        reasonsToJoin: yup.string().required(res.TruongBBNhap),
+        jobDescriptions: yup.string().required(res.TruongBBNhap),
+        loveWorkingHere: yup.string().required(res.TruongBBNhap),
+        priorityDegree: yup.string().nullable().required(res.TruongBBNhap),
+        jobTitleIDs: yup.string().required(res.TruongBBNhap),
+        jobSkillIDs: yup.string().required(res.TruongBBNhap),
+        jobLocations: yup.string().required(res.TruongBBNhap),
+
     })
     const [initialValues, setinitialValues] = React.useState({
         title: '',
@@ -148,13 +156,13 @@ export default function PublishedRecruitment(props) {
                 </div>
                 <div className='ContainerForm'>
                     <Formik initialValues={initialValues}
-                        // validationSchema={validationShema}
+                         validationSchema={validationShema}
                         enableReinitialize
                         onSubmit={values => HandleSubmitData(values)}
                     >
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
-                            console.log('initialValues2', initialValues);
+                            console.log('errors', errors);
                             return (
                                 <Form>
                                     <h1 className='headerThongTinCV'> THÔNG TIN CÔNG VIỆC</h1>
@@ -223,27 +231,13 @@ export default function PublishedRecruitment(props) {
 
 
                                     </div>
-                                    {/* <FastField
-                                        name="categoryId"
-                                        component={SelectField}
-                                        label="Category"
-                                        placeholder="Category"
-                                        ListName="HinhThucLamViec"
-                                    /> */}
-                                    {/* <FastField
-                                        name="Strengths"
-                                        component={MutipleSelectField}
-                                        label="Các thế mạnh của chúng tôi"
-                                        placeholder="Category"
-                                        ListName="TheManhCongTy"
-                                    /> */}
-                                    <h4 style={{marginTop:20}}>Các bằng cấp ưu tiên</h4>
+                                     <h4>Việc làm theo cấp bậc</h4>
                                     <FastField
                                         name="priorityDegree"
-                                        component={MutipleSelectField}
+                                        component={MutipleCombobox}
                                         label=""
-                                        ListName="BangCapUuTien"
-                                        placeholder="Mời bạn chọn các bằng cấp được ưu tiên"
+                                        placeholder=""
+                                        ListName="UTELS_GetPriorityDegree"
                                     />
                                     <h4>Việc làm theo cấp bậc</h4>
                                     <FastField

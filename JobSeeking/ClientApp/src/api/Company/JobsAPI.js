@@ -9,8 +9,8 @@ const JobsApi = {
         const url = `/PublishedRecuit/GetForEdit?jobid=${data}`;
         return axiosClient.get(url);
     },
-    getListCandidate: (data) => {
-        const url = `/Common/GetListCandidateApply?JobID=${data}`;
+    getListCandidate: (data,IsSearch=false) => {
+        const url = `/Common/GetListCandidateApply?JobID=${data}&IsSearch=${IsSearch}`;
         return axiosClient.get(url,data);
     },
     postApply: (data) => {

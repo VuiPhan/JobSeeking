@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 function MyCKEditor(props) {
   const { field, form, type, label, placeholder, disabled,ChangeRequireWork } = props;
   const { name, value, onChange } = field;
+  const {errors,touched} = form;
+  
+  const showError = errors[name];
+  debugger;
   return (
     <div className="App">
       <CKEditor
@@ -31,6 +35,7 @@ function MyCKEditor(props) {
         }
         }
       />
+      {/* {showError? <p>{errors[name]}</p>:null} */}
     </div>
   );
 }

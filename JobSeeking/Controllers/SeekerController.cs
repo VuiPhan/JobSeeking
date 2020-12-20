@@ -110,13 +110,13 @@ namespace JobSeeking.Controllers
             return data;
         }
         [HttpGet("GetWorkInfo")]
-        [Authorize(Policy = Policies.User)]
+        //[Authorize(Policy = Policies.User)]
         //[Authorize(Policy = Policies.Recruiter)]
         public async Task<object> GetWorkInfo(int CandidateCode)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var data = await _context.WorkInfos.FromSqlRaw("EXEC dbo.UTE_Seeker_GetWorkInfo {0}", claims[5].Value).ToListAsync();
+            var data = await _context.WorkInfos.FromSqlRaw("EXEC dbo.UTE_Seeker_GetWorkInfo {0}", CandidateCode).ToListAsync();
             return data;
         }
 

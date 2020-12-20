@@ -307,28 +307,28 @@ export default function ProfilePage(props) {
                         <WorkInfomation></WorkInfomation>
                       )
                     },
-                    {
-                      tabButton: "Chuyên ngành đào tạo",
-                      tabIcon: SchoolIcon,
-                      tabContent: (
+                    // {
+                    //   tabButton: "Chuyên ngành đào tạo",
+                    //   tabIcon: SchoolIcon,
+                    //   tabContent: (
 
-                        <Button></Button>
-                      )
-                    },
-                    {
-                      tabButton: "Chứng chỉ",
-                      tabIcon: Favorite,
-                      tabContent: (
-                        <Button></Button>
-                      )
-                    },
-                    {
-                      tabButton: "Quá trình làm việc",
-                      tabIcon: ApartmentIcon,
-                      tabContent: (
-                        <Button></Button>
-                      )
-                    },
+                    //     <Button></Button>
+                    //   )
+                    // },
+                    // {
+                    //   tabButton: "Chứng chỉ",
+                    //   tabIcon: Favorite,
+                    //   tabContent: (
+                    //     <Button></Button>
+                    //   )
+                    // },
+                    // {
+                    //   tabButton: "Quá trình làm việc",
+                    //   tabIcon: ApartmentIcon,
+                    //   tabContent: (
+                    //     <Button></Button>
+                    //   )
+                    // },
 
                     {
                       tabButton: "CV",

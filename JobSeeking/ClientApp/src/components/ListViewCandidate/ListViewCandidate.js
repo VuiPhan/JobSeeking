@@ -8,11 +8,13 @@ import { useSelector } from 'react-redux';
 import Pagination from '@material-ui/lab/Pagination';
 import { Button } from '@material-ui/core';
 import ConstCommon from 'common/ConstInApp';
+//const IsAccess = useSelector(state => state.JobKendo);
 
 const myHeader = () => {
     return (
         <ListViewHeader style={{  fontSize: 20,fontWeight:"bold",color: "#dfa579" ,borderBottomStyle: "groove"}} className='pl-4 pb-2 pt-2'>
-            Những ứng viên đã Apply
+            {/* {IsAccess.IsSearch ?"Những ứng viên tiềm năng":"Những ứng viên đã Apply"} */}
+            Ứng viên
         </ListViewHeader>
     );
 }
@@ -69,11 +71,11 @@ function ListViewCandidate(props) {
     const IsAccess = useSelector(state => state.JobKendo);
     useEffect(() => {
         async function fetchMyAPI() {
-          const result = await JobsApi.getListCandidate(IsAccess.jobID);
+          const result = await JobsApi.getListCandidate(IsAccess.jobID,IsAccess.IsSearch);
           setData(result);
         }
         fetchMyAPI()
-      }, [IsAccess.jobID]);
+      }, [IsAccess]);
      
     return (
         <div>

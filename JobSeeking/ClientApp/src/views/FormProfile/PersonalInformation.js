@@ -136,6 +136,7 @@ function PersonalInformation(props) {
                                         name="academicLevel"
                                         component={SelectField}
                                         label=""
+                                        disabled={disableForm}
                                         placeholder={res.TrinhDoHV}
                                         ListName="TrinhDoHV" />
                                 </Col>
@@ -146,6 +147,7 @@ function PersonalInformation(props) {
                                     <FastField
                                         name="birthDayString"
                                         component={DatePickers}
+                                        disabled={disableForm}
                                         label=""
                                         placeholder=""
                                     />
@@ -160,6 +162,7 @@ function PersonalInformation(props) {
                                     <FastField
                                         name="phoneNumber"
                                         component={InputField}
+                                        disabled={disableForm}
                                         label=""
                                         placeholder={res.SDT}
                                     />
@@ -173,6 +176,7 @@ function PersonalInformation(props) {
                                     <FastField
                                         name="gender"
                                         component={SelectField}
+                                        disabled={disableForm}
                                         label=""
                                         placeholder=""
                                         ListName="GioiTinh" />

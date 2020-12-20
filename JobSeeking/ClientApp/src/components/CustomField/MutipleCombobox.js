@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
-import { FormGroup, Label } from 'reactstrap';
+import { FormFeedback, FormGroup, Label } from 'reactstrap';
 import LoadValueListApi from 'api/loadValuelist';
+import { ErrorMessage } from 'formik';
 MutipleCombobox.propTypes = {
     field: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired,
@@ -19,9 +20,12 @@ MutipleCombobox.defaultProps = {
 }
 
 function MutipleCombobox(props) {
-    const { field, lable, placeholder, disabled, label, ListName } = props;
+    const { field, lable,form, placeholder, disabled, label, ListName } = props;
     const { name, value } = field;
+    const {errors,touched} = form;
+
     const [options, setoptions] = useState([]);
+    const showError = errors[name] && touched[name];
 
     //const selectedOption = options.find(options => value.indexOf(options.value.toString()) > 0);
     const selectedOption = options.filter(function (el) {
@@ -59,8 +63,9 @@ function MutipleCombobox(props) {
                     placeholder={placeholder}
                     isDisabled={disabled}
                     options={options}
+                    className = {showError ? 'is-invalid' :''}
                 />
-
+<ErrorMessage name={name} component={FormFeedback}/>
             </FormGroup>
         </div>
     )

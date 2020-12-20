@@ -54,10 +54,12 @@ namespace JobSeeking.Controllers
             return StatusCode(201);
         }
         [HttpGet("GetForEdit")]
-        //[Authorize(Policy = Policies.Recruiter)]
+        [Authorize(Policy = Policies.Recruiter)]
         public async Task<object> GetInfoJob(int? jobid)
         {
-            var dataJob = await _context.PublishedRecuitForms.FromSqlRaw("EXEC dbo.UTE_Job_GetInfomationToEdit {0}", jobid).ToListAsync();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var dataJob = await _context.PublishedRecuitForms.FromSqlRaw("EXEC dbo.UTE_Job_GetInfomationToEdit {0},{1}", jobid, claims[4].Value).ToListAsync();
             return dataJob.AsEnumerable().SingleOrDefault();
         }
     }
