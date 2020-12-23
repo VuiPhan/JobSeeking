@@ -30,11 +30,11 @@ function PersonalInformation(props) {
             .required(resValidation.TruongBBNhap)
             .min(8, resValidation.MatKhauQN)
             .matches(/[a-zA-Z]/, resValidation.MatKhauInHoa)
+            .nullable()
         ,
         rePassword: yup.string()
             .required(resValidation.TruongBBNhap)
-            .oneOf([yup.ref('password'), null], resValidation.MatKhauKK),
-        birthDay: yup.string().required(resValidation.TruongBBNhap),
+            .oneOf([yup.ref('password'), null], resValidation.MatKhauKK).nullable(),
         gender: yup.number().required(resValidation.TruongBBNhap).nullable(),
         academicLevel: yup.number().required(resValidation.TruongBBNhap).nullable(),
         phoneNumber: yup.number().required(resValidation.TruongBBNhap),
@@ -43,11 +43,12 @@ function PersonalInformation(props) {
     return (
         <div>
             <Formik initialValues={data}
-                // validationSchema={validationShema}
+                 validationSchema={validationShema}
                 onSubmit={values => SubmitDataFinal(values)}
                 enableReinitialize>
                 {FormikProps => {
                     const { values, errors, touched } = FormikProps;
+                    console.log(errors);
                     return (
                         <FormFormik>
                             <Form.Group as={Row} >
@@ -80,6 +81,7 @@ function PersonalInformation(props) {
                                         name="password"
                                         component={InputField}
                                         label=""
+                                        type="password"
                                         placeholder={res.MatKhau}
                                     />
                                 </Col>
@@ -94,6 +96,7 @@ function PersonalInformation(props) {
                                     <FastField
                                         name="rePassword"
                                         component={InputField}
+                                        type="password"
                                         label=""
                                         placeholder={res.NhapLaiMatKhau}
                                     />

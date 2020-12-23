@@ -135,7 +135,7 @@ function ListViewKendo2(props) {
                             color="Secondary"
                         />
                     }
-                    label="Gợi ý những công việc liên quan đến hồ sơ của tôi"
+                    label="Sử dụng hệ thống gợi ý"
                 />
                 </div> : null
 }
