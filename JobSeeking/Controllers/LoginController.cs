@@ -52,6 +52,29 @@ namespace JobSeeking.Controllers
             var userLoginResult = data.AsEnumerable().SingleOrDefault();
             return userLoginResult;
         }
+        //[Authorize(Policy = Policies.User)]
+        //[Authorize(Policy = Policies.Recruiter)]
+        [HttpPost("UpdatePassword")]
+        public async Task<object> UpdatePassword(string PasswordCurrent,string PasswordNew)
+        {
+            //    UploadImage uploadImage = new UploadImage();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+                var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Account_UpdatePassword" +
+            " @UserID={0},@PasswordOld={1},@PasswordNew={2}",
+            claims[1].Value,
+           PasswordCurrent,
+           PasswordNew
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
         [HttpPost("Post")]
         [Authorize(Policy = Policies.User)]
         public string Post()

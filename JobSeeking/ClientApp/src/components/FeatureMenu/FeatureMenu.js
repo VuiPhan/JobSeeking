@@ -5,10 +5,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
 import ListIcon from '@material-ui/icons/List';
+import FormChangePassword from 'components/FormLogin/FormChangePassword';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -50,9 +53,24 @@ export default function CustomizedMenus() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [isShowFormChangePass,setIsShowFormChangePass] = useState(false);
+  const openFormChangePassword = () =>{
+    setIsShowFormChangePass(true);
+    setAnchorEl(null);
+    
+  }
+  const history = useHistory();
+  const RedirectPageApply = () =>{
+    setAnchorEl(null);
+      const linkRedired = `/ApplyJob`;
+      history.push(linkRedired);
+      window.scrollTo(0, 450);
+  }
+  const LoginInfo = useSelector(state => state.loginInfo);
 
   return (
     <div style={{display: 'contents'}}>
+      {isShowFormChangePass?<FormChangePassword/>:null}
       <Button
             color="transparent"
             onClick={handleClick}
@@ -64,11 +82,19 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
+         { LoginInfo.role === "User" ?
+        <StyledMenuItem onClick={()=>RedirectPageApply()}>
           <ListItemIcon>
             <SendIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Đã ứng tuyển" />
+        </StyledMenuItem>:null}
+
+        <StyledMenuItem onClick={()=>openFormChangePassword()} >
+          <ListItemIcon>
+            <VpnKeyIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Đổi mật khẩu" />
         </StyledMenuItem>
       </StyledMenu>
     </div>

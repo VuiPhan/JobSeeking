@@ -64,7 +64,7 @@ export default function HeaderLinks(props) {
           :""
         }
         <FormDialog></FormDialog>
-        {/* <CustomizedMenus className={classes.navLink}></CustomizedMenus> */}
+        { LoginInfo.role ? <CustomizedMenus className={classes.navLink}></CustomizedMenus>:null}
       </ListItem>
     </List>
   );

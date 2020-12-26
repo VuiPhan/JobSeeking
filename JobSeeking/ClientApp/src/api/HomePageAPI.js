@@ -14,5 +14,9 @@ const LoadJobsApi = {
         const url = `/Jobs/GetJobForSearch?JobSkillIDs=${JobSkillIDs}&JobTitleIDs=${JobTitleIDs}`;
         return axiosClient.get(url);
     },
+    getJobForApplyOfCandidate: () => {
+        const url = `/Jobs/GetJobForApplyOfCandidate`;
+        return axiosClient.get(url);
+    },
 }
 export default LoadJobsApi;

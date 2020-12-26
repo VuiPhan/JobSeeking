@@ -37,5 +37,9 @@ const SeekerAPI = {
         const url = `/Seeker/UpdateWorkInfo`;
         return axiosClient.post(url,data);
     },
+    changePassword: (PasswordCurrent,PasswordNew) => {
+        const url = `/Login/UpdatePassword?PasswordCurrent=${PasswordCurrent}&PasswordNew=${PasswordNew}`;
+        return axiosClient.post(url);
+    },
 }
 export default SeekerAPI;

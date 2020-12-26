@@ -32,6 +32,16 @@ namespace JobSeeking.Controllers
             var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForSearch {0},{1}", JobSkillIDs, JobTitleIDs).ToListAsync();
             return dataJob;
         }
+        [HttpGet("GetJobForApplyOfCandidate")]
+        [Authorize(Policy = Policies.User)]
+
+        public async Task<object> GetJobForApplyOfCandidate()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForApply {0}", claims[5].Value).ToListAsync();
+            return dataJob;
+        }
         [HttpGet("GetJobByID")]
         public async Task<object> GetJobByID(int jobid)
         {
@@ -54,6 +64,24 @@ namespace JobSeeking.Controllers
            var result =  await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spInsertApplyJob" +
                " @CandidateCode={0},@JobID={1}", claims[5].Value, JobID
                );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
+        [HttpPost("CancelApplyJob")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> CancelApplyJob(int JobID)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spCancelApplyJob" +
+                " @CandidateCode={0},@JobID={1}", claims[5].Value, JobID
+                );
             IActionResult response = Unauthorized();
             if (result > 0)
             {
