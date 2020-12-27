@@ -27,9 +27,9 @@ namespace JobSeeking.Controllers
             return dataJob;
         }
         [HttpGet("GetJobForSearch")]
-        public async Task<object> GetJobForSearch(string JobSkillIDs,string JobTitleIDs)
+        public async Task<object> GetJobForSearch(string JobSkillIDs,string JobTitleIDs,string LocationValue)
         {
-            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForSearch {0},{1}", JobSkillIDs, JobTitleIDs).ToListAsync();
+            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForSearch {0},{1},{2}", JobSkillIDs, JobTitleIDs, LocationValue).ToListAsync();
             return dataJob;
         }
         [HttpGet("GetJobForApplyOfCandidate")]

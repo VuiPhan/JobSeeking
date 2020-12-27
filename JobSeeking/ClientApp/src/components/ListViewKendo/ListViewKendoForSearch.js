@@ -92,7 +92,7 @@ function ListViewKendoForSearch(props) {
     const { companyID } = useParams();
     useEffect(() => {
         async function fetchMyAPI() {
-          const result = await LoadJobsApi.getAllForSearch(SearchField.KyNangValue,SearchField.ChucDanhValue);
+          const result = await LoadJobsApi.getAllForSearch(SearchField.KyNangValue,SearchField.ChucDanhValue,SearchField.LocationValue);
           setData(result);
         }
         if(dataID){

@@ -21,6 +21,8 @@ import { useHistory } from "react-router-dom";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CustomizedMenus from "components/FeatureMenu/FeatureMenu.js";
 import MutipleLevel from "components/MutipleLevel/MutipleLevel.js";
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import BusinessIcon from '@material-ui/icons/Business';
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
@@ -49,7 +51,7 @@ export default function HeaderLinks(props) {
           color="transparent"
           className={classes.navLink}
         >
-          <AccountCircleIcon className={classes.icons} /> Trang công ty
+          <BusinessIcon color="secondary" className={classes.icons} /> Trang công ty
         </Button>
         : ""
         }
@@ -59,7 +61,7 @@ export default function HeaderLinks(props) {
             color="transparent"
             className={classes.navLink}
           >
-            <AccountCircleIcon className={classes.icons} /> Đăng tin tuyển dụng
+            <ReceiptIcon fontSize="large" color="primary" className={classes.icons} /> Đăng tin tuyển dụng
          </Button>
           :""
         }

@@ -16,6 +16,10 @@ import { useHistory } from 'react-router-dom';
 import { MyToaStrError } from 'components/Toastr/Toastr2.js';
 import MyToastr from 'components/Toastr/Toastr.js';
 import CustomizedMenus from 'components/FeatureMenu/FeatureMenu.js';
+import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import BusinessIcon from '@material-ui/icons/Business';
 
 const useStyles = makeStyles(styles);
 
@@ -85,14 +89,14 @@ const HandleRedirectProfilePage = () =>{
         className={classes.navLink}
         onClick={handleClickOpen}
       >
-        <AccountCircleIcon className={classes.icons} /> Đăng nhập
+        <AccountCircleIcon color="secondary" className={classes.icons} /> Đăng nhập & đăng ký
         </Button>
         :       <Button
         color="default"
         className={classes.navLink}
         onClick={handleLogout}
       >
-        <AccountCircleIcon className={classes.icons} /> Đăng xuất
+        <SettingsPowerIcon className={classes.icons} /> Đăng xuất
         </Button>
         
       }
@@ -123,12 +127,12 @@ const HandleRedirectProfilePage = () =>{
                                     />
                                   <MyToastr></MyToastr>
                                     <FormGroup>
-                                        <Button type='submit' variant="outlined" color="primary">{res.DangNhap}</Button>
+                                        <Button style={{marginTop:10}} startIcon={<ExitToAppIcon />} type='submit' variant="outlined" color="primary">{res.DangNhap}</Button>
                                         <br/>
-                                        <p>Bạn chưa có tài khoản? Đăng ký ngay</p>
-                                        <Button onClick={()=>HandleRedirectProfilePage()} variant="outlined" color="secondary">{res.DangKyThanhVien}</Button>
+                                        <p style={{marginTop:30}}>Bạn chưa có tài khoản? Đăng ký ngay</p>
+                                        <Button startIcon={<GroupAddIcon />} onClick={()=>HandleRedirectProfilePage()} variant="outlined" color="secondary">{res.DangKyThanhVien}</Button>
 
-                                        <Button style = {{ marginLeft: 30}} onClick={()=>HandleRedirectPageCompanyRegiter()} variant="outlined" color="secondary">{res.DangKyTD}</Button>
+                                        <Button startIcon={<BusinessIcon />} style = {{ marginLeft: 30}} onClick={()=>HandleRedirectPageCompanyRegiter()} variant="outlined" color="secondary">{res.DangKyTD}</Button>
                                     </FormGroup>
                                 </Form>
                             )

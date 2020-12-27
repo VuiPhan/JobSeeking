@@ -231,7 +231,7 @@ export default function PublishedRecruitment(props) {
 
 
                                     </div>
-                                     <h4>Việc làm theo cấp bậc</h4>
+                                     <h4>Bằng cấp ưu tiên</h4>
                                     <FastField
                                         name="priorityDegree"
                                         component={MutipleCombobox}

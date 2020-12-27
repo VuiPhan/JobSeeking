@@ -10,8 +10,8 @@ const LoadJobsApi = {
             return axiosClient.get(url);
         }
     },
-    getAllForSearch: (JobSkillIDs,JobTitleIDs) => {
-        const url = `/Jobs/GetJobForSearch?JobSkillIDs=${JobSkillIDs}&JobTitleIDs=${JobTitleIDs}`;
+    getAllForSearch: (JobSkillIDs,JobTitleIDs,LocationValue) => {
+        const url = `/Jobs/GetJobForSearch?JobSkillIDs=${JobSkillIDs}&JobTitleIDs=${JobTitleIDs}&LocationValue=${LocationValue}`;
         return axiosClient.get(url);
     },
     getJobForApplyOfCandidate: () => {

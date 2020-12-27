@@ -18,7 +18,8 @@ import MyToastr from 'components/Toastr/Toastr.js';
 import CustomizedMenus from 'components/FeatureMenu/FeatureMenu.js';
 import handleGetJson from 'common/ReadJson.js';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
-
+import DoneIcon from '@material-ui/icons/Done';
+import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles(styles);
 
 export default function FormChangePassword() {
@@ -106,8 +107,8 @@ RePasswordNew: yup.string()
                                   <MyToastr></MyToastr>
                                     <FormGroup>
                                       <div style={{float:'right'}}>
-                                        <Button type='submit' variant="outlined" color="secondary">Xác nhận thay đổi</Button>
-                                        <Button style={{marginLeft:10}} onClick={()=>handleClose()} variant="outlined" color="primary">Đóng</Button>
+                                        <Button startIcon={<DoneIcon />} type='submit' variant="outlined" color="secondary">Xác nhận thay đổi</Button>
+                                        <Button  startIcon={<CloseIcon />} style={{marginLeft:10}} onClick={()=>handleClose()} variant="outlined" color="primary">Đóng</Button>
                                         </div>
                                     </FormGroup>
                                 </Form>

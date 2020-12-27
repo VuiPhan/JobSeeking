@@ -28,7 +28,6 @@ import { MyToaStrError, MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
 import TagList from "@progress/kendo-react-dropdowns/dist/npm/MultiSelect/TagList";
 import { changeSearch } from "components/ListViewKendo/ForSearchSlice.js";
-
 const useStyles = makeStyles(styles);
 
 
@@ -156,6 +155,9 @@ export default function JobsPage(props) {
     history.push(linkRedired);
     window.scrollTo(0, 450);
   }
+  const style = {
+  
+  };
   return (
     <div>
       <MyToastr></MyToastr>
@@ -166,12 +168,12 @@ export default function JobsPage(props) {
             <div className="row">
               <div className="side">
                 <div className="detail_side">
-                  <AccessAlarm />
+                  <AccessAlarm  style={{fill: "#0A0904"}}/>
                   <p className="detail_side_content">OT:{data.otMode}</p>
                 </div>
                 <br></br>
                 <div className="detail_side">
-                  <MonetizationOnIcon color="secondary" />
+                  <MonetizationOnIcon style={{fill: "#80EB9A"}} />
                   <p className="detail_side_content"> Mức lương: $ {data.salary}</p>
                   <br></br>
                 </div>
@@ -183,17 +185,17 @@ export default function JobsPage(props) {
                 <br></br>
 
                 <div className="detail_side">
-                  <Brightness7Icon />
+                  <Brightness7Icon  style={{fill: "#FEE440"}}/>
                   <p className="detail_side_content"> {data.companyType}</p>
                 </div>
                 <br></br>
                 <div className="detail_side">
-                  <PeopleIcon />
+                  <PeopleIcon style={{fill: "#FF34AC"}} />
                   <p className="detail_side_content"> {data.scalePeople}</p>
                 </div>
                 <br></br>
                 <div className="detail_side">
-                  <DateRangeIcon />
+                  <DateRangeIcon style={{fill: "#30F2F2"}} />
                   <p className="detail_side_content"> {data.postingDate}</p>
                 </div>
                 <br></br>

@@ -57,7 +57,7 @@ export default function CompanyPage(props) {
                 <div className="row">
                   <div className="side">
                     <div className="detail_side">
-                      <AccessAlarm />
+                      <AccessAlarm style={{fill: "#0A0904"}}/>
                       <p className="detail_side_content">Không có OT</p>
                     </div>
                     <br></br>
@@ -69,12 +69,12 @@ export default function CompanyPage(props) {
                     <br></br>
 
                     <div className="detail_side">
-                      <Brightness7Icon />
+                      <Brightness7Icon style={{fill: "#FEE440"}} />
                       <p className="detail_side_content"> {data.companyType}</p>
                     </div>
                     <br></br>
                     <div className="detail_side">
-                      <PeopleIcon />
+                      <PeopleIcon style={{fill: "#FF34AC"}} />
                       <p className="detail_side_content"> {data.scalePeople}</p>
                     </div>
                     <br></br>

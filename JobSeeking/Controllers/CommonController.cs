@@ -69,9 +69,18 @@ namespace JobSeeking.Controllers
             {
                 element.value += "CP";
             }
+            var Province = await _context.ValueListStrings.FromSqlRaw("EXEC dbo.spUTE_GetComboboxSearch {0},{1}", "UTELS_GetProvince", "VN").ToListAsync();
+            //foreach (ValueListString element in ListCompany)
+            //{
+            //    element.value += "CP";
+            //}
+            ValueListString localtionAll = new ValueListString() { label="Tất cả địa điểm",value="-1"};
+
+            Province.Insert(0, localtionAll);
+
             var arlist2 = new ArrayList()
                 {
-                    ListJobSkill, ListJobTitle,ListCompany
+                    ListJobSkill, ListJobTitle,ListCompany,Province
                 };
             return arlist2;
         }
