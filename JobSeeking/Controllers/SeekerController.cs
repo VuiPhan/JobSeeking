@@ -148,7 +148,13 @@ namespace JobSeeking.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0}", CandidateCode).ToListAsync();
+            bool IsOwn = true;
+            if(claims[5].Value.ToString() == "")
+            {
+                // Nhà tuyển dụng
+                IsOwn = false;
+            }
+            var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0},{1}", CandidateCode, IsOwn).ToListAsync();
             return data;
         }
         [HttpGet("GetViewSeekerBy")]

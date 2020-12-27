@@ -70,13 +70,13 @@ const HandleRedirectPageCompanyRegiter = () =>{
   setOpen(false);
     const linkRedired = `/CompanyRegiter`;
     history.push(linkRedired);
-    window.scrollTo(0, 150);
+    window.scrollTo(0, 650);
 }
 const HandleRedirectProfilePage = () =>{
   setOpen(false);
   const linkRedired = `/ProfilePage`;
   history.push(linkRedired);
-  window.scrollTo(0, 150);
+  window.scrollTo(0, 325);
 }
   // Cần phải dispath một cái action
   return (

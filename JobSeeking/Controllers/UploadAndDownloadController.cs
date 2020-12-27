@@ -63,7 +63,7 @@ namespace JobSeeking.Controllers
             {
                 pathCV = await uploadImage.SaveImage(fileCV.CVFile);
             }
-            if (fileCV.OrdinalCVName != null)
+            if (fileCV.OrdinalCVName != null && fileCV.CVFile != null)
             {
                 await uploadImage.DeleteFile(fileCV.OrdinalCVName);
             }
@@ -72,12 +72,13 @@ namespace JobSeeking.Controllers
             IList<Claim> claims = identity.Claims.ToList();
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_InsertOrUpdateCV " +
             "@CandidateCode={0},@PathCV={1},@RecID={2},@JobTitleID={3}," +
-            "@Description={4}",
+            "@Description={4},@IsPublic={5}",
             claims[5].Value,
             pathCV,
             fileCV.RecID,
             fileCV.JobTitleID,
-            fileCV.Description
+            fileCV.Description,
+            fileCV.IsPublic
             );
             IActionResult response = Unauthorized();
             if (result > 0)

@@ -13,31 +13,34 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloseIcon from '@material-ui/icons/Close';
 import { Col, Row } from 'reactstrap';
 import { useSelector } from 'react-redux';
+import SwitchLabels from 'components/Checkbox/Checkbox';
 function CVAddForm(props) {
     const { isOpen, handleClose, FClose, initialValuesCV, HandleCV, refreshData } = props;
     const LoginInfo = useSelector(state => state.loginInfo);
     const SubmitCV = async (values) => {
-        if(initialValuesCV.recID){
+        if (initialValuesCV.recID) {
             // Update
             const formData = new FormData();
             formData.append('OrdinalCVName', initialValuesCV.ordinalCVName);
             formData.append('CVFile', initialValuesCV.CVFile);
             formData.append('RecID', initialValuesCV.recID);
-            if(initialValuesCV.CVFile){
+            if (initialValuesCV.CVFile) {
                 formData.append('CVName', initialValuesCV.CVFile.name);
             }
             formData.append('JobTitleID', values.jobTitleID);
             formData.append('Description', values.description);
+            formData.append('IsPublic', values.isPublic);
             let result = await SeekerAPI.submitCV(formData);
             MyToaStrSuccess('Bạn chỉnh sửa CV thành công!');
         }
-        else{
+        else {
             // New
             const formData = new FormData();
             formData.append('CVFile', initialValuesCV.CVFile);
             formData.append('CVName', initialValuesCV.CVFile.name);
             formData.append('JobTitleID', values.jobTitleID);
             formData.append('Description', values.description);
+            formData.append('IsPublic', values.isPublic);
             let result = await SeekerAPI.submitCV(formData);
             MyToaStrSuccess('Bạn đã thêm CV thành công!');
         }
@@ -84,6 +87,14 @@ function CVAddForm(props) {
                                         <p style={{ paddingLeft: 20 }}>{initialValuesCV.pathCV}</p>
                                         {initialValuesCV.recID ? <a style={{ paddingLeft: 20 }} href={LinkDownLoad} download target="_blank">Tải xuống CV</a> : null}
                                     </div>
+                                    {LoginInfo.CadidateCode ? <FastField
+                                        name="isPublic"
+                                        component={SwitchLabels}
+                                        label="Hiện thị cho nhà tuyển dụng"
+                                    /> : null}
+
+
+
                                     <h4>Mô tả thêm</h4>
                                     <FastField
                                         name="description"
@@ -94,15 +105,15 @@ function CVAddForm(props) {
                                     <FormGroup>
                                         <Row className='clearfix'>
                                             <Col xs="9" sm="9">
-                                            {!LoginInfo.companyID ?
+                                                {!LoginInfo.companyID ?
 
-                                                <Button type='submit'   
-                                                style={{float:'right'}} variant="outlined"
-                                                 startIcon={<CloudUploadIcon />} color="secondary"
-                                                 >Lưu thông tin CV</Button>
-                                                 :null}
-                                                 </Col>
-                                            <Col xs="3" sm="3" ><Button style={{float:'right'}} variant="outlined" color="primary" onClick={handleClose} startIcon={<CloseIcon />} >Đóng</Button></Col>
+                                                    <Button type='submit'
+                                                        style={{ float: 'right' }} variant="outlined"
+                                                        startIcon={<CloudUploadIcon />} color="secondary"
+                                                    >Lưu thông tin CV</Button>
+                                                    : null}
+                                            </Col>
+                                            <Col xs="3" sm="3" ><Button style={{ float: 'right' }} variant="outlined" color="primary" onClick={handleClose} startIcon={<CloseIcon />} >Đóng</Button></Col>
                                         </Row>
                                     </FormGroup>
                                 </Form>

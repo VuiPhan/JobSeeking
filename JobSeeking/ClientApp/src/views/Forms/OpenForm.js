@@ -19,7 +19,8 @@ function OpenForm(props) {
         jobTitleID: 1,
         CVFile: null,
         description: 'Việc làm',
-        OrdinalCVName:''
+        OrdinalCVName:'',
+        isPublic:true
     };
     const [initialValuesCV, setinitialValuesCV] = React.useState(datainitialValuesCV);
     const [listCV, setlistCV] = React.useState([]);

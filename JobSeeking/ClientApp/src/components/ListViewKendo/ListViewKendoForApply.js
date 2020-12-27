@@ -31,7 +31,7 @@ const MyItemRender = props => {
     const HandleRedirectPage = (id) =>{
         const linkRedired = `/Jobs/${id}`;
         history.push(linkRedired);
-        window.scrollTo(0, 150);
+        window.scrollTo(0, 450);
     }
     const HandleCancelApply = async (jobID) =>{
         confirmAlert({

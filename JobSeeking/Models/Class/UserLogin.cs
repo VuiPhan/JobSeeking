@@ -20,6 +20,7 @@ namespace JobSeeking.Models.Class
         public string PathCV { get; set; }
         public string OrdinalCVName { get; set; }
         public IFormFile CVFile { get; set; }
+        public bool IsPublic { get; set; }
     }
     public class ListCVOfCandidate
     {
@@ -30,5 +31,6 @@ namespace JobSeeking.Models.Class
         public string PathCV { get; set; }
         public string JobTitleName { get; set; }
         public string OrdinalCVName { get; set; }
+        public bool IsPublic { get; set; }
     }
 }

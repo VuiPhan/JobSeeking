@@ -31,12 +31,12 @@ const MyItemRender = props => {
     const HandleRedirectPage = (id) => {
         const linkRedired = `/Jobs/${id}`;
         history.push(linkRedired);
-        window.scrollTo(0, 150);
+        window.scrollTo(0, 450);
     }
     const HandleRedirectPageEdit = (id) => {
         const linkRedired = `/PublishedRecruitment/${id}`;
         history.push(linkRedired);
-        window.scrollTo(0, 150);
+        window.scrollTo(0, 450);
     }
     return (
         <Card key={item.jobID} style={{ padding: '20px 24px', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)', }} orientation='horizontal' className='d-flex justify-content-between'>

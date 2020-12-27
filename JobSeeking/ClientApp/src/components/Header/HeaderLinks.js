@@ -41,7 +41,7 @@ export default function HeaderLinks(props) {
           color="transparent"
           className={classes.navLink}
         >
-          <AccountCircleIcon className={classes.icons} /> Trang cá nhân
+          <AccountCircleIcon color="secondary" className={classes.icons} /> Trang cá nhân
         </Button>
         : ""
         }
