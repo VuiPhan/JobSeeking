@@ -4,8 +4,6 @@ import React from 'react';
   import 'react-toastify/dist/ReactToastify.css';
   
   export default function MyToastr(){
-    const notify = () => toast("Wow so easy !");
- 
     return (
       <div>
         <ToastContainer />

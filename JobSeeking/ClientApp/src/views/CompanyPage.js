@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-// core components
 import Footer from "../components/Footer/Footer.js";
 import Ratting from "../components/Rating/Rating.js";
 
@@ -27,15 +25,7 @@ const useStyles = makeStyles(styles);
 export default function CompanyPage(props) {
   const classes = useStyles();
   const [data, setData] = useState({companyName: '', introduceCompany: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
-  const { ...rest } = props;
-  const imageClasses = classNames(
-    classes.imgRaised,
-    classes.imgRoundedCircle,
-    classes.imgFluid
-  );
-  const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   const LoginInfo = useSelector(state => state.loginInfo);
-  const history = useHistory();
   const { companyID } = useParams();
   async function fetchMyAPI() {
     const result = await CompanyAPI.get(companyID);

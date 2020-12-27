@@ -6,7 +6,6 @@ import styles from "assets/jss/material-kit-react/views/CompanyPage.js";
 import 'assets/css/TitleCompany.scss';
 import 'assets/scss/view/CompanyPage.scss';
 import 'assets/scss/view/CompanyRegister.scss';
-import { Col, FormGroup, Label, Row } from "reactstrap";
 import Button from '@material-ui/core/Button';
 import { Formik, Form, FastField } from "formik";
 import InputField from "components/CustomField/InputField";
@@ -14,7 +13,6 @@ import * as yup from 'yup';
 import LGCompanyPage from "Language/CompanyPage";
 import MyCKEditor from "components/CKEditor/CKEditor";
 import PublishedRecruitmentAPI from "api/Company/PublishedRecruitmentAPI";
-import SelectField from "components/CustomField/SelectField";
 import MutipleSelectField from "components/CustomField/MutipleSelectField";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany";
 import { useSelector } from "react-redux";
@@ -23,7 +21,6 @@ import MyToastr from "components/Toastr/Toastr";
 import { useHistory, useParams } from "react-router-dom";
 import MutipleCombobox from "components/CustomField/MutipleCombobox";
 import './PublishCss.scss';
-import ReceiptIcon from '@material-ui/icons/Receipt';
 import NumberFormatCustom from 'components/InputNumber/InputNumber';
 import { TextField } from "@material-ui/core";
 import SwitchLabels from "components/Checkbox/Checkbox";
@@ -49,20 +46,20 @@ export default function PublishedRecruitment(props) {
             [name]: value
         })
     }
-    const showPreview = e => {
-        if (e.target.files && e.target.files[0]) {
-            let imageFile = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = x => {
-                setValues({
-                    ...values,
-                    imageFile: imageFile,
-                    imageSrc: x.target.result
-                })
-            };
-            reader.readAsDataURL(imageFile);
-        }
-    }
+    // const showPreview = e => {
+    //     if (e.target.files && e.target.files[0]) {
+    //         let imageFile = e.target.files[0];
+    //         const reader = new FileReader();
+    //         reader.onload = x => {
+    //             setValues({
+    //                 ...values,
+    //                 imageFile: imageFile,
+    //                 imageSrc: x.target.result
+    //             })
+    //         };
+    //         reader.readAsDataURL(imageFile);
+    //     }
+    // }
     const validationShema = yup.object().shape({
         title: yup.string().required(res.TruongBBNhap),
         requireCV: yup.string().required(res.TruongBBNhap),

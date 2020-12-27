@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import { FastField, Form, Formik } from 'formik';
 import MutipleCombobox from 'components/CustomField/MutipleCombobox.js';
 import { Col, Row } from 'reactstrap';
-import ComboboxField from 'components/CustomField/ComboboxField';
 import { Button, FormGroup } from '@material-ui/core';
 import MutipleSelectField from 'components/CustomField/MutipleSelectField';
 import SaveIcon from '@material-ui/icons/Save';

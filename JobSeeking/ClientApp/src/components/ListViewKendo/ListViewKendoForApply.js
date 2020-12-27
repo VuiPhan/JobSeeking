@@ -1,9 +1,8 @@
 
 import { ListView, ListViewHeader } from '@progress/kendo-react-listview';
 import { Card, CardTitle, CardImage, CardSubtitle, CardActions } from '@progress/kendo-react-layout';
-import { Pager } from '@progress/kendo-react-data-tools';
 import './styleListView.scss';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import LoadJobsApi from 'api/HomePageAPI';
 import Pagination from '@material-ui/lab/Pagination';

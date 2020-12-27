@@ -13,7 +13,6 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloseIcon from '@material-ui/icons/Close';
 import { Col, Row } from 'reactstrap';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 function CVAddForm(props) {
     const { isOpen, handleClose, FClose, initialValuesCV, HandleCV, refreshData } = props;
     const LoginInfo = useSelector(state => state.loginInfo);

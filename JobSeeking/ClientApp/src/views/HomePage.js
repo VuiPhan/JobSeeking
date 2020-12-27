@@ -1,24 +1,10 @@
 import React from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
-// core components
 import Footer from "../components/Footer/Footer.js";
-import Button from "../components/CustomButtons/Button.js";
-import GridContainer from "../components/Grid/GridContainer.js";
-import GridItem from "../components/Grid/GridItem.js";
-import profile from "../assets/img/faces/christian.jpg";
-
-
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
-import ListViewKendo from "../components/ListViewKendo/ListViewKendo.js";
 import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
-import SelectGroup from "components/SelectGroup/SelectGroup.js";
 import CompanyList from "components/ListViewCompany/CompanyList.js";
-import Skeleton from "react-loading-skeleton";
-
 
 const useStyles = makeStyles(styles);
 
