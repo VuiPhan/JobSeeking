@@ -48,7 +48,9 @@ function HeaderApp(props) {
         {...rest}
       />
       <div style={{ position: 'relative' }}>
-        <Parallax small filter image={require("../../assets/img/profile-bg.jpg")} />
+        {/* <Parallax small filter image={require("../../assets/img/profile-bg.jpg")} /> */}
+        {/* <Parallax small filter image={require("../../assets/img/ImageHome.png")} /> */}
+        <Parallax small filter image={require("../../assets/img/Home2.jpg")} />
         <div style={{ display: 'flex' }}>
           <div style={{ height: 160, zIndex: 99, width: 800, position: 'relative', justifyContent: 'center', top: -264, margin: 'auto' }}>
             <h3 style={{ color: "white", paddingBottom: 20 }}>{countJob} Việc Làm IT Chất Dành Cho Bạn</h3>

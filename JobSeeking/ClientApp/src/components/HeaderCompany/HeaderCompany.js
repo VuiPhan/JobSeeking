@@ -24,8 +24,8 @@ function HeaderCompany(props) {
                         <img src={`${ConstCommon.LinkImage}${data.imageLogo}`} alt="..." />
                         <div style={{paddingLeft: 21}}>
                             <h1 className="CompanyNameTitle">{data.companyName|| <Skeleton />}</h1>
-                            <h5><LocationOnIcon></LocationOnIcon> {data.companyAddress}</h5>
-                            <h5><AccessAlarmIcon></AccessAlarmIcon > {data.timeWorking}</h5>
+                            <h5><LocationOnIcon  style={{fill: "#FE0000"}}></LocationOnIcon> {data.companyAddress}</h5>
+                            <h5><AccessAlarmIcon  style={{fill: "#FF8203"}}></AccessAlarmIcon > {data.timeWorking}</h5>
                         </div>
 
                     </div>
