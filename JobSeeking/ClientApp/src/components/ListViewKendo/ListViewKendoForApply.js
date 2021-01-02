@@ -15,6 +15,7 @@ import JobsApi from 'api/Company/JobsAPI';
 import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import MyToastr from 'components/Toastr/Toastr';
 import { confirmAlert } from 'react-confirm-alert';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 const myHeader = () => {
     return (
         <ListViewHeader style={{ color: 'rgb(1817, 80, 92)', fontSize: 40 ,fontFamily: "fantasy",borderBottomStyle: "groove"}} className='pl-4 pb-2 pt-2'>
@@ -88,7 +89,7 @@ const MyItemRender = props => {
                                 startIcon={<VisibilityIcon />}
                               >Xem chi tiết</Button>
                     <div style={{display:"inline",paddingLeft: 10}}>
-                        <Button startIcon={<FavoriteIcon />} onClick={()=>HandleCancelApply(item.jobID)} variant="outlined" color="primary">Hủy ứng tuyển</Button>
+                        <Button startIcon={<DeleteForeverIcon />} onClick={()=>HandleCancelApply(item.jobID)} variant="outlined" color="primary">Hủy ứng tuyển</Button>
                         </div>
                 </CardActions>
             </div>

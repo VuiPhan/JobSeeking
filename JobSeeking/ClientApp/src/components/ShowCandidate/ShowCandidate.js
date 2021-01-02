@@ -1,14 +1,18 @@
 import { Tooltip, Zoom } from "@material-ui/core";
 import ListViewCandidate from "components/ListViewCandidate/ListViewCandidate";
 import React, { Component } from "react";
+
 import './styleShowCadidate.scss';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
 class Hamburger extends Component {
   render() {
     return <div className="lines">
+      {/* <span></span>
+      
       <span></span>
-      <span></span>
-      <span></span>
-    </div>;
+      <span></span> */}
+      <GroupAddIcon style={{paddingLeft:2,fill: "#FFFFFF"}}></GroupAddIcon>
+    </div>
   }
 }
 class Menu extends Component {

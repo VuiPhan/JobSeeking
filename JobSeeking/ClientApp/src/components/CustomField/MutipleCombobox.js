@@ -23,15 +23,16 @@ function MutipleCombobox(props) {
     const { field, lable,form, placeholder, disabled, label, ListName } = props;
     const { name, value } = field;
     const {errors,touched} = form;
-
+    const value1 = ','+value+','
     const [options, setoptions] = useState([]);
     const showError = errors[name] && touched[name];
 
     //const selectedOption = options.find(options => value.indexOf(options.value.toString()) > 0);
     const selectedOption = options.filter(function (el) {
+        debugger;
         if(el.value === null || value=== null)
         {return;}
-        return el.value !== null && value.includes(el.value) == true ;
+        return el.value !== null && value1.includes(','+el.value+',') == true ;
       });
     useEffect(() => {
         async function fetchData() {

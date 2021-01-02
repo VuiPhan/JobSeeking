@@ -19,38 +19,37 @@ function WorkInfomation(props) {
     const LoginInfo = useSelector(state => state.loginInfo);
     var disableForm = false;
     if (CandidateCode) {
-      disableForm = true;
+        disableForm = true;
     }
     const [dataWorkInfo, setDataWorkInfo] = useState({
-        candidateCode:'',
-        jobTitleIDs: "1,2",
-        jobSkillIDs: "1",
-        jobLocations: "1",
-      });
-      async function fetchDataWorkInfo() {
-          if(LoginInfo.CadidateCode){
+        candidateCode: '',
+        jobTitleIDs: null,
+        jobSkillIDs: null,
+        jobLocations: null,
+    });
+    async function fetchDataWorkInfo() {
+        if (LoginInfo.CadidateCode) {
             const result = await SeekerAPI.getWorkInfo(LoginInfo.CadidateCode);
-            console.log('resultresult',result);
             setDataWorkInfo(result[0]);
-          }
-          else{
+        }
+        else {
             const result = await SeekerAPI.getWorkInfo(CandidateCode);
             setDataWorkInfo(result[0]);
         }
-        
-      }
-      useEffect(() => {
-          debugger;
+
+    }
+    useEffect(() => {
+        debugger;
         fetchDataWorkInfo();
-      }, [CandidateCode, LoginInfo.CadidateCode])
-      const UpdateWorkInfo = async (data) => {
+    }, [CandidateCode, LoginInfo.CadidateCode])
+    const UpdateWorkInfo = async (data) => {
         const formData = new FormData();
         formData.append('JobSkillIDs', data.jobSkillIDs);
         formData.append('JobTitleIDs', data.jobTitleIDs);
         formData.append('JobLocations', data.jobLocations);
         const result = await SeekerAPI.updateWorkInfo(formData);
         MyToaStrSuccess('Cập nhật thành công');
-      }
+    }
     return (
         <div>
             <Formik initialValues={dataWorkInfo}
@@ -79,21 +78,29 @@ function WorkInfomation(props) {
                                 ListName="UTELS_GetJobSkill"
                             />
                             <h4>Việc làm theo nơi làm việc</h4>
-                            <FastField
+                            {/* <FastField
                                 name="jobLocations"
                                 component={MutipleSelectField}
                                 label=""
                                 placeholder=""
                                 disabled={disableForm}
                                 ListName="NoiLamViec"
+                            /> */}
+                            <FastField
+                                name="jobLocations"
+                                component={MutipleCombobox}
+                                label=""
+                                placeholder=""
+                                disabled={disableForm}
+                                ListName="UTELS_GetProvince"
                             />
-                            {LoginInfo.CadidateCode ?<FormGroup>
+                            {LoginInfo.CadidateCode ? <FormGroup>
                                 <Row className='clearfix'>
-                                 <Col xs="12" sm="12"> <Button type='submit' style={{ float: 'right' }} variant="outlined" color="secondary" startIcon={<SaveIcon/>} >Lưu thông tin </Button>
-                                </Col>
+                                    <Col xs="12" sm="12"> <Button type='submit' style={{ float: 'right' }} variant="outlined" color="secondary" startIcon={<SaveIcon />} >Lưu thông tin </Button>
+                                    </Col>
                                 </Row>
                             </FormGroup>
-                            :null}
+                                : null}
                         </Form>
                     )
                 }}

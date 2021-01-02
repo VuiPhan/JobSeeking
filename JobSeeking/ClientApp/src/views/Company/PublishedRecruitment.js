@@ -253,12 +253,19 @@ export default function PublishedRecruitment(props) {
                                         ListName="UTELS_GetJobSkill"
                                     />
                                     <h4>Việc làm theo nơi làm việc</h4>
-                                    <FastField
+                                    {/* <FastField
                                         name="jobLocations"
                                         component={MutipleSelectField}
                                         label=""
                                         placeholder=""
                                         ListName="NoiLamViec"
+                                    /> */}
+                                     <FastField
+                                        name="jobLocations"
+                                        component={MutipleCombobox}
+                                        label=""
+                                        placeholder=""
+                                        ListName="UTELS_GetProvince"
                                     />
                                     <FastField
                                         name="isPublic"
