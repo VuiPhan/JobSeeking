@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import CompanyAPI from "api/Company/CompanyAPI";
 
 function CompanyList() {
-  const [listProduct,setlistProduct] = useState([{title:'Vui nè',description:'Vui nè'}]);
+  const [listProduct,setlistProduct] = useState([{title:'Company',description:'Company'}]);
   useEffect(() => {
     async function fetchData() {
       const result = await CompanyAPI.getListCompanyTop();
@@ -14,7 +14,7 @@ function CompanyList() {
 }, [])
 
   return (
-    <div   >
+    <div>
       <React.Fragment>
         <Container>
           <Row style={{display:'flex',flexWrap: 'wrap',justifyContent: 'space-evenly'}}>

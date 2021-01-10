@@ -27,12 +27,14 @@ const MyItemRender = props => {
         history.push(linkRedired);
         window.scrollTo(0, 150);
     }
+    var parse = require('html-react-parser');
+
     return (
         <Card style={{ border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)'}} orientation='horizontal' className='d-flex justify-content-between'>
             <div className='k-vbox k-column'>
                 <div >
                     <CardTitle style={{ fontSize: 18,fontWeight:"bold" }}>
-                        {item.fullNameCandidate}
+                    {parse(item.fullNameCandidate)}
                     </CardTitle>
                     <CardSubtitle style={{ fontSize: 12, marginTop: 0 }}>
                         {item.major}
@@ -86,7 +88,7 @@ function ListViewCandidate(props) {
                     style={{ width: "100%" }}
                     header={myHeader}
                 />
-                <Pagination count={Math.round(data.length/take)} hideNextButton = {false} hidePrevButton={false} page={page} onChange={handlePageChange}  variant="outlined" color="secondary" />
+                <Pagination style={{marginTop:3}} count={Math.round(data.length/take)} hideNextButton = {false} hidePrevButton={false} page={page} onChange={handlePageChange}  variant="outlined" color="secondary" />
             </div>
         </div>
     )

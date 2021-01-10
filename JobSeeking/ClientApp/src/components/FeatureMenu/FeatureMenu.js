@@ -66,6 +66,12 @@ export default function CustomizedMenus() {
       history.push(linkRedired);
       window.scrollTo(0, 450);
   }
+  const RedirectPageEditCompany = () =>{
+    setAnchorEl(null);
+      const linkRedired = `/EditCompany`;
+      history.push(linkRedired);
+      window.scrollTo(0, 450);
+  }
   const LoginInfo = useSelector(state => state.loginInfo);
 
   return (
@@ -88,6 +94,14 @@ export default function CustomizedMenus() {
             <SendIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Đã ứng tuyển" />
+        </StyledMenuItem>:null}
+
+        { LoginInfo.role === "Recruiter" ?
+        <StyledMenuItem onClick={()=>RedirectPageEditCompany()}>
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Chỉnh sửa thông tin công ty" />
         </StyledMenuItem>:null}
 
         <StyledMenuItem onClick={()=>openFormChangePassword()} >

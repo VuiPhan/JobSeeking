@@ -33,6 +33,7 @@ export default class App extends Component {
         <Route path='/ApplyJob' component={ApplyPage} />
         <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />
+        <Route path='/EditCompany' component={CompanyRegiter} />
         <PrivateRoute component={PublishedRecruitment} path="/PublishedRecruitment" exact />
         <PrivateRoute path='/PublishedRecruitment/:jobID' component={PublishedRecruitment} exact />
         <PrivateRouteForViewList path= {["/Jobs/:jobID", "/ProfilePage/:CandidateCode"]} component={ShowCadidate} />
