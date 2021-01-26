@@ -96,13 +96,13 @@ export default function CustomizedMenus() {
           <ListItemText primary="Đã ứng tuyển" />
         </StyledMenuItem>:null}
 
-        { LoginInfo.role === "Recruiter" ?
+        {/* { LoginInfo.role === "Recruiter" ?
         <StyledMenuItem onClick={()=>RedirectPageEditCompany()}>
           <ListItemIcon>
             <SendIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Chỉnh sửa thông tin công ty" />
-        </StyledMenuItem>:null}
+        </StyledMenuItem>:null} */}
 
         <StyledMenuItem onClick={()=>openFormChangePassword()} >
           <ListItemIcon>

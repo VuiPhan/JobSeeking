@@ -61,7 +61,7 @@ export default function FormDialog() {
     Password: '',
 };
 const validationShema = yup.object().shape({
-  Email: yup.string().email().required(res.TruongBBNhap),
+  Email: yup.string().email("Đây phải là một địa chỉ Email").required(res.TruongBBNhap),
   Password: yup.string()
       .required(res.TruongBBNhap)
   ,
