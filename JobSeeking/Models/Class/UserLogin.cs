@@ -33,4 +33,18 @@ namespace JobSeeking.Models.Class
         public string OrdinalCVName { get; set; }
         public bool IsPublic { get; set; }
     }
+    public class ListWorkProcessOfCandidate
+    {
+        public int RecID { get; set; }
+        public int CandidateCode { get; set; }
+        public string TimeWorking { get; set; }
+        public string JobTitle { get; set; }
+        public string StaffType { get; set; }
+        public string CompanyName { get; set; }
+        public string Description { get; set; }
+        public string BackgroundColor { get; set; }
+        public string FromTime { get; set; }
+        public string ToTime { get; set; }
+        public System.Int16 StaffTypeNumber { get; set; }
+    }
 }

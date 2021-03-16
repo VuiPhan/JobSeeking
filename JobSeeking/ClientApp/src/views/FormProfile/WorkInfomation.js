@@ -11,8 +11,18 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
-
-
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 function WorkInfomation(props) {
     //const {data} = props;
     const { CandidateCode } = useParams();
@@ -59,7 +69,17 @@ function WorkInfomation(props) {
                 {FormikProps => {
                     return (
                         <Form >
-                            <h4>Việc làm theo cấp bậc</h4>
+                                <HtmlTooltip
+                            title={
+                            <React.Fragment>
+                                <Typography color="inherit"></Typography>
+                                <em>{"Các chức danh công việc"}</em> <u>{'có khả năng'}</u>.{' '}
+                                {"ứng tuyển"}
+                            </React.Fragment>
+                            }
+                        >
+                            <h4>Chức danh công việc</h4>
+                        </HtmlTooltip>
                             <FastField
                                 name="jobTitleIDs"
                                 component={MutipleCombobox}
@@ -68,7 +88,18 @@ function WorkInfomation(props) {
                                 placeholder=""
                                 ListName="UTELS_GetJobTitle"
                             />
-                            <h4>Việc làm theo kỹ năng</h4>
+                               
+                               <HtmlTooltip
+                            title={
+                            <React.Fragment>
+                                <Typography color="inherit"></Typography>
+                                <em>{"Đây là các kỹ năng"}</em> <b>{''}</b> <u>{'nổi bật'}</u>
+                                {" của bạn"}
+                            </React.Fragment>
+                            }
+                        >
+                            <h4>Kỹ năng thế mạnh</h4>
+                        </HtmlTooltip>
                             <FastField
                                 name="jobSkillIDs"
                                 component={MutipleCombobox}
@@ -77,7 +108,18 @@ function WorkInfomation(props) {
                                 placeholder=""
                                 ListName="UTELS_GetJobSkill"
                             />
-                            <h4>Việc làm theo nơi làm việc</h4>
+                           
+                            <HtmlTooltip
+                            title={
+                            <React.Fragment>
+                                <Typography color="inherit"></Typography>
+                                <em>{"Ở đây chúng tôi cung cấp"}</em> <b>{'một số'}</b> <u>{'Tỉnh thành'}</u>.{' '}
+                                {"nổi bật tuyển dụng công nghệ thông tin"}
+                            </React.Fragment>
+                            }
+                        >
+                            <h4>Nơi làm việc</h4>
+                        </HtmlTooltip>
                             {/* <FastField
                                 name="jobLocations"
                                 component={MutipleSelectField}

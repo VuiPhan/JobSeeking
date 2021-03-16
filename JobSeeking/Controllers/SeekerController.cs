@@ -143,6 +143,33 @@ namespace JobSeeking.Controllers
             response = Ok(new { Error = "Có lỗi" });
             return response;
         }
+        [HttpPost("AddWorkProcess")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> AddWorkProcess([FromForm] WorkProcess workProcess)
+        {
+            //    UploadImage uploadImage = new UploadImage();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_InsertUpdateWorkProcess" +
+            " @CandidateCode={0},@FromTime={1},@ToTime={2},@JobTitle={3},@StaffType={4},@CompanyName={5},@RecID={6},@Description = {7}",
+            claims[5].Value,
+            workProcess.FromTime,
+            workProcess.ToTime,
+            workProcess.JobTitle,   
+            workProcess.StaffType,
+            workProcess.CompanyName,
+            workProcess.RecID,
+            workProcess.Description
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
         [HttpGet("GetListCV")]
         public async Task<object> GetListCV(int? CandidateCode)
         {
@@ -157,6 +184,23 @@ namespace JobSeeking.Controllers
             var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0},{1}", CandidateCode, IsOwn).ToListAsync();
             return data;
         }
+
+        [HttpGet("GetListWorkProcess")]
+        public async Task<object> GetListWorkProcess(int? CandidateCode)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            bool IsOwn = true;
+            if (claims[5].Value.ToString() == "")
+            {
+                // Nhà tuyển dụng
+                IsOwn = false;
+            }
+            var data = await _context.ListWorkProcessOfCandidate.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListWorkProcess {0},{1}", CandidateCode, IsOwn).ToListAsync();
+
+            return data;
+        }
+
         [HttpGet("GetViewSeekerBy")]
         [Authorize(Policy = Policies.Recruiter)]
         public async Task<object> ViewSeekerByCandidateCode(int CandidateCode, int JobID)

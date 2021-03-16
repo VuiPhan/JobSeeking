@@ -29,7 +29,6 @@ function MutipleCombobox(props) {
 
     //const selectedOption = options.find(options => value.indexOf(options.value.toString()) > 0);
     const selectedOption = options.filter(function (el) {
-        debugger;
         if(el.value === null || value=== null)
         {return;}
         return el.value !== null && value1.includes(','+el.value+',') == true ;

@@ -36,6 +36,8 @@ import CVPage from "./FormProfile/CVPage.js";
 import { MyToaStrError,MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
 import WorkInfomation from "./FormProfile/WorkInfomation.js";
+import { DrawerForm } from "./FormProfile/Qualifications.js";
+import DrawerWorkProcess from "./FormProfile/WorkProgress.js";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
@@ -315,20 +317,20 @@ export default function ProfilePage(props) {
                     //     <Button></Button>
                     //   )
                     // },
-                    // {
-                    //   tabButton: "Chứng chỉ",
-                    //   tabIcon: Favorite,
-                    //   tabContent: (
-                    //     <Button></Button>
-                    //   )
-                    // },
-                    // {
-                    //   tabButton: "Quá trình làm việc",
-                    //   tabIcon: ApartmentIcon,
-                    //   tabContent: (
-                    //     <Button></Button>
-                    //   )
-                    // },
+                    {
+                      tabButton: "Bằng cấp & Chứng chỉ",
+                      tabIcon: Favorite,
+                      tabContent: (
+                        <DrawerForm></DrawerForm>
+                      )
+                    },
+                    {
+                      tabButton: "Quá trình làm việc",
+                      tabIcon: ApartmentIcon,
+                      tabContent: (
+                        <DrawerWorkProcess></DrawerWorkProcess>
+                      )
+                    },
 
                     {
                       tabButton: "CV",

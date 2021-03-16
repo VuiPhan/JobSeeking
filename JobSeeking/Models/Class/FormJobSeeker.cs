@@ -87,4 +87,17 @@ namespace JobSeeking.Models.Class
         public string JobLocations { get; set; }
 
     }
+    public class WorkProcess
+    {
+        public string CandidateCode { get; set; }
+        public DateTime FromTime { get; set; }
+        public DateTime ToTime { get; set; }
+        public string JobTitle { get; set; }
+        public int StaffType { get; set; }
+        public string CompanyName { get; set; }
+        public int RecID { get; set; }
+        public string Description { get; set; }
+        
+
+    }
 }
