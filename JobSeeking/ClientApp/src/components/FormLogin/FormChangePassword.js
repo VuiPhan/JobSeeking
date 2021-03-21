@@ -24,7 +24,6 @@ const useStyles = makeStyles(styles);
 
 export default function FormChangePassword() {
   const [open, setOpen] = React.useState(true);
-  debugger;
   const classes = useStyles();
   const dispatch = useDispatch();
   const LoginInfo = useSelector(state => state.loginInfo);

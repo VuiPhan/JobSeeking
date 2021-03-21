@@ -5,7 +5,6 @@ const ForSearchSlice = createSlice({
     initialState: {ChucDanhValue:'',KyNangValue:'',NameValue:'',LocationValue:''},
     reducers: {
          changeSearch:(state, action) => {
-             debugger;
             state = action.payload;
             return state;
         },

@@ -12,7 +12,6 @@ const useStyles = makeStyles(styles);
 export default function ApplyPage(props) {
   const classes = useStyles();
   const { Tag,tagID } = useParams();
-  console.log('Tag,tagID',Tag,tagID);
   return (
     <div>
       <div className={classNames(classes.main, classes.mainRaised)}>

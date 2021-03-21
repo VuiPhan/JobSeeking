@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 import DatePickers from 'components/DatetimePicker/DatetimePicker';
 import { GetWorkProcess } from '../Child/WorkProcessSlice';
 
-function WorkProcessForm(props) {
+function EducationForm(props) {
     const {item,UpdateStateShowForm} = props;
     const [isvisible, SetIsvisible] = useState(true);
   
@@ -213,4 +213,4 @@ function WorkProcessForm(props) {
     )
 }
 
-export default WorkProcessForm
+export default EducationForm

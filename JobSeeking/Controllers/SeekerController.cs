@@ -170,6 +170,51 @@ namespace JobSeeking.Controllers
             response = Ok(new { Error = "Có lỗi" });
             return response;
         }
+        [HttpPost("AddEducation")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> AddEducation([FromForm] Education education)
+        {
+            //    UploadImage uploadImage = new UploadImage();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_InsertUpdateWorkProcess" +
+            " @CandidateCode={0},@FromTime={1},@ToTime={2},@JobTitle={3},@StaffType={4},@CompanyName={5},@RecID={6},@Description = {7}",
+            claims[5].Value,
+            education.FromTime,
+            education.ToTime,
+            education.DegreeTraining,
+            education.NameSchool,
+            education.RecID,
+            education.Descriptions
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
+        [HttpPost("DeleteWorkProcess")]
+        public async Task<object> DeleteWorkProcess(int RecID)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_DeleteWorkProcess" +
+            " @CandidateCode={0},@RecID={1}",
+            claims[5].Value,
+            RecID
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
         [HttpGet("GetListCV")]
         public async Task<object> GetListCV(int? CandidateCode)
         {
@@ -191,12 +236,25 @@ namespace JobSeeking.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             bool IsOwn = true;
-            if (claims[5].Value.ToString() == "")
+            if (CandidateCode == null )
             {
-                // Nhà tuyển dụng
-                IsOwn = false;
+                CandidateCode = Int32.Parse(claims[5].Value);
             }
             var data = await _context.ListWorkProcessOfCandidate.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListWorkProcess {0},{1}", CandidateCode, IsOwn).ToListAsync();
+
+            return data;
+        }
+        [HttpGet("GetListEducation")]
+        public async Task<object> GetListEducation(int? CandidateCode)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            bool IsOwn = true;
+            if (CandidateCode == null)
+            {
+                CandidateCode = Int32.Parse(claims[5].Value);
+            }
+            var data = await _context.ListEducations.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListEducation {0}", CandidateCode).ToListAsync();
 
             return data;
         }

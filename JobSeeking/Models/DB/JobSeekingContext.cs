@@ -29,6 +29,7 @@ namespace JobSeeking.Models.DB
         public DbSet<JobForm> JobForms { get; set; }
         public DbSet<ListCVOfCandidate> ListCVOfCandidates { get; set; }
         public DbSet<ListWorkProcessOfCandidate> ListWorkProcessOfCandidate { get; set; }
+        public DbSet<ListEducation> ListEducations { get; set; }
         
         public DbSet<WorkInfo> WorkInfos { get; set; }
         public DbSet<JobPage> JobPages { get; set; }
@@ -87,6 +88,8 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<PublishedRecuitForm>().HasNoKey();
             modelBuilder.Entity<ListCompanyTop>().HasNoKey();
             modelBuilder.Entity<ListWorkProcessOfCandidate>().HasNoKey();
+            modelBuilder.Entity<ListEducation>().HasNoKey();
+            
 
 
 

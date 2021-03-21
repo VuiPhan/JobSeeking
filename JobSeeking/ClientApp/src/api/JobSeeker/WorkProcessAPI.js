@@ -6,8 +6,16 @@ const WorkProcessAPI = {
         return axiosClient.post(url,data);
     },
     get: (data) => {
+        if(data){
+            const url = `/Seeker/GetListWorkProcess?CandidateCode=${data}`;
+            return axiosClient.get(url);
+        }
         const url = `/Seeker/GetListWorkProcess`;
         return axiosClient.get(url);
+    },
+    deleteWorkProcess: (RecID) => {
+        const url = `/Seeker/DeleteWorkProcess?RecID=${RecID}`;
+        return axiosClient.post(url);
     },
     submitCV: (data) => {
         const url = `/UploadAndDownload/UploadCV`;

@@ -38,6 +38,7 @@ import MyToastr from "components/Toastr/Toastr.js";
 import WorkInfomation from "./FormProfile/WorkInfomation.js";
 import { DrawerForm } from "./FormProfile/Qualifications.js";
 import DrawerWorkProcess from "./FormProfile/WorkProgress.js";
+import DrawerEducation from "./FormProfile/Education.js";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
@@ -116,7 +117,6 @@ export default function ProfilePage(props) {
         imageSrc: `${ConstCommon.LinkImage}${result[0].pathAvatar}`,
         imageFile: null
       };
-      debugger;
       setValuesImage(initialValuesImage);
       setAliasName(result[0].aliasesName);
       setMajor(result[0].titleJob);
@@ -309,14 +309,14 @@ export default function ProfilePage(props) {
                         <WorkInfomation></WorkInfomation>
                       )
                     },
-                    // {
-                    //   tabButton: "Chuyên ngành đào tạo",
-                    //   tabIcon: SchoolIcon,
-                    //   tabContent: (
+                    {
+                      tabButton: "Chuyên ngành đào tạo",
+                      tabIcon: SchoolIcon,
+                      tabContent: (
 
-                    //     <Button></Button>
-                    //   )
-                    // },
+                        <DrawerEducation></DrawerEducation>
+                      )
+                    },
                     {
                       tabButton: "Bằng cấp & Chứng chỉ",
                       tabIcon: Favorite,

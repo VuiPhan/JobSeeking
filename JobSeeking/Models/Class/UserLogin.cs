@@ -47,4 +47,16 @@ namespace JobSeeking.Models.Class
         public string ToTime { get; set; }
         public System.Int16 StaffTypeNumber { get; set; }
     }
+    public class ListEducation
+    {
+        public int RecID { get; set; }
+        public int CandidateCode { get; set; }
+        public string TimeEducation { get; set; }
+        public string NameSchool { get; set; }
+        public System.Int16 DegreeTraining { get; set; }
+        public string Descriptions { get; set; }
+        public string RowID { get; set; }
+        public string FromTime { get; set; }
+        public string ToTime { get; set; }
+    }
 }

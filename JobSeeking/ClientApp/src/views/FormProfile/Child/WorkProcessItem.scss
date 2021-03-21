@@ -1,7 +1,8 @@
 .Container{
     margin-top: 3rem;
     background-color:bisque;
-    height: 20rem;
+    height: auto;
+    min-height: 20rem;
     width: 100%;
     border-radius: 4px;
     padding:2rem;
@@ -21,10 +22,30 @@
         text-align: center;
         border: 10px solid #f1f2f7;
         margin-left: 7px;
+        -webkit-transition: -webkit-transform .8s ease-in-out;
+        transition: transform .8s ease-in-out;
+    }
+    &:hover .btn__Adjust{
+        visibility: visible;
+        margin-left: 700px;
+        -moz-transition: all .2s ease-in;
+        -o-transition: all .2s ease-in;
+        -webkit-transition: all .2s ease-in;
+        transition: all .2s ease-in;
+    }
+    &:hover .cricle__TimeWorking{
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 
     .description{
         text-align: left;
-
     }
+}
+.btn__Adjust{
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    margin-top: - 30px;
+    align-items: flex-end;
 }

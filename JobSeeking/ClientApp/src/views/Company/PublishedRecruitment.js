@@ -159,7 +159,6 @@ export default function PublishedRecruitment(props) {
                     >
                         {FormikProps => {
                             const { value, errors, touched } = FormikProps;
-                            console.log('errors', errors);
                             return (
                                 <Form>
                                     <h1 className='headerThongTinCV'> THÔNG TIN CÔNG VIỆC</h1>

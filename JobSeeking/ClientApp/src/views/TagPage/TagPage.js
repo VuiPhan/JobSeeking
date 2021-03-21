@@ -19,7 +19,6 @@ export default function TagPage(props) {
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   const { Tag,tagID } = useParams();
-  console.log('Tag,tagID',Tag,tagID);
   return (
     <div>
       <div className={classNames(classes.main, classes.mainRaised)}>

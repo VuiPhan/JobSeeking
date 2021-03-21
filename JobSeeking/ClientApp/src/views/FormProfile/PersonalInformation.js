@@ -48,7 +48,6 @@ function PersonalInformation(props) {
                 enableReinitialize>
                 {FormikProps => {
                     const { values, errors, touched } = FormikProps;
-                    console.log(errors);
                     return (
                         <FormFormik>
                             <Form.Group as={Row} >

@@ -10,16 +10,17 @@ import * as yup from 'yup';
 import DatePickers from '../../components/DatetimePicker/DatetimePicker';
 import InputField from "components/CustomField/InputField";
 import SelectField from 'components/CustomField/SelectField';
-import WorkProcessAPI from 'api/JobSeeker/WorkProcessAPI';
 import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import WorkProcessItem from './Child/WorkProcessItem';
 import { GetWorkProcess } from './Child/WorkProcessSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import WorkProcessForm from './Form/WorkProcessForm';
+import EducationItem from './Child/EducationItem';
+import EducationAPI from 'api/JobSeeker/EducationAPI';
 
 const { Option } = Select;
 
-export default function DrawerWorkProcess(props) {
+export default function DrawerEducation(props) {
   const LoginInfo = useSelector(state => state.loginInfo);
   const [isvisible, SetIsvisible] = useState(false);
   const showDrawer = () => {
@@ -37,13 +38,12 @@ export default function DrawerWorkProcess(props) {
   const dispatch = useDispatch();
   const HandleSubmitData = async (data) => {
       const formData = new FormData();
-      formData.append('jobTitle', data.jobTitle);
-      formData.append('staffType', data.staffType);
-      formData.append('companyName', data.companyName);
+      formData.append('DegreeTraining', data.jobTitle);
+      formData.append('NameSchool', data.companyName);
       formData.append('FromTime', data.fromTime);
       formData.append('ToTime', data.toTime);
-      formData.append('Description', data.description);
-      const result = await WorkProcessAPI.post(formData);
+      formData.append('Descriptions', data.description);
+      const result = await EducationAPI.post(formData);
       const action = GetWorkProcess();
       const execaction = await dispatch(action);
       MyToaStrSuccess('Thêm mới thành công');
@@ -68,11 +68,11 @@ export default function DrawerWorkProcess(props) {
   return (
     <div>
       {LoginInfo.CadidateCode === "" ? null: <Button type="primary" onClick={() => ShowForm()}>
-        <PlusOutlined /> Thêm quá trình
+        <PlusOutlined /> Thêm học vấn
         </Button>}
 
         {isShowForm == true ?<WorkProcessForm UpdateStateShowForm={UpdateStateShowForm}/>:null}
-        <WorkProcessItem></WorkProcessItem>
+        <EducationItem></EducationItem>
     </div>
   );
 }

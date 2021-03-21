@@ -35,7 +35,6 @@ function OpenForm(props) {
                 const result = await SeekerAPI.getListCV(LoginInfo.CadidateCode);
                 setlistCV(result);
             }
-            debugger;
         }
     }
     useEffect(() => {

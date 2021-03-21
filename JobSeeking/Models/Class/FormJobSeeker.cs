@@ -97,7 +97,15 @@ namespace JobSeeking.Models.Class
         public string CompanyName { get; set; }
         public int RecID { get; set; }
         public string Description { get; set; }
-        
-
+    }
+    public class Education
+    {
+        public string CandidateCode { get; set; }
+        public DateTime FromTime { get; set; }
+        public DateTime ToTime { get; set; }
+        public int DegreeTraining { get; set; }
+        public string NameSchool { get; set; }
+        public int RecID { get; set; }
+        public string Descriptions { get; set; }
     }
 }

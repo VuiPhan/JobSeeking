@@ -4,8 +4,7 @@ import WorkProcessAPI from 'api/JobSeeker/WorkProcessAPI';
 export const GetWorkProcess = createAsyncThunk(
     'workProcess/callAPI',
     async data => {
-        debugger;
-        var response = await WorkProcessAPI.get();
+        var response = await WorkProcessAPI.get(data);
         return response;
     },
 );
@@ -20,7 +19,6 @@ const WorkProcessSlice = createSlice({
     extraReducers: {
         [GetWorkProcess.fulfilled]: (state, action) => {
             state = action.payload;
-            debugger;
             return state;
         },
     },

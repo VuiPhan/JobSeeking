@@ -49,7 +49,6 @@ function WorkInfomation(props) {
 
     }
     useEffect(() => {
-        debugger;
         fetchDataWorkInfo();
     }, [CandidateCode, LoginInfo.CadidateCode])
     const UpdateWorkInfo = async (data) => {

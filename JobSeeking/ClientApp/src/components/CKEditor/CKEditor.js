@@ -9,7 +9,6 @@ function MyCKEditor(props) {
   const {errors,touched} = form;
   
   const showError = errors[name];
-  debugger;
   return (
     <div className="App">
       <CKEditor

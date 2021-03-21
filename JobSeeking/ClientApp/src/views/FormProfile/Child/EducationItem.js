@@ -12,13 +12,16 @@ import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { confirmAlert } from 'react-confirm-alert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useParams } from 'react-router';
+import EducationForm from '../Form/EducationForm';
+import { GetEducation } from './EducationSlice';
 
-function WorkProcessItemRender(props) {
+function EducationRender(props) {
     var parse = require('html-react-parser')
     const dispatch = useDispatch();
     const LoginInfo = useSelector(state => state.loginInfo);
 
     const item = props.item;
+    console.log('itemitemitemaaaa',item);
     const isOwn  = LoginInfo.CadidateCode == item.candidateCode ? "" : "hidden";
     const [isShowForm,setisShowForm] = useState(false);
     const ShowForm = ()=>{
@@ -72,37 +75,32 @@ function WorkProcessItemRender(props) {
                             <DeleteIcon color="primary" />
                         </IconButton>
                     </Tooltip>
-                    
-                {/* <Button color="secondary" onClick={()=>ShowForm()} startIcon={<EditIcon />}></Button>
-                <Button color="primary" onClick={()=>DeleteItem(item.recID)} startIcon={<DeleteForeverIcon />}></Button> */}
             </div>
             </div>
-            {isShowForm == true ?<WorkProcessForm UpdateStateShowForm={UpdateStateShowForm} item={item}/>:null}
-           
+            {isShowForm == true ?<EducationForm UpdateStateShowForm={UpdateStateShowForm} item={item}/>:null}
         </div>
     )
 }
-function WorkProcessItem(props) {
+function EducationItem(props) {
     const dispatch = useDispatch();
     const { CandidateCode } = useParams();
     const LoginInfo = useSelector(state => state.loginInfo);
-
-    const WorkProcess = useSelector(state => state.WorkProcess);
-    const fetchDataWorkProcess = async () => {
-        const action = GetWorkProcess(CandidateCode);
+    const Education = useSelector(state => state.Education);
+    const fetchDataEducation = async () => {
+        const action = GetEducation(CandidateCode);
         const result = await dispatch(action);
     };
     useEffect(() => {
-        fetchDataWorkProcess();
+        fetchDataEducation();
     }, [CandidateCode,LoginInfo.CadidateCode])
 
     return (
         <div>
-            {WorkProcess.map((item, i) => {
-                return <WorkProcessItemRender item={item}></WorkProcessItemRender>
+            {Education.map((item, i) => {
+                return <EducationRender item={item}></EducationRender>
             })}
         </div>
     )
 }
 
-export default WorkProcessItem
+export default EducationItem
