@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './WorkProcessItem.scss';
+import './EducationItem .scss';
 import { GetWorkProcess } from './WorkProcessSlice';
 import { Button, IconButton, Tooltip } from '@material-ui/core';
 import WorkProcessForm from '../Form/WorkProcessForm';
@@ -21,7 +21,6 @@ function EducationRender(props) {
     const LoginInfo = useSelector(state => state.loginInfo);
 
     const item = props.item;
-    console.log('itemitemitemaaaa',item);
     const isOwn  = LoginInfo.CadidateCode == item.candidateCode ? "" : "hidden";
     const [isShowForm,setisShowForm] = useState(false);
     const ShowForm = ()=>{
@@ -53,16 +52,19 @@ function EducationRender(props) {
     }
     return (
         <div>
-            <div className="Container" style={{ backgroundColor: item.backgroundColor }}>
+            <div className="Container__Education" style={{ backgroundColor: item.backgroundColor }}>
                 <div>
                     <div className="cricle__TimeWorking">
-                        {parse(item.timeWorking)}
+                        {parse(item.timeEducation)}
                     </div>
-                    <h3>{item.jobTitle}</h3>
-                    <h5>{item.companyName}</h5>
+                    <h3>{item.typeDegree}</h3>
+                    <h5>{item.nameSchool}</h5>
                 </div>
+                <hr
+       className="line_Break"
+    />
                 <div className="description">
-                    {parse(item.description)}
+                    {parse(item.descriptions)}
                 </div>
                 <div className="btn__Adjust" style={{visibility: isOwn}}>
                 <Tooltip title="Chỉnh sửa">

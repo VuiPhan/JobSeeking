@@ -177,8 +177,8 @@ namespace JobSeeking.Controllers
             //    UploadImage uploadImage = new UploadImage();
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_InsertUpdateWorkProcess" +
-            " @CandidateCode={0},@FromTime={1},@ToTime={2},@JobTitle={3},@StaffType={4},@CompanyName={5},@RecID={6},@Description = {7}",
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_InsertUpdateEducation" +
+            " @CandidateCode={0},@FromTime={1},@ToTime={2},@DegreeTraining={3},@NameSchool={4},@RecID={5},@Descriptions = {6}",
             claims[5].Value,
             education.FromTime,
             education.ToTime,
@@ -240,8 +240,15 @@ namespace JobSeeking.Controllers
             {
                 CandidateCode = Int32.Parse(claims[5].Value);
             }
-            var data = await _context.ListWorkProcessOfCandidate.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListWorkProcess {0},{1}", CandidateCode, IsOwn).ToListAsync();
+            var data = (dynamic)null;
+            try {
+                data =  await _context.ListWorkProcessOfCandidate.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListWorkProcess {0},{1}", CandidateCode, IsOwn).ToListAsync();
 
+            }
+            catch (Exception e)
+            {
+                
+            }
             return data;
         }
         [HttpGet("GetListEducation")]
@@ -249,13 +256,19 @@ namespace JobSeeking.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            bool IsOwn = true;
             if (CandidateCode == null)
             {
                 CandidateCode = Int32.Parse(claims[5].Value);
             }
-            var data = await _context.ListEducations.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListEducation {0}", CandidateCode).ToListAsync();
+            List<ListEducation> data = new List<ListEducation>();
+            try
+            {
+                data = await _context.ListEducations.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListEducation {0}", CandidateCode).ToListAsync();
+            }
+            catch (Exception e)
+            {
 
+            }
             return data;
         }
 

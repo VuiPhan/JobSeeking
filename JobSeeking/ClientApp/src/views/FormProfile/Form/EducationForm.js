@@ -17,11 +17,26 @@ import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { useDispatch } from 'react-redux';
 import DatePickers from 'components/DatetimePicker/DatetimePicker';
 import { GetWorkProcess } from '../Child/WorkProcessSlice';
+import EducationAPI from 'api/JobSeeker/EducationAPI';
+import { GetEducation } from '../Child/EducationSlice';
 
 function EducationForm(props) {
     const {item,UpdateStateShowForm} = props;
     const [isvisible, SetIsvisible] = useState(true);
+    const itemOrdinal =  item == null ? {
+      degreeTraining: 1,
+      nameSchool: '',
+      fromTime: '2020-01-01',
+      toTime: '2020-01-01',
+      descriptions:''
   
+    } : {
+      degreeTraining: item.degreeTraining,
+      nameSchool: item.nameSchool,
+      fromTime: item.fromTime,
+      toTime: item.toTime,
+      descriptions:item.descriptions
+    }
   const showDrawer = () => {
     SetIsvisible(true);
   };
@@ -42,35 +57,19 @@ function EducationForm(props) {
           recID = item.recID
        }
       const formData = new FormData();
-      formData.append('jobTitle', data.jobTitle);
-      formData.append('staffType', data.staffType);
-      formData.append('companyName', data.companyName);
+      formData.append('DegreeTraining', data.degreeTraining);
+      formData.append('NameSchool', data.nameSchool);
       formData.append('FromTime', data.fromTime);
       formData.append('ToTime', data.toTime);
-      formData.append('Description', data.description);
+      formData.append('Descriptions', data.descriptions);
       formData.append('RecID',recID );
-      const result = await WorkProcessAPI.post(formData);
-      const action = GetWorkProcess();
+      const result = await EducationAPI.post(formData);
+      const action = GetEducation();
       const execaction = await dispatch(action);
       MyToaStrSuccess('Thêm mới thành công');
       onClose();
   }
-  const itemOrdinal =  item == null ? {
-    jobTitle: '',
-    staffType: 4,
-    companyName: '',
-    fromTime: '2020-01-01',
-    toTime: '2020-01-01',
-    description:''
 
-  } : {
-    jobTitle: item.jobTitle,
-    staffType: item.staffTypeNumber,
-    companyName: item.companyName,
-    fromTime: item.fromTime,
-    toTime: item.toTime,
-    description:item.description
-  }
   const [initialValues, setinitialValues] = React.useState(itemOrdinal);
     return (
         <div>
@@ -105,28 +104,13 @@ function EducationForm(props) {
             >
               <Form layout="vertical" hideRequiredMark>
                 <Row gutter={16}>
-                  <Col span={12}>
+                  <Col span={24}>
                      <Form.Item>
-                    {/*  name="name"
-                      label=""
-                      rules={[{ required: true, message: 'Mời bạn nhập chức danh công việc' }]}
-                    >
-                      <Input placeholder="Mời bạn nhập chức danh công việc" /> */}
                       <FastField
-                                        name="jobTitle"
+                                        name="nameSchool"
                                         component={InputField}
-                                        label="Chức danh công việc"
-                                        placeholder="Mời bạn nhập chức danh công việc"
-                                    />
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item>
-                    <FastField
-                                        name="companyName"
-                                        component={InputField}
-                                        label="Tên công ty"
-                                        placeholder="Mời bạn nhập tên công ty"
+                                        label="Tên trường"
+                                        placeholder="Mời bạn nhập tên trường"
                                     />
                     </Form.Item>
                   </Col>
@@ -135,12 +119,12 @@ function EducationForm(props) {
                   <Col span={12}>
                       <Form.Item >
                       <FastField
-                                        name="staffType"
+                                        name="degreeTraining"
                                         component={SelectField}
                                         disabled={false}
-                                        label="Loại nhân viên"
+                                        label="Loại bằng"
                                         placeholder=""
-                                        ListName="LoaiHopDong" />
+                                        ListName="TypeDegree" />
                     </Form.Item>
                   </Col>
                   <Col span={12}>
@@ -168,16 +152,6 @@ function EducationForm(props) {
                 </Row>
                 <Row gutter={16}>
                   <Col span={12}>
-                    {/* <Form.Item
-                      name="approver"
-                      label="Approver"
-                      rules={[{ required: true, message: 'Please choose the approver' }]}
-                    >
-                      <Select placeholder="Please choose the approver">
-                        <Option value="jack">Jack Ma</Option>
-                        <Option value="tom">Tom Liu</Option>
-                      </Select>
-                    </Form.Item> */}
                   </Col>
                   <Col span={12}>
                     
@@ -196,7 +170,7 @@ function EducationForm(props) {
                       ]}
                     >
                       <FastField
-                        name="description"
+                        name="descriptions"
                         component={MyCKEditor}
                         label=""
                         placeholder="Mô tả"
