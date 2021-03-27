@@ -1,0 +1,14 @@
+.Container__Parent{
+    cursor: pointer;
+    position: fixed;
+    bottom: 100px;
+    left: 10px;
+    width: 110px;
+    z-index: 100;
+    .Container__Toolbar{
+        .item__Button{
+            margin-top: 20px;
+        }
+    }
+    
+}

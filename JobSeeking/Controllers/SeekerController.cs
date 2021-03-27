@@ -215,6 +215,25 @@ namespace JobSeeking.Controllers
             response = Ok(new { Error = "Có lỗi" });
             return response;
         }
+        [HttpPost("DeleteEducation")]
+        public async Task<object> DeleteEducation(int RecID)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_DeleteEducation" +
+            " @CandidateCode={0},@RecID={1}",
+            claims[5].Value,
+            RecID
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
         [HttpGet("GetListCV")]
         public async Task<object> GetListCV(int? CandidateCode)
         {

@@ -318,7 +318,7 @@ export default function ProfilePage(props) {
                       )
                     },
                     {
-                      tabButton: "Bằng cấp & Chứng chỉ",
+                      tabButton: "Chứng chỉ",
                       tabIcon: Favorite,
                       tabContent: (
                         <DrawerForm></DrawerForm>

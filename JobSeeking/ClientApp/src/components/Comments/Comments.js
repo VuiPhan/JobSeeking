@@ -14,7 +14,7 @@ const myHeader = () => {
             Review đánh giá công ty
         </ListViewHeader>
     );
-}
+}   
 const MyItemRender = props => {
     let item = props.dataItem;
     var parse = require('html-react-parser');

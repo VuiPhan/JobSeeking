@@ -3,7 +3,6 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { FetchData } from './components/FetchData';
 import HomePage from './views/HomePage';
-import { Counter } from './components/Counter';
 import ProfilePage from './views/ProfilePage';
 import CompanyPage from './views/CompanyPage';
 import './custom.css';
@@ -15,16 +14,19 @@ import ShowCadidate from 'components/ShowCandidate/ShowCandidate';
 import PrivateRouteForViewList from 'components/Router/PrivateRouteForViewList';
 import TagPage from 'views/TagPage/TagPage';
 import ApplyPage from 'views/ApplyPage/ApplyPage';
+import ToolbarCandidate from 'components/ToolbarCandidate/ToolbarCandidate';
+import RecruitmentManagement from 'components/RecruitmentManagement';
 
 
 export default class App extends Component {
   static displayName = App.name;
   render () {
     return (
+      <div>
         <Layout>
       
         <Route exact path='/' component={HomePage} />
-        <Route path='/counter' component={Counter} />
+        <Route path='/RecruitmentManagement' component={RecruitmentManagement} />
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/ProfilePage' component={ProfilePage} exact/>
         <Route path='/ProfilePage/:CandidateCode' component={ProfilePage} exact />
@@ -38,6 +40,8 @@ export default class App extends Component {
         <PrivateRoute path='/PublishedRecruitment/:jobID' component={PublishedRecruitment} exact />
         <PrivateRouteForViewList path= {["/Jobs/:jobID", "/ProfilePage/:CandidateCode"]} component={ShowCadidate} />
       </Layout>
+      <PrivateRouteForViewList path= {["/ProfilePage/:CandidateCode"]} component={ToolbarCandidate} />
+      </div>
     );
   }
 }

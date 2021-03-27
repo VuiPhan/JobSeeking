@@ -95,7 +95,13 @@ export default function CustomizedMenus() {
           </ListItemIcon>
           <ListItemText primary="Đã ứng tuyển" />
         </StyledMenuItem>:null}
-
+        { LoginInfo.role === "Recruiter" ?
+        <StyledMenuItem onClick={()=>RedirectPageApply()}>
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Tuyển dụng" />
+        </StyledMenuItem>:null}
         {/* { LoginInfo.role === "Recruiter" ?
         <StyledMenuItem onClick={()=>RedirectPageEditCompany()}>
           <ListItemIcon>

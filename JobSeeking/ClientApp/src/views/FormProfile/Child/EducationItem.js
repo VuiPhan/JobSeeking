@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { useParams } from 'react-router';
 import EducationForm from '../Form/EducationForm';
 import { GetEducation } from './EducationSlice';
+import EducationAPI from 'api/JobSeeker/EducationAPI';
 
 function EducationRender(props) {
     var parse = require('html-react-parser')
@@ -37,10 +38,10 @@ function EducationRender(props) {
           {
             label: 'Xóa',
             onClick:async () => {
-                    await WorkProcessAPI.deleteWorkProcess(RecID);
-                    const action = GetWorkProcess();
+                    await EducationAPI.deleteEducation(RecID);
+                    const action = GetEducation();
                     const execaction = await dispatch(action);
-                    MyToaStrSuccess('Bạn đã gỡ quá trình làm việc!');
+                    MyToaStrSuccess('Bạn đã gỡ thành công!');
             }
           },
           {
