@@ -1,6 +1,7 @@
 import React,{PropTypes} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { Label } from 'reactstrap';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,11 +28,12 @@ export default function DatePickers(props) {
   const showError = errors[name] && touched[name];
   return (
     // <form className={classes.container} noValidate>
-    <form>
+    <div>
+        {label && <Label for={name}>{label}</Label>}
+        <br/>
       <TextField
         id="date"
         {...field}
-        label=""
         type="date"
         style={{width: 140}}
         defaultValue={getDataDate}
@@ -40,6 +42,6 @@ export default function DatePickers(props) {
           shrink: true,
         }}
        />
-    </form>
+    </div>
   );
 }

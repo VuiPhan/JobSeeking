@@ -66,6 +66,12 @@ export default function CustomizedMenus() {
       history.push(linkRedired);
       window.scrollTo(0, 450);
   }
+  const RedirectPageRecruitmentManagement = () =>{
+    setAnchorEl(null);
+      const linkRedired = `/RecruitmentManagement`;
+      history.push(linkRedired);
+      window.scrollTo(0, 450);
+  }
   const RedirectPageEditCompany = () =>{
     setAnchorEl(null);
       const linkRedired = `/EditCompany`;
@@ -96,7 +102,7 @@ export default function CustomizedMenus() {
           <ListItemText primary="Đã ứng tuyển" />
         </StyledMenuItem>:null}
         { LoginInfo.role === "Recruiter" ?
-        <StyledMenuItem onClick={()=>RedirectPageApply()}>
+        <StyledMenuItem onClick={()=>RedirectPageRecruitmentManagement()}>
           <ListItemIcon>
             <SendIcon fontSize="small" />
           </ListItemIcon>

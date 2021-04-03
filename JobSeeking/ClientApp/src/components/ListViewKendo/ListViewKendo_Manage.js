@@ -38,6 +38,12 @@ const MyItemRender = props => {
         history.push(linkRedired);
         window.scrollTo(0, 450);
     }
+    function SelectedJob(jobID) {
+        return {
+          type: 'chooseJob',
+          payload: { jobID },
+        }
+      }
     return (
         <Card key={item.jobID} style={{ padding: '20px 24px', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)', }} orientation='horizontal' className='d-flex justify-content-between'>
             <div className='k-vbox k-column'>
@@ -47,7 +53,7 @@ const MyItemRender = props => {
                     </CardTitle>
                 </div>
                 <CardActions style={{ padding: 0, margin: 5 }}>
-                    <Button onClick={() => HandleRedirectPage(item.jobID)}
+                    <Button onClick={() => SelectedJob(item.jobID)}
                         variant="outlined" color="secondary"
                         startIcon={<VisibilityIcon />}
                     >Xem chi tiết</Button>
@@ -65,6 +71,7 @@ const MyItemRender = props => {
     )
 }
 function ListViewKendo_Manage(props) {
+   
     const { dataID } = props;
     const [IsReletive,setIsReletive] = useState(true);
     const [data, setData] = useState([{
@@ -76,7 +83,7 @@ function ListViewKendo_Manage(props) {
     }]);
     const [page, setpage] = useState(1);
     // Số phần tử lấy.
-    const [take, settake] = useState(5);
+    const [take, settake] = useState(2);
     // Phần tử bắt đầu lấy
     const [begin, setbegin] = useState(0);
     const handlePageChange = (e) => {

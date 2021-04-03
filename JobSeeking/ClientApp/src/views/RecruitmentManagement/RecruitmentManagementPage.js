@@ -12,6 +12,8 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import NavPills from "components/NavPills/NavPills";
 import RecruitmentProcess from "./RecruitmentProcess";
+import RecruitmentOfCandidatesPage from "views/RecruitmentOfCandidates/RecruitmentOfCandidatesPage";
+import ListViewCandidate from "components/ListViewCandidate/ListViewCandidate";
 
 const useStyles = makeStyles(null);
 
@@ -42,7 +44,7 @@ export default function RecruitmentManagementPage(props) {
                       tabButton: "Quá trình tuyển dụng",
                       tabIcon: WorkIcon,
                       tabContent: (
-                       <Button></Button>
+                       <RecruitmentOfCandidatesPage></RecruitmentOfCandidatesPage>
                       )
                     },
                     {
@@ -50,7 +52,7 @@ export default function RecruitmentManagementPage(props) {
                       tabIcon: SchoolIcon,
                       tabContent: (
 
-                        <Button></Button>
+                        <ListViewCandidate></ListViewCandidate>
 
                       )
                     }

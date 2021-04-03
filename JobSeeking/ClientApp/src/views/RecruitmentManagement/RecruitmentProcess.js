@@ -1,42 +1,39 @@
 import React from 'react'
-import * as yup from 'yup';
 import { FastField, Formik, Form as FormFormik } from 'formik';
-import InputField from 'components/CustomField/IconInput';
-import DatePickers from 'components/DatetimePicker/DatetimePicker';
 
+import DatePickers from 'components/DatetimePicker/DatetimePicker';
+import 'antd/dist/antd.css';
+import { Modal, Button } from 'antd';
+import RecruitmentProcessForm from './RecruitmentProcessForm';
+import ListRecruitmentProcess from './ListRecruitmentProcess';
+import './style.scss';
 
 function RecruitmentProcess() {
-    const validationShema = yup.object().shape({
-        
-    });
-    return (
-        <div>
-            <Formik initialValues={null}
-                 validationSchema={validationShema}
-                onSubmit={values => console.log(values)}
-                enableReinitialize>
-                {FormikProps => {
-                    const { values, errors, touched } = FormikProps;
-                    return (
-                        <FormFormik>
-            <FastField
-                name="firstName"
-                component={InputField}
-                label=""
-                placeholder=""
-            />
-            <FastField
-                name="birthDayString"
-                component={DatePickers}
-                label=""
-                placeholder=""
-            />
-              </FormFormik>
-                    )
-                }}
-            </Formik>
-        </div>
-    )
+
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => {
+    setVisible(true);
+  };
+  const initialValuesCV = { nameOfProcess: '', dayTakePlace: '2020-01-01', contentOfProcess: '' }
+  const listCV = [{ recID: 1, nameOfProcess: 'Phỏng vấn qua điện thoại' }, { recID: 2, nameOfProcess: 'Làm bài test' }, { recID: 3, nameOfProcess: 'Phỏng vấn trực tiếp' }]
+  return (
+    <div>
+    <div className="container__Recruitment">
+      <div className="centerButton">
+        <Button type="primary" onClick={showModal}>
+          Thêm quy tình tuyển dụng
+      </Button>
+      </div>
+      <br></br>
+      </div>
+      
+      <div>
+        <RecruitmentProcessForm visible={visible} setVisible={setVisible} initialValuesCV={initialValuesCV}></RecruitmentProcessForm>
+        <ListRecruitmentProcess data={listCV}></ListRecruitmentProcess>
+      </div>
+   
+    </div>
+  )
 }
 
 export default RecruitmentProcess

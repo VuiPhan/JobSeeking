@@ -22,18 +22,18 @@ namespace JobSeeking.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SeekerController : ControllerBase
+    public class SeekerController : LoginInfoSingleton
     {
         private readonly JobSeekingContext _context;
         private IConfiguration _config;
         private readonly IWebHostEnvironment _hostEnvironment;
-
+        private readonly LoginInfo loginInfo;
         public SeekerController(JobSeekingContext context, IConfiguration config, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _config = config;
             this._hostEnvironment = hostEnvironment;
-
+            
         }
         [HttpPost("Post")]
         public async Task<object> RegisterSeeker([FromForm] FormJobSeekerAddUpdate formJobSeeker)
@@ -239,6 +239,7 @@ namespace JobSeeking.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
+        
             bool IsOwn = true;
             if(claims[5].Value.ToString() == "")
             {

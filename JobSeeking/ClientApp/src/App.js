@@ -15,7 +15,7 @@ import PrivateRouteForViewList from 'components/Router/PrivateRouteForViewList';
 import TagPage from 'views/TagPage/TagPage';
 import ApplyPage from 'views/ApplyPage/ApplyPage';
 import ToolbarCandidate from 'components/ToolbarCandidate/ToolbarCandidate';
-import RecruitmentManagement from 'components/RecruitmentManagement';
+import RecruitmentManagement from 'components/RecruitmentManagementPage/RecruitmentManagement';
 
 
 export default class App extends Component {
@@ -26,7 +26,7 @@ export default class App extends Component {
         <Layout>
       
         <Route exact path='/' component={HomePage} />
-        <Route path='/RecruitmentManagement' component={RecruitmentManagement} />
+        <PrivateRoute path='/RecruitmentManagement' component={RecruitmentManagement} exact />
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/ProfilePage' component={ProfilePage} exact/>
         <Route path='/ProfilePage/:CandidateCode' component={ProfilePage} exact />
