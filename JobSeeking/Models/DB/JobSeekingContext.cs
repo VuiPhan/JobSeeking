@@ -29,6 +29,7 @@ namespace JobSeeking.Models.DB
 
         public DbSet<JobForm> JobForms { get; set; }
         public DbSet<RoundInterview> RoundInterviews { get; set; }
+        public DbSet<CandidateOfRoundInterview> CandidateOfRoundInterviews { get; set; }
         
         public DbSet<ListCVOfCandidate> ListCVOfCandidates { get; set; }
         public DbSet<ListWorkProcessOfCandidate> ListWorkProcessOfCandidate { get; set; }
@@ -93,7 +94,7 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<ListWorkProcessOfCandidate>().HasNoKey();
             modelBuilder.Entity<ListEducation>().HasNoKey();
             modelBuilder.Entity<RoundInterview>().HasNoKey();
-            
+            modelBuilder.Entity<CandidateOfRoundInterview>().HasNoKey();
 
 
 

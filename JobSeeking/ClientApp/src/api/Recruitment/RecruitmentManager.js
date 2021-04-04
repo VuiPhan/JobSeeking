@@ -9,9 +9,9 @@ const RecruitmentManagerAPI = {
         const url = `/RecruitmentManagement/GetRoundRecruit?JobID=${JobID}`;
         return axiosClient.get(url);
     },
-    IgnoreCandidates: (JobID,CandidateCode) => {
-        const url = `/RecruitmentManagement/IgnoreCandidates?JobID=${JobID}&CandidateCode=${CandidateCode}`;
-        return axiosClient.post(url);
+    GetCandidateOfRoundRecruit: (JobID) => {
+        const url = `/RecruitmentManagement/GetCandidateOfRoundRecruit?JobID=${JobID}`;
+        return axiosClient.get(url);
     }
 }
 export default RecruitmentManagerAPI;

@@ -29,6 +29,19 @@ namespace JobSeeking.Controllers.RecruitmentManagement
             var dataJob = await _context.RoundInterviews.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListRoundInterview {0}", JobID).ToListAsync();
             return dataJob;
         }
+        [HttpGet("GetCandidateOfRoundRecruit")]
+        public async Task<object> GetCandidateOfRoundRecruit(int? JobID)
+        {
+        
+                var dataJob = await _context.CandidateOfRoundInterviews.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCandidateOfRoundInterview {0}", JobID).ToListAsync();
+
+            var x = dataJob
+                .GroupBy(u => u.RoundName)
+                .Select(grp => grp.ToList())
+                .ToList();
+
+            return x;
+        }
         [HttpPost("AddUpdateRoundInterview")]
         [Authorize(Policy = Policies.Recruiter)]
         public async Task<object> AddUpdateRoundInterview([FromForm] RoundInterview form)

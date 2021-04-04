@@ -7,7 +7,8 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
   
 function TableRecruitment(props) {
-    const {NameOfRound} = props;
+    const {NameOfRound,dataSource} = props;
+  console.log('dataSource.ListCandidate',dataSource.ListCandidate);
     const AddComments = (RecID) =>{
       console.log('RecIDRecID',RecID);
       alert(RecID);
@@ -15,75 +16,52 @@ function TableRecruitment(props) {
     const columns = [
         {
           title: 'Họ và tên',
-          dataIndex: 'name',
-          key: 'name',
+          dataIndex: 'fullName',
+          key: 'fullName',
           render: text => <a>{text}</a>,
-        },
-        {
-          title: 'Ngày phỏng vấn',
-          dataIndex: 'age',
-          key: 'age',
-        },
-        {
-          title: 'Kết quả',
-          key: 'tags',
-          dataIndex: 'tags',
-          render: tags => (
-            <span>
-              {tags.map(tag => {
-                let color = tag.length > 5 ? 'geekblue' : 'green';
-                if (tag === 'Không đạt') {
-                  color = 'volcano';
-                }
-                return (
-                  <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                  </Tag>
-                );
-              })}
-            </span>
-          ),
-        },
-        {
-          title: 'Nhận xét',
-          key: 'age',
-          dataIndex: 'age',
-          render: (age) => (
-             <ChatBubbleOutlineIcon onClick={()=> AddComments(age)}></ChatBubbleOutlineIcon> 
-          ),
-        },
-      ];
-      
-      const data = [
-        {
-          key: '1',
-          name: 'Phan Đăng Vui',
-          age: '20/03/2020',
-          address: 'New York No. 1 Lake Park',
-          tags: ['Đạt', 'developer'],
-        },
-        {
-          key: '2',
-          name: 'Trần Hoàng Huy',
-          age: '20/03/2020',
-          address: 'London No. 1 Lake Park',
-          tags: ['Không đạt'],
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park',
-          tags: ['cool', 'teacher'],
-        },
+        }
+        // ,
+        // {
+        //   title: 'Ngày phỏng vấn',
+        //   dataIndex: 'age',
+        //   key: 'age',
+        // },
+        // {
+        //   title: 'Kết quả',
+        //   key: 'tags',
+        //   dataIndex: 'tags',
+        //   render: tags => (
+        //     <span>
+        //       {tags.map(tag => {
+        //         let color = tag.length > 5 ? 'geekblue' : 'green';
+        //         if (tag === 'Không đạt') {
+        //           color = 'volcano';
+        //         }
+        //         return (
+        //           <Tag color={color} key={tag}>
+        //             {tag.toUpperCase()}
+        //           </Tag>
+        //         );
+        //       })}
+        //     </span>
+        //   ),
+        // },
+        // {
+        //   title: 'Nhận xét',
+        //   key: 'age',
+        //   dataIndex: 'age',
+        //   render: (age) => (
+        //      <ChatBubbleOutlineIcon onClick={()=> AddComments(age)}></ChatBubbleOutlineIcon> 
+        //   ),
+        // },
       ];
     return (
         <div>
-          <h4>{NameOfRound}</h4>
+          <h4>{dataSource[0].roundName}</h4>
         <Table
           columns={columns}
           //pagination={{ position: [this.state.top, this.state.bottom] }}
-          dataSource={data}
+          dataSource={dataSource}
         />
       </div>
     )

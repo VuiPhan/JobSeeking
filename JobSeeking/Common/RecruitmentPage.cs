@@ -17,4 +17,17 @@ namespace JobSeeking.Common
         public string ContentInterview { get; set; }
         public int RoundInterviewNumber { get; set; }
     }
+    public class CandidateOfRoundInterview
+    {
+        public int JobID { get; set; }
+        public int RoundInterview { get; set; }
+        public string RoundName { get; set; }
+        public int? CandidateCode { get; set; }
+        public string FullName { get; set; }
+    }
+    public class Candidate
+    {
+        public int? CandidateCode { get; set; }
+        public string FullName { get; set; }
+    }
 }
