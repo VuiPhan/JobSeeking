@@ -37,11 +37,11 @@ export default function ListRecruitmentProcess(props) {
     <div style={{display: 'flex',justifyContent: 'center',marginTop:20}}>
     <List className={classes.root}>
       {data.map((value) => {
-        const labelId = `checkbox-list-label-${value.nameOfProcess}`;
+        const labelId = `checkbox-list-label-${value.roundName}`;
 
         return (
           <ListItem key={value.recID} role={undefined} dense button onClick={handleToggle(value.recID)}>
-            <ListItemText id={labelId} primary={`${value.nameOfProcess}`} />
+            <ListItemText id={labelId} primary={`${value.roundName}`} />
             <ListItemSecondaryAction>
 
             {LoginInfo.companyID ?

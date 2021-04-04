@@ -10,9 +10,12 @@ import Pagination from '@material-ui/lab/Pagination';
 import { Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import { useSelector } from 'react-redux';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ConstCommon from 'common/ConstInApp';
+import $ from 'jquery';
+import { useDispatch, useSelector } from 'react-redux';
+import { SelectedJob } from "components/ListViewKendo/SelectedJobSlice.js";
+
 const myHeader = () => {
     return (
         <div>
@@ -26,8 +29,11 @@ const myHeader = () => {
 const MyItemRender = props => {
     let item = props.dataItem;
     var parse = require('html-react-parser');
+    const dispatch = useDispatch();
+
     const history = useHistory();
     const LoginInfo = useSelector(state => state.loginInfo);
+    const [BackgroundHover,SetBackgroundHover] = useState( "");
     const HandleRedirectPage = (id) => {
         const linkRedired = `/Jobs/${id}`;
         history.push(linkRedired);
@@ -38,22 +44,25 @@ const MyItemRender = props => {
         history.push(linkRedired);
         window.scrollTo(0, 450);
     }
-    function SelectedJob(jobID) {
-        return {
-          type: 'chooseJob',
-          payload: { jobID },
-        }
+   // 
+      const ChangeColorSelected = (JobID) =>{
+          SetBackgroundHover("#FFE4C4");
+          const action = SelectedJob(JobID);
+          var Exec = dispatch(action);
       }
     return (
-        <Card key={item.jobID} style={{ padding: '20px 24px', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)', }} orientation='horizontal' className='d-flex justify-content-between'>
-            <div className='k-vbox k-column'>
+        <div onClick={() => ChangeColorSelected(item.jobID)}>
+        <Card key={item.jobID} style={{ padding: '20px 24px', border: 'none', 
+        borderBottom: '1px solid rgba(0,0,0,0.12)',backgroundColor:BackgroundHover}} 
+        orientation='horizontal' className='d-flex justify-content-between'>
+            <div className='k-vbox k-column' >
                 <div style={{ padding: '0 8px', marginRight: '3rem', height: 162, overflow: 'hidden', msTextOverflow: 'ellipsis' }}>
                     <CardTitle style={{ fontSize: 20, fontWeight: 'bold' }}>
                         {item.jobsTitle}
                     </CardTitle>
                 </div>
                 <CardActions style={{ padding: 0, margin: 5 }}>
-                    <Button onClick={() => SelectedJob(item.jobID)}
+                    <Button onClick={() => ChangeColorSelected(item.jobID)}
                         variant="outlined" color="secondary"
                         startIcon={<VisibilityIcon />}
                     >Xem chi tiết</Button>
@@ -68,9 +77,11 @@ const MyItemRender = props => {
             </div>
 
         </Card>
+        </div>
     )
 }
 function ListViewKendo_Manage(props) {
+    const dispatch = useDispatch();
    
     const { dataID } = props;
     const [IsReletive,setIsReletive] = useState(true);
@@ -101,6 +112,9 @@ function ListViewKendo_Manage(props) {
         async function fetchMyAPI() {
             const result = await LoadJobsApi.getAll(dataID, LoginInfo.CadidateCode, OwnCompany,IsReletive);
             setData(result);
+            const itemFirst = result[0].jobID;
+            const action = SelectedJob(itemFirst);
+            var Exec = dispatch(action);
         }
         if (dataID) {
             fetchMyAPI();

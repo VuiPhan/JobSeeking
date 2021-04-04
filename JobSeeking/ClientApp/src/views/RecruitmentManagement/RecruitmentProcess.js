@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FastField, Formik, Form as FormFormik } from 'formik';
 
 import DatePickers from 'components/DatetimePicker/DatetimePicker';
@@ -7,15 +7,31 @@ import { Modal, Button } from 'antd';
 import RecruitmentProcessForm from './RecruitmentProcessForm';
 import ListRecruitmentProcess from './ListRecruitmentProcess';
 import './style.scss';
+import RecruitmentManagerAPI from 'api/Recruitment/RecruitmentManager';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetListRecruitProcess } from './ListRecruitmentSlicer';
 
-function RecruitmentProcess() {
+function RecruitmentProcess(props) {
+  const {JobID} = props;
 
   const [visible, setVisible] = React.useState(false);
+  const [lstRecruitProcess,setLstRecruitProcess] = React.useState([]);
   const showModal = () => {
     setVisible(true);
   };
-  const initialValuesCV = { nameOfProcess: '', dayTakePlace: '2020-01-01', contentOfProcess: '' }
-  const listCV = [{ recID: 1, nameOfProcess: 'Phỏng vấn qua điện thoại' }, { recID: 2, nameOfProcess: 'Làm bài test' }, { recID: 3, nameOfProcess: 'Phỏng vấn trực tiếp' }]
+  const SelectedJob = useSelector(state => state.SelectedJobProfile);
+  const ListRecruitProcess = useSelector(state => state.ListRecruitProcess);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function fetchDataView() {
+      // const result = await RecruitmentManagerAPI.GetRoundRecruit(SelectedJob);
+      // setLstRecruitProcess(result);
+      const action = GetListRecruitProcess(SelectedJob);
+      const execaction = await dispatch(action);
+    }
+    fetchDataView();
+  }, [SelectedJob])
   return (
     <div>
     <div className="container__Recruitment">
@@ -26,10 +42,9 @@ function RecruitmentProcess() {
       </div>
       <br></br>
       </div>
-      
       <div>
-        <RecruitmentProcessForm visible={visible} setVisible={setVisible} initialValuesCV={initialValuesCV}></RecruitmentProcessForm>
-        <ListRecruitmentProcess data={listCV}></ListRecruitmentProcess>
+        <RecruitmentProcessForm visible={visible} setVisible={setVisible}></RecruitmentProcessForm>
+        <ListRecruitmentProcess data={ListRecruitProcess}></ListRecruitmentProcess>
       </div>
    
     </div>

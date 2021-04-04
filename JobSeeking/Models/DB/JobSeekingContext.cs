@@ -1,4 +1,5 @@
 ﻿using System;
+using JobSeeking.Common;
 using JobSeeking.Models.Class;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -27,6 +28,8 @@ namespace JobSeeking.Models.DB
         public DbSet<ListCandidateApply> ListCandidateApplys { get; set; }
 
         public DbSet<JobForm> JobForms { get; set; }
+        public DbSet<RoundInterview> RoundInterviews { get; set; }
+        
         public DbSet<ListCVOfCandidate> ListCVOfCandidates { get; set; }
         public DbSet<ListWorkProcessOfCandidate> ListWorkProcessOfCandidate { get; set; }
         public DbSet<ListEducation> ListEducations { get; set; }
@@ -89,7 +92,10 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<ListCompanyTop>().HasNoKey();
             modelBuilder.Entity<ListWorkProcessOfCandidate>().HasNoKey();
             modelBuilder.Entity<ListEducation>().HasNoKey();
+            modelBuilder.Entity<RoundInterview>().HasNoKey();
             
+
+
 
 
 

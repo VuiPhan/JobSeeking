@@ -28,6 +28,7 @@ import { MyToaStrError, MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
 import TagList from "@progress/kendo-react-dropdowns/dist/npm/MultiSelect/TagList";
 import { changeSearch } from "components/ListViewKendo/ForSearchSlice.js";
+import { SelectedJob } from "components/ListViewKendo/SelectedJobSlice.js";
 const useStyles = makeStyles(styles);
 
 
@@ -52,8 +53,11 @@ export default function JobsPage(props) {
 
      });
   const history = useHistory();
-  const { jobID } = useParams();
   const dispatch = useDispatch();
+
+  const { jobID } = useParams();
+  const action = SelectedJob(jobID);
+  var Exec = dispatch(action);
   const LoginInfo = useSelector(state => state.loginInfo);
 
   const [dataJobWorking, setJobWorking] = useState([{value:1,label:''},{value:2,label:''}]);
