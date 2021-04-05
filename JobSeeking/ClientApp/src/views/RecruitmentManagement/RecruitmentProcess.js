@@ -25,8 +25,6 @@ function RecruitmentProcess(props) {
 
   useEffect(() => {
     async function fetchDataView() {
-      // const result = await RecruitmentManagerAPI.GetRoundRecruit(SelectedJob);
-      // setLstRecruitProcess(result);
       const action = GetListRecruitProcess(SelectedJob);
       const execaction = await dispatch(action);
     }

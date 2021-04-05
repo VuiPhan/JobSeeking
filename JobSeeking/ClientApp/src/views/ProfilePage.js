@@ -5,7 +5,6 @@ import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import Camera from "@material-ui/icons/Camera";
-import Palette from "@material-ui/icons/Palette";
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import WorkIcon from '@material-ui/icons/Work';
 import SchoolIcon from '@material-ui/icons/School';
