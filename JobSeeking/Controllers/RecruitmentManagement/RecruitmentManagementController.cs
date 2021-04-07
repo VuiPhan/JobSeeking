@@ -61,5 +61,24 @@ namespace JobSeeking.Controllers.RecruitmentManagement
             response = Ok(new { Error = "Có lỗi" });
             return response;
         }
+        [HttpPost("UpdateResultOfCandidate")]
+        [Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> UpdateResultOfCandidate([FromForm] CandidateOfRoundInterview form)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spUpdateResultOfCandidate" +
+                " @RecID={0},@DateInterview={1},@Result={2},@Descriptions={3}",
+                form.RecID, form.DateInterview, form.Result, form.Descriptions
+                );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
     }
 }

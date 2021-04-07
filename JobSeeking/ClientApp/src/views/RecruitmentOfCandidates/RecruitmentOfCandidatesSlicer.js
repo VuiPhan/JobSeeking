@@ -5,8 +5,6 @@ import { useSelector } from 'react-redux';
 export const GetListCandidateProcess = createAsyncThunk(
     'ListCandidateOfProcess/callAPI',
     async data => {
-   //     const SelectedJob = useSelector(state => state.SelectedJobProfile);
-        debugger;
         const result = await RecruitmentManagerAPI.GetCandidateOfRoundRecruit(data);
         return result;
     },

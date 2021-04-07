@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
-// import MutipleCombobox from 'components/CustomField/MutipleCombobox';
 import { FastField, Form, Formik } from 'formik';
 import MutipleCombobox from 'components/CustomField/MutipleCombobox.js';
 import { Col, Row } from 'reactstrap';
 import { Button, FormGroup } from '@material-ui/core';
-import MutipleSelectField from 'components/CustomField/MutipleSelectField';
 import SaveIcon from '@material-ui/icons/Save';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 const HtmlTooltip = withStyles((theme) => ({
@@ -24,7 +22,6 @@ const HtmlTooltip = withStyles((theme) => ({
     },
   }))(Tooltip);
 function WorkInfomation(props) {
-    //const {data} = props;
     const { CandidateCode } = useParams();
     const LoginInfo = useSelector(state => state.loginInfo);
     var disableForm = false;
@@ -119,14 +116,6 @@ function WorkInfomation(props) {
                         >
                             <h4>Nơi làm việc</h4>
                         </HtmlTooltip>
-                            {/* <FastField
-                                name="jobLocations"
-                                component={MutipleSelectField}
-                                label=""
-                                placeholder=""
-                                disabled={disableForm}
-                                ListName="NoiLamViec"
-                            /> */}
                             <FastField
                                 name="jobLocations"
                                 component={MutipleCombobox}

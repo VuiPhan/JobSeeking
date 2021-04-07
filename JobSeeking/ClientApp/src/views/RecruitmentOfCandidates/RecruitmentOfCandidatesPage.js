@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import RecruitmentManagerAPI from '../../api/Recruitment/RecruitmentManager';
 import { GetListCandidateProcess } from './RecruitmentOfCandidatesSlicer';
 function RecruitmentOfCandidatesPage(props) {
-    const {JobID}  = props;
+    const { JobID } = props;
     const dispatch = useDispatch();
-     const lstCandidateOfProcess = useSelector(state => state.ListCandidateOfProcess);
+    const lstCandidateOfProcess = useSelector(state => state.ListCandidateOfProcess);
     const SelectedJob = useSelector(state => state.SelectedJobProfile);
     useEffect(() => {
         async function fetchDataView() {
@@ -15,14 +15,13 @@ function RecruitmentOfCandidatesPage(props) {
             const result = await dispatch(action);
         }
         fetchDataView();
-      }, [SelectedJob])
+    }, [SelectedJob])
     return (
         <div>
-            {lstCandidateOfProcess.map((item,index) => {
-                console.log('objectitemitem',item);
-             return ( <TableRecruitment key={index} dataSource={item}></TableRecruitment>)
+            {lstCandidateOfProcess.map((item, index) => {
+                return (<TableRecruitment key={index} dataSource={item}></TableRecruitment>)
             })}
-            
+
         </div>
     )
 }

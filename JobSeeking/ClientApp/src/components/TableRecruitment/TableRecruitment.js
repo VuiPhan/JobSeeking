@@ -17,8 +17,7 @@ function TableRecruitment(props) {
     setVisible(true);
   };
   const AddComments = (RecID) => {
-    let candidateCode = RecID;
-    let dataSelected =  dataSource.find(ele =>ele.candidateCode ==candidateCode);
+    let dataSelected =  dataSource.find(ele =>ele.recID ==RecID);
     setitemSelected(dataSelected);
     setVisible(true);
   }
@@ -32,36 +31,27 @@ function TableRecruitment(props) {
     ,
     {
       title: 'Ngày phỏng vấn',
-      dataIndex: 'roundInterview',
-      key: 'roundInterview',
-    }
-    // {
-    //   title: 'Kết quả',
-    //   key: 'tags',
-    //   dataIndex: 'tags',
-    //   render: tags => (
-    //     <span>
-    //       {tags.map(tag => {
-    //         let color = tag.length > 5 ? 'geekblue' : 'green';
-    //         if (tag === 'Không đạt') {
-    //           color = 'volcano';
-    //         }
-    //         return (
-    //           <Tag color={color} key={tag}>
-    //             {tag.toUpperCase()}
-    //           </Tag>
-    //         );
-    //       })}
-    //     </span>
-    //   ),
-    // },
-    ,
+      dataIndex: 'dateInterview',
+      key: 'dateInterview',
+    },
+    {
+      title: 'Kết quả',
+      key: 'result',
+      dataIndex: 'result',
+      render: tags => (
+        <span>
+          <Tag color={tags == "1" ? "green" : "volcano"} key={tags}>
+          {tags == "1" ? "Đạt" : "Không đạt"}
+              </Tag>
+        </span>
+      ),
+    },
     {
       title: 'Nhận xét',
-      key: 'candidateCode',
-      dataIndex: 'candidateCode',
-      render: (candidateCode) => (
-        <ChatBubbleOutlineIcon onClick={() => AddComments(candidateCode)}></ChatBubbleOutlineIcon>
+      key: 'recID',
+      dataIndex: 'recID',
+      render: (recID) => (
+        <ChatBubbleOutlineIcon onClick={() => AddComments(recID)}></ChatBubbleOutlineIcon>
       ),
     },
   ];
@@ -71,11 +61,9 @@ function TableRecruitment(props) {
       <h4>{dataSource[0].roundName}</h4>
       <Table
         columns={columns}
-        //pagination={{ position: [this.state.top, this.state.bottom] }}
         dataSource={dataSource}
       />
       <CandidateRecruitmentForm item={itemSelected} visible={visible} setVisible={setVisible}></CandidateRecruitmentForm>
-
     </div>
   )
 }

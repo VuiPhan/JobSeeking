@@ -58,10 +58,6 @@ export default function ProfilePage(props) {
     imageFile: null
   };
   const [valuesImage, setValuesImage] = useState(initialValuesImage);
-  const initialValuesCV = {
-    CVName: '',
-    CVFile: null
-  };
   const { CandidateCode } = useParams();
   var disableForm = false;
   if (CandidateCode) {

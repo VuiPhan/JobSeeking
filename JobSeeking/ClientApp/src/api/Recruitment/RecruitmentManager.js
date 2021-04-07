@@ -12,6 +12,10 @@ const RecruitmentManagerAPI = {
     GetCandidateOfRoundRecruit: (JobID) => {
         const url = `/RecruitmentManagement/GetCandidateOfRoundRecruit?JobID=${JobID}`;
         return axiosClient.get(url);
-    }
+    },
+    UpdateResultOfCandidate: (data) => {
+        const url = `/RecruitmentManagement/UpdateResultOfCandidate`;
+        return axiosClient.post(url,data);
+    },
 }
 export default RecruitmentManagerAPI;

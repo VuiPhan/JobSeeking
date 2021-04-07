@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 import { ErrorMessage } from 'formik';
-import { TextareaAutosize } from '@material-ui/core';
 
 TextAreaField.propTypes = {
     field:PropTypes.object.isRequired,

@@ -2,20 +2,17 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import {Logout, LoginAPIRedux } from 'components/FormLogin/LoginSlice'
 import { useDispatch, useSelector } from 'react-redux';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import styles from "../../assets/jss/material-kit-react/components/headerLinksStyle.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { FastField, Formik, Form } from 'formik';
 import LGCompanyPage from "Language/CompanyPage";
 import InputField from 'components/CustomField/InputField';
-import { FormFeedback, FormGroup} from "reactstrap";
+import {  FormGroup} from "reactstrap";
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2.js';
 import MyToastr from 'components/Toastr/Toastr.js';
-import CustomizedMenus from 'components/FeatureMenu/FeatureMenu.js';
 import handleGetJson from 'common/ReadJson.js';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import DoneIcon from '@material-ui/icons/Done';
@@ -24,9 +21,6 @@ const useStyles = makeStyles(styles);
 
 export default function FormChangePassword() {
   const [open, setOpen] = React.useState(true);
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const LoginInfo = useSelector(state => state.loginInfo);
   const res = LGCompanyPage.CompanyPage;
   const resValidation = handleGetJson("Validation");
   const handleClickOpen = () => {
@@ -56,8 +50,6 @@ export default function FormChangePassword() {
       2000
   );
   };
-  const history = useHistory();
- 
 const validationShema = yup.object().shape({
   PasswordNew: yup.string()
   .required(resValidation.TruongBBNhap)

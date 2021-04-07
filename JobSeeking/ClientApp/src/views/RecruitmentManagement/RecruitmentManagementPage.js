@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -7,7 +7,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Camera from "@material-ui/icons/Camera";
 import WorkIcon from '@material-ui/icons/Work';
 import SchoolIcon from '@material-ui/icons/School';
-import { Button } from "@material-ui/core";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import NavPills from "components/NavPills/NavPills";
@@ -15,26 +14,13 @@ import RecruitmentProcess from "./RecruitmentProcess";
 import RecruitmentOfCandidatesPage from "views/RecruitmentOfCandidates/RecruitmentOfCandidatesPage";
 import ListViewCandidate from "components/ListViewCandidate/ListViewCandidate";
 import { useSelector } from "react-redux";
+import MyToastr from "components/Toastr/Toastr";
 
 const useStyles = makeStyles(null);
 
 export default function RecruitmentManagementPage(props) {
   const classes = useStyles();
-  const { ...rest } = props;
-  const imageClasses = classNames(
-    classes.imgRaised,
-    classes.imgRoundedCircle,
-    classes.imgFluid
-  );
   const SelectedJob = useSelector(state => state.SelectedJob);
-  useEffect(() => {
-    async function fetchDataView() {
-      //const result = await SeekerAPI.getByRecruiter(SelectedJob);
-      //setData(result);
-    }
-    fetchDataView();
-  }, [SelectedJob])
-
   return (
     <div>
             <GridContainer justify="center">
@@ -70,6 +56,7 @@ export default function RecruitmentManagementPage(props) {
                 />
               </GridItem>
             </GridContainer>
+            <MyToastr></MyToastr>
         </div>
   );
 }

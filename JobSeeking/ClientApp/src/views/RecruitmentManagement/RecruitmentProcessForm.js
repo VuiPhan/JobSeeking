@@ -9,6 +9,7 @@ import RecruitmentManagerAPI from 'api/Recruitment/RecruitmentManager';
 import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetListRecruitProcess } from './ListRecruitmentSlicer';
+import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/RecruitmentOfCandidatesSlicer';
 
 function RecruitmentProcessForm(props) {
   const { item, visible, setVisible } = props;
@@ -54,6 +55,9 @@ function RecruitmentProcessForm(props) {
     setConfirmLoading(false);
     const action = GetListRecruitProcess(SelectedJob);
     const execaction = await dispatch(action);
+
+    const action2 = GetListCandidateProcess(SelectedJob);
+    const result2 = await dispatch(action2);
     MyToaStrSuccess('Thêm mới thành công');
   };
 

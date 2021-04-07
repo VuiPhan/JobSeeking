@@ -27,7 +27,6 @@ function CompanyBox(props) {
               <div style={{}}>
               <p style={{textDecorationLine:'underline',color:'blue'}}>{numJobsRecruited} việc làm đang tuyển</p>
               </div>
-              {/* <Button variant="primary">Add to Cart</Button> */}
             </Card.Body>
           </Card>
         </Col>

@@ -22,8 +22,14 @@ namespace JobSeeking.Common
         public int JobID { get; set; }
         public int RoundInterview { get; set; }
         public string RoundName { get; set; }
+
         public int? CandidateCode { get; set; }
         public string FullName { get; set; }
+        public string DateInterview { get; set; }
+        public string Descriptions { get; set; }
+        public int? Result { get; set; }
+        public int? RecID { get; set; }
+        
     }
     public class Candidate
     {

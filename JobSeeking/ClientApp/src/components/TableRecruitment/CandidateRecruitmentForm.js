@@ -3,18 +3,19 @@ import { FastField, Formik, Form as FormFormik } from 'formik';
 import InputField from 'components/CustomField/InputField';
 
 import DatePickers from 'components/DatetimePicker/DatetimePicker';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 import * as yup from 'yup';
 import RecruitmentManagerAPI from 'api/Recruitment/RecruitmentManager';
 import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetListRecruitProcess } from 'views/RecruitmentManagement/ListRecruitmentSlicer';
 import SelectField from 'components/CustomField/SelectField';
+import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/RecruitmentOfCandidatesSlicer';
+import SwitchLabels from 'components/Checkbox/Checkbox';
 
 
 function CandidateRecruitmentForm(props) {
   const { item, visible, setVisible } = props;
-  console.log('itemitemitemitem',item);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const validationShema = yup.object().shape({
 
@@ -24,27 +25,19 @@ function CandidateRecruitmentForm(props) {
     setinitialValues(item);
   }, [item])
   const dispatch = useDispatch();
+  const SelectedJob = useSelector(state => state.SelectedJobProfile);
+
   const handleOk = async (data) => {
-    debugger;
-    console.log('datadatadata',data);
-    // setModalText('The modal will be closed after two seconds');
-    //setConfirmLoading(true);
-    var recID = 0
-    if (typeof item !== 'undefined') {
-      recID = item.recID
-    }
     const formData = new FormData();
-    formData.append('JobID', 1);
-    formData.append('RoundName', data.roundName);
     formData.append('DateInterview', data.dateInterview);
-    formData.append('ContentInterview', data.contentInterview);
-    formData.append('RecID', recID);
-    console.log('formDataformData',formData)
-    const result = await RecruitmentManagerAPI.AddUpdateRoundInterview(formData);
+    formData.append('Result', data.result);
+    formData.append('Descriptions', data.descriptions);
+    formData.append('RecID', initialValues.recID);
+    const result = await RecruitmentManagerAPI.UpdateResultOfCandidate(formData);
     setVisible(false);
     setConfirmLoading(false);
-    const action = GetListRecruitProcess(1);
-    const execaction = await dispatch(action);
+    const action = GetListCandidateProcess(SelectedJob);
+    const result2 = await dispatch(action);
     MyToaStrSuccess('Thêm mới thành công');
   };
 
@@ -59,7 +52,7 @@ function CandidateRecruitmentForm(props) {
         enableReinitialize>
         {FormikProps => {
           const { values, errors, touched } = FormikProps;
-          console.log('VuiinitialValuesinitialValues',initialValues);
+          console.log('VuiinitialValuesinitialValues', initialValues);
           return (
             <FormFormik>
               <Modal
@@ -81,21 +74,26 @@ function CandidateRecruitmentForm(props) {
                   label="Ngày diễn ra"
                   placeholder=""
                 />
-                <div style={{marginTop:10}}>
-                 <FastField
-                  name="result"
-                  component={SelectField}
-                  label="Kết quả"
-                  ListName="Recruit.ResultInterView" />
-                  </div>
+                <div style={{ marginTop: 10 }}>
+                  <FastField
+                    name="result"
+                    component={SelectField}
+                    label="Kết quả"
+                    ListName="Recruit.ResultInterView" />
+                </div>
                 <FastField
-                  name="contentInterview"
+                  name="descriptions"
                   component={InputField}
                   type="textarea"
                   label="Mô tả thêm"
                   placeholder="Mời bạn nhập"
                 />
-               
+                <FastField
+                  name="isAcceptWork"
+                  component={SwitchLabels}
+                  label="Ứng viên trúng tuyển"
+                />
+
               </Modal>
             </FormFormik>
           )

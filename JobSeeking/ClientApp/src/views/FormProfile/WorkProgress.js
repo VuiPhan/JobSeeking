@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-//import './index.css';
-import { Drawer,Form,  Button, Col, Row, Input, Select, DatePicker } from 'antd';
+import { Button, Select } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import MyCKEditor from "components/CKEditor/CKEditor";
-import { Formik,Form as FormMikContainer, FastField } from "formik";
-import * as yup from 'yup';
-import DatePickers from '../../components/DatetimePicker/DatetimePicker';
-import InputField from "components/CustomField/InputField";
-import SelectField from 'components/CustomField/SelectField';
 import WorkProcessAPI from 'api/JobSeeker/WorkProcessAPI';
 import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import WorkProcessItem from './Child/WorkProcessItem';
 import { GetWorkProcess } from './Child/WorkProcessSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import WorkProcessForm from './Form/WorkProcessForm';
-
 const { Option } = Select;
 
 export default function DrawerWorkProcess(props) {
@@ -30,10 +21,6 @@ export default function DrawerWorkProcess(props) {
     SetIsvisible(false);
   };
 
-  const validationShema = yup.object().shape({
-
-
-  })
   const dispatch = useDispatch();
   const HandleSubmitData = async (data) => {
       const formData = new FormData();
@@ -48,15 +35,6 @@ export default function DrawerWorkProcess(props) {
       const execaction = await dispatch(action);
       MyToaStrSuccess('Thêm mới thành công');
   }
-
-  const [initialValues, setinitialValues] = React.useState({
-    jobTitle: '',
-    staffType: '',
-    companyName: '',
-    fromTime: '2020-01-01',
-    toTime: '2020-01-01',
-    description:''
-  });
   const [isShowForm,setisShowForm] = useState(false);
     const ShowForm = ()=>{
         setisShowForm(true);
