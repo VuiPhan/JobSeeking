@@ -1,10 +1,16 @@
-.Recruitment{
+.Recruitment_Container{
     //width: 30% !important;
-    display: grid;
-    grid-template-areas: 
-    "A A A B B B B B B B B B"
-    ;
+    display: flex;
+    // grid-template-areas: 
+    // "A A A B B B B B B B B B"
+    // ;
+    width: 100%;
+    .Recruitment{
+      // grid-area: "A";
+      width: 30%;
+    }
     .Recruitment__Page{
-      //  margin-left: 200px;
+      // grid-area: "B";
+      width: 70%;
     }
 }

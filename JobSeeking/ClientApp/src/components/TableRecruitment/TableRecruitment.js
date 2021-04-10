@@ -5,8 +5,8 @@ import { Button, Icon } from '@material-ui/core';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import CandidateRecruitmentForm from './CandidateRecruitmentForm';
 
-
-
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import './TableRecruitment.scss';
 function TableRecruitment(props) {
   const { NameOfRound, dataSource } = props;
   // Filter data source with name null
@@ -29,9 +29,26 @@ setdataRenderTable(newArray);
     setVisible(true);
   };
   const AddComments = (RecID) => {
-    let dataSelected =  dataSource.find(ele =>ele.recID ==RecID);
+    let dataSelected =  dataSource.find(ele =>ele.recID === RecID);
     setitemSelected(dataSelected);
     setVisible(true);
+  }
+  const generateResult = (data)=>{
+    let text = "";
+    switch(data){
+      case 1:
+        text = "Đạt";
+        break;
+      case 2:
+        text = "Không đạt";
+        break
+        case 3:
+          text = "Hủy kết quả";
+          break
+      default:
+        text = "Chưa phỏng vấn";
+    }
+    return text;
   }
   const columns = [
     {
@@ -53,7 +70,7 @@ setdataRenderTable(newArray);
       render: tags => (
         <span>
           <Tag color={tags == "1" ? "green" : "volcano"} key={tags}>
-          {tags == "1" ? "Đạt" : "Không đạt"}
+          {generateResult(tags)}
               </Tag>
         </span>
       ),
@@ -70,8 +87,14 @@ setdataRenderTable(newArray);
 
   return (
     <div>
+      <div className="header__TableRecruitment">
+        <div className="title_Recruit">
       <h4>{dataSource[0].roundName}</h4>
-
+      </div>
+      <div className="button_Recruit">
+      <Button startIcon={<MailOutlineIcon />} color="secondary">Thông báo kết quả</Button>
+      </div>
+      </div>
       <Table
         columns={columns}
         dataSource={dataRenderTable}

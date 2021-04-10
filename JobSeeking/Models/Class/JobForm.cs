@@ -19,7 +19,8 @@ namespace JobSeeking.Models.Class
         public string JobAddress { get; set; }
         public string ImageLogo { get; set; }
         public int NumCandidate { get; set; }
-        
+        public int? CandidateOfRecruit { get; set; }
+
     }
     public class ListCandidateApply
     {

@@ -19,7 +19,7 @@ function CandidateRecruitmentForm(props) {
   const validationShema = yup.object().shape({
 
   });
-  const [initialValues, setinitialValues] = React.useState({});
+  const [initialValues, setinitialValues] = React.useState(item);
   useEffect(() => {
     setinitialValues(item);
   }, [item])
@@ -36,6 +36,7 @@ function CandidateRecruitmentForm(props) {
     setConfirmLoading(false);
     const action = GetListCandidateProcess(SelectedJob);
     const result2 = await dispatch(action);
+    setinitialValues({});
     MyToaStrSuccess('Thêm mới thành công');
   };
 
@@ -50,7 +51,7 @@ function CandidateRecruitmentForm(props) {
         enableReinitialize>
         {FormikProps => {
           const { values, errors, touched } = FormikProps;
-          console.log('VuiinitialValuesinitialValues', initialValues);
+          console.log('VuiinitialValuesinitialValues', item);
           return (
             <FormFormik>
               <Modal

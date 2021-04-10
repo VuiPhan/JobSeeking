@@ -32,8 +32,15 @@ namespace JobSeeking.Controllers.RecruitmentManagement
         [HttpGet("GetCandidateOfRoundRecruit")]
         public async Task<object> GetCandidateOfRoundRecruit(int? JobID)
         {
-        
-                var dataJob = await _context.CandidateOfRoundInterviews.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCandidateOfRoundInterview {0}", JobID).ToListAsync();
+            List<CandidateOfRoundInterview> dataJob = new List<CandidateOfRoundInterview>();
+            try
+            {
+                dataJob = await _context.CandidateOfRoundInterviews.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCandidateOfRoundInterview {0}", JobID).ToListAsync();
+            }
+            catch(Exception e){
+
+            }
+                 
 
             var x = dataJob
                 .GroupBy(u => u.RoundName)

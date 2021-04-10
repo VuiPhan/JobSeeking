@@ -7,14 +7,13 @@ function RecruitmentManagement() {
   const LoginInfo = useSelector(state => state.loginInfo);
 
   return (
-    <div className="container exclude">
-      <div className="Recruitment "
-      >
+    <div className="Recruitment_Container">
+      <div className="Recruitment">
         <ListViewKendo_Manage dataID={LoginInfo.companyID}></ListViewKendo_Manage>
+        </div>
         <div className="Recruitment__Page">
         <RecruitmentManagementPage entPage></RecruitmentManagementPage>
         </div>
-      </div>
     </div>
   )
 }
