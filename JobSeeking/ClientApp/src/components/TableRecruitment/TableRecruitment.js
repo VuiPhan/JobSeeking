@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Table, Tag, Radio, Space } from 'antd';
 import { Button, Icon } from '@material-ui/core';
@@ -9,6 +9,18 @@ import CandidateRecruitmentForm from './CandidateRecruitmentForm';
 
 function TableRecruitment(props) {
   const { NameOfRound, dataSource } = props;
+  // Filter data source with name null
+  // var dataRenderTable =  dataSource.find(ele =>ele.recID !== null);
+  const [dataRenderTable, setdataRenderTable] = React.useState([]);
+  
+  useEffect(() => {
+var newArray = dataSource.filter(function (el) {
+  return el.recID!== null
+});
+setdataRenderTable(newArray);
+
+}, [dataSource])
+
 
   const [visible, setVisible] = React.useState(false);
   const [itemSelected, setitemSelected] = React.useState({});
@@ -59,9 +71,10 @@ function TableRecruitment(props) {
   return (
     <div>
       <h4>{dataSource[0].roundName}</h4>
+
       <Table
         columns={columns}
-        dataSource={dataSource}
+        dataSource={dataRenderTable}
       />
       <CandidateRecruitmentForm item={itemSelected} visible={visible} setVisible={setVisible}></CandidateRecruitmentForm>
     </div>

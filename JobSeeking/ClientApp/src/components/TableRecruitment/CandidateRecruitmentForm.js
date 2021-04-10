@@ -13,7 +13,6 @@ import SelectField from 'components/CustomField/SelectField';
 import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/RecruitmentOfCandidatesSlicer';
 import SwitchLabels from 'components/Checkbox/Checkbox';
 
-
 function CandidateRecruitmentForm(props) {
   const { item, visible, setVisible } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
@@ -26,7 +25,6 @@ function CandidateRecruitmentForm(props) {
   }, [item])
   const dispatch = useDispatch();
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
-
   const handleOk = async (data) => {
     const formData = new FormData();
     formData.append('DateInterview', data.dateInterview);

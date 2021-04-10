@@ -61,7 +61,7 @@ const MyItemRender = props => {
                         {item.jobsTitle}
                     </CardTitle>
                 </div>
-                <CardActions style={{ padding: 0, margin: 5 }}>
+                <CardActions style={{ padding: 0, margin: 1 }}>
                     <Button onClick={() => ChangeColorSelected(item.jobID)}
                         variant="outlined" color="secondary"
                         startIcon={<VisibilityIcon />}

@@ -1,6 +1,9 @@
 .Recruitment{
     //width: 30% !important;
-    display: flex;
+    display: grid;
+    grid-template-areas: 
+    "A A A B B B B B B B B B"
+    ;
     .Recruitment__Page{
       //  margin-left: 200px;
     }

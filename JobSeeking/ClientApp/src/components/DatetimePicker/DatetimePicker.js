@@ -2,7 +2,7 @@ import React,{PropTypes} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Label } from 'reactstrap';
-
+import GetDateCurrentFormat from 'common/CommonFunction';
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DatePickers(props) {
 
   const classes = useStyles();
-  const getDataDate = new Date();
+  const getDataDate = GetDateCurrentFormat();
 
   const { field, form, type, label, placeholder, disabled } = props;
   const { name } = field;
