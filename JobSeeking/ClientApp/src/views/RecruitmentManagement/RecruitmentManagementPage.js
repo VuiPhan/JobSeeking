@@ -15,12 +15,15 @@ import RecruitmentOfCandidatesPage from "views/RecruitmentOfCandidates/Recruitme
 import ListViewCandidate from "components/ListViewCandidate/ListViewCandidate";
 import { useSelector } from "react-redux";
 import MyToastr from "components/Toastr/Toastr";
+import handleGetJson from "common/ReadJson";
 
 const useStyles = makeStyles(null);
 
 export default function RecruitmentManagementPage(props) {
   const classes = useStyles();
   const SelectedJob = useSelector(state => state.SelectedJob);
+  const res = handleGetJson('Notification','LanguageInApp');
+  console.log('resres',res);
   return (
     <div>
             <GridContainer justify="center">

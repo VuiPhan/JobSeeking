@@ -87,5 +87,24 @@ namespace JobSeeking.Controllers.RecruitmentManagement
             response = Ok(new { Error = "Có lỗi" });
             return response;
         }
+        [HttpPost("SendNotificationToApplicant")]
+        [Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> SendNotificationToApplicant(int? JobID, int? RoundInterview)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Email_SendNotificationToApplicant_Cursor" +
+                " @JobID={0},@RoundInterview={1}",
+                JobID, RoundInterview
+                );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
     }
 }

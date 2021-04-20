@@ -15,8 +15,8 @@ import SwitchLabels from 'components/Checkbox/Checkbox';
 function PersonalInformation(props) {
     // Chi cho load lan dau
     const {disableForm,data,SubmitDataFinal} = props;
-    const res = handleGetJson("PersonPage");
-    const resValidation = handleGetJson("Validation");
+    const res = handleGetJson("PersonPage","PersonalPage");
+    const resValidation = handleGetJson("Validation", "PersonalPage");
     const LoginInfo = useSelector(state => state.loginInfo);
     const isAddMode = LoginInfo.CadidateCode ? false : true;
     const isView = LoginInfo.companyID ? false : true;

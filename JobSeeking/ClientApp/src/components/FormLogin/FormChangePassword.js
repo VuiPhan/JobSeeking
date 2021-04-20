@@ -22,7 +22,7 @@ const useStyles = makeStyles(styles);
 export default function FormChangePassword() {
   const [open, setOpen] = React.useState(true);
   const res = LGCompanyPage.CompanyPage;
-  const resValidation = handleGetJson("Validation");
+  const resValidation = handleGetJson("Validation","PersonalPage");
   const handleClickOpen = () => {
     setOpen(true);
   };

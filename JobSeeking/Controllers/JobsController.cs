@@ -3,6 +3,7 @@ using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,8 +40,17 @@ namespace JobSeeking.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForApply {0}", claims[5].Value).ToListAsync();
-            return dataJob;
+            List<JobForm> lstApplyOfCandidate = new List<JobForm>();
+            try
+            {
+                lstApplyOfCandidate = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForApply {0}", claims[5].Value).ToListAsync();
+
+            }
+            catch (Exception e)
+            {
+                //return e.Message;
+            }
+            return lstApplyOfCandidate;
         }
         [HttpGet("GetJobByID")]
         public async Task<object> GetJobByID(int jobid)

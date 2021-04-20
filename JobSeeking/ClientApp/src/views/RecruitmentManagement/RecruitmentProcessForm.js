@@ -36,7 +36,6 @@ function RecruitmentProcessForm(props) {
   const dispatch = useDispatch();
   const handleOk = async (data) => {
     debugger;
-    console.log('datadatadata',data);
     // setModalText('The modal will be closed after two seconds');
     //setConfirmLoading(true);
     var recID = 0
@@ -49,7 +48,6 @@ function RecruitmentProcessForm(props) {
     formData.append('DateInterview', data.dateInterview);
     formData.append('ContentInterview', data.contentInterview);
     formData.append('RecID', recID);
-    console.log('formDataformData',formData)
     const result = await RecruitmentManagerAPI.AddUpdateRoundInterview(formData);
     setVisible(false);
     setConfirmLoading(false);
@@ -62,7 +60,6 @@ function RecruitmentProcessForm(props) {
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
     setVisible(false);
   };
   return (

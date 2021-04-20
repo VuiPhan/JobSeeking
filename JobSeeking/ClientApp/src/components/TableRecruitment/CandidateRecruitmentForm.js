@@ -51,7 +51,6 @@ function CandidateRecruitmentForm(props) {
         enableReinitialize>
         {FormikProps => {
           const { values, errors, touched } = FormikProps;
-          console.log('VuiinitialValuesinitialValues', item);
           return (
             <FormFormik>
               <Modal
