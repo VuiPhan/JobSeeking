@@ -35,7 +35,6 @@ function RecruitmentProcessForm(props) {
   const [initialValues, setinitialValues] = React.useState(itemOrdinal);
   const dispatch = useDispatch();
   const handleOk = async (data) => {
-    debugger;
     // setModalText('The modal will be closed after two seconds');
     //setConfirmLoading(true);
     var recID = 0

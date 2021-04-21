@@ -4,7 +4,24 @@
         {
           "TBKetQua":"Thông báo kết quả",
           "DaGuiThongBao":"Đã gửi thông báo cho ứng viên thành công",
-          "KhongTonTaiUV":"Không tồn tại ứng viên để thông báo"
+          "KhongTonTaiUV":"Không tồn tại ứng viên để thông báo",
+          "HoVaTen":"Họ và tên",
+          "NgayPV":"Ngày phỏng vấn",
+          "KetQua":"Kết quả",
+          "NhanXet":"Nhận xét",
+          "Dat":"Đạt",
+          "KhongDat":"Không đạt",
+          "HuyKQ":"Hủy kết quả",
+          "ChuaPV":"Chưa phỏng vấn"
+      },
+      "RecruitmentForm":
+        {
+          "KQPhongVan":"KẾT QUẢ PHỎNG VẤN",
+          "TenUV":"Tên ứng viên",
+          "KetQua":"Kết quả",
+          "NgayDienRa":"Ngày diễn ra",
+          "MoTaThem":"Mô tả thêm",
+          "UngVienTrungTuyen":"Ứng viên trúng tuyển"
       }
   }
   

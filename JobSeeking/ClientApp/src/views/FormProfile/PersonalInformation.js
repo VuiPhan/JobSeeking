@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from '@material-ui/core'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Col, Row, Form } from 'react-bootstrap';
@@ -14,14 +14,26 @@ import SaveIcon from '@material-ui/icons/Save';
 import SwitchLabels from 'components/Checkbox/Checkbox';
 function PersonalInformation(props) {
     // Chi cho load lan dau
-    const {disableForm,data,SubmitDataFinal} = props;
-    const res = handleGetJson("PersonPage","PersonalPage");
-    const resValidation = handleGetJson("Validation", "PersonalPage");
+    const { disableForm, data, SubmitDataFinal } = props;
+    const [res, setRes] = React.useState({});
+    const [resValidation,setresValidation] =  React.useState({});
+
+    const LoadResource = async () =>{
+        const resource = await handleGetJson("PersonPage", "PersonalPage");
+        const resourceValidation = await handleGetJson("Validation", "PersonalPage");
+        setRes(resource);
+        setresValidation(resourceValidation);
+    }
+    useEffect(() => {
+        LoadResource();
+    }, [])
+
+    
     const LoginInfo = useSelector(state => state.loginInfo);
     const isAddMode = LoginInfo.CadidateCode ? false : true;
     const isView = LoginInfo.companyID ? false : true;
 
-   
+
     const validationShema = yup.object().shape({
         firstName: yup.string().required(resValidation.TruongBBNhap),
         lastName: yup.string().required(resValidation.TruongBBNhap),
@@ -43,7 +55,7 @@ function PersonalInformation(props) {
     return (
         <div>
             <Formik initialValues={data}
-                 validationSchema={validationShema}
+                validationSchema={validationShema}
                 onSubmit={values => SubmitDataFinal(values)}
                 enableReinitialize>
                 {FormikProps => {
@@ -63,7 +75,7 @@ function PersonalInformation(props) {
                                 </Col>
                                 <Form.Label column sm="3">Tôi muốn nhận việc</Form.Label>
                                 <Col sm="2">
-                                   <FastField
+                                    <FastField
                                         name="isAcceptWork"
                                         component={SwitchLabels}
                                         label=""
@@ -71,7 +83,7 @@ function PersonalInformation(props) {
                                 </Col>
                             </Form.Group>
 
-                            {disableForm || LoginInfo.CadidateCode ?null: <Form.Group as={Row} >
+                            {disableForm || LoginInfo.CadidateCode ? null : <Form.Group as={Row} >
                                 <Form.Label column sm="2">
                                     {res.MatKhau}
                                 </Form.Label>
@@ -85,9 +97,9 @@ function PersonalInformation(props) {
                                     />
                                 </Col>
                             </Form.Group>}
-                           
 
-                            {disableForm || LoginInfo.CadidateCode?null: <Form.Group as={Row} >
+
+                            {disableForm || LoginInfo.CadidateCode ? null : <Form.Group as={Row} >
                                 <Form.Label column sm="2">
                                     {res.NhapLaiMatKhau}
                                 </Form.Label>
@@ -184,7 +196,7 @@ function PersonalInformation(props) {
                                         ListName="GioiTinh" />
                                 </Col>
                             </Form.Group>
-                            {isView ? <Button startIcon={<SaveIcon/>} type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button>:null}
+                            {isView ? <Button startIcon={<SaveIcon />} type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button> : null}
                             {/* <Button type="submit" variant="outlined" color="secondary">Tạo</Button> */}
                         </FormFormik>
                     )

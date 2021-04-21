@@ -22,12 +22,11 @@ function RecruitmentProcess(props) {
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
   const ListRecruitProcess = useSelector(state => state.ListRecruitProcess);
   const dispatch = useDispatch();
-
+  async function fetchDataView() {
+    const action = GetListRecruitProcess(SelectedJob);
+    const execaction = await dispatch(action);
+  }
   useEffect(() => {
-    async function fetchDataView() {
-      const action = GetListRecruitProcess(SelectedJob);
-      const execaction = await dispatch(action);
-    }
     fetchDataView();
   }, [SelectedJob])
   return (

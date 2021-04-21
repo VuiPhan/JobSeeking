@@ -12,13 +12,14 @@ import handleGetJson from 'common/ReadJson.js';
 function TableRecruitment(props) {
   const { NameOfRound, dataSource } = props;
   const [dataRenderTable, setdataRenderTable] = React.useState([]);
-  // const [res, setRes] = React.useState();
-  const res = await handleGetJson("RecruitmentPage","RecruitmentPage");
-  // useEffect(async() => {
-  //   const resource = await handleGetJson("RecruitmentPage","RecruitmentPage");
-  //   console.log('resource',resource);
-  //   setRes(resource);
-  // }, [])
+   const [res, setRes] = React.useState({});
+   const LoadResource = async () =>{
+    const resource = await handleGetJson("RecruitmentPage","RecruitmentPage");
+    setRes(resource); 
+   }
+  useEffect(() => {
+    LoadResource();
+  }, [dataSource])
   useEffect(() => {
     var newArray = dataSource.filter(function (el) {
       return el.recID !== null
@@ -42,34 +43,34 @@ function TableRecruitment(props) {
     let text = "";
     switch (data) {
       case 1:
-        text = "Đạt";
+        text = res.Dat;
         break;
       case 2:
-        text = "Không đạt";
+        text = res.KhongDat;
         break
       case 3:
-        text = "Hủy kết quả";
+        text = res.HuyKQ;
         break
       default:
-        text = "Chưa phỏng vấn";
+        text = res.ChuaPV;
     }
     return text;
   }
   const columns = [
     {
-      title: 'Họ và tên',
+      title: res.HoVaTen,
       dataIndex: 'fullName',
       key: 'fullName',
       render: text => <a>{text}</a>,
     }
     ,
     {
-      title: 'Ngày phỏng vấn',
+      title: res.NgayPV,
       dataIndex: 'dateInterview',
       key: 'dateInterview',
     },
     {
-      title: 'Kết quả',
+      title: res.KetQua,
       key: 'result',
       dataIndex: 'result',
       render: tags => (
@@ -81,7 +82,7 @@ function TableRecruitment(props) {
       ),
     },
     {
-      title: 'Nhận xét',
+      title: res.NhanXet,
       key: 'recID',
       dataIndex: 'recID',
       render: (recID) => (
@@ -93,11 +94,10 @@ function TableRecruitment(props) {
 
     const result = await RecruitmentManagerAPI.SendNotificationToApplicant(JobID, RoundInterview);
     if (result.error === "") {
-      MyToaStrSuccess('Đã gửi thông báo cho ứng viên thành công');
+      MyToaStrSuccess(res.DaGuiThongBao);
     }
     else {
-      MyToaStrSuccess('Không tồn tại ứng viên để thông báo');
-
+      MyToaStrSuccess(res.KhongTonTaiUV);
     }
   }
   return (
@@ -114,7 +114,7 @@ function TableRecruitment(props) {
         columns={columns}
         dataSource={dataRenderTable}
       />
-      <CandidateRecruitmentForm item={itemSelected} visible={visible} setVisible={setVisible}></CandidateRecruitmentForm>
+      {/* <CandidateRecruitmentForm item={itemSelected} visible={visible} setVisible={setVisible}></CandidateRecruitmentForm> */}
     </div>
   )
 }

@@ -29,7 +29,8 @@ namespace JobSeeking.Common
         public string Descriptions { get; set; }
         public int? Result { get; set; }
         public int? RecID { get; set; }
-        
+        public bool IsElect { get; set; }
+
     }
     public class Candidate
     {

@@ -16,14 +16,13 @@ import ListViewCandidate from "components/ListViewCandidate/ListViewCandidate";
 import { useSelector } from "react-redux";
 import MyToastr from "components/Toastr/Toastr";
 import handleGetJson from "common/ReadJson";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(null);
 
 export default function RecruitmentManagementPage(props) {
   const classes = useStyles();
   const SelectedJob = useSelector(state => state.SelectedJob);
-  const res = handleGetJson('Notification','LanguageInApp');
-  console.log('resres',res);
   return (
     <div>
             <GridContainer justify="center">
@@ -36,14 +35,14 @@ export default function RecruitmentManagementPage(props) {
                       tabButton: "Quy trình tuyển dụng",
                       tabIcon: Camera,
                       tabContent: (
-                       <RecruitmentProcess JobID = {SelectedJob}></RecruitmentProcess>
+                        <RecruitmentProcess JobID = {SelectedJob}></RecruitmentProcess>
                       )
                     },
                     {
                       tabButton: "Quá trình tuyển dụng",
                       tabIcon: WorkIcon,
                       tabContent: (
-                       <RecruitmentOfCandidatesPage JobID = {SelectedJob}></RecruitmentOfCandidatesPage>
+                        <RecruitmentOfCandidatesPage JobID = {SelectedJob}></RecruitmentOfCandidatesPage>
                       )
                     },
                     {

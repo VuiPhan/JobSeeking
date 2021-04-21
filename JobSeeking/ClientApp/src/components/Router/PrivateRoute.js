@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const LoginInfo = useSelector(state => state.loginInfo)
+    const LoginInfo = useSelector(state => state.loginInfo);
     var IsAccess = true;
     if(LoginInfo.role === ""){
         IsAccess = false;

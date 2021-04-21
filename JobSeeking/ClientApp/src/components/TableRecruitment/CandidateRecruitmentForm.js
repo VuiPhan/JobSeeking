@@ -12,16 +12,27 @@ import { GetListRecruitProcess } from 'views/RecruitmentManagement/ListRecruitme
 import SelectField from 'components/CustomField/SelectField';
 import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/RecruitmentOfCandidatesSlicer';
 import SwitchLabels from 'components/Checkbox/Checkbox';
+import handleGetJson from 'common/ReadJson';
 
 function CandidateRecruitmentForm(props) {
   const { item, visible, setVisible } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
-  const validationShema = yup.object().shape({
+  const validationShema = yup.object().shape({});
+  const [res, setRes] = React.useState({});
+  const LoadResource = async () => {
+    const resource = await handleGetJson("RecruitmentForm", "RecruitmentPage");
+    const resourceCommon = await handleGetJson("Notification", "LanguageInApp");
+    const resourceFinal = { ...resource, ...resourceCommon };
+    setRes(resourceFinal);
+  }
+  useEffect(() => {
+    LoadResource();
+  }, [])
 
-  });
   const [initialValues, setinitialValues] = React.useState(item);
   useEffect(() => {
     setinitialValues(item);
+    console.log('itemitem',item);
   }, [item])
   const dispatch = useDispatch();
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
@@ -31,15 +42,15 @@ function CandidateRecruitmentForm(props) {
     formData.append('Result', data.result);
     formData.append('Descriptions', data.descriptions);
     formData.append('RecID', initialValues.recID);
+    formData.append('IsElect', initialValues.isElect);
     const result = await RecruitmentManagerAPI.UpdateResultOfCandidate(formData);
     setVisible(false);
     setConfirmLoading(false);
     const action = GetListCandidateProcess(SelectedJob);
     const result2 = await dispatch(action);
     setinitialValues({});
-    MyToaStrSuccess('Thêm mới thành công');
+    MyToaStrSuccess(res.ThemMoiThanhCong);
   };
-
   const handleCancel = () => {
     setVisible(false);
   };
@@ -51,10 +62,11 @@ function CandidateRecruitmentForm(props) {
         enableReinitialize>
         {FormikProps => {
           const { values, errors, touched } = FormikProps;
+          console.log('initialValuesinitialValues',initialValues);
           return (
             <FormFormik>
               <Modal
-                title="KẾT QUẢ PHỎNG VẤN"
+                title={res.KQPhongVan}
                 visible={visible}
                 onOk={() => handleOk(values)}
                 confirmLoading={confirmLoading}
@@ -63,35 +75,34 @@ function CandidateRecruitmentForm(props) {
                 <FastField
                   name="fullName"
                   component={InputField}
-                  label="Tên ứng viên"
-                  placeholder="Mời bạn nhập"
+                  label={res.TenUV}
+                  placeholder={res.MoiBanNhapTT}
                 />
                 <FastField
                   name="dateInterview"
                   component={DatePickers}
-                  label="Ngày diễn ra"
+                  label={res.NgayDienRa}
                   placeholder=""
                 />
                 <div style={{ marginTop: 10 }}>
                   <FastField
                     name="result"
                     component={SelectField}
-                    label="Kết quả"
+                    label={res.KetQua}
                     ListName="Recruit.ResultInterView" />
                 </div>
                 <FastField
                   name="descriptions"
                   component={InputField}
                   type="textarea"
-                  label="Mô tả thêm"
-                  placeholder="Mời bạn nhập"
+                  label={res.MoTaThem}
+                  placeholder={res.MoiBanNhapTT}
                 />
                 <FastField
-                  name="isAcceptWork"
+                  name="isElect"
                   component={SwitchLabels}
-                  label="Ứng viên trúng tuyển"
+                  label={res.UngVienTrungTuyen}
                 />
-
               </Modal>
             </FormFormik>
           )
@@ -100,5 +111,4 @@ function CandidateRecruitmentForm(props) {
     </div>
   )
 }
-
 export default CandidateRecruitmentForm
