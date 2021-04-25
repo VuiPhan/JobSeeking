@@ -5,8 +5,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
 export default function SwitchLabels(props) {
-    const { field, label } = props;
-    const {value} = field;
+  const { field, label } = props;
+  const { value } = field;
   return (
     <FormGroup row>
       <FormControlLabel

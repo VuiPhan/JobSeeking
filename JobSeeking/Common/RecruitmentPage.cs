@@ -29,7 +29,7 @@ namespace JobSeeking.Common
         public string Descriptions { get; set; }
         public int? Result { get; set; }
         public int? RecID { get; set; }
-        public bool IsElect { get; set; }
+        public bool? IsElect { get; set; }
 
     }
     public class Candidate
@@ -37,4 +37,13 @@ namespace JobSeeking.Common
         public int? CandidateCode { get; set; }
         public string FullName { get; set; }
     }
+    public class CandidatePotential
+    {
+        public int? RecID { get; set; }
+        public int CandidateCode { get; set; }
+        public string FullName { get; set; }
+        public string TitleJob { get; set; }
+        public string PathAvatar { get; set; }
+    }
+    
 }

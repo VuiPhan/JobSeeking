@@ -7,8 +7,9 @@ import CandidateRecruitmentForm from './CandidateRecruitmentForm';
 import RecruitmentManagerAPI from 'api/Recruitment/RecruitmentManager';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import './TableRecruitment.scss';
-import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
+import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import handleGetJson from 'common/ReadJson.js';
+import { confirmAlert } from 'react-confirm-alert';
 function TableRecruitment(props) {
   const { NameOfRound, dataSource } = props;
   const [dataRenderTable, setdataRenderTable] = React.useState([]);
@@ -29,7 +30,7 @@ function TableRecruitment(props) {
 
 
   const [visible, setVisible] = React.useState(false);
-  const [itemSelected, setitemSelected] = React.useState({});
+  const [itemSelected, setitemSelected] = React.useState({fullName:'',dateInterview:'',result:null,descriptions:'',isElect:false});
 
   const showModal = () => {
     setVisible(true);
@@ -91,14 +92,30 @@ function TableRecruitment(props) {
     },
   ];
   const NotificationToCandidates = async (JobID, RoundInterview) => {
-
-    const result = await RecruitmentManagerAPI.SendNotificationToApplicant(JobID, RoundInterview);
-    if (result.error === "") {
-      MyToaStrSuccess(res.DaGuiThongBao);
-    }
-    else {
-      MyToaStrSuccess(res.KhongTonTaiUV);
-    }
+    confirmAlert({
+      title: 'Thông báo cho ứng viên',
+      message: 'Hệ thống sẽ gửi email thông báo kết quả đến các ứng viên đã phỏng vấn theo Email đã được soạn sẵn.',
+      buttons: [
+        {
+          label: 'Đóng',
+          onClick: () => { }
+        },
+        {
+          label: 'Thông báo cho ứng viên',
+          onClick: async () => {
+            const result = await RecruitmentManagerAPI.SendNotificationToApplicant(JobID, RoundInterview);
+            if (result.error === "") {
+              MyToaStrSuccess(res.DaGuiThongBao);
+            }
+            else {
+              MyToaStrError(res.KhongTonTaiUV);
+            }
+            return;
+          }
+        }
+      ]
+    });
+    
   }
   return (
     <div>
@@ -114,7 +131,7 @@ function TableRecruitment(props) {
         columns={columns}
         dataSource={dataRenderTable}
       />
-      {/* <CandidateRecruitmentForm item={itemSelected} visible={visible} setVisible={setVisible}></CandidateRecruitmentForm> */}
+      <CandidateRecruitmentForm item={itemSelected} visible={visible} setVisible={setVisible}></CandidateRecruitmentForm>
     </div>
   )
 }

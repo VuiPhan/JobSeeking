@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import MyToastr from "components/Toastr/Toastr";
 import handleGetJson from "common/ReadJson";
 import { Button } from "@material-ui/core";
+import ListViewPotential from "components/ListViewPotential/ListViewPotential";
 
 const useStyles = makeStyles(null);
 
@@ -49,9 +50,7 @@ export default function RecruitmentManagementPage(props) {
                       tabButton: "Ứng viên tiềm năng",
                       tabIcon: SchoolIcon,
                       tabContent: (
-
-                        <ListViewCandidate></ListViewCandidate>
-
+                        <ListViewPotential></ListViewPotential>
                       )
                     }
                   ]}

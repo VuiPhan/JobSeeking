@@ -62,10 +62,10 @@ const MyItemRender = props => {
                     </CardTitle>
                 </div>
                 <CardActions style={{ padding: 0, margin: 1 }}>
-                    <Button onClick={() => ChangeColorSelected(item.jobID)}
+                    <Button onClick={() => HandleRedirectPage(item.jobID)}
                         variant="outlined" color="secondary"
                         startIcon={<VisibilityIcon />}
-                    >Xem chi tiết</Button>
+                    >Xem công việc</Button>
                 </CardActions>
             </div>
             <div>

@@ -12,6 +12,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import TemplateEmailForm from 'components/TemplateEmail/TemplateEmailForm';
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -79,7 +80,10 @@ export default function CustomizedMenus() {
       window.scrollTo(0, 450);
   }
   const LoginInfo = useSelector(state => state.loginInfo);
-
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => {
+    setVisible(true);
+  };
   return (
     <div style={{display: 'contents'}}>
       {isShowFormChangePass?<FormChangePassword/>:null}
@@ -108,6 +112,13 @@ export default function CustomizedMenus() {
           </ListItemIcon>
           <ListItemText primary="Tuyển dụng" />
         </StyledMenuItem>:null}
+        { LoginInfo.role === "Recruiter" ?
+        <StyledMenuItem onClick={()=>showModal()}>
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Thiết lập Email" />
+        </StyledMenuItem>:null}
         {/* { LoginInfo.role === "Recruiter" ?
         <StyledMenuItem onClick={()=>RedirectPageEditCompany()}>
           <ListItemIcon>
@@ -123,6 +134,7 @@ export default function CustomizedMenus() {
           <ListItemText primary="Đổi mật khẩu" />
         </StyledMenuItem>
       </StyledMenu>
+      <TemplateEmailForm visible={visible} setVisible={setVisible}></TemplateEmailForm>
     </div>
   );
 }

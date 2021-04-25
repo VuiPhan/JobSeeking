@@ -40,6 +40,8 @@ namespace JobSeeking.Models.DB
 
         public DbSet<ListCompanyTop> ListCompanyTops { get; set; }
         public DbSet<PublishedRecuitForm> PublishedRecuitForms { get; set; }
+        public DbSet<CandidatePotential> CandidatePotentials { get; set; }
+        
 
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
@@ -95,6 +97,7 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<ListEducation>().HasNoKey();
             modelBuilder.Entity<RoundInterview>().HasNoKey();
             modelBuilder.Entity<CandidateOfRoundInterview>().HasNoKey();
+            modelBuilder.Entity<CandidatePotential>().HasNoKey();
 
 
 

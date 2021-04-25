@@ -21,5 +21,10 @@ const RecruitmentManagerAPI = {
         const url = `/RecruitmentManagement/SendNotificationToApplicant?JobID=${JobID}&RoundInterview=${RoundInterview}`;
         return axiosClient.post(url);
     },
+    GetCandidatePotential: () => {
+        const url = `/RecruitmentManagement/GetCandidatePotential`;
+        return axiosClient.get(url);
+    },
+    
 }
 export default RecruitmentManagerAPI;

@@ -22,6 +22,13 @@
           "NgayDienRa":"Ngày diễn ra",
           "MoTaThem":"Mô tả thêm",
           "UngVienTrungTuyen":"Ứng viên trúng tuyển"
+      },
+      "TemplateEmail":{
+        "ChuDe":"Chủ đề: ",
+        "LoaiEmail":"Loại Email",
+        "NoiDungEmail":"Nội dung Email",
+        "ThietLapTemplateEmail":"Thiết lập template Email"
+
       }
   }
   

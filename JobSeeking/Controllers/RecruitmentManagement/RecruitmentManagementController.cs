@@ -49,6 +49,22 @@ namespace JobSeeking.Controllers.RecruitmentManagement
 
             return x;
         }
+        [HttpGet("GetCandidatePotential")]
+        public async Task<object> GetCandidatePotential()
+        {
+            List<CandidatePotential> dataJob = new List<CandidatePotential>();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            try
+            {
+                dataJob = await _context.CandidatePotentials.FromSqlRaw("EXEC dbo.UTE_spGetCandidatePotential {0}", claims[4].Value).ToListAsync();
+            }
+            catch (Exception e)
+            {
+
+            }
+            return dataJob;
+        }
         [HttpPost("AddUpdateRoundInterview")]
         [Authorize(Policy = Policies.Recruiter)]
         public async Task<object> AddUpdateRoundInterview([FromForm] RoundInterview form)
@@ -75,8 +91,8 @@ namespace JobSeeking.Controllers.RecruitmentManagement
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spUpdateResultOfCandidate" +
-                " @RecID={0},@DateInterview={1},@Result={2},@Descriptions={3}",
-                form.RecID, form.DateInterview, form.Result, form.Descriptions
+                " @RecID={0},@DateInterview={1},@Result={2},@Descriptions={3},@IsElect={4}",
+                form.RecID, form.DateInterview, form.Result, form.Descriptions,form.IsElect
                 );
             IActionResult response = Unauthorized();
             if (result > 0)

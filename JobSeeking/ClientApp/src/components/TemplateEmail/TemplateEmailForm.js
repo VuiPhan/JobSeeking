@@ -15,14 +15,14 @@ import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/Recruitme
 import SwitchLabels from "components/Checkbox/Checkbox";
 import handleGetJson from 'common/ReadJson';
 
-function CandidateRecruitmentForm(props) {
+function TemplateEmailForm(props) {
   const { item, visible, setVisible } = props;
   //const item ={isElect:true};
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const validationShema = yup.object().shape({});
   const [res, setRes] = React.useState({});
   const LoadResource = async () => {
-    const resource = await handleGetJson("RecruitmentForm", "RecruitmentPage");
+    const resource = await handleGetJson("TemplateEmail", "RecruitmentPage");
     const resourceCommon = await handleGetJson("Notification", "LanguageInApp");
     const resourceFinal = { ...resource, ...resourceCommon };
     setRes(resourceFinal);
@@ -62,46 +62,35 @@ function CandidateRecruitmentForm(props) {
         enableReinitialize>
         {FormikProps => {
           const { values, errors, touched } = FormikProps;
-          console.log('initialValuesinitialValues',initialValues);
           return (
             <FormFormik>
               <Modal
-                title={res.KQPhongVan}
+                title={res.ThietLapTemplateEmail}
                 visible={visible}
                 onOk={() => handleOk(values)}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
               >
-                <FastField
-                  name="fullName"
-                  component={InputField}
-                  label={res.TenUV}
-                  placeholder={res.MoiBanNhapTT}
-                />
-                <FastField
-                  name="dateInterview"
-                  component={DatePickers}
-                  label={res.NgayDienRa}
-                  placeholder=""
-                />
-                <div style={{ marginTop: 10 }}>
+                  <div style={{ marginTop: 10 }}>
                   <FastField
                     name="result"
                     component={SelectField}
-                    label={res.KetQua}
-                    ListName="Recruit.ResultInterView" />
+                    label={res.LoaiEmail}
+                    ListName="TemplateEmailID" />
                 </div>
+                <FastField
+                  name="fullName"
+                  component={InputField}
+                  label={res.ChuDe}
+                  placeholder={res.MoiBanNhapTT}
+                />
+              
                 <FastField
                   name="descriptions"
                   component={InputField}
                   type="textarea"
-                  label={res.MoTaThem}
+                  label={res.NoiDungEmail}
                   placeholder={res.MoiBanNhapTT}
-                />
-                  <FastField
-                  name="isElect"
-                  component={SwitchLabels}
-                  label={res.UngVienTrungTuyen}
                 />
               </Modal>
             </FormFormik>
@@ -111,4 +100,4 @@ function CandidateRecruitmentForm(props) {
     </div>
   )
 }
-export default CandidateRecruitmentForm
+export default TemplateEmailForm
