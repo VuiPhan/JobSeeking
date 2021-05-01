@@ -90,11 +90,20 @@ namespace JobSeeking.Controllers.RecruitmentManagement
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spUpdateResultOfCandidate" +
-                " @RecID={0},@DateInterview={1},@Result={2},@Descriptions={3},@IsElect={4}",
-                form.RecID, form.DateInterview, form.Result, form.Descriptions,form.IsElect
-                );
+            int result = 0;
             IActionResult response = Unauthorized();
+            try
+            {
+                result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spUpdateResultOfCandidate" +
+               " @RecID={0},@DateInterview={1},@Result={2},@Descriptions={3}",
+               form.RecID, form.DateInterview, form.Result, form.Descriptions
+               );
+            }
+            catch(Exception e)
+            {
+                response = Ok(new { Error = e.Message});
+                return response;
+            }
             if (result > 0)
             {
                 response = Ok(new { Error = "" });

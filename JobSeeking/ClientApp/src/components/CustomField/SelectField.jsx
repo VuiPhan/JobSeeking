@@ -19,7 +19,7 @@ SelectField.defaultProps = {
 }
 
 function SelectField(props) {
-    const { field, form,lable, placeholder, disabled,label,ListName } = props;
+    const { field, form,lable, placeholder, disabled,label,ListName,HandleOnChange } = props;
     const { name,value } = field;
     const {errors,touched} = form;
     const showError = errors[name] && touched[name];
@@ -43,6 +43,9 @@ function SelectField(props) {
             },
         }
         field.onChange(changeEvent);
+        if(HandleOnChange){
+            HandleOnChange(selectedValue);
+        }
     }
 
     return (

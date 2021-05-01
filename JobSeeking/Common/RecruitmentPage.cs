@@ -29,7 +29,6 @@ namespace JobSeeking.Common
         public string Descriptions { get; set; }
         public int? Result { get; set; }
         public int? RecID { get; set; }
-        public bool? IsElect { get; set; }
 
     }
     public class Candidate
@@ -45,5 +44,15 @@ namespace JobSeeking.Common
         public string TitleJob { get; set; }
         public string PathAvatar { get; set; }
     }
-    
+    public class TemplateOfEmail
+    {
+        public int? RecID { get; set; }
+        public int TemplateID { get; set; }
+        public string Subject { get; set; }
+        public string ContentOfEmail { get; set; }
+        public string SuggestSubject { get; set; }
+        public string SuggestContentEmail { get; set; }
+        
+    }
+
 }

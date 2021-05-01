@@ -2,7 +2,7 @@
 {
     "RecruitmentPage":
         {
-          "TBKetQua":"Thông báo kết quả",
+          "TBKetQua":"Thông báo",
           "DaGuiThongBao":"Đã gửi thông báo cho ứng viên thành công",
           "KhongTonTaiUV":"Không tồn tại ứng viên để thông báo",
           "HoVaTen":"Họ và tên",
@@ -11,7 +11,8 @@
           "NhanXet":"Nhận xét",
           "Dat":"Đạt",
           "KhongDat":"Không đạt",
-          "HuyKQ":"Hủy kết quả",
+          "TrungTuyen":"Trúng tuyển",
+          "KhongPV":"Không phỏng vấn",
           "ChuaPV":"Chưa phỏng vấn"
       },
       "RecruitmentForm":
@@ -27,7 +28,8 @@
         "ChuDe":"Chủ đề: ",
         "LoaiEmail":"Loại Email",
         "NoiDungEmail":"Nội dung Email",
-        "ThietLapTemplateEmail":"Thiết lập template Email"
+        "ThietLapTemplateEmail":"Thiết lập template Email",
+        "ChonThongTin":"Chọn thông tin"
 
       }
   }

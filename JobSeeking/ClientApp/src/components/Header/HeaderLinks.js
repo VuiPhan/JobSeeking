@@ -30,12 +30,8 @@ export default function HeaderLinks(props) {
   const LoginInfo = useSelector(state => state.loginInfo);
   const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
   return (
-    <List className={classes.list}>
-      {/* <ListItem className={classes.listItem}>
-        
-      </ListItem> */}
-      <ListItem className={classes.listItem}>
-      { LoginInfo.role === "User"?
+    <div style={{display:'flex'}}>
+    { LoginInfo.role === "User"?
         <Button
           component={Link} to="/ProfilePage"
           color="transparent"
@@ -67,7 +63,6 @@ export default function HeaderLinks(props) {
         }
         <FormDialog></FormDialog>
         { LoginInfo.role ? <CustomizedMenus className={classes.navLink}></CustomizedMenus>:null}
-      </ListItem>
-    </List>
+    </div>
   );
 }

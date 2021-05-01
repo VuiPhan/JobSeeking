@@ -5,14 +5,14 @@ function MyCKEditor(props) {
   const { field, form, type, label, placeholder, disabled,ChangeRequireWork } = props;
   const { name, value, onChange } = field;
   const {errors,touched} = form;
-  
+  const valueRender = value == null ? '' : value;
   const showError = errors[name];
   return (
     <div className="App">
       <CKEditor
         id={name}
         editor={ClassicEditor}
-        data={value}
+        data={valueRender}
         onInit={editor => {
         }}
         onChange={(event, editor) => {

@@ -13,11 +13,13 @@ import { confirmAlert } from 'react-confirm-alert';
 function TableRecruitment(props) {
   const { NameOfRound, dataSource } = props;
   const [dataRenderTable, setdataRenderTable] = React.useState([]);
-   const [res, setRes] = React.useState({});
-   const LoadResource = async () =>{
-    const resource = await handleGetJson("RecruitmentPage","RecruitmentPage");
-    setRes(resource); 
-   }
+  const [res, setRes] = React.useState({});
+  const passInterview  = "2";
+  const isElect  = "4";
+  const LoadResource = async () => {
+    const resource = await handleGetJson("RecruitmentPage", "RecruitmentPage");
+    setRes(resource);
+  }
   useEffect(() => {
     LoadResource();
   }, [dataSource])
@@ -30,7 +32,7 @@ function TableRecruitment(props) {
 
 
   const [visible, setVisible] = React.useState(false);
-  const [itemSelected, setitemSelected] = React.useState({fullName:'',dateInterview:'',result:null,descriptions:'',isElect:false});
+  const [itemSelected, setitemSelected] = React.useState({ fullName: '', dateInterview: '', result: null, descriptions: '', isElect: false });
 
   const showModal = () => {
     setVisible(true);
@@ -43,14 +45,17 @@ function TableRecruitment(props) {
   const generateResult = (data) => {
     let text = "";
     switch (data) {
-      case 1:
+      case 2:
         text = res.Dat;
         break;
-      case 2:
+      case 3:
         text = res.KhongDat;
         break
-      case 3:
-        text = res.HuyKQ;
+      case 4:
+        text = res.TrungTuyen;
+        break
+      case 5:
+        text = res.KhongPV;
         break
       default:
         text = res.ChuaPV;
@@ -76,7 +81,7 @@ function TableRecruitment(props) {
       dataIndex: 'result',
       render: tags => (
         <span>
-          <Tag color={tags == "1" ? "green" : "volcano"} key={tags}>
+          <Tag color={(tags == passInterview || tags == isElect)? "green" : "volcano"} key={tags}>
             {generateResult(tags)}
           </Tag>
         </span>
@@ -108,14 +113,14 @@ function TableRecruitment(props) {
               MyToaStrSuccess(res.DaGuiThongBao);
             }
             else {
-              MyToaStrError(res.KhongTonTaiUV);
+              MyToaStrError(res.KhongThanhCong);
             }
             return;
           }
         }
       ]
     });
-    
+
   }
   return (
     <div>

@@ -14,9 +14,17 @@ import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/Recruitme
 //import SwitchLabels from 'components/Checkbox/Checkbox';
 import SwitchLabels from "components/Checkbox/Checkbox";
 import handleGetJson from 'common/ReadJson';
+import TemplateEmailAPI from 'api/Recruitment/TemplateEmailAPI';
+import MyCKEditor from "components/CKEditor/CKEditor";
+import Text from 'antd/lib/typography/Text';
+import DoneIcon from '@material-ui/icons/Done';
+import Button from '@material-ui/core/Button';
+import ReactSelectStatic from 'components/ReactSelectStatic/ReactSelectStatic';
+import './TemplateEmail.scss';
+
 
 function TemplateEmailForm(props) {
-  const { item, visible, setVisible } = props;
+  const { visible, setVisible,widthForm } = props;
   //const item ={isElect:true};
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const validationShema = yup.object().shape({});
@@ -27,33 +35,45 @@ function TemplateEmailForm(props) {
     const resourceFinal = { ...resource, ...resourceCommon };
     setRes(resourceFinal);
   }
+  const [lstTemplateEmail, setLstTemplateEmail] = React.useState([]);
+  const [initialValues, setinitialValues] = React.useState({});
+
+  const GetTemplateEmail = async () => {
+    const lstTemplate = await TemplateEmailAPI.getTemplateEmail();
+    setinitialValues(lstTemplate[0]);
+    setLstTemplateEmail(lstTemplate);
+  }
   useEffect(() => {
     LoadResource();
+    GetTemplateEmail();
   }, [])
-  const [initialValues, setinitialValues] = React.useState();
-  useEffect(() => {
-      setinitialValues(item);
-  }, [item])
+  const UpdateItemWhenChangeTemplate = (TemplateID) => {
+    const dataSelected = lstTemplateEmail.find(ele => ele.templateID === TemplateID);
+    setinitialValues(dataSelected);
+  }
   const dispatch = useDispatch();
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
   const handleOk = async (data) => {
     const formData = new FormData();
-    formData.append('DateInterview', data.dateInterview);
-    formData.append('Result', data.result);
-    formData.append('Descriptions', data.descriptions);
-    formData.append('RecID', initialValues.recID);
-    formData.append('IsElect', data.isElect);
-    const result = await RecruitmentManagerAPI.UpdateResultOfCandidate(formData);
+    formData.append('RecID', data.recID == null ? 0: data.recID);
+    formData.append('TemplateID', data.templateID);
+    formData.append('Subject', data.subject);
+    formData.append('ContentOfEmail', data.contentOfEmail);
+    const result = await TemplateEmailAPI.post(formData);
     setVisible(false);
     setConfirmLoading(false);
-    const action = GetListCandidateProcess(SelectedJob);
-    const result2 = await dispatch(action);
-    setinitialValues({});
     MyToaStrSuccess(res.ThemMoiThanhCong);
+    await GetTemplateEmail();
   };
   const handleCancel = () => {
     setVisible(false);
   };
+  const UpdateSuggestEmail = (TemplateID) =>{
+    const updateSuggest = {...initialValues,contentOfEmail:initialValues.suggestContentEmail,
+      subject:initialValues.suggestSubject
+    };
+    setinitialValues(updateSuggest);
+  }
   return (
     <div>
       <Formik initialValues={initialValues}
@@ -70,28 +90,58 @@ function TemplateEmailForm(props) {
                 onOk={() => handleOk(values)}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
+                width={widthForm}
               >
-                  <div style={{ marginTop: 10 }}>
+                <div style={{ marginTop: 0 }}>
                   <FastField
-                    name="result"
+                    name="templateID"
                     component={SelectField}
                     label={res.LoaiEmail}
-                    ListName="TemplateEmailID" />
+                    ListName="TemplateEmailID"
+                    HandleOnChange={UpdateItemWhenChangeTemplate} />
+                </div>
+                <div style={{display:'flex',justifyContent: 'flex-end'}}>
+                <Button onClick={()=> UpdateSuggestEmail(values.templateID)} startIcon={<DoneIcon />} variant="outlined" color="secondary">Gợi ý</Button>
                 </div>
                 <FastField
-                  name="fullName"
+                  name="subject"
                   component={InputField}
                   label={res.ChuDe}
                   placeholder={res.MoiBanNhapTT}
                 />
-              
+                <ReactSelectStatic initialValues={values} 
+                                   setinitialValues={setinitialValues}
+                                   label={res.ChonThongTin}
+                ></ReactSelectStatic>
+                <div className="MyCKEditor">
                 <FastField
-                  name="descriptions"
-                  component={InputField}
-                  type="textarea"
+                  name="contentOfEmail"
+                  component={MyCKEditor}
                   label={res.NoiDungEmail}
                   placeholder={res.MoiBanNhapTT}
                 />
+                </div>
+                <div style={{ marginTop: 3 }}>
+                  <Text>Hướng dẫn sử dụng cấu hình Email</Text>
+                  <br />
+                  <Text>@TenUngVien: Tên ứng viên</Text>
+                  <br />
+                  <Text>@TenCongTy: Tên công ty</Text>
+                  <br />
+                  <Text>@TenCongViec: Tên công việc</Text>
+                  <br />
+                  <Text>@VongPhongVanHienTai: Vòng phỏng vấn hiện tại</Text>
+                  <br />
+                  <Text>@VongPhongVanTiepTheo: Vòng phỏng vấn tiếp theo</Text>
+                  <br />
+                  <Text>@NgayPhongVanVongTiepTheo: Ngày phỏng vấn tiếp theo</Text>
+                  <br />
+                  <Text>@NoiDungPVHienTai: Nội dung phỏng vấn vòng hiện tại</Text>
+                  <br />
+                  <Text>@NoiDungPVVongTiepTheo: Nội dung phỏng vấn vòng tiếp theo</Text>
+                  <br />
+                  <Text>@DiaChiCongTy: Địa chỉ công ty</Text>
+                </div>
               </Modal>
             </FormFormik>
           )

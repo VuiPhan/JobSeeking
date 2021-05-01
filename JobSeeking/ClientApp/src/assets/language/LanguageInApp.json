@@ -5,7 +5,10 @@
           "AddSuccessed":"Bạn đã thêm thành công",
           "SendEmailSuccessed":"Bạn đã gửi email thành công",
           "MoiBanNhapTT":"Mời bạn nhập thông tin",
-          "ThemMoiThanhCong":"Thêm mới thành công"
+          "ThemMoiThanhCong":"Thêm mới thành công",
+          "CapNhatThanhCong":"Cập nhật thành công",
+          "KhongThanhCong":"Gửi không thành công"
+
       }
   }
   

@@ -6,7 +6,7 @@ import DatePickers from 'components/DatetimePicker/DatetimePicker';
 import { Modal } from 'antd';
 import * as yup from 'yup';
 import RecruitmentManagerAPI from 'api/Recruitment/RecruitmentManager';
-import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
+import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetListRecruitProcess } from 'views/RecruitmentManagement/ListRecruitmentSlicer';
 import SelectField from 'components/CustomField/SelectField';
@@ -42,14 +42,17 @@ function CandidateRecruitmentForm(props) {
     formData.append('Result', data.result);
     formData.append('Descriptions', data.descriptions);
     formData.append('RecID', initialValues.recID);
-    formData.append('IsElect', data.isElect);
     const result = await RecruitmentManagerAPI.UpdateResultOfCandidate(formData);
+    if(result.error !== ""){
+      MyToaStrError(result.error);  
+      return;
+    }
     setVisible(false);
     setConfirmLoading(false);
     const action = GetListCandidateProcess(SelectedJob);
     const result2 = await dispatch(action);
     setinitialValues({});
-    MyToaStrSuccess(res.ThemMoiThanhCong);
+    MyToaStrSuccess(res.CapNhatThanhCong);
   };
   const handleCancel = () => {
     setVisible(false);
@@ -62,7 +65,6 @@ function CandidateRecruitmentForm(props) {
         enableReinitialize>
         {FormikProps => {
           const { values, errors, touched } = FormikProps;
-          console.log('initialValuesinitialValues',initialValues);
           return (
             <FormFormik>
               <Modal
@@ -97,11 +99,6 @@ function CandidateRecruitmentForm(props) {
                   type="textarea"
                   label={res.MoTaThem}
                   placeholder={res.MoiBanNhapTT}
-                />
-                  <FastField
-                  name="isElect"
-                  component={SwitchLabels}
-                  label={res.UngVienTrungTuyen}
                 />
               </Modal>
             </FormFormik>
