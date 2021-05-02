@@ -11,3 +11,9 @@ if (day.length < 2)
 
 return [year, month, day].join('-');
 }
+export function IsObjectEmpty(obj){
+    if(obj && Object.keys(obj).length === 0 && obj.constructor === Object){
+        return false;
+    }
+    return true;
+}

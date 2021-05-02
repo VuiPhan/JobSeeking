@@ -10,7 +10,7 @@ import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetListRecruitProcess } from './ListRecruitmentSlicer';
 import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/RecruitmentOfCandidatesSlicer';
-
+import { Form } from 'antd';
 function RecruitmentProcessForm(props) {
   const { item, visible, setVisible } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
@@ -84,12 +84,13 @@ function RecruitmentProcessForm(props) {
                   label="Tên vòng phỏng vấn"
                   placeholder="Mời bạn nhập"
                 />
-                <FastField
-                  name="dateInterview"
-                  component={DatePickers}
-                  label="Ngày diễn ra"
-                  placeholder=""
-                />
+                  <FastField
+                    name="dateInterview"
+                    component={DatePickers}
+                    label="Ngày diễn ra"
+                    placeholder=""
+                  />
+
                 <FastField
                   name="contentInterview"
                   component={InputField}

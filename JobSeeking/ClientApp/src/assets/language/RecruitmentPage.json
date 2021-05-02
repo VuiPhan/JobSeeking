@@ -29,7 +29,9 @@
         "LoaiEmail":"Loại Email",
         "NoiDungEmail":"Nội dung Email",
         "ThietLapTemplateEmail":"Thiết lập template Email",
-        "ChonThongTin":"Chọn thông tin"
+        "ChonThongTin":"Chọn thông tin (thông tin này sẽ được thêm vào Email)",
+        "GoiY":"Gợi ý cho tôi mẫu Email"
+          
 
       }
   }

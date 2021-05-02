@@ -30,7 +30,7 @@ export default function DatePickers(props) {
     // <form className={classes.container} noValidate>
     <div>
         {label && <Label for={name}>{label}</Label>}
-        <br/>
+        {label &&  <br/> }
       <TextField
         id="date"
         {...field}

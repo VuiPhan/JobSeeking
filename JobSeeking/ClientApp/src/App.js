@@ -16,6 +16,7 @@ import TagPage from 'views/TagPage/TagPage';
 import ApplyPage from 'views/ApplyPage/ApplyPage';
 import ToolbarCandidate from 'components/ToolbarCandidate/ToolbarCandidate';
 import RecruitmentManagement from 'components/RecruitmentManagementPage/RecruitmentManagement';
+import MyToastr from 'components/Toastr/Toastr';
 
 
 export default class App extends Component {
@@ -23,6 +24,7 @@ export default class App extends Component {
   render () {
     return (
       <div>
+        <MyToastr></MyToastr>
         <Layout>
       
         <Route exact path='/' component={HomePage} />

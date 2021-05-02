@@ -60,6 +60,9 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
 
   }
+  const closeFormChangePassword = () =>{
+    setIsShowFormChangePass(false);
+  }
   const history = useHistory();
   const RedirectPageApply = () => {
     setAnchorEl(null);
@@ -87,8 +90,9 @@ export default function CustomizedMenus() {
   return (
     <div style={{ display: 'contents' }}>
       <TemplateEmailForm visible={visible} setVisible={setVisible} widthForm={1000}></TemplateEmailForm>
+      <FormChangePassword isShowFormChangePass={isShowFormChangePass} setIsShowFormChangePass={setIsShowFormChangePass} />
+
       <div style={{marginTop:8}}>
-        {isShowFormChangePass ? <FormChangePassword /> : null}
         <Button
           color="transparent"
           onClick={handleClick}

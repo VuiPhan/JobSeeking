@@ -9,7 +9,14 @@
           "CapNhatThanhCong":"Cập nhật thành công",
           "KhongThanhCong":"Gửi không thành công"
 
+      },
+      "Validation":
+        {
+          "TruongBBNhap":"Trường bắt buộc nhập",
+          "VuiLongKiemTraLaiThongTin":"Vui lòng kiểm tra lại thông tin nhập"
+
       }
+
   }
   
   

@@ -3,7 +3,6 @@ import { ListView, ListViewHeader } from '@progress/kendo-react-listview';
 import { Card, CardTitle, CardImage, CardSubtitle, CardActions } from '@progress/kendo-react-layout';
 import { useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import JobsApi from 'api/Company/JobsAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '@material-ui/lab/Pagination';
 import { Button } from '@material-ui/core';
@@ -52,7 +51,6 @@ const MyItemRender = props => {
     )
 }
 function ListViewPotential(props) {
-    const {dataID} = props;
     const [data, setData] = useState( [ {
         "recID": "2",
         "candidateCode": "2",

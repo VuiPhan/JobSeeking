@@ -17,18 +17,13 @@ import handleGetJson from 'common/ReadJson.js';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
+import { DialogTitle } from '@material-ui/core';
 const useStyles = makeStyles(styles);
 
-export default function FormChangePassword() {
-  const [open, setOpen] = React.useState(true);
+export default function FormChangePassword(props) {
+  const {isShowFormChangePass,setIsShowFormChangePass} = props;
   const res = LGCompanyPage.CompanyPage;
   const resValidation = handleGetJson("Validation","PersonalPage");
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   const initialValues = {
     PasswordCurrent: '',
     PasswordNew: '',
@@ -44,7 +39,7 @@ export default function FormChangePassword() {
     //
     setTimeout(
       function() {
-        setOpen(false); 
+        setIsShowFormChangePass(false); 
       }
       .bind(this),
       2000
@@ -64,7 +59,7 @@ RePasswordNew: yup.string()
   // Cần phải dispath một cái action
   return (
     <div style={{ display: "inline" }}>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={isShowFormChangePass} onClose={()=>setIsShowFormChangePass(false)} aria-labelledby="form-dialog-title">
         <DialogContent>
           <Formik initialValues={initialValues}
                         validationSchema={validationShema}
@@ -73,6 +68,7 @@ RePasswordNew: yup.string()
                             return (
                                 <Form>
                                     <h1>Thay đổi mật khẩu</h1>
+                                    <hr></hr>
                                     <FastField
                                         name="PasswordCurrent"
                                         component={InputField}
@@ -96,10 +92,11 @@ RePasswordNew: yup.string()
                                         placeholder="Mời bạn nhập lại mật khẩu mới"
                                     />
                                   <MyToastr></MyToastr>
+                                  <hr style={{marginTop:100}}></hr>
                                     <FormGroup>
                                       <div style={{float:'right'}}>
                                         <Button startIcon={<DoneIcon />} type='submit' variant="outlined" color="secondary">Xác nhận thay đổi</Button>
-                                        <Button  startIcon={<CloseIcon />} style={{marginLeft:10}} onClick={()=>handleClose()} variant="outlined" color="primary">Đóng</Button>
+                                        <Button  startIcon={<CloseIcon />} style={{marginLeft:10}} onClick={()=>setIsShowFormChangePass(false)} variant="outlined" color="primary">Đóng</Button>
                                         </div>
                                     </FormGroup>
                                 </Form>

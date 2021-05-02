@@ -6,6 +6,9 @@ import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import CommonAPI from 'api/System/CommonAPI';
 import Skeleton from 'react-loading-skeleton';
 import ConstCommon from 'common/ConstInApp';
+import Image1 from '../../assets/img/HeaderCompany/hinh1.jpg';
+import Image2 from '../../assets/img/HeaderCompany/hinh2.jpg';
+import Image3 from '../../assets/img/HeaderCompany/hinh3.jpg';
 function HeaderCompany(props) {
     const {CompanyID,IsCompany} = props;
     const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
@@ -30,11 +33,9 @@ function HeaderCompany(props) {
 
                     </div>
                     <div className="containerImage">
-                        <img src="https://cdn.itviec.com/photos/39011/jd_photo_thumbnail/jd_photo_thumbnail-1537273.jpg?TKHL8117CQAD1rE2g5Gp8G5J"></img>
-                       
-                        <img src="https://cdn.itviec.com/photos/39012/jd_photo_thumbnail/jd_photo_thumbnail-1537276.jpg?AuQcKevkfh3PeLopGrhReQfZ"></img>
-                        <img src="https://cdn.itviec.com/photos/39013/jd_photo_thumbnail/jd_photo_thumbnail-1537274.jpg?pEASJFrheg44uQmxpgkhudc4"></img>
-
+                        <img src={Image1}></img>
+                        <img src={Image2}></img>
+                        <img src={Image3}></img>
                     </div>
                 </GridItem>
             </GridContainer>

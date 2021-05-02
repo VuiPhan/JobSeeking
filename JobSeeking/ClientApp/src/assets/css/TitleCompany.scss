@@ -19,6 +19,7 @@
   flex-direction: row;
   padding: 5px; /* this */
   margin-bottom: 15px;
+  flex-wrap: wrap;
 }
 .containerImage > img {
   flex: 1 1 auto;
