@@ -18,5 +18,9 @@ const LoadJobsApi = {
         const url = `/Jobs/GetJobForApplyOfCandidate`;
         return axiosClient.get(url);
     },
+    getJobForSearchKeyword: (value) => {
+        const url = `/Jobs/GetJobForSearchKeyword?KeyWord=${value}`;
+        return axiosClient.get(url);
+    }
 }
 export default LoadJobsApi;

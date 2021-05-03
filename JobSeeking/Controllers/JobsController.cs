@@ -33,6 +33,15 @@ namespace JobSeeking.Controllers
             var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForSearch {0},{1},{2}", JobSkillIDs, JobTitleIDs, LocationValue).ToListAsync();
             return dataJob;
         }
+
+        [HttpGet("GetJobForSearchKeyword")]
+        public async Task<object> GetJobForSearchKeyword(string KeyWord)
+        {
+            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo_ForSearchKeyWord {0}",KeyWord).ToListAsync();
+            return dataJob;
+        }
+
+
         [HttpGet("GetJobForApplyOfCandidate")]
         [Authorize(Policy = Policies.User)]
 

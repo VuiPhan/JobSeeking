@@ -17,6 +17,7 @@ import ApplyPage from 'views/ApplyPage/ApplyPage';
 import ToolbarCandidate from 'components/ToolbarCandidate/ToolbarCandidate';
 import RecruitmentManagement from 'components/RecruitmentManagementPage/RecruitmentManagement';
 import MyToastr from 'components/Toastr/Toastr';
+import SearchPage from 'views/SearchPage/SearchPage';
 
 
 export default class App extends Component {
@@ -34,6 +35,7 @@ export default class App extends Component {
         <Route path='/ProfilePage/:CandidateCode' component={ProfilePage} exact />
         <Route path='/Company/:companyID' component={CompanyPage} />
         <Route path='/Tag' component={TagPage} />
+        <Route path='/SearchPage' component={SearchPage} />
         <Route path='/ApplyJob' component={ApplyPage} />
         <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />

@@ -23,6 +23,7 @@ import CustomizedMenus from "components/FeatureMenu/FeatureMenu.js";
 import MutipleLevel from "components/MutipleLevel/MutipleLevel.js";
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import BusinessIcon from '@material-ui/icons/Business';
+import MySearchBar from  '../SearchBar/SearchBar';
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
@@ -31,6 +32,7 @@ export default function HeaderLinks(props) {
   const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
   return (
     <div style={{display:'flex'}}>
+      {LoginInfo.CadidateCode === ""? null: <MySearchBar></MySearchBar>}
     { LoginInfo.role === "User"?
         <Button
           component={Link} to="/ProfilePage"
