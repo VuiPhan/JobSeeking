@@ -78,6 +78,7 @@ function CandidateRecruitmentForm(props) {
                   name="fullName"
                   component={InputField}
                   label={res.TenUV}
+                  disabled={true}
                   placeholder={res.MoiBanNhapTT}
                 />
                 <FastField

@@ -29,6 +29,7 @@ namespace JobSeeking.Common
         public string Descriptions { get; set; }
         public int? Result { get; set; }
         public int? RecID { get; set; }
+        public int? Key { get; set; }
 
     }
     public class Candidate

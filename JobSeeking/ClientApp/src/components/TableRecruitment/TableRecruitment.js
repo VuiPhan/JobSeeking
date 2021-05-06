@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Tag, Radio, Space } from 'antd';
+import { Table, Tag, Radio, Space,Divider } from 'antd';
 import { Button, Icon } from '@material-ui/core';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import CandidateRecruitmentForm from './CandidateRecruitmentForm';
@@ -10,10 +10,12 @@ import './TableRecruitment.scss';
 import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import handleGetJson from 'common/ReadJson.js';
 import { confirmAlert } from 'react-confirm-alert';
+import { useState } from 'react';
 function TableRecruitment(props) {
   const { NameOfRound, dataSource } = props;
   const [dataRenderTable, setdataRenderTable] = React.useState([]);
   const [res, setRes] = React.useState({});
+  const [lstCandidateSelected,setLstCandidateSelected] = React.useState('');
   const passInterview  = "2";
   const isElect  = "4";
   const LoadResource = async () => {
@@ -28,6 +30,7 @@ function TableRecruitment(props) {
       return el.recID !== null
     });
     setdataRenderTable(newArray);
+    console.log('newArray',newArray);
   }, [dataSource])
 
 
@@ -64,20 +67,20 @@ function TableRecruitment(props) {
   }
   const columns = [
     {
+      key: 'recID',
       title: res.HoVaTen,
       dataIndex: 'fullName',
-      key: 'fullName',
       render: text => <a>{text}</a>,
     }
     ,
     {
+      key: 'recID',
       title: res.NgayPV,
       dataIndex: 'dateInterview',
-      key: 'dateInterview',
     },
     {
+      key: 'recID',
       title: res.KetQua,
-      key: 'result',
       dataIndex: 'result',
       render: tags => (
         <span>
@@ -88,14 +91,15 @@ function TableRecruitment(props) {
       ),
     },
     {
-      title: res.NhanXet,
       key: 'recID',
+      title: res.NhanXet,
       dataIndex: 'recID',
       render: (recID) => (
         <ChatBubbleOutlineIcon onClick={() => AddComments(recID)}></ChatBubbleOutlineIcon>
       ),
     },
   ];
+
   const NotificationToCandidates = async (JobID, RoundInterview) => {
     confirmAlert({
       title: 'Thông báo cho ứng viên',
@@ -108,7 +112,7 @@ function TableRecruitment(props) {
         {
           label: 'Thông báo cho ứng viên',
           onClick: async () => {
-            const result = await RecruitmentManagerAPI.SendNotificationToApplicant(JobID, RoundInterview);
+            const result = await RecruitmentManagerAPI.SendNotificationToApplicant(JobID, RoundInterview,lstCandidateSelected);
             if (result.error === "") {
               MyToaStrSuccess(res.DaGuiThongBao);
             }
@@ -122,6 +126,18 @@ function TableRecruitment(props) {
     });
 
   }
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+     setLstCandidateSelected(selectedRowKeys);
+    },
+    getCheckboxProps: (record) => ({
+      disabled: record.recID == "",
+      // Column configuration not to be checked
+      name: record.recID
+    })
+  };
+  const [selectionType, setSelectionType] = useState('checkbox');
   return (
     <div>
       <div className="header__TableRecruitment">
@@ -133,6 +149,10 @@ function TableRecruitment(props) {
         </div>
       </div>
       <Table
+      rowSelection={{
+        type: selectionType,
+        ...rowSelection,
+      }}
         columns={columns}
         dataSource={dataRenderTable}
       />

@@ -114,13 +114,13 @@ namespace JobSeeking.Controllers.RecruitmentManagement
         }
         [HttpPost("SendNotificationToApplicant")]
         [Authorize(Policy = Policies.Recruiter)]
-        public async Task<object> SendNotificationToApplicant(int? JobID, int? RoundInterview)
+        public async Task<object> SendNotificationToApplicant(int? JobID, int? RoundInterview,string LstCandidateSelected)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Email_SendNotificationToApplicant_Cursor" +
-                " @JobID={0},@RoundInterview={1}",
-                JobID, RoundInterview
+                " @JobID={0},@RoundInterview={1},@LstCandidateSelected={2}",
+                JobID, RoundInterview, LstCandidateSelected
                 );
             IActionResult response = Unauthorized();
             if (result > 0)
