@@ -27,7 +27,6 @@ function MySearchBar() {
                     onChange={(newValue) =>setValue(newValue)}
                     onRequestSearch={() => handleSearch(value)}
                     placeholder="Tìm kiếm từ khóa ..."
-                    autoFocus
                 />
                 {/* {<LinearProgress />} */}
             </div>

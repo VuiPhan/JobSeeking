@@ -61,8 +61,9 @@ function CVAddForm(props) {
                         {FormikProps => {
                             return (
                                 <Form >
-                                    <h3>Thông tin CV</h3>
-                                    <h4>Việc làm IT theo cấp bậc</h4>
+                                    <h1>Thông tin CV</h1>
+                                    <hr></hr>
+                                    <h4 style={{marginTop: -27}}>Việc làm IT theo cấp bậc</h4>
                                     <FastField
                                         name="jobTitleID"
                                         component={ComboboxField}
@@ -70,7 +71,7 @@ function CVAddForm(props) {
                                         placeholder=""
                                         ListName="UTELS_GetJobTitle"
                                     />
-                                    <h4>CV của bạn</h4>
+                                    <h4 style={{marginTop: -25}}>CV của bạn</h4>
 
                                     <div style={{ display: 'flex' }}>
 
@@ -102,6 +103,7 @@ function CVAddForm(props) {
                                         label=""
                                         placeholder=""
                                     />
+                                     <hr style={{marginTop:30}}></hr>
                                     <FormGroup>
                                         <Row className='clearfix'>
                                             <Col xs="9" sm="9">

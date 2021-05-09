@@ -33,7 +33,15 @@
         "GoiY":"Gợi ý cho tôi mẫu Email"
           
 
+      },
+      "NotificationOfRecruit":{
+        "HoVaTen":"Họ và tên",
+        "TenCongViec":"Tên công việc",
+        "NgayUngTuyen":"Ngày ứng tuyển",
+        "XemThongTin":"Xem thông tin",
+        "TrangThai":"Trạng thái"
       }
+
   }
   
   

@@ -29,5 +29,9 @@ const JobsApi = {
         const url = `/Seeker/AddClick?CandidateCode=${CandidateCode}&JobID=${JobID}`;
         return axiosClient.post(url);
     },
+    GetApplicantForNotification: () => {
+        const url = `/Jobs/GetApplicantForNotification`;
+        return axiosClient.get(url);
+    },
 }
 export default JobsApi;

@@ -42,6 +42,8 @@ namespace JobSeeking.Models.DB
         public DbSet<PublishedRecuitForm> PublishedRecuitForms { get; set; }
         public DbSet<CandidatePotential> CandidatePotentials { get; set; }
         public DbSet<TemplateOfEmail> TemplateOfEmails { get; set; }
+        public DbSet<ListNotificationForRecruit> ListNotificationForRecruits { get; set; }
+        
 
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
@@ -99,8 +101,7 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<CandidateOfRoundInterview>().HasNoKey();
             modelBuilder.Entity<CandidatePotential>().HasNoKey();
             modelBuilder.Entity<TemplateOfEmail>().HasNoKey();
-            
-
+            modelBuilder.Entity<ListNotificationForRecruit>().HasNoKey();
 
 
 

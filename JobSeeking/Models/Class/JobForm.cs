@@ -53,4 +53,13 @@ namespace JobSeeking.Models.Class
         public string Salary { get; set; }
 
     }
+    public class ListNotificationForRecruit
+    {
+        public int CandidateCode { get; set; }
+        public string Key { get; set; }
+        public string FullName { get; set; }
+        public string DateApply { get; set; }
+        public string JobsTitle { get; set; }
+        public bool? IsSeen { get; set; }
+    }
 }

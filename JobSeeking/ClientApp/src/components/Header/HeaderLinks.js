@@ -24,14 +24,34 @@ import MutipleLevel from "components/MutipleLevel/MutipleLevel.js";
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import BusinessIcon from '@material-ui/icons/Business';
 import MySearchBar from  '../SearchBar/SearchBar';
-const useStyles = makeStyles(styles);
+import MailIcon from '@material-ui/icons/Mail';
+import Badge from '@material-ui/core/Badge';
+import { Tooltip, Zoom } from "@material-ui/core";
+import NotificationOfRecruitForm from "components/NotificationOfRecruit/NotificationOfRecruit.js";
+
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(2),
+  },
+  padding: {
+    padding: theme.spacing(0, 2),
+  },
+}));
+
 
 export default function HeaderLinks(props) {
   const classes = useStyles();
+  const [visible, setVisible] = React.useState(false);
+
   const LoginInfo = useSelector(state => state.loginInfo);
   const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
+  const showModal = () => {
+    setVisible(true);
+  };
   return (
     <div style={{display:'flex'}}>
+      
+      {LoginInfo.role === "Recruiter"? <NotificationOfRecruitForm visible={visible} setVisible={setVisible} widthForm={800}></NotificationOfRecruitForm>: null}
       {LoginInfo.CadidateCode === ""? null: <MySearchBar></MySearchBar>}
     { LoginInfo.role === "User"?
         <Button
@@ -64,6 +84,15 @@ export default function HeaderLinks(props) {
           :""
         }
         <FormDialog></FormDialog>
+        {LoginInfo.role === "Recruiter"? <div>
+        <Tooltip title="Thông báo mới" interactive placement="botttom" TransitionComponent={Zoom}>
+        <IconButton aria-label="4 pending messages"  onClick={() => showModal()}>
+          <Badge badgeContent={4} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        </Tooltip>
+        </div> : null}
         { LoginInfo.role ? <CustomizedMenus className={classes.navLink}></CustomizedMenus>:null}
     </div>
   );

@@ -44,7 +44,6 @@ namespace JobSeeking.Controllers
 
         [HttpGet("GetJobForApplyOfCandidate")]
         [Authorize(Policy = Policies.User)]
-
         public async Task<object> GetJobForApplyOfCandidate()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -60,6 +59,25 @@ namespace JobSeeking.Controllers
                 //return e.Message;
             }
             return lstApplyOfCandidate;
+        }
+
+        [HttpGet("GetApplicantForNotification")]
+        [Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> GetApplicantForNotification()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            List<ListNotificationForRecruit> lstNotificationForRecruit = new List<ListNotificationForRecruit>();
+            try
+            {
+                lstNotificationForRecruit = await _context.ListNotificationForRecruits.FromSqlRaw("EXEC dbo.UTE_spGetListNotificationForRecruit {0}", claims[4].Value).ToListAsync();
+
+            }
+            catch (Exception e)
+            {
+                //return e.Message;
+            }
+            return lstNotificationForRecruit;
         }
         [HttpGet("GetJobByID")]
         public async Task<object> GetJobByID(int jobid)
