@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 export default function HeaderLinks(props) {
   const classes = useStyles();
   const [visible, setVisible] = React.useState(false);
-
+  const [numberNotification, setNumberNotification] = React.useState(3);
   const LoginInfo = useSelector(state => state.loginInfo);
   const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
   const showModal = () => {
@@ -51,7 +51,7 @@ export default function HeaderLinks(props) {
   return (
     <div style={{display:'flex'}}>
       
-      {LoginInfo.role === "Recruiter"? <NotificationOfRecruitForm visible={visible} setVisible={setVisible} widthForm={800}></NotificationOfRecruitForm>: null}
+      {LoginInfo.role === "Recruiter"? <NotificationOfRecruitForm visible={visible} setNumberNotification={setNumberNotification} setVisible={setVisible} widthForm={800}></NotificationOfRecruitForm>: null}
       {LoginInfo.CadidateCode === ""? null: <MySearchBar></MySearchBar>}
     { LoginInfo.role === "User"?
         <Button
@@ -87,7 +87,7 @@ export default function HeaderLinks(props) {
         {LoginInfo.role === "Recruiter"? <div>
         <Tooltip title="Thông báo mới" interactive placement="botttom" TransitionComponent={Zoom}>
         <IconButton aria-label="4 pending messages"  onClick={() => showModal()}>
-          <Badge badgeContent={4} color="secondary">
+          <Badge badgeContent={numberNotification} color="secondary">
             <MailIcon />
           </Badge>
         </IconButton>

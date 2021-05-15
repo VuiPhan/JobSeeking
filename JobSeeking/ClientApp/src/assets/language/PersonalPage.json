@@ -24,6 +24,13 @@
       "MatKhauQN": "Mật khẩu quá ngắn. Vui lòng nhiều hơn 8 ký tự",
       "MatKhauInHoa": "Mật khẩu phải chứa ký tự in hoa",
       "TruongBBNhap": "Trường bắt buộc nhập"
+    },
+    "DrawerQualifications":{
+      "ThemChungChi":"Thêm chứng chỉ",
+      "TenChungChi":"Tên chứng chỉ",
+      "MBNTenChungChi":"Mời bạn nhập tên chứng chỉ",
+      "NoiCap":"Nơi cấp",
+      "ThoiGianHieuLuc":"Thời gian hiệu lực"
     }
 }
 

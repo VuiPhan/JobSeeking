@@ -35,14 +35,18 @@ import CVPage from "./FormProfile/CVPage.js";
 import { MyToaStrError,MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
 import WorkInfomation from "./FormProfile/WorkInfomation.js";
-import { DrawerForm } from "./FormProfile/Qualifications.js";
 import DrawerWorkProcess from "./FormProfile/WorkProgress.js";
 import DrawerEducation from "./FormProfile/Education.js";
+import { Spin, Space } from 'antd';
+import DrawerQualifications from "./FormProfile/Qualifications.js";
+import handleGetJson from "common/ReadJson.js";
+
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
   const classes = useStyles();
   const { ...rest } = props;
+
   const imageClasses = classNames(
     classes.imgRaised,
     classes.imgRoundedCircle,
@@ -100,6 +104,7 @@ export default function ProfilePage(props) {
         imageSrc: `${ConstCommon.LinkImage}${result.pathAvatar}`,
         imageFile: null
       };
+
       setValuesImage(initialValuesImage);
     }
 
@@ -316,7 +321,7 @@ export default function ProfilePage(props) {
                       tabButton: "Chứng chỉ",
                       tabIcon: Favorite,
                       tabContent: (
-                        <DrawerForm></DrawerForm>
+                        <DrawerQualifications></DrawerQualifications>
                       )
                     },
                     {

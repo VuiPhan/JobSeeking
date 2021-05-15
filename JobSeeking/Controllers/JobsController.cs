@@ -79,6 +79,25 @@ namespace JobSeeking.Controllers
             }
             return lstNotificationForRecruit;
         }
+        [HttpGet("UpdateViewProfileCandidate")]
+        [Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> UpdateViewProfileCandidate(int? JobID, int? CandidateCode)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spUpdateViewProfileCandidate" +
+                " @JobID={0},@CandidateCode={1}", JobID, CandidateCode
+                );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
+
         [HttpGet("GetJobByID")]
         public async Task<object> GetJobByID(int jobid)
         {

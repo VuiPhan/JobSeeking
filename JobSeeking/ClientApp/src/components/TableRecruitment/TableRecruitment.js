@@ -155,6 +155,7 @@ function TableRecruitment(props) {
       }}
         columns={columns}
         dataSource={dataRenderTable}
+        pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '10', '15','20']}}
       />
       <CandidateRecruitmentForm item={itemSelected} visible={visible} setVisible={setVisible}></CandidateRecruitmentForm>
     </div>

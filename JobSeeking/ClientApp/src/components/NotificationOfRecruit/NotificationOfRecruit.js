@@ -19,10 +19,10 @@ import JobsApi from 'api/Company/JobsAPI';
 import { useHistory } from 'react-router';
 import { SelectedJob } from 'components/ListViewKendo/SelectedJobSlice';
 import { ChooseJob } from 'components/ListViewKendo/ListViewKendo2Slice';
-
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 function NotificationOfRecruitForm(props) {
-  const { visible, setVisible, widthForm } = props;
+  const { visible, setVisible, widthForm,setNumberNotification } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [selectionType, setSelectionType] = useState('checkbox');
   const [lstCandidateSelected,setLstCandidateSelected] = React.useState('');
@@ -46,7 +46,6 @@ function NotificationOfRecruitForm(props) {
   }, [])
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
      setLstCandidateSelected(selectedRowKeys);
     },
     getCheckboxProps: (record) => ({
@@ -78,7 +77,7 @@ function NotificationOfRecruitForm(props) {
     const arr =  key.split(/_/);
     const JobID = arr[1];
     const CandidateCode = arr[0];
-    debugger;
+    UpdateViewProfileCandidate(JobID,CandidateCode);
     const LinkToProfilePage = `/ProfilePage/${CandidateCode}`;
     const action = ChooseJob({ jobID: 1, IsAccess: true });
     var Exec = dispatch(action);
@@ -120,14 +119,25 @@ function NotificationOfRecruitForm(props) {
       title: res.XemThongTin,
       dataIndex: 'key',
       render: (key) => (
-        <ChatBubbleOutlineIcon onClick={() => AddComments(key)}></ChatBubbleOutlineIcon>
+        <ArrowForwardIcon onClick={() => AddComments(key)}></ArrowForwardIcon>
       ),
     },
   ];
   const GetApplicantForNotification = async () => {
     const lstApplicantForNotification = await JobsApi.GetApplicantForNotification();
-    console.log('lstApplicantForNotification',lstApplicantForNotification);
     setdataRenderTable(lstApplicantForNotification);
+    debugger;
+    let result = lstApplicantForNotification.reduce(function(previousValue, currentObject){
+      return previousValue + (currentObject.isSeen ? 0: 1); 
+  }, 0);
+    setNumberNotification(result);
+  }
+  const UpdateViewProfileCandidate = async (JobID,CandidateCode) => {
+    const result = await JobsApi.UpdateViewProfileCandidate(JobID,CandidateCode);
+    if(result.error !== ""){
+      MyToaStrError(result.error);
+    }
+    GetApplicantForNotification();
   }
   useEffect(() => {
     GetApplicantForNotification()
@@ -149,6 +159,7 @@ function NotificationOfRecruitForm(props) {
       }}
         columns={columns}
         dataSource={dataRenderTable}
+        pagination={{ defaultPageSize: 3, showSizeChanger: true, pageSizeOptions: ['3', '6', '9']}}
       />
         </Modal>
     </div>

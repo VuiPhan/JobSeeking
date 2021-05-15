@@ -33,5 +33,9 @@ const JobsApi = {
         const url = `/Jobs/GetApplicantForNotification`;
         return axiosClient.get(url);
     },
+    UpdateViewProfileCandidate: (JobID,CandidateCode) => {
+        const url = `/Jobs/UpdateViewProfileCandidate?JobID=${JobID}&CandidateCode=${CandidateCode}`;
+        return axiosClient.get(url);
+    },
 }
 export default JobsApi;

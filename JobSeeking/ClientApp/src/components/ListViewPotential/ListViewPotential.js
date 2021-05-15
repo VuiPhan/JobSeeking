@@ -64,6 +64,11 @@ const MyItemRender = props => {
         history.push(linkRedired);
         window.scrollTo(0, 150);
     }
+    const DeletePotentialCandidate = (id) => {
+        const linkRedired = `/ProfilePage/${id}`;
+        history.push(linkRedired);
+        window.scrollTo(0, 150);
+    }
     var parse = require('html-react-parser');
 
     return (
@@ -107,16 +112,15 @@ function ListViewPotential(props) {
         setpage(parseInt(e.target.innerText));
         setbegin((parseInt(e.target.innerText) - 1) * take);
     }
+    async function fetchMyAPI() {
+        const result = await RecruitmentManagerAPI.GetCandidatePotential();
+        setData(result);
+        setdataOrdinal(result);
+        const action = ChooseJob({ jobID: 1, IsAccess: true });
+        var x = dispatch(action);
+    }
     useEffect(() => {
-        async function fetchMyAPI() {
-            const result = await RecruitmentManagerAPI.GetCandidatePotential();
-            setData(result);
-            setdataOrdinal(result);
-            const action = ChooseJob({ jobID: 1, IsAccess: true });
-            var x = dispatch(action);
-        }
-        fetchMyAPI()
-
+        fetchMyAPI();
     }, []);
     const handleSearch = (value) => {
         if (value === '') {
@@ -129,14 +133,14 @@ function ListViewPotential(props) {
 
     const [value, setValue] = useState('');
 
-const HandleSetValue = (newValue) =>{
-    if(newValue === ''){
-        setData(dataOrdinal);
-        return;
+    const HandleSetValue = (newValue) => {
+        if (newValue === '') {
+            setData(dataOrdinal);
+            return;
+        }
+        setValue(newValue);
+        handleSearch(newValue);
     }
-    setValue(newValue);
-    handleSearch(newValue);
-}
 
     return (
         <div>
@@ -145,7 +149,7 @@ const HandleSetValue = (newValue) =>{
                     <ListViewHeader style={{ fontSize: 20, fontWeight: "bold", color: "#dfa579", borderBottomStyle: "groove" }} className='pl-4 pb-2 pt-2'>
                         <div style={{ display: 'flex' }}>
                             <div style={{ flex: 1, marginTop: 7 }}>
-                                Ứng viên
+                                Ứng viên tiềm năng
                             </div>
                             <div style={{ flex: 1 }}>
                                 <SearchBar
@@ -162,7 +166,6 @@ const HandleSetValue = (newValue) =>{
                     data={data.slice(begin, begin + take)}
                     item={MyItemRender}
                     style={{ width: "100%" }}
-                //  header={myHeader}
                 />
                 <Pagination style={{ marginTop: 3 }} count={Math.round(data.length / take)} hideNextButton={false} hidePrevButton={false} page={page} onChange={handlePageChange} variant="outlined" color="secondary" />
             </div>
