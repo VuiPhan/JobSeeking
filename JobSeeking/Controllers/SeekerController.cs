@@ -271,6 +271,73 @@ namespace JobSeeking.Controllers
             }
             return data;
         }
+        [HttpGet("GetListCertificate")]
+        public async Task<object> GetListCertificate(int? CandidateCode)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            bool IsOwn = true;
+            if (CandidateCode == null)
+            {
+                CandidateCode = Int32.Parse(claims[5].Value);
+            }
+            var data = (dynamic)null;
+            try
+            {
+                data = await _context.ListCertificateOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListWorkProcess {0},{1}", CandidateCode, IsOwn).ToListAsync();
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            return data;
+        }
+        [HttpPost("AddCertificate")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> AddCertificate([FromForm] Certificate certificate)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_InsertUpdateCertificate" +
+            " @CandidateCode={0},@FromTime={1},@ToTime={2},@CertificateName={3},@CertificateType={4},@DegreePlace={5},@RecID={6},@Descriptions = {7}",
+            claims[5].Value,
+            certificate.FromTime,
+            certificate.ToTime,
+            certificate.CertificateName,
+            certificate.CertificateType,
+            certificate.DegreePlace,
+            certificate.RecID,
+            certificate.Descriptions
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
+        [HttpPost("DeleteCertificate")]
+        public async Task<object> DeleteCertificate(int RecID)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_DeleteCertificate" +
+            " @CandidateCode={0},@RecID={1}",
+            claims[5].Value,
+            RecID
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
         [HttpGet("GetListEducation")]
         public async Task<object> GetListEducation(int? CandidateCode)
         {

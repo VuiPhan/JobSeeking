@@ -9,13 +9,13 @@ import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { GetWorkProcess } from './Child/WorkProcessSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import EducationItem from './Child/EducationItem';
-import EducationAPI from 'api/JobSeeker/EducationAPI';
-import QualificationForm from './Form/QualificationForm';
+import CertificateForm from './Form/CertificateForm';
 import handleGetJson from 'common/ReadJson';
+import CertificateAPI from 'api/JobSeeker/CertificateAPI';
 
 const { Option } = Select;
 
-export default function DrawerQualifications(props) {
+export default function DrawerCertificate(props) {
   const LoginInfo = useSelector(state => state.loginInfo);
   const [isvisible, SetIsvisible] = useState(false);
   const [res, setRes] = React.useState({});
@@ -47,7 +47,7 @@ export default function DrawerQualifications(props) {
       formData.append('FromTime', data.fromTime);
       formData.append('ToTime', data.toTime);
       formData.append('Descriptions', data.description);
-      const result = await EducationAPI.post(formData);
+      const result = await CertificateAPI.post(formData);
       const action = GetWorkProcess();
       const execaction = await dispatch(action);
       MyToaStrSuccess('Thêm mới thành công');
@@ -75,7 +75,7 @@ export default function DrawerQualifications(props) {
         <PlusOutlined /> {res.ThemChungChi}
         </Button>}
 
-        {isShowForm == true ?<QualificationForm UpdateStateShowForm={UpdateStateShowForm}/>:null}
+        {isShowForm == true ?<CertificateForm UpdateStateShowForm={UpdateStateShowForm}/>:null}
         <EducationItem></EducationItem>
     </div>
   );

@@ -47,6 +47,20 @@ namespace JobSeeking.Models.Class
         public string ToTime { get; set; }
         public System.Int16 StaffTypeNumber { get; set; }
     }
+    public class ListCertificateOfCandidate
+    {
+        public int RecID { get; set; }
+        public int CandidateCode { get; set; }
+        public string TimeActive { get; set; }
+        public string CertificateName { get; set; }
+        public string DegreePlace { get; set; }
+        public string Descriptions { get; set; }
+        public int RowID { get; set; }
+        public string BackgroundColor { get; set; }
+        public string FromTime { get; set; }
+        public string ToTime { get; set; }
+        public System.Int16 CertificateType { get; set; }
+    }
     public class ListEducation
     {
         public int RecID { get; set; }

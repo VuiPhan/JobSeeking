@@ -38,7 +38,7 @@ import WorkInfomation from "./FormProfile/WorkInfomation.js";
 import DrawerWorkProcess from "./FormProfile/WorkProgress.js";
 import DrawerEducation from "./FormProfile/Education.js";
 import { Spin, Space } from 'antd';
-import DrawerQualifications from "./FormProfile/Qualifications.js";
+import DrawerCertificate from "./FormProfile/Certificate.js";
 import handleGetJson from "common/ReadJson.js";
 
 const useStyles = makeStyles(styles);
@@ -321,7 +321,7 @@ export default function ProfilePage(props) {
                       tabButton: "Chứng chỉ",
                       tabIcon: Favorite,
                       tabContent: (
-                        <DrawerQualifications></DrawerQualifications>
+                        <DrawerCertificate></DrawerCertificate>
                       )
                     },
                     {
