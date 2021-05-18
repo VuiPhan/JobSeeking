@@ -5,6 +5,7 @@ import JobKendoReducer from 'components/ListViewKendo/ListViewKendo2Slice';
 import SearchFieldReducer from 'components/ListViewKendo/ForSearchSlice';
 import WorkProcessReducer from '../../views/FormProfile/Child/WorkProcessSlice';
 import EducationReducer from '../../views/FormProfile/Child/EducationSlice';
+import CertificateReducer from '../../views/FormProfile/Child/CertificateSlice';
 // Chọn công việc trong tuyển dụng
 import JobSelected from 'components/RecruitmentManagementPage/RecruitmentSelectSlicer';
 // Chọn công việc rồi xem ứng viên đã apply
@@ -23,6 +24,7 @@ const rootReducer = {
     SearchField:SearchFieldReducer,
     WorkProcess:WorkProcessReducer,
     Education:EducationReducer,
+    Certificate:CertificateReducer,
     JobSelected:JobSelected,
     SelectedJobProfile:SelectedJobProfile,
     ListRecruitProcess:ListRecruitProcessSlice,

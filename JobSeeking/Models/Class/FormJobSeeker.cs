@@ -100,13 +100,13 @@ namespace JobSeeking.Models.Class
     }
     public class Certificate
     {
-        public string CandidateCode { get; set; }
+        public int? CandidateCode { get; set; }
         public DateTime FromTime { get; set; }
         public DateTime ToTime { get; set; }
         public string CertificateName { get; set; }
-        public int CertificateType { get; set; }
+        public int? CertificateType { get; set; }
         public string DegreePlace { get; set; }
-        public int RecID { get; set; }
+        public int? RecID { get; set; }
         public string Descriptions { get; set; }
     }
     public class Education

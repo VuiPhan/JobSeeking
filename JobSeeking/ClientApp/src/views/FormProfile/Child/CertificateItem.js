@@ -12,8 +12,8 @@ import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { confirmAlert } from 'react-confirm-alert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useParams } from 'react-router';
-import EducationForm from '../Form/EducationForm';
-import { GetEducation } from './EducationSlice';
+import CertificateForm from '../Form/CertificateForm';
+import { GetCertificate } from './CertificateSlice';
 import CertificateAPI from 'api/JobSeeker/CertificateAPI';
 
 function CertificateRender(props) {
@@ -38,8 +38,8 @@ function CertificateRender(props) {
           {
             label: 'Xóa',
             onClick:async () => {
-                    await CertificateAPI.deleteEducation(RecID);
-                    const action = GetEducation();
+                    await CertificateAPI.deleteCertificate(RecID);
+                    const action = GetCertificate();
                     const execaction = await dispatch(action);
                     MyToaStrSuccess('Bạn đã gỡ thành công!');
             }
@@ -80,30 +80,30 @@ function CertificateRender(props) {
                     </Tooltip>
             </div>
             </div>
-            {isShowForm == true ?<EducationForm UpdateStateShowForm={UpdateStateShowForm} item={item}/>:null}
+            {isShowForm == true ?<CertificateForm UpdateStateShowForm={UpdateStateShowForm} item={item}/>:null}
         </div>
     )
 }
-function EducationItem(props) {
+function CertificateItem(props) {
     const dispatch = useDispatch();
     const { CandidateCode } = useParams();
     const LoginInfo = useSelector(state => state.loginInfo);
-    const Education = useSelector(state => state.Education);
-    const fetchDataEducation = async () => {
-        const action = GetEducation(CandidateCode);
+    const lstCertificate = useSelector(state => state.Certificate);
+    const fetchDataCertificate = async () => {
+        const action = GetCertificate(CandidateCode);
         const result = await dispatch(action);
     };
     useEffect(() => {
-        fetchDataEducation();
+        fetchDataCertificate();
     }, [CandidateCode,LoginInfo.CadidateCode])
 
     return (
         <div>
-            {Education.map((item, i) => {
+            {lstCertificate.map((item, i) => {
                 return <CertificateRender item={item}></CertificateRender>
             })}
         </div>
     )
 }
 
-export default EducationItem
+export default CertificateItem

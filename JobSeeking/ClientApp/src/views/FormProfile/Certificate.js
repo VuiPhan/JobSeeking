@@ -8,10 +8,10 @@ import * as yup from 'yup';
 import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { GetWorkProcess } from './Child/WorkProcessSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import EducationItem from './Child/EducationItem';
 import CertificateForm from './Form/CertificateForm';
 import handleGetJson from 'common/ReadJson';
 import CertificateAPI from 'api/JobSeeker/CertificateAPI';
+import CertificateItem from './Child/CertificateItem';
 
 const { Option } = Select;
 
@@ -76,7 +76,7 @@ export default function DrawerCertificate(props) {
         </Button>}
 
         {isShowForm == true ?<CertificateForm UpdateStateShowForm={UpdateStateShowForm}/>:null}
-        <EducationItem></EducationItem>
+        <CertificateItem></CertificateItem>
     </div>
   );
 }

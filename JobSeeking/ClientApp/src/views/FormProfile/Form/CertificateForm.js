@@ -34,16 +34,18 @@ function CertificateForm(props) {
     LoadResource();
   }, [])
   const itemOrdinal = item == null ? {
-    degreeTraining: 1,
-    nameSchool: '',
+    certificateName: '',
+    degreePlace: '',
     fromTime: '2020-01-01',
+    certificateType:1,
     toTime: '2020-01-01',
     descriptions: ''
 
   } : {
-    degreeTraining: item.degreeTraining,
-    nameSchool: item.nameSchool,
+    certificateName: item.degreeTraining,
+    degreePlace: item.nameSchool,
     fromTime: item.fromTime,
+    certificateType:item.certificateType,
     toTime: item.toTime,
     descriptions: item.descriptions
   }
@@ -67,8 +69,10 @@ function CertificateForm(props) {
       recID = item.recID
     }
     const formData = new FormData();
-    formData.append('DegreeTraining', data.degreeTraining);
-    formData.append('NameSchool', data.nameSchool);
+    formData.append('CertificateName', data.certificateName);
+    formData.append('DegreePlace', data.degreePlace);
+    formData.append('CertificateType', data.certificateType);
+    
     formData.append('FromTime', data.fromTime);
     formData.append('ToTime', data.toTime);
     formData.append('Descriptions', data.descriptions);
@@ -117,7 +121,7 @@ function CertificateForm(props) {
                   <Col span={12}>
                     <Form.Item>
                       <FastField
-                        name="nameSchool"
+                        name="certificateName"
                         component={InputField}
                         label="Tên chứng chỉ"//{res.TenChungChi}
                         placeholder="Mời bạn nhập tên chứng chỉ"
@@ -127,7 +131,7 @@ function CertificateForm(props) {
                   <Col span={12}>
                     <Form.Item>
                       <FastField
-                        name="nameSchool"
+                        name="degreePlace"
                         component={InputField}
                         label="Nơi cấp chứng chỉ"//{res.TenChungChi}
                         placeholder="Mời bạn nhập nơi cấp"
@@ -180,7 +184,7 @@ function CertificateForm(props) {
                 <Row gutter={16}>
                   <Col span={24}>
                     <Form.Item
-                      name="description"
+                      name="descriptions"
                       label="Mô tả thêm"
                       rules={[
                         {

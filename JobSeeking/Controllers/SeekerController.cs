@@ -284,7 +284,7 @@ namespace JobSeeking.Controllers
             var data = (dynamic)null;
             try
             {
-                data = await _context.ListCertificateOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListWorkProcess {0},{1}", CandidateCode, IsOwn).ToListAsync();
+                data = await _context.ListCertificateOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCertificate {0},{1}", CandidateCode, IsOwn).ToListAsync();
 
             }
             catch (Exception e)
