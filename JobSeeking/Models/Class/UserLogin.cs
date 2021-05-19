@@ -57,11 +57,11 @@ namespace JobSeeking.Models.Class
         public string Descriptions { get; set; }
         public string FromTime { get; set; }
         public string ToTime { get; set; }
-        public int? RowID { get; set; }
+        public System.Int16 CertificateType { get; set; }
+        public string CertificateTypeName { get; set; }
 
         public string BackgroundColor { get; set; }
 
-        //   public System.Int16 CertificateType { get; set; }
     }
     public class ListEducation
     {

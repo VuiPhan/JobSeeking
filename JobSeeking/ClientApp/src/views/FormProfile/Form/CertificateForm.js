@@ -19,6 +19,7 @@ import { GetWorkProcess } from '../Child/WorkProcessSlice';
 import { GetEducation } from '../Child/EducationSlice';
 import handleGetJson from 'common/ReadJson';
 import CertificateAPI from 'api/JobSeeker/CertificateAPI';
+import { GetCertificate } from '../Child/CertificateSlice';
 
 function CertificateForm(props) {
   const { item, UpdateStateShowForm } = props;
@@ -42,8 +43,8 @@ function CertificateForm(props) {
     descriptions: ''
 
   } : {
-    certificateName: item.degreeTraining,
-    degreePlace: item.nameSchool,
+    certificateName: item.certificateName,
+    degreePlace: item.degreePlace,
     fromTime: item.fromTime,
     certificateType:item.certificateType,
     toTime: item.toTime,
@@ -78,9 +79,15 @@ function CertificateForm(props) {
     formData.append('Descriptions', data.descriptions);
     formData.append('RecID', recID);
     const result = await CertificateAPI.post(formData);
-    const action = GetEducation();
+    const action = GetCertificate();
     const execaction = await dispatch(action);
-    MyToaStrSuccess('Thêm mới thành công');
+    if(recID === 0){
+      MyToaStrSuccess('Thêm mới thành công');
+    }
+    else{
+      MyToaStrSuccess('Chỉnh sửa thành công');
+    }
+    
     onClose();
   }
 

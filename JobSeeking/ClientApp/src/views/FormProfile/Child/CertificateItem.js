@@ -56,10 +56,11 @@ function CertificateRender(props) {
             <div className="Container__Education" style={{ backgroundColor: item.backgroundColor }}>
                 <div>
                     <div className="cricle__TimeWorking">
-                        {parse(item.timeEducation)}
+                        {parse(item.timeActive)}
                     </div>
-                    <h3>{item.typeDegree}</h3>
-                    <h5>{item.nameSchool}</h5>
+                    <h3>{item.certificateName}</h3>
+                    <h5>{item.certificateTypeName}</h5>
+                    <h5>{item.degreePlace}</h5>
                 </div>
                 <hr
        className="line_Break"

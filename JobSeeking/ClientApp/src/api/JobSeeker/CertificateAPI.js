@@ -13,7 +13,7 @@ const CertificateAPI = {
         const url = `/Seeker/GetListCertificate`;
         return axiosClient.get(url);
     },
-    deleteEducation: (RecID) => {
+    deleteCertificate: (RecID) => {
         const url = `/Seeker/DeleteCertificate?RecID=${RecID}`;
         return axiosClient.post(url);
     }
