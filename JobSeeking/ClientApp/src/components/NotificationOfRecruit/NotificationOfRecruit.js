@@ -78,6 +78,8 @@ function NotificationOfRecruitForm(props) {
     const JobID = arr[1];
     const CandidateCode = arr[0];
     UpdateViewProfileCandidate(JobID,CandidateCode);
+    const actionSelected = SelectedJob(JobID);
+    dispatch(actionSelected);
     const LinkToProfilePage = `/ProfilePage/${CandidateCode}`;
     const action = ChooseJob({ jobID: 1, IsAccess: true });
     var Exec = dispatch(action);
@@ -126,7 +128,6 @@ function NotificationOfRecruitForm(props) {
   const GetApplicantForNotification = async () => {
     const lstApplicantForNotification = await JobsApi.GetApplicantForNotification();
     setdataRenderTable(lstApplicantForNotification);
-    debugger;
     let result = lstApplicantForNotification.reduce(function(previousValue, currentObject){
       return previousValue + (currentObject.isSeen ? 0: 1); 
   }, 0);

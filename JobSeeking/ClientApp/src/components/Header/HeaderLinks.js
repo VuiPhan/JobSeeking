@@ -28,7 +28,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Badge from '@material-ui/core/Badge';
 import { Tooltip, Zoom } from "@material-ui/core";
 import NotificationOfRecruitForm from "components/NotificationOfRecruit/NotificationOfRecruit.js";
-
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 const useStyles = makeStyles(theme => ({
   margin: {
     margin: theme.spacing(2),
@@ -88,7 +88,7 @@ export default function HeaderLinks(props) {
         <Tooltip title="Thông báo mới" interactive placement="botttom" TransitionComponent={Zoom}>
         <IconButton aria-label="4 pending messages"  onClick={() => showModal()}>
           <Badge badgeContent={numberNotification} color="secondary">
-            <MailIcon />
+            <NotificationsActiveIcon />
           </Badge>
         </IconButton>
         </Tooltip>
