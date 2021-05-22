@@ -13,7 +13,8 @@
           "KhongDat":"Không đạt",
           "TrungTuyen":"Trúng tuyển",
           "KhongPV":"Không phỏng vấn",
-          "ChuaPV":"Chưa phỏng vấn"
+          "ChuaPV":"Chưa phỏng vấn",
+          "VuiLongChonUngVien":"Hãy chọn danh sách ứng viên mà bạn muốn thông báo"
       },
       "RecruitmentForm":
         {

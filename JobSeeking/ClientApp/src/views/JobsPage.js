@@ -45,8 +45,8 @@ export default function JobsPage(props) {
   var parse = require('html-react-parser');
   const [data, setData] = useState({ 
     companyId: null, companyName: '', TimeWorking: '',
-     jobsTitle: '', jobDescriptions: 'a', jobRequirements:
-      'b', reasonsToJoin: 'c', loveWorkingHere: 'd'
+     jobsTitle: 'loading...', jobDescriptions: 'loading...', jobRequirements:
+      'loading...', reasonsToJoin: 'loading...', loveWorkingHere: 'loading...'
       ,postingDate:'',
       scalePeople:'',
       CompanyType:''

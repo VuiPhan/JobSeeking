@@ -20,6 +20,8 @@ namespace JobSeeking.Models.DB
         public DbSet<ValueList> ValueLists { get; set; }
         public DbSet<ValueListString> ValueListStrings { get; set; }
         public DbSet<FormJobSeeker> FormJobSeekers { get; set; }
+        public DbSet<StatiscalViewProfile> StatiscalViewProfiles { get; set; }
+        
         public DbSet<CompanyPage> CompanyPages { get; set; }
         public DbSet<FormHeaderCompany> FormHeaderCompanys { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
@@ -105,7 +107,8 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<CandidatePotential>().HasNoKey();
             modelBuilder.Entity<TemplateOfEmail>().HasNoKey();
             modelBuilder.Entity<ListNotificationForRecruit>().HasNoKey();
-
+            modelBuilder.Entity<StatiscalViewProfile>().HasNoKey();
+            
 
 
 

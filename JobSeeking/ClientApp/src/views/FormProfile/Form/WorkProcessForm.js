@@ -52,7 +52,7 @@ function WorkProcessForm(props) {
       const result = await WorkProcessAPI.post(formData);
       const action = GetWorkProcess();
       const execaction = await dispatch(action);
-      MyToaStrSuccess('Thêm mới thành công');
+      MyToaStrSuccess('Cập nhật thành công');
       onClose();
   }
   const itemOrdinal =  item == null ? {

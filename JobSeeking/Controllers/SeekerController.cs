@@ -109,6 +109,15 @@ namespace JobSeeking.Controllers
             var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", claims[5].Value).ToListAsync();
             return data;
         }
+        [HttpGet("ApplicantGetViewProfile")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> ApplicantGetViewProfile()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var data = await _context.StatiscalViewProfiles.FromSqlRaw("EXEC dbo.UTE_Applicant_GetViewProfile {0}", claims[5].Value).ToListAsync();
+            return data;
+        }
         [HttpGet("GetWorkInfo")]
         //[Authorize(Policy = Policies.User)]
         //[Authorize(Policy = Policies.Recruiter)]

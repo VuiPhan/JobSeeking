@@ -41,5 +41,9 @@ const SeekerAPI = {
         const url = `/Login/UpdatePassword?PasswordCurrent=${PasswordCurrent}&PasswordNew=${PasswordNew}`;
         return axiosClient.post(url);
     },
+    applicantGetViewProfile: () => {
+        const url = `/Seeker/ApplicantGetViewProfile`;
+        return axiosClient.get(url);
+    },
 }
 export default SeekerAPI;

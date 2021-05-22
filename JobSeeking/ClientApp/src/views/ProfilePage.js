@@ -32,7 +32,7 @@ import LinkedCameraIcon from '@material-ui/icons/LinkedCamera';
 import { LoginAPIRedux } from "components/FormLogin/LoginSlice.js";
 import ConstCommon from "common/ConstInApp.js";
 import CVPage from "./FormProfile/CVPage.js";
-import { MyToaStrError,MyToaStrSuccess } from "components/Toastr/Toastr2.js";
+import { MyToaStrError, MyToaStrSuccess } from "components/Toastr/Toastr2.js";
 import MyToastr from "components/Toastr/Toastr.js";
 import WorkInfomation from "./FormProfile/WorkInfomation.js";
 import DrawerWorkProcess from "./FormProfile/WorkProgress.js";
@@ -40,6 +40,7 @@ import DrawerEducation from "./FormProfile/Education.js";
 import { Spin, Space } from 'antd';
 import DrawerCertificate from "./FormProfile/Certificate.js";
 import handleGetJson from "common/ReadJson.js";
+import StatisticalCard from "components/StatisticalCard/StatisticalCard.js";
 
 const useStyles = makeStyles(styles);
 
@@ -80,10 +81,11 @@ export default function ProfilePage(props) {
     selfIntroduce: '',
     aliasesName: '',
     titleJob: '',
-    isAcceptWork:true
+    isAcceptWork: true
   });
 
   const [selfIntroduce, setselfIntroduce] = useState('Hello');
+  const [viewStatiscal, setviewStatiscal] = useState('loading...');
   const [aliasName, setAliasName] = useState('Harry Pham');
   const [major, setMajor] = useState('Dev-OPS');
   const [FaceBook, setFaceBook] = useState('');
@@ -110,6 +112,8 @@ export default function ProfilePage(props) {
 
     async function fetchData() {
       const result = await SeekerAPI.get(LoginInfo.CadidateCode);
+      const resultStatistical = await SeekerAPI.applicantGetViewProfile();
+      setviewStatiscal(resultStatistical[0])
       setData(result[0]);
       setselfIntroduce(result[0].selfIntroduce);
       let initialValuesImage = {
@@ -147,10 +151,10 @@ export default function ProfilePage(props) {
       reader.readAsDataURL(imageFile);
     }
   }
-  
+
 
   const SubmitDataFinal = async (values) => {
-    
+
     const formData = new FormData();
     formData.append('Facebook', FaceBook);
     formData.append('Github', GitHub);
@@ -169,12 +173,12 @@ export default function ProfilePage(props) {
     formData.append('IsAcceptWork', values.isAcceptWork);
 
     // Trường hợp không muốn lại update lại hình. 
-    if(valuesImage.imageFile){
+    if (valuesImage.imageFile) {
       formData.append('ImageFile', valuesImage.imageFile);
       formData.append('ImageName', valuesImage.imageFile.name);
     }
     // Kiểm tra xem là đã có CandidateCode chưa, nếu có rồi thì sẽ là Update còn không thì đó sẽ là tạo mới
-    if(!LoginInfo.CadidateCode){
+    if (!LoginInfo.CadidateCode) {
       // Sẽ tạo mới
       let result = await SeekerAPI.post(formData);
       if (result.error === "") {
@@ -183,11 +187,11 @@ export default function ProfilePage(props) {
         const action = LoginAPIRedux(dataLogin);
         dispatch(action);
       }
-      else{
+      else {
         MyToaStrError('Địa chỉ Email đã tồn tại. Vui lòng sử dụng một địa chỉ Email khác');
       }
     }
-    else{
+    else {
       // Sẽ đi cập nhật
       formData.append('CandidateCode', LoginInfo.CadidateCode);
       let result = await SeekerAPI.post(formData);
@@ -196,17 +200,18 @@ export default function ProfilePage(props) {
 
         MyToaStrSuccess('Lưu thông tin thành công');
       }
-      else{
+      else {
 
         MyToaStrError('Cập nhật thất bại, Vui lòng thử lại');
 
       }
     }
-   
+
   }
   return (
     <div>
-      <MyToastr></MyToastr>
+      {/* <MyToastr></MyToastr> */}
+
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
@@ -216,7 +221,7 @@ export default function ProfilePage(props) {
                   <div>
                     <img src={valuesImage.imageSrc.slice(-4) !== "null" ? valuesImage.imageSrc : profile} style={{ height: 160, width: 160 }} alt="..." className={imageClasses} />
 
-                    {disableForm ? "":<label htmlFor="myInput" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
+                    {disableForm ? "" : <label htmlFor="myInput" style={{ position: 'absolute', marginTop: 31, marginLeft: -26, color: 'black' }}>
                       <LinkedCameraIcon style={{ fontSize: 30, cursor: 'pointer' }} />
                     </label>}
                     <input
@@ -250,6 +255,9 @@ export default function ProfilePage(props) {
                       </Button>
                     </Tooltip>
                   </div>
+
+
+
                   <div>
                     <div style={{ display: 'flex' }}>
                       <Grid container spacing={1} alignItems="flex-end">
@@ -270,7 +278,7 @@ export default function ProfilePage(props) {
                       </Grid>
                       <Grid container spacing={1} alignItems="flex-end">
                         <Grid item>
-                          <GitHubIcon  style={{ fontSize: 30 }} />
+                          <GitHubIcon style={{ fontSize: 30 }} />
                         </Grid>
                         <Grid item>
                           <TextField id="input-with-icon-grid" value={GitHub} onChange={e => setGitHub(e.target.value)} label="GitHub" />
@@ -287,6 +295,17 @@ export default function ProfilePage(props) {
               </p>
               <h2>
               </h2>
+            </div>
+            <div >
+              <div style={{paddingLeft:50,paddingTop:10}}>
+              <h6>Thông kê số lượt xem từ nhà tuyển dụng</h6>
+              <p>Phần này chỉ hiển thị với riêng bạn</p>
+              </div>
+              <div style={{ display: 'flex',padding:20,justifyContent: 'space-evenly'}}>
+                <StatisticalCard cardName="tuần" countValue={viewStatiscal.viewInWeek}></StatisticalCard>
+                <StatisticalCard cardName="tháng" countValue={viewStatiscal.viewInMonths}></StatisticalCard>
+                <StatisticalCard cardName="năm" countValue={viewStatiscal.viewInYears}></StatisticalCard>
+              </div>
             </div>
             <GridContainer justify="center">
 

@@ -112,6 +112,10 @@ function TableRecruitment(props) {
         {
           label: 'Thông báo cho ứng viên',
           onClick: async () => {
+            if(lstCandidateSelected ===""){
+              MyToaStrError(res.VuiLongChonUngVien);
+              return;
+            }
             const result = await RecruitmentManagerAPI.SendNotificationToApplicant(JobID, RoundInterview,lstCandidateSelected);
             if (result.error === "") {
               MyToaStrSuccess(res.DaGuiThongBao);
@@ -128,7 +132,6 @@ function TableRecruitment(props) {
   }
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
      setLstCandidateSelected(selectedRowKeys);
     },
     getCheckboxProps: (record) => ({

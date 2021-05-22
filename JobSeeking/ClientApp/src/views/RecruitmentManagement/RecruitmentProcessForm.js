@@ -2,7 +2,7 @@ import React from 'react'
 import { FastField, Formik, Form as FormFormik } from 'formik';
 import InputField from 'components/CustomField/InputField';
 
-import DatePickers from 'components/DatetimePicker/DatetimePicker';
+import DateAndTimePicker from 'components/DatetimePicker/DateAndTimePicker';
 import { Modal, Button } from 'antd';
 import * as yup from 'yup';
 import RecruitmentManagerAPI from 'api/Recruitment/RecruitmentManager';
@@ -86,11 +86,10 @@ function RecruitmentProcessForm(props) {
                 />
                   <FastField
                     name="dateInterview"
-                    component={DatePickers}
-                    label="Ngày diễn ra"
+                    component={DateAndTimePicker}
+                    label="Thời gian phỏng vấn"
                     placeholder=""
                   />
-
                 <FastField
                   name="contentInterview"
                   component={InputField}

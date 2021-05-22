@@ -66,7 +66,7 @@ function EducationForm(props) {
       const result = await EducationAPI.post(formData);
       const action = GetEducation();
       const execaction = await dispatch(action);
-      MyToaStrSuccess('Thêm mới thành công');
+      MyToaStrSuccess('Cập nhật thành công');
       onClose();
   }
 

@@ -60,6 +60,12 @@ namespace JobSeeking.Models.Class
         public string CVName { get; set; }
         public IFormFile CVFile { get; set; }
     }
+    public class StatiscalViewProfile
+    {
+        public int ViewInWeek { get; set; }
+        public int ViewInMonths { get; set; }
+        public int ViewInYears { get; set; }
+    }
     //public class CandidateClick
     //{
     //    public int CandidateCode { get; set; }
