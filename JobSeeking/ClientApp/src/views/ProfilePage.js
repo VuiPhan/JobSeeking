@@ -46,6 +46,8 @@ const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
   const classes = useStyles();
+  const LoginInfo = useSelector(state => state.loginInfo);
+
   const { ...rest } = props;
 
   const imageClasses = classNames(
@@ -55,7 +57,6 @@ export default function ProfilePage(props) {
   );
   const dispatch = useDispatch();
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-  const LoginInfo = useSelector(state => state.loginInfo);
   const JobKendo = useSelector(state => state.JobKendo);
   const initialValuesImage = {
     imageName: '',
@@ -110,7 +111,9 @@ export default function ProfilePage(props) {
       setValuesImage(initialValuesImage);
     }
 
+  
     async function fetchData() {
+
       const result = await SeekerAPI.get(LoginInfo.CadidateCode);
       const resultStatistical = await SeekerAPI.applicantGetViewProfile();
       setviewStatiscal(resultStatistical[0])
@@ -136,6 +139,15 @@ export default function ProfilePage(props) {
     }
   }, [CandidateCode, LoginInfo.CadidateCode])
 
+  async function updateViewProfile() {
+    if(LoginInfo.role === ConstCommon.RoleRecruiter)
+    {
+      const UpdateStatiscalViewProfile = await SeekerAPI.UpdateStatiscalViewProfile(CandidateCode);
+    }
+  }
+  useEffect(() => {
+    updateViewProfile();
+}, [CandidateCode])
 
   const showPreview = e => {
     if (e.target.files && e.target.files[0]) {
@@ -296,7 +308,9 @@ export default function ProfilePage(props) {
               <h2>
               </h2>
             </div>
-            <div >
+            { CandidateCode !== undefined ? null :
+            
+            <div>
               <div style={{paddingLeft:50,paddingTop:10}}>
               <h6>Thông kê số lượt xem từ nhà tuyển dụng</h6>
               <p>Phần này chỉ hiển thị với riêng bạn</p>
@@ -306,7 +320,7 @@ export default function ProfilePage(props) {
                 <StatisticalCard cardName="tháng" countValue={viewStatiscal.viewInMonths}></StatisticalCard>
                 <StatisticalCard cardName="năm" countValue={viewStatiscal.viewInYears}></StatisticalCard>
               </div>
-            </div>
+            </div>}
             <GridContainer justify="center">
 
               <GridItem xs={12} sm={12} md={10} className={classes.navWrapper}>

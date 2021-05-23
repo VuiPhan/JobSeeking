@@ -115,8 +115,37 @@ namespace JobSeeking.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var data = await _context.StatiscalViewProfiles.FromSqlRaw("EXEC dbo.UTE_Applicant_GetViewProfile {0}", claims[5].Value).ToListAsync();
+            List<StatiscalViewProfile> data = new List<StatiscalViewProfile>();
+            try
+            {
+                data = await _context.StatiscalViewProfiles.FromSqlRaw("EXEC dbo.UTE_Applicant_GetViewProfile {0}", claims[5].Value).ToListAsync();
+            }
+            
+            catch(Exception e)
+            {
+
+            }
             return data;
+        }
+        [HttpPost("UpdateStatiscalViewProfile")]
+        [Authorize(Policy = Policies.Recruiter)]
+        public async Task<object> UpdateStatiscalViewProfile(int CandidateCode)
+        {
+            //    UploadImage uploadImage = new UploadImage();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_SYS_Update_StatiscalViewProfile" +
+            " @CandidateCode={0}",
+            CandidateCode
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
         }
         [HttpGet("GetWorkInfo")]
         //[Authorize(Policy = Policies.User)]
