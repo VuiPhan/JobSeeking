@@ -14,6 +14,8 @@ import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/Recruitme
 //import SwitchLabels from 'components/Checkbox/Checkbox';
 import SwitchLabels from "components/Checkbox/Checkbox";
 import handleGetJson from 'common/ReadJson';
+import DateAndTimePicker from 'components/DatetimePicker/DateAndTimePicker';
+
 
 function CandidateRecruitmentForm(props) {
   const { item, visible, setVisible } = props;
@@ -83,7 +85,9 @@ function CandidateRecruitmentForm(props) {
                 />
                 <FastField
                   name="dateInterview"
-                  component={DatePickers}
+                  //component={DatePickers}
+                  component={DateAndTimePicker}
+                  
                   label={res.NgayDienRa}
                   placeholder=""
                 />

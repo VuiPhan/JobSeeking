@@ -88,7 +88,7 @@ export default function HeaderLinks(props) {
         <Tooltip title="Thông báo mới" interactive placement="botttom" TransitionComponent={Zoom}>
         <IconButton aria-label="4 pending messages"  onClick={() => showModal()}>
           <Badge badgeContent={numberNotification} color="secondary">
-            <NotificationsActiveIcon />
+            <NotificationsActiveIcon color="primary"/>
           </Badge>
         </IconButton>
         </Tooltip>

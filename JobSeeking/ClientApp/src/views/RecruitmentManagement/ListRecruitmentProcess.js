@@ -19,15 +19,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ListRecruitmentProcess(props) {
-  const {data} = props;
+  const {data,setItem,setVisible} = props;
 
   const classes = useStyles();
   const handleToggle = (value) => () => {
     
   };
   const LoginInfo = useSelector(state => state.loginInfo);
-  const openForm = (data) =>{
-
+  const openForm = (RecID) =>{
+    setVisible(true);
+    let dataSelected = data.find(ele => ele.recID === RecID);
+    setItem(dataSelected);
   }
   const deleteItem = (data) =>{
 

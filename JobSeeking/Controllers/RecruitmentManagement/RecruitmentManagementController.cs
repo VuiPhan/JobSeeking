@@ -72,8 +72,8 @@ namespace JobSeeking.Controllers.RecruitmentManagement
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spAddUpdateRoundInterview" +
-                " @JobID={0},@RoundName={1},@DateInterview={2},@ContentInterview={3}",
-                form.JobID, form.RoundName, form.DateInterview, form.ContentInterview
+                " @JobID={0},@RoundName={1},@DateInterview={2},@ContentInterview={3},@RecID={4}",
+                form.JobID, form.RoundName, form.DateInterview, form.ContentInterview, form.RecID
                 );
             IActionResult response = Unauthorized();
             if (result > 0)

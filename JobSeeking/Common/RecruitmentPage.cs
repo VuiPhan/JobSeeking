@@ -10,7 +10,7 @@ namespace JobSeeking.Common
     }
     public class RoundInterview
     {
-        public int RecID { get; set; }
+        public int? RecID { get; set; }
         public int  JobID { get; set; }
         public string RoundName { get; set; }
         public DateTime DateInterview { get; set; }

@@ -15,8 +15,20 @@ function RecruitmentProcess(props) {
   const {JobID} = props;
 
   const [visible, setVisible] = React.useState(false);
+  const [item, setItem] = React.useState({
+    jobID: 1,
+    roundName: '',
+    dateInterview: '2021-01-01',
+    contentInterview: '',
+  });
   const [lstRecruitProcess,setLstRecruitProcess] = React.useState([]);
   const showModal = () => {
+    setItem({
+      jobID: 1,
+      roundName: '',
+      dateInterview: '2021-01-01',
+      contentInterview: '',
+    });
     setVisible(true);
   };
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
@@ -34,14 +46,14 @@ function RecruitmentProcess(props) {
     <div className="container__Recruitment">
       <div className="centerButton">
         <Button type="primary" onClick={showModal}>
-          Thêm quy tình tuyển dụng
+          Thêm quy trình tuyển dụng
       </Button>
       </div>
       <br></br>
       </div>
       <div>
-        <RecruitmentProcessForm visible={visible} setVisible={setVisible}></RecruitmentProcessForm>
-        <ListRecruitmentProcess data={ListRecruitProcess}></ListRecruitmentProcess>
+        <RecruitmentProcessForm visible={visible} setVisible={setVisible} item={item}></RecruitmentProcessForm>
+        <ListRecruitmentProcess data={ListRecruitProcess} setVisible={setVisible} setItem={setItem}></ListRecruitmentProcess>
       </div>
    
     </div>

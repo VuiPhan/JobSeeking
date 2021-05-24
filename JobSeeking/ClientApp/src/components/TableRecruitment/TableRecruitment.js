@@ -77,6 +77,7 @@ function TableRecruitment(props) {
       key: 'recID',
       title: res.NgayPV,
       dataIndex: 'dateInterview',
+      render: text => <a>{text.substring(0, 10)}</a>,
     },
     {
       key: 'recID',

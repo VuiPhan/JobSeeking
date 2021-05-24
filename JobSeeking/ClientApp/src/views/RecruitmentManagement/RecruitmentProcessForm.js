@@ -20,26 +20,12 @@ function RecruitmentProcessForm(props) {
   const validationShema = yup.object().shape({
 
   });
-  const itemOrdinal = item == null ? {
-    jobID: 1,
-    roundName: '',
-    dateInterview: '2021-01-01',
-    contentInterview: '',
-  } : {
-    jobID: item.jobID,
-    roundName: item.roundName,
-    dateInterview: item.dateInterview,
-    contentInterview: item.contentInterview,
-    recID: item.recID
-  }
-  const [initialValues, setinitialValues] = React.useState(itemOrdinal);
+  const [initialValues, setinitialValues] = React.useState(item);
   const dispatch = useDispatch();
   const handleOk = async (data) => {
-    // setModalText('The modal will be closed after two seconds');
-    //setConfirmLoading(true);
-    var recID = 0
-    if (typeof item !== 'undefined') {
-      recID = item.recID
+    let recID = 0;
+    if (data.hasOwnProperty('recID')) {
+      recID=data.recID;
     }
     const formData = new FormData();
     formData.append('JobID', SelectedJob);
@@ -55,7 +41,7 @@ function RecruitmentProcessForm(props) {
 
     const action2 = GetListCandidateProcess(SelectedJob);
     const result2 = await dispatch(action2);
-    MyToaStrSuccess('Thêm mới thành công');
+    MyToaStrSuccess('Cập nhật thành công');
   };
 
   const handleCancel = () => {
@@ -63,7 +49,7 @@ function RecruitmentProcessForm(props) {
   };
   return (
     <div>
-      <Formik initialValues={initialValues}
+      <Formik initialValues={item}
         validationSchema={validationShema}
         onSubmit={values => console.log(values)}
         enableReinitialize>
