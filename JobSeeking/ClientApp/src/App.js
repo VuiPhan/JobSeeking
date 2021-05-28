@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
+import  Layout  from './components/Layout';
 import { FetchData } from './components/FetchData';
 import HomePage from './views/HomePage';
 import ProfilePage from './views/ProfilePage';
@@ -18,6 +18,10 @@ import ToolbarCandidate from 'components/ToolbarCandidate/ToolbarCandidate';
 import RecruitmentManagement from 'components/RecruitmentManagementPage/RecruitmentManagement';
 import MyToastr from 'components/Toastr/Toastr';
 import SearchPage from 'views/SearchPage/SearchPage';
+import AdminPage from 'views/AdminPage/AdminPage';
+import { NavMenu } from './components/NavMenu';
+import PrivateRouteRecruiter from 'components/Router/PrivateRouteRecruiter';
+import PrivateRouteAdmin from 'components/Router/PrivateRouteAdmin';
 
 
 export default class App extends Component {
@@ -25,9 +29,9 @@ export default class App extends Component {
   render () {
     return (
       <div>
+      <div>
         <MyToastr></MyToastr>
         <Layout>
-      
         <Route exact path='/' component={HomePage} />
         <PrivateRoute path='/RecruitmentManagement' component={RecruitmentManagement} exact />
         <Route path='/fetch-data' component={FetchData} />
@@ -40,11 +44,14 @@ export default class App extends Component {
         <Route path='/Jobs/:jobID' component={JobsPage} />
         <Route path='/CompanyRegiter' component={CompanyRegiter} />
         <Route path='/EditCompany' component={CompanyRegiter} />
-        <PrivateRoute component={PublishedRecruitment} path="/PublishedRecruitment" exact />
-        <PrivateRoute path='/PublishedRecruitment/:jobID' component={PublishedRecruitment} exact />
+        <PrivateRouteRecruiter component={PublishedRecruitment} path="/PublishedRecruitment" exact />
+        <PrivateRouteRecruiter path='/PublishedRecruitment/:jobID' component={PublishedRecruitment} exact />
         <PrivateRouteForViewList path= {["/Jobs/:jobID", "/ProfilePage/:CandidateCode"]} component={ShowCadidate} />
+        
       </Layout>
+      <PrivateRouteAdmin path='/AdminPage' component={AdminPage} />
       <PrivateRouteForViewList path= {["/ProfilePage/:CandidateCode"]} component={ToolbarCandidate} />
+      </div>
       </div>
     );
   }

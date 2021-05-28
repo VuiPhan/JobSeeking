@@ -83,6 +83,16 @@ export default function HeaderLinks(props) {
          </Button>
           :""
         }
+           { LoginInfo.role === "Admin"?
+          <Button
+            component={Link} to="/AdminPage/dashboard"
+            color="transparent"
+            className={classes.navLink}
+          >
+            <ReceiptIcon fontSize="large" color="primary" className={classes.icons} /> Đi đến trang Admin
+         </Button>
+          :""
+        }
         <FormDialog></FormDialog>
         {LoginInfo.role === "Recruiter"? <div>
         <Tooltip title="Thông báo mới" interactive placement="botttom" TransitionComponent={Zoom}>
