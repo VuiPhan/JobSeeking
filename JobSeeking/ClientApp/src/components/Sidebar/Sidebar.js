@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
@@ -10,10 +10,15 @@ var ps;
 
 function Sidebar(props) {
   const sidebar = React.useRef();
-  // verifies if routeName is the one active (in browser input)
+  const history = useHistory();
+
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
+  const  RedirectHome = () =>{
+    const linkRedired = `/`;
+    history.push(linkRedired);
+  }
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(sidebar.current, {
@@ -43,7 +48,8 @@ function Sidebar(props) {
           </div>
         </a>
         <a
-          href="https://www.creative-tim.com"
+          //href="https://www.creative-tim.com"
+          onClick = {()=> RedirectHome()}
           className="simple-text logo-normal"
         >
           Job Seeking

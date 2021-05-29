@@ -47,8 +47,12 @@ namespace JobSeeking.Models.DB
         public DbSet<CandidatePotential> CandidatePotentials { get; set; }
         public DbSet<TemplateOfEmail> TemplateOfEmails { get; set; }
         public DbSet<ListNotificationForRecruit> ListNotificationForRecruits { get; set; }
-        
+        public DbSet<NumberViewDashboardCard> NumberViewDashboardCards { get; set; }
+        public DbSet<NumberViewDashboardChart_Job> NumberViewDashboardChart_Jobs { get; set; }
+        public DbSet<NumberViewDashboardChart_KyNang> NumberViewDashboardChart_KyNangs { get; set; }
+        public DbSet<NumberViewDashboardChart_NhaTuyenDungAndUngVien> NumberViewDashboardChart_NhaTuyenDungAndUngViens { get; set; }
 
+        
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
         public virtual DbSet<UteappAppEducation> UteappAppEducations { get; set; }
@@ -108,7 +112,10 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<TemplateOfEmail>().HasNoKey();
             modelBuilder.Entity<ListNotificationForRecruit>().HasNoKey();
             modelBuilder.Entity<StatiscalViewProfile>().HasNoKey();
-            
+            modelBuilder.Entity<NumberViewDashboardCard>().HasNoKey();
+            modelBuilder.Entity<NumberViewDashboardChart_Job>().HasNoKey();
+            modelBuilder.Entity<NumberViewDashboardChart_KyNang>().HasNoKey();
+            modelBuilder.Entity<NumberViewDashboardChart_NhaTuyenDungAndUngVien>().HasNoKey();
 
 
 

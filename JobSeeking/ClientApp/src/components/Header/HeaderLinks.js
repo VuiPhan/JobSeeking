@@ -41,6 +41,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function HeaderLinks(props) {
   const classes = useStyles();
+  const history = useHistory();
+
   const [visible, setVisible] = React.useState(false);
   const [numberNotification, setNumberNotification] = React.useState(3);
   const LoginInfo = useSelector(state => state.loginInfo);
@@ -48,6 +50,13 @@ export default function HeaderLinks(props) {
   const showModal = () => {
     setVisible(true);
   };
+  const refreshPage = ()=>{
+    //window.location.reload();
+
+    const linkRedired = `/AdminPage/dashboard`;
+    history.push(linkRedired);
+
+  }
   return (
     <div style={{display:'flex'}}>
       

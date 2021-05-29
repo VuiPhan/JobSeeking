@@ -37,6 +37,33 @@ namespace JobSeeking.Common
         public int? CandidateCode { get; set; }
         public string FullName { get; set; }
     }
+    public class NumberViewDashboardCard
+    {
+        public int? NumCandidate { get; set; }
+        public int? NumRecruiter { get; set; }
+        public int? CandidateElect { get; set; }
+        public int? AppPotential { get; set; }
+        
+    }
+    public class NumberViewDashboardChart_Job
+    {
+        public string YYYYMM { get; set; }
+        public int? NumberJob { get; set; }
+
+    }
+    public class NumberViewDashboardChart_KyNang
+    {
+        public int? NumberJob { get; set; }
+        public string SkillName { get; set; }
+
+    }
+    public class NumberViewDashboardChart_NhaTuyenDungAndUngVien
+    {
+        public int? Type { get; set; }
+        public string YYYYMM { get; set; }
+        public int? SL { get; set; }
+
+    }
     public class CandidatePotential
     {
         public int? RecID { get; set; }

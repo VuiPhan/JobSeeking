@@ -1,36 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
 import ToolbarCandidate from './ToolbarCandidate/ToolbarCandidate';
-import { useHistory } from 'react-router-dom';
-
-// export class Layout extends Component {
-//   static displayName = Layout.name;
-
-//   render () {
-//     return (
-//       <div>
-//         <NavMenu />
-//         <Container>
-//           {this.props.children}
-//         </Container>
-//       </div>
-//     );
-//   }
-// }
+import { useHistory, useLocation } from 'react-router-dom';
 
 function Layout(props) {
   const displayName = Layout.name;
   const history = useHistory();
-
-  const isViewAdmin =  history.location.pathname.substring(0, 10) === '/AdminPage' ? false :true;
-  debugger;
+  const location = useLocation();
+  const [isViewAdmin,setIsViewAdmin] = useState(false);
+  useEffect(() => {
+    if(history.location.pathname.substring(0, 10) === '/AdminPage'){
+      setIsViewAdmin(true);
+      return;
+    }
+    setIsViewAdmin(false);
+  },[location]);
   return (
     <div>
-       {isViewAdmin ? <NavMenu />: null}
+       {isViewAdmin ?null : <NavMenu />}
         <Container>
-        {isViewAdmin}
-          {/* {this.props.children} */}
           {props.children}
         </Container>
     </div>

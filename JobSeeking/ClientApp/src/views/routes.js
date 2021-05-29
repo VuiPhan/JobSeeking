@@ -15,5 +15,13 @@ var routes = [
     component: RecruiterManagement,
     layout: "/AdminPage",
   }
+  ,
+  {
+    path: "/ConfigEmail",
+    name: "Thiết lập Email",
+    icon: "nc-icon nc-bank",
+    component: RecruiterManagement,
+    layout: "/AdminPage",
+  }
 ];
 export default routes;

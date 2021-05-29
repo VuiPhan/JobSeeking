@@ -18,10 +18,7 @@ function AdminPage(props) {
   const [activeColor, setActiveColor] = React.useState("info");
   const mainPanel = React.useRef();
   const location = useLocation();
-  // useEffect(() => {
-  //   document.body.className = 'container';
-  //   return () => { document.body.className = ''; }
-  // });
+
     const handleBgClick = (color) => {
         setBackgroundColor(color);
       };
