@@ -1,0 +1,26 @@
+
+{
+    "RecruiterManagement":
+        {
+          "QuanLyNhaTuyenDung":"Quản lý nhà tuyển dụng",
+          "MaNhaTuyenDung":"Mã nhà tuyển dụng",
+          "TenCongTy":"Tên công ty",
+          "LoaiHinhCongTy":"Loại hình công ty",
+          "TrangThai":"Trạng thái",
+          "NgayTaoTK":"Ngày tạo",
+          "DuyetTaiKhoan":"Duyệt tài khoản",
+          "XemTrang":"Xem trang",
+          "DangHoatDong":"Đang hoạt động",
+          "Khoa":"Khóa",
+          "ChuaXacNhan":"Chưa xác nhận",
+          "ThaoTac":"Thao tác",
+          "ThaoTacConfirm":"Chọn thao tác",
+          "XacNhanTaiKhoan":"Xác nhận tài khoản",
+          "KhoaTaiKhoan":"Khóa tài khoản",
+          "MoKhoaTaiKhoan":"Mở khóa tài khoản"
+
+
+      }
+  }
+  
+  

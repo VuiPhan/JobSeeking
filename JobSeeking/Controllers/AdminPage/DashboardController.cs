@@ -73,7 +73,7 @@ namespace JobSeeking.Controllers.AdminPage
 
             int?[] number_NhaTuyenDung = numberViewDashboardChart_NhaTuyenDungAndUngVien.Where(x => x.Type == 2).Select(x => x.SL).ToArray();
 
-            var arlist2 = new ArrayList()
+            var dataFinal = new ArrayList()
                 {
                 Months, 
                 numberJob,
@@ -85,7 +85,7 @@ namespace JobSeeking.Controllers.AdminPage
                 number_UngVien,
                 number_NhaTuyenDung
                 };
-            return arlist2;
+            return dataFinal;
         }
     }
 }

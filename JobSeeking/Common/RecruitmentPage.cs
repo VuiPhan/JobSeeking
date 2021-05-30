@@ -45,6 +45,17 @@ namespace JobSeeking.Common
         public int? AppPotential { get; set; }
         
     }
+    public class Admin_InfomationCompany
+    {
+        public int? CompanyID { get; set; }
+        public int? Key { get; set; }
+        public string CompanyName { get; set; }
+        public string CompanyType_Name { get; set; }
+        public string JoinDate_String { get; set; }
+        public int StatusAccount { get; set; }
+        
+
+    }
     public class NumberViewDashboardChart_Job
     {
         public string YYYYMM { get; set; }

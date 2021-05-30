@@ -52,6 +52,7 @@ namespace JobSeeking.Models.DB
         public DbSet<NumberViewDashboardChart_KyNang> NumberViewDashboardChart_KyNangs { get; set; }
         public DbSet<NumberViewDashboardChart_NhaTuyenDungAndUngVien> NumberViewDashboardChart_NhaTuyenDungAndUngViens { get; set; }
 
+        public DbSet<Admin_InfomationCompany> Admin_InfomationCompanys { get; set; }
         
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
@@ -116,7 +117,8 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<NumberViewDashboardChart_Job>().HasNoKey();
             modelBuilder.Entity<NumberViewDashboardChart_KyNang>().HasNoKey();
             modelBuilder.Entity<NumberViewDashboardChart_NhaTuyenDungAndUngVien>().HasNoKey();
-
+            modelBuilder.Entity<Admin_InfomationCompany>().HasNoKey();
+            
 
 
             modelBuilder.Entity<UteappAccount>(entity =>

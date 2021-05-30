@@ -39,6 +39,11 @@ export default function FormDialog() {
   const handleLogin = async (user) => {
     const action = LoginAPIRedux(user);
     const result = await dispatch(action);
+    debugger;
+    if(typeof result.payload === 'string'){
+      MyToaStrError(result.payload);
+      return;
+    }
     if(!result.payload.UserID){
       MyToaStrError('Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại');
       return;

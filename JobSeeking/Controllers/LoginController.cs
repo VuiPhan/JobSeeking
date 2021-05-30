@@ -3,6 +3,7 @@ using JobSeeking.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -36,6 +37,11 @@ namespace JobSeeking.Controllers
             login.Password = pass;
             IActionResult response = Unauthorized();
             var user = await AuthenticationUser(login);
+
+            if (user != null && user.TypeStringError != "")
+            {
+                return Ok(new { token = "", Message = user.TypeStringError });
+            }
             if (user != null)
             {
                 //var tokenStr = GenerateJSONWebToken(user);
@@ -43,12 +49,22 @@ namespace JobSeeking.Controllers
                 response = Ok(new { token = tokenStr, Message = "" });
                 return response;
             }
-            return Ok(new { token = "",Message = "Không hợp lệ" });
+            return Ok(new { token = "",Message = "Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại" });
 
         }
         private async Task<UserLogin> AuthenticationUser(UserLogin userLogin)
         {
-            var data = await _context.UserLogins.FromSqlRaw("EXEC dbo.UTE_spLoginSystem {0},{1}", userLogin.UserName, userLogin.Password).ToListAsync();
+
+            //var resultIfError = new SqlParameter("@Message", System.Data.SqlDbType.NVarChar, 500) { Direction = System.Data.ParameterDirection.Output };
+            List<UserLogin> data = new List<UserLogin>();
+            try
+            {
+                data = await _context.UserLogins.FromSqlRaw("EXEC dbo.UTE_spLoginSystem {0},{1}", userLogin.UserName, userLogin.Password).ToListAsync();
+            }
+            catch (Exception e)
+            {
+
+            }
             var userLoginResult = data.AsEnumerable().SingleOrDefault();
             return userLoginResult;
         }

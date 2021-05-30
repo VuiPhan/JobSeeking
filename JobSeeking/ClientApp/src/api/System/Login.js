@@ -12,6 +12,10 @@ const LoginApi = {
             var data = parseJwt(response.token);
             localStorage.setItem('UserLogin', JSON.stringify(data));
         }
+        if(response.message !== ''){
+            debugger;
+           return response.message;
+        }
         return data;
         //return response;
     }

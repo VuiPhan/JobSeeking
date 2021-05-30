@@ -10,6 +10,7 @@ namespace JobSeeking.Models.Class
         public string Roles { get; set; }
         public int? CompanyID { get; set; }
         public int? CandidateCode { get; set; }
+        public string TypeStringError { get; set; }
     }
     public class UpLoadCV
     {
