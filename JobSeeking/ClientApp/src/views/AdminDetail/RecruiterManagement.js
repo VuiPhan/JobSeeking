@@ -58,6 +58,7 @@ function RecruiterManagement() {
             key: 'recID',
             title: res.MaNhaTuyenDung,
             dataIndex: 'companyID',
+
             render: text => <a>{text}</a>,
         },
         {
@@ -77,6 +78,22 @@ function RecruiterManagement() {
             key: 'recID',
             title: res.TrangThai,
             dataIndex: 'statusAccount',
+            filters: [
+                {
+                  text: 'Đang hoạt động',
+                  value: 1,
+                },
+                {
+                  text: 'Chưa xác nhận',
+                  value: 2,
+                },
+                {
+                  text: 'Khóa',
+                  value: 3,
+                }],
+                onFilter: (value, record) => record.statusAccount === value,
+                //sorter: (a, b) => a.name.length - b.name.length,
+                //sortDirections: ['descend'],
             render: tags => (
                 <span>
                     <Tag color={tags == isActive ? "green" : "volcano"} key={tags}>

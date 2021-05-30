@@ -20,6 +20,16 @@
           "MoKhoaTaiKhoan":"Mở khóa tài khoản"
 
 
+      },
+      "TemplateEmail":{
+          "TenMauEmail":"Tên mẫu Email",
+          "QuanLyEmail":"Quản lý mẫu Email mặc định",
+          "ChuDe":"Chủ đề: ",
+          "LoaiEmail":"Loại Email",
+          "NoiDungEmail":"Nội dung Email",
+          "ThietLapTemplateEmail":"Thiết lập template Email",
+          "ChonThongTin":"Chọn thông tin (thông tin này sẽ được thêm vào Email)",
+          "GoiY":"Gợi ý cho tôi mẫu Email"
       }
   }
   

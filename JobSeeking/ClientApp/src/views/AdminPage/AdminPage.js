@@ -8,10 +8,6 @@ import routes from "../routes.js";
  import { Route, Switch, useLocation } from "react-router-dom";
  import DemoNavbar from "../../components/Navbars/DemoNavbar.js";
  import Footer from "../../components/FooterAdmin/Footer.js";
-//  import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
-
-
-
 
 function AdminPage(props) {
   const [backgroundColor, setBackgroundColor] = React.useState("black");

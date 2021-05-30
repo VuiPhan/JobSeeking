@@ -13,7 +13,6 @@ const LoginApi = {
             localStorage.setItem('UserLogin', JSON.stringify(data));
         }
         if(response.message !== ''){
-            debugger;
            return response.message;
         }
         return data;

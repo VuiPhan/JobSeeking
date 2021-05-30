@@ -1,5 +1,7 @@
 import Dashboard from "./AdminDetail/Dashboard";
 import RecruiterManagement from "./AdminDetail/RecruiterManagement";
+import TemplateEmail_Admin from "./AdminDetail/TemplateEmail_Admin";
+
 var routes = [
   {
     path: "/dashboard",
@@ -20,7 +22,7 @@ var routes = [
     path: "/ConfigEmail",
     name: "Thiết lập Email",
     icon: "nc-icon nc-bank",
-    component: RecruiterManagement,
+    component: TemplateEmail_Admin,
     layout: "/AdminPage",
   }
 ];

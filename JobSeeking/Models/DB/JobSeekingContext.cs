@@ -46,6 +46,7 @@ namespace JobSeeking.Models.DB
         public DbSet<PublishedRecuitForm> PublishedRecuitForms { get; set; }
         public DbSet<CandidatePotential> CandidatePotentials { get; set; }
         public DbSet<TemplateOfEmail> TemplateOfEmails { get; set; }
+        public DbSet<TemplateOfEmail_Admin> TemplateOfEmail_Admins { get; set; }
         public DbSet<ListNotificationForRecruit> ListNotificationForRecruits { get; set; }
         public DbSet<NumberViewDashboardCard> NumberViewDashboardCards { get; set; }
         public DbSet<NumberViewDashboardChart_Job> NumberViewDashboardChart_Jobs { get; set; }
@@ -111,6 +112,7 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<CandidateOfRoundInterview>().HasNoKey();
             modelBuilder.Entity<CandidatePotential>().HasNoKey();
             modelBuilder.Entity<TemplateOfEmail>().HasNoKey();
+            modelBuilder.Entity<TemplateOfEmail_Admin>().HasNoKey();
             modelBuilder.Entity<ListNotificationForRecruit>().HasNoKey();
             modelBuilder.Entity<StatiscalViewProfile>().HasNoKey();
             modelBuilder.Entity<NumberViewDashboardCard>().HasNoKey();

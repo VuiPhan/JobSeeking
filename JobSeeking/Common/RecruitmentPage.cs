@@ -93,5 +93,12 @@ namespace JobSeeking.Common
         public string SuggestContentEmail { get; set; }
         
     }
+    public class TemplateOfEmail_Admin
+    {
+        public int TemplateID { get; set; }
+        public string SuggestSubject { get; set; }
+        public string SuggestContentEmail { get; set; }
+
+    }
 
 }
