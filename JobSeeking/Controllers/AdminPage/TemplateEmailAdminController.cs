@@ -27,16 +27,41 @@ namespace JobSeeking.Controllers.AdminPage
         public async Task<object> GetAll_TemplateEmailAdmin()
         {
               
-            List<NumberViewDashboardCard> numberViewDashboardCard = new List<NumberViewDashboardCard>();
+            List<TemplateOfEmail_Admin> allTemplateEmail = new List<TemplateOfEmail_Admin>();
             try
             {
-                numberViewDashboardCard = await _context.NumberViewDashboardCards.FromSqlRaw("EXEC dbo.UTE_SYS_Statistics_ViewDashboardCard").ToListAsync();
+                allTemplateEmail = await _context.TemplateOfEmail_Admins.FromSqlRaw("EXEC dbo.UTE_Admin_GetAllTemplateEmail").ToListAsync();
             }
             catch (Exception e)
             {
 
             }
-            return numberViewDashboardCard;
+            return allTemplateEmail;
+        }
+        [HttpPost("UpdateTemplateEmail_Admin")]
+        [Authorize(Policy = Policies.Admin)]
+        public async Task<object> UpdateTemplateEmail_Admin([FromForm] TemplateOfEmail_Admin form)
+        {
+            int result;
+            IActionResult response = Unauthorized();
+            try
+            {
+                result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Admin_UpdateTemplateEmail " +
+               "@ContentConfig={0},@ContentConfig2={1},@RecID={2}", form.SuggestSubject, form.SuggestContentEmail ,form.TemplateID
+               );
+            }
+            catch (Exception e)
+            {
+                response = Ok(new { Error = e.Message });
+                return response;
+            }
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
         }
     }
 }

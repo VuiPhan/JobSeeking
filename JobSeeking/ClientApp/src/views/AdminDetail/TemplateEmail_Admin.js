@@ -26,11 +26,11 @@ function TemplateEmail_Admin() {
   const [lstTemplateEmail, setLstTemplateEmail] = React.useState([]);
 
     const validationShema = yup.object().shape({
-        subject: yup.string()
+      suggestSubject: yup.string()
           .required(res.TruongBBNhap)
           .nullable()
         ,
-        contentOfEmail: yup.string()
+        suggestContentEmail: yup.string()
           .required(res.TruongBBNhap)
       });
   const LoadResource = async () => {
@@ -41,23 +41,26 @@ function TemplateEmail_Admin() {
     setRes(resourceFinal);
     console.log('resourceFinalresourceFinal',resourceFinal);
   }
-    const UpdateSuggestEmail = (TemplateID) => {
-        const updateSuggest = {
-          ...initialValues, contentOfEmail: initialValues.suggestContentEmail,
-          subject: initialValues.suggestSubject
-        };
-        setinitialValues(updateSuggest);
+    const UpdateSuggestEmail =async (data) => {
+      debugger;
+      const formData = new FormData();
+      formData.append('TemplateID', data.templateID);
+      formData.append('SuggestSubject', data.suggestSubject);
+      formData.append('SuggestContentEmail', data.suggestContentEmail);
+      const lstTemplate = await TemplateEmail_AdminAPI.updateTemplateEmailAdmin(formData);
+      if(lstTemplate.error === ""){
+          MyToaStrSuccess(res.CapNhatThanhCong);
+          GetTemplateEmail();
+          return;
       }
-    const LoadDataSource = async () => {
-        const resource = await TemplateEmail_AdminAPI.getAllTemplateEmail();
-        setDataSource(resource);
-    }
+      MyToaStrError(lstTemplate.error);
+      }
     const UpdateItemWhenChangeTemplate = (TemplateID) => {
         const dataSelected = lstTemplateEmail.find(ele => ele.templateID === TemplateID);
         setinitialValues(dataSelected);
       }
     useEffect(() => {
-        LoadDataSource();
+      GetTemplateEmail();
         LoadResource();
     }, [])
     return (
@@ -77,16 +80,12 @@ function TemplateEmail_Admin() {
                     name="templateID"
                     component={SelectField}
                     label="Loại Email"
-                    ListName="TemplateEmailID"
+                    ListName="Admin_TemplateEmailID"
                     HandleOnChange={UpdateItemWhenChangeTemplate} />
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <Tooltip title={res.GoiY}>
-                    <Button onClick={() => UpdateSuggestEmail(values.templateID)} startIcon={<DoneIcon />} variant="outlined" color="secondary">Gợi ý</Button>
-                  </Tooltip>
-                </div>
+             
                 <FastField
-                  name="subject"
+                  name="suggestSubject"
                   component={InputField}
                   label="Chủ đề: "
                   placeholder={res.MoiBanNhapTT}
@@ -97,11 +96,16 @@ function TemplateEmail_Admin() {
                 ></ReactSelectStatic>
                 <div className="MyCKEditor">
                   <FastField
-                    name="contentOfEmail"
+                    name="suggestContentEmail"
                     component={MyCKEditor}
                     label={res.NoiDungEmail}
                     placeholder={res.MoiBanNhapTT}
                   />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop:15,marginLeft:10 }}>
+                  <Tooltip title={res.CapNhat}>
+                    <Button onClick={() => UpdateSuggestEmail(values)} startIcon={<DoneIcon />} variant="outlined" color="secondary">{res.CapNhat}</Button>
+                  </Tooltip>
                 </div>
                 <div style={{ marginTop: 3 }}>
                   <Text>Hướng dẫn sử dụng cấu hình Email</Text>
