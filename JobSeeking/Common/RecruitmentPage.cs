@@ -53,7 +53,11 @@ namespace JobSeeking.Common
         public string CompanyType_Name { get; set; }
         public string JoinDate_String { get; set; }
         public int StatusAccount { get; set; }
-        
+    }
+    public class ManagerCategories
+    {
+        public int CategoryCode { get; set; }
+        public string CategoryName { get; set; }
 
     }
     public class NumberViewDashboardChart_Job

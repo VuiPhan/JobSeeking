@@ -1,8 +1,8 @@
 import axiosClient from "api/axiosClient";
 
-const TemplateEmail_AdminAPI = {
-    getAllTemplateEmail: () => {
-        const url = `/TemplateEmailAdmin/GetAll_TemplateEmailAdmin`;
+const ManagerCategories_API = {
+    getManagerCategories: (type) => {
+        const url = `/ManagerCategories/GetManagerCategories?typeCategories=${type}`;
         return axiosClient.get(url);
     },
     updateTemplateEmailAdmin: (data) => {
@@ -10,4 +10,4 @@ const TemplateEmail_AdminAPI = {
         return axiosClient.post(url,data);
     },
 }
-export default TemplateEmail_AdminAPI;
+export default ManagerCategories_API;

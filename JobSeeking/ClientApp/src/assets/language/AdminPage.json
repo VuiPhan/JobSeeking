@@ -31,6 +31,14 @@
           "ChonThongTin":"Chọn thông tin (thông tin này sẽ được thêm vào Email)",
           "GoiY":"Gợi ý cho tôi mẫu Email",
           "CapNhat":"Cập nhật"
+      },
+      "ManagerCategories":{
+          "ThietLapDanhMuc":"Thiết lập danh mục",
+          "MaDanhMuc":"Mã danh mục",
+          "TenDanhMuc":"Tên danh mục",
+          "ChinhSua": "Chỉnh sửa",
+          "Xoa":"Xóa",
+          "ThemMoi":"Thêm mới"
       }
   }
   
