@@ -38,7 +38,15 @@
           "TenDanhMuc":"Tên danh mục",
           "ChinhSua": "Chỉnh sửa",
           "Xoa":"Xóa",
-          "ThemMoi":"Thêm mới"
+          "ThemMoi":"Thêm mới",
+          "Khoa":"Khóa danh mục",
+          "TrangThai":"Trạng thái",
+          "DangSuDung":"Đang sử dụng",
+          "DaKhoa":"Đã khóa",
+          "KhoaDanhMuc":"Khóa danh mục",
+          "MoKhoaDanhMuc":"Mở khóa danh mục",
+          "ThaoTacConfirm":"Xác nhận",
+          "KhongSuDungDanhMuc":"Người dùng sẽ không chọn được danh mục này nữa"
       }
   }
   

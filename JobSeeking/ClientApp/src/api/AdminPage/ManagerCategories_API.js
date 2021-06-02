@@ -5,9 +5,13 @@ const ManagerCategories_API = {
         const url = `/ManagerCategories/GetManagerCategories?typeCategories=${type}`;
         return axiosClient.get(url);
     },
-    updateTemplateEmailAdmin: (data) => {
-        const url = `/TemplateEmailAdmin/UpdateTemplateEmail_Admin`;
+    updateCategory: (data) => {
+        const url = `/ManagerCategories/UpdateCategory`;
         return axiosClient.post(url,data);
+    },
+    lockCategory: (CategoryCode,TypeCategory) => {
+        const url = `/ManagerCategories/LockCategory_Admin?CategoryCode=${CategoryCode}&TypeCategory=${TypeCategory}`;
+        return axiosClient.post(url);
     },
 }
 export default ManagerCategories_API;

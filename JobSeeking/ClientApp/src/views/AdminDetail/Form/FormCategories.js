@@ -6,13 +6,14 @@ import DateAndTimePicker from 'components/DatetimePicker/DateAndTimePicker';
 import { Modal, Button } from 'antd';
 import * as yup from 'yup';
 import RecruitmentManagerAPI from 'api/Recruitment/RecruitmentManager';
-import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
+import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/RecruitmentOfCandidatesSlicer';
 import { Form } from 'antd';
 import { GetListRecruitProcess } from 'views/RecruitmentManagement/ListRecruitmentSlicer';
+import ManagerCategories_API from 'api/AdminPage/ManagerCategories_API';
 function FormCategories(props) {
-  const { item, visible, setVisible } = props;
+  const { item, visible, setVisible,LoadDataSource,typeCategory } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState('Content of the modal');
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
@@ -24,12 +25,23 @@ function FormCategories(props) {
   const dispatch = useDispatch();
   const handleOk = async (data) => {
     let recID = 0;
-    if (data.hasOwnProperty('recID')) {
+    if (data.hasOwnProperty('key')) {
       recID=data.recID;
     }
     const formData = new FormData();
-    formData.append('JobID', SelectedJob);
-    formData.append('RecID', recID);
+    formData.append('CategoryCode', item.categoryCode);
+    formData.append('CategoryName', data.categoryName);
+    formData.append('TypeCategory', typeCategory);
+    const dataSourceApi = await ManagerCategories_API.updateCategory(formData);
+    if(dataSourceApi.error ===""){
+      MyToaStrSuccess("Cập nhật thành công");
+      LoadDataSource();
+      setVisible(false);
+      return;
+
+    }
+    MyToaStrError(dataSourceApi.error);
+
   };
 
   const handleCancel = () => {
@@ -53,7 +65,7 @@ function FormCategories(props) {
                 onCancel={handleCancel}
               >
                 <FastField
-                  name="roundName"
+                  name="categoryName"
                   component={InputField}
                   label="Tên danh mục"
                   placeholder="Mời bạn nhập"

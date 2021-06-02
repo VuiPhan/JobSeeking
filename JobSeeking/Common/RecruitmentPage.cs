@@ -57,7 +57,10 @@ namespace JobSeeking.Common
     public class ManagerCategories
     {
         public int CategoryCode { get; set; }
+        public int Key { get; set; }
         public string CategoryName { get; set; }
+        public bool IsLock { get; set; }
+        
 
     }
     public class NumberViewDashboardChart_Job
@@ -104,5 +107,11 @@ namespace JobSeeking.Common
         public string SuggestContentEmail { get; set; }
 
     }
+    public class Form_CategoryAdmin
+        {
+            public int? CategoryCode { get; set; }
+            public string CategoryName { get; set; }
+            public int? TypeCategory { get; set; }
+    }
 
-}
+    }
