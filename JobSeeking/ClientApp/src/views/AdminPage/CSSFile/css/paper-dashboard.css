@@ -1,25 +1,4 @@
-/*!
-
- =========================================================
- * Paper Dashboard React - v1.3.0 based on Paper Dashboard 2 - v2.0.0
- =========================================================
-
- * Product Page: https://www.creative-tim.com/product/paper-dashboard-2
- * Copyright 2021 Creative Tim (http://www.creative-tim.com)
-
- * Designed by www.invisionapp.com Coded by www.creative-tim.com
-
- =========================================================
-
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
- */
-/*!
-Animate.css - http://daneden.me/animate
-Licensed under the MIT license - http://opensource.org/licenses/MIT
-
-Copyright (c) 2015 Daniel Eden
-*/
+/**/
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -1421,7 +1400,8 @@ textarea.form-control {
 
 .form-horizontal .form-check-inline {
   margin-top: 6px; }
-
+/* Xóa */
+/*
 button,
 input,
 optgroup,
@@ -1554,7 +1534,8 @@ a.text-gray:focus, a.text-gray:hover {
     color: #FFFFFF; }
     .blockquote.blockquote-white small {
       color: rgba(255, 255, 255, 0.8); }
-
+*/
+/* Xóa */
 body {
   color: #2c2c2c;
   font-size: 14px;

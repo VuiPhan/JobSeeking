@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import Sidebar from "../../components/Sidebar/Sidebar";
 import routes from "../routes.js";
 
- import "./CSSFile/css/paper-dashboard.css";
- import "./CSSFile/demo/demo.css";
+  import "./CSSFile/css/paper-dashboard.css"; // DO file này làm phông lỗi
+  import "./CSSFile/demo/demo.css";
  import "perfect-scrollbar/css/perfect-scrollbar.css";
  import { Route, Switch, useLocation } from "react-router-dom";
  import DemoNavbar from "../../components/Navbars/DemoNavbar.js";

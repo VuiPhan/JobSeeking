@@ -1,5 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
+import {Logout } from 'components/FormLogin/LoginSlice'
+
 import {
   Collapse,
   Navbar,
@@ -17,10 +21,15 @@ import {
   InputGroupAddon,
   Input,
 } from "reactstrap";
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import routes from "../../views/routes.js";
 
 function Header(props) {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
@@ -71,6 +80,13 @@ function Header(props) {
       sidebarToggle.current.classList.toggle("toggled");
     }
   }, [location]);
+  const handleLogout = async (user) => {
+    if(history.location.pathname === '/ProfilePage' || history.location.pathname.substring(0, 13) == '/ProfilePage/' || history.location.pathname.substring(0, 10) === '/AdminPage'){
+      history.push('/');
+    }
+    const action = Logout();
+    dispatch(action);
+  };
   return (
     // add or remove classes depending if we are on full-screen-maps page or not
     <Navbar
@@ -121,12 +137,13 @@ function Header(props) {
           </form>
           <Nav navbar>
             <NavItem>
-              <Link to="#pablo" className="nav-link btn-magnify">
-                <i className="nc-icon nc-layout-11" />
-                <p>
-                  <span className="d-lg-none d-md-block">Stats</span>
-                </p>
-              </Link>
+        :       <Button
+        color="default"
+        onClick={()=>handleLogout()}
+        style={{marginTop:3}}
+      >
+        <SettingsPowerIcon /> Đăng xuất
+        </Button>
             </NavItem>
             <Dropdown
               nav
