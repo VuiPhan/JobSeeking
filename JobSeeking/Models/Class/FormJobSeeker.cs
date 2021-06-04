@@ -125,4 +125,13 @@ namespace JobSeeking.Models.Class
         public int RecID { get; set; }
         public string Descriptions { get; set; }
     }
+    public class TimeLineCandidate
+    {
+        public int CandidateCode { get; set; }
+        public bool HasWorkInfomation { get; set; }
+        public bool HasPersonalInformation { get; set; }
+        public bool HasInfoEducation { get; set; }
+        public bool HasInfoExperience { get; set; }
+        public bool HasInfoCV { get; set; }
+    }
 }

@@ -406,6 +406,15 @@ namespace JobSeeking.Controllers
             var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomationByRecruiter {0},{1},{2}", CandidateCode, claims[4].Value,JobID).ToListAsync();
             return data.AsEnumerable().SingleOrDefault();
         }
+        [HttpGet("GetTimelineCandidate")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> GetTimelineCandidate()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var data = await _context.TimeLineCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetTimelineCandidate {0}", claims[5].Value).ToListAsync();
+            return data.AsEnumerable().SingleOrDefault();
+        }
         [NonAction]
         public async Task<string> SaveImage(IFormFile imageFile)
         {

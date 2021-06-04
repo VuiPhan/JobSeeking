@@ -27,12 +27,12 @@ namespace JobSeeking.Controllers.RecruitmentManagement
         [Authorize(Policy = Policies.Recruiter)]
         public async Task<object> GetTemplateEmailOfCompany()
         {
-            List<TemplateOfEmail_Admin> templateEmail = new List<TemplateOfEmail_Admin>();
+            List<TemplateOfEmail> templateEmail = new List<TemplateOfEmail>();
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             try
             {
-                templateEmail = await _context.TemplateOfEmail_Admins.FromSqlRaw("EXEC dbo.UTE_Admin_GetAllTemplateEmail {0}").ToListAsync();
+                templateEmail = await _context.TemplateOfEmails.FromSqlRaw("EXEC dbo.UTE_Email_GetTemplateEmailOfCompany {0}", claims[4].Value).ToListAsync();
             }
             catch (Exception e)
             {

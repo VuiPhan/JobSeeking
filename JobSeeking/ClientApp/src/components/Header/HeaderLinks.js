@@ -44,19 +44,12 @@ export default function HeaderLinks(props) {
   const history = useHistory();
 
   const [visible, setVisible] = React.useState(false);
-  const [numberNotification, setNumberNotification] = React.useState(3);
+  const [numberNotification, setNumberNotification] = React.useState(0);
   const LoginInfo = useSelector(state => state.loginInfo);
   const LinkToPageCompany = `/Company/${LoginInfo.companyID}`;
   const showModal = () => {
     setVisible(true);
   };
-  const refreshPage = ()=>{
-    //window.location.reload();
-
-    const linkRedired = `/AdminPage/dashboard`;
-    history.push(linkRedired);
-
-  }
   return (
     <div style={{display:'flex'}}>
       

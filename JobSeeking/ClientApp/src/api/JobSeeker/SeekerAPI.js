@@ -49,5 +49,9 @@ const SeekerAPI = {
         const url = `/Seeker/UpdateStatiscalViewProfile?CandidateCode=${CandidateCode}`;
         return axiosClient.post(url);
     },
+    GetTimelineCandidate: () => {
+        const url = `/Seeker/GetTimelineCandidate`;
+        return axiosClient.get(url);
+    },
 }
 export default SeekerAPI;

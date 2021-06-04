@@ -20,6 +20,7 @@ import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import BusinessIcon from '@material-ui/icons/Business';
+import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate.js';
 
 const useStyles = makeStyles(styles);
 
@@ -87,7 +88,7 @@ const HandleRedirectProfilePage = () =>{
   return (
     
     <div style={{ display: "inline" }}>
-
+        <FormTimeLineCandidate visible={true}></FormTimeLineCandidate>
         {LoginInfo.UserLoginDB === '' || typeof LoginInfo.UserLoginDB === 'undefined'
         ?       <Button
         color="default"
