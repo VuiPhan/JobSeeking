@@ -14,6 +14,8 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import TemplateEmailForm from 'components/TemplateEmail/TemplateEmailForm';
 import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate';
+import LoadJobsApi from 'api/HomePageAPI';
+
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -89,13 +91,19 @@ export default function CustomizedMenus() {
     setVisible(true);
   };
   const [visibleTimeline, setVisibleTimeline] = React.useState(false);
-  useEffect(() => {
+  const LoadDataSource = async () =>{
     if(LoginInfo.CadidateCode !== "" && typeof LoginInfo.CadidateCode !== "undefined"){
-      setVisibleTimeline(true);
+      const data = await LoadJobsApi.getInfoToShowTimeline();
+      if(data.isShowTimeline == true){
+        setVisibleTimeline(true);
+      }
     }
     else{
       setVisibleTimeline(false);
     }
+  }
+  useEffect(() => {
+    LoadDataSource();
   }, [LoginInfo])
   return (
     <div style={{ display: 'contents' }}>

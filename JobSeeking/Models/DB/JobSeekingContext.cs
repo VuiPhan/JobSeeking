@@ -20,6 +20,7 @@ namespace JobSeeking.Models.DB
         public DbSet<ValueList> ValueLists { get; set; }
         public DbSet<ValueListString> ValueListStrings { get; set; }
         public DbSet<FormJobSeeker> FormJobSeekers { get; set; }
+        public DbSet<ShowTimeLine> ShowTimeLines { get; set; }
         public DbSet<TimeLineCandidate> TimeLineCandidates { get; set; }
         
         public DbSet<StatiscalViewProfile> StatiscalViewProfiles { get; set; }
@@ -98,6 +99,7 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<ValueListString>().HasNoKey();
             modelBuilder.Entity<FormHeaderCompany>().HasNoKey();
             modelBuilder.Entity<FormJobSeeker>().HasNoKey();
+            modelBuilder.Entity<ShowTimeLine>().HasNoKey();
             modelBuilder.Entity<CompanyPage>().HasNoKey();
             modelBuilder.Entity<UserLogin>().HasNoKey();
             modelBuilder.Entity<JobForm>().HasNoKey();

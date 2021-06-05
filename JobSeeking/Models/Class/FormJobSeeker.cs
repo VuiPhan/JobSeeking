@@ -125,6 +125,11 @@ namespace JobSeeking.Models.Class
         public int RecID { get; set; }
         public string Descriptions { get; set; }
     }
+    public class ShowTimeLine
+    {
+        public int CandidateCode { get; set; }
+        public bool IsShowTimeline { get; set; }
+    }
     public class TimeLineCandidate
     {
         public int CandidateCode { get; set; }

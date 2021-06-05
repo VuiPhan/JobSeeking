@@ -109,6 +109,23 @@ namespace JobSeeking.Controllers
             var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomation {0}", claims[5].Value).ToListAsync();
             return data;
         }
+        [HttpGet("GetIsShowTimeline")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> GetIsShowTimeline()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            List<ShowTimeLine> data = new List<ShowTimeLine>();
+            try
+            {
+                data = await _context.ShowTimeLines.FromSqlRaw("EXEC dbo.UTE_Seeker_GetIsShowTimeline {0}", claims[5].Value).ToListAsync();
+            }
+            catch (Exception e)
+            {
+
+            }
+            return data.AsEnumerable().SingleOrDefault();
+        }
         [HttpGet("ApplicantGetViewProfile")]
         [Authorize(Policy = Policies.User)]
         public async Task<object> ApplicantGetViewProfile()

@@ -27,6 +27,15 @@ namespace JobSeeking.Controllers
             var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForKendo {0},{1},{2},{3}",CompanyID, CandidateCode,IsOwnCompany, IsReletive).ToListAsync();
             return dataJob;
         }
+        [HttpGet("GetListJobForCandidate30Days")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> GetListJobForCandidate30Days()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var dataJob = await _context.JobForms.FromSqlRaw("EXEC dbo.UTE_spGetListJobForCandidate30Days {0}", claims[5].Value).ToListAsync();
+            return dataJob;
+        }
         [HttpGet("GetJobForSearch")]
         public async Task<object> GetJobForSearch(string JobSkillIDs,string JobTitleIDs,string LocationValue)
         {

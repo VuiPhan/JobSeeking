@@ -10,6 +10,14 @@ const LoadJobsApi = {
             return axiosClient.get(url);
         }
     },
+    getListJobForCandidate30Days: () => {
+        const url = `/Jobs/GetListJobForCandidate30Days`;
+        return axiosClient.get(url);
+    },
+    getInfoToShowTimeline: () => {
+        const url = `/Seeker/GetIsShowTimeline`;
+        return axiosClient.get(url);
+    },
     getAllForSearch: (JobSkillIDs,JobTitleIDs,LocationValue) => {
         const url = `/Jobs/GetJobForSearch?JobSkillIDs=${JobSkillIDs}&JobTitleIDs=${JobTitleIDs}&LocationValue=${LocationValue}`;
         return axiosClient.get(url);
