@@ -2,7 +2,18 @@
 {
     "AppPage":
         {
-          "ThongTinThem":"Thông tin thêm"
+          "ThongTinThem":"Thông tin thêm",
+          "ThongTinCV":"Thông tin CV",
+          "QuaTrinhLamViec":"Quá trình làm việc",
+          "HocVan":"Học vấn",
+          "ThongTinCongViec":"Thông tin công việc",
+          "ThongTinCaNhan":"Thông tin cá nhân",
+          "HoanThanh":"Hoàn thành",
+          "HayHoanTat":"Hãy hoàn tất",
+          "HoanTatThongTin":"(*) Hãy hoàn tất thông tin bên dưới để tăng thêm cơ hội bạn nhé!",
+          "Dong":"Đóng",
+          "TatThongBao":"Tắt thông báo lần sau"
+
       }
   }
   

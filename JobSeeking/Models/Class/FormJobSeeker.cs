@@ -129,9 +129,14 @@ namespace JobSeeking.Models.Class
     {
         public int CandidateCode { get; set; }
         public bool HasWorkInfomation { get; set; }
+        public string HasWorkInfomation_Name { get; set; }
         public bool HasPersonalInformation { get; set; }
+        public string HasPersonalInformation_Name { get; set; }
         public bool HasInfoEducation { get; set; }
+        public string HasInfoEducation_Name { get; set; }
         public bool HasInfoExperience { get; set; }
+        public string HasInfoExperience_Name { get; set; }
         public bool HasInfoCV { get; set; }
+        public string HasInfoCV_Name { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import TemplateEmailForm from 'components/TemplateEmail/TemplateEmailForm';
+import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate';
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
@@ -87,10 +88,20 @@ export default function CustomizedMenus() {
   const showModal = () => {
     setVisible(true);
   };
+  const [visibleTimeline, setVisibleTimeline] = React.useState(false);
+  useEffect(() => {
+    if(LoginInfo.CadidateCode !== "" && typeof LoginInfo.CadidateCode !== "undefined"){
+      setVisibleTimeline(true);
+    }
+    else{
+      setVisibleTimeline(false);
+    }
+  }, [LoginInfo])
   return (
     <div style={{ display: 'contents' }}>
       <TemplateEmailForm visible={visible} setVisible={setVisible} widthForm={1000}></TemplateEmailForm>
       <FormChangePassword isShowFormChangePass={isShowFormChangePass} setIsShowFormChangePass={setIsShowFormChangePass} />
+      <FormTimeLineCandidate visible={visibleTimeline} setVisible={setVisibleTimeline}></FormTimeLineCandidate>
 
       <div style={{marginTop:8}}>
         <Button

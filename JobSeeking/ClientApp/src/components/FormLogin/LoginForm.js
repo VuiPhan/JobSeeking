@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -28,7 +28,7 @@ export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const LoginInfo = useSelector(state => state.loginInfo)
+  const LoginInfo = useSelector(state => state.loginInfo);
   const res = LGCompanyPage.CompanyPage;
   const handleClickOpen = () => {
     setOpen(true);
@@ -85,10 +85,11 @@ const HandleRedirectProfilePage = () =>{
   window.scrollTo(0, 325);
 }
   // Cần phải dispath một cái action
+
+  
   return (
     
     <div style={{ display: "inline" }}>
-        <FormTimeLineCandidate visible={true}></FormTimeLineCandidate>
         {LoginInfo.UserLoginDB === '' || typeof LoginInfo.UserLoginDB === 'undefined'
         ?       <Button
         color="default"

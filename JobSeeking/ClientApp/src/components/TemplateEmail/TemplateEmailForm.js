@@ -16,6 +16,7 @@ import ReactSelectStatic from 'components/ReactSelectStatic/ReactSelectStatic';
 import './TemplateEmail.scss';
 import { Tooltip } from '@material-ui/core';
 import { IsObjectEmpty } from 'common/CommonFunction';
+import ConstCommon from 'common/ConstInApp';
 
 
 
@@ -34,6 +35,8 @@ function TemplateEmailForm(props) {
     setRes(resourceFinal);
   }
   const [lstTemplateEmail, setLstTemplateEmail] = React.useState([]);
+  const LoginInfo = useSelector(state => state.loginInfo);
+
   const [initialValues, setinitialValues] = React.useState({});
   const validationShema = yup.object().shape({
     subject: yup.string()
@@ -44,9 +47,11 @@ function TemplateEmailForm(props) {
       .required(res.TruongBBNhap)
   });
   const GetTemplateEmail = async () => {
+    if(LoginInfo.role === ConstCommon.RoleRecruiter){
     const lstTemplate = await TemplateEmailAPI.getTemplateEmail();
     setinitialValues(lstTemplate[0]);
     setLstTemplateEmail(lstTemplate);
+  }
   }
   useEffect(() => {
     LoadResource();
@@ -92,7 +97,6 @@ function TemplateEmailForm(props) {
         enableReinitialize>
         {FormikProps => {
           const { values, errors, touched } = FormikProps;
-          console.log('errors',errors);
           return (
             <FormFormik>
               <Modal
