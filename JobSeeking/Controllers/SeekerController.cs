@@ -393,6 +393,25 @@ namespace JobSeeking.Controllers
             response = Ok(new { Error = "Có lỗi" });
             return response;
         }
+        [HttpPost("UpdateStatusViewTimeLine")]
+        [Authorize(Policy = Policies.User)]
+        public async Task<object> UpdateStatusViewTimeLine(bool status)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            IList<Claim> claims = identity.Claims.ToList();
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_UpdateStatusViewTimeLine" +
+            " @CandidateCode={0},@Status={1}",
+            claims[5].Value, status
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
         [HttpGet("GetListEducation")]
         public async Task<object> GetListEducation(int? CandidateCode)
         {

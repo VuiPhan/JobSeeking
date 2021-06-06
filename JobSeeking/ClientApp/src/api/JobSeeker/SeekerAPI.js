@@ -53,5 +53,9 @@ const SeekerAPI = {
         const url = `/Seeker/GetTimelineCandidate`;
         return axiosClient.get(url);
     },
+    updateStatusViewTimeLine: (status) => {
+        const url = `/Seeker/UpdateStatusViewTimeLine?status=${status}`;
+        return axiosClient.post(url);
+    },
 }
 export default SeekerAPI;

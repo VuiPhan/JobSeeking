@@ -11,12 +11,14 @@ import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import ListViewJobRecent from 'components/ListViewJobRecent/ListViewJobRecent';
+import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 
 const { Step } = Steps;
 
 function FormTimeLineCandidate(props) {
   const { visible, setVisible, widthForm } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
+  
   const LoginInfo = useSelector(state => state.loginInfo);
   const [res, setRes] = React.useState({});
   const LoadResource = async () => {
@@ -48,7 +50,13 @@ function FormTimeLineCandidate(props) {
   const dispatch = useDispatch();
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
   const handleOk = async () => {
-    alert('Vui');
+    const result = await SeekerAPI.updateStatusViewTimeLine(false);
+    if(result.error === ""){
+      MyToaStrSuccess("Cập nhật thành công")
+      setVisible(false);
+      return;
+    }
+    MyToaStrError("Có lỗi xảy ra");
   };
   const handleCancel = () => {
     setVisible(false);
@@ -67,7 +75,13 @@ function FormTimeLineCandidate(props) {
               fontStyle: 'italic',
               fontSize: 12,
               color: 'brown'
-            }}>{res.HoanTatThongTin}</p>
+            }}>
+              {valueTimeline.hasPersonalInformation === true &&
+              valueTimeline.hasWorkInfomation === true &&
+              valueTimeline.hasInfoEducation === true &&
+              valueTimeline.hasInfoExperience === true &&
+              valueTimeline.hasInfoCV === true ?
+              res.DaHoanTatThongTin : res.HoanTatThongTin}</p>
             <Steps >
               <Step title={valueTimeline.hasPersonalInformation === true ? res.HoanThanh : res.HayHoanTat} 
                     description={res.ThongTinCaNhan} status={valueTimeline.hasPersonalInformation_Name} />
@@ -91,7 +105,7 @@ function FormTimeLineCandidate(props) {
           <hr style={{ marginTop: 10 }}></hr>
           <FormGroup>
             <div style={{ float: 'right',paddingBottom:20}}>
-              <Button startIcon={<DoneIcon />} type='submit' variant="outlined" color="secondary">{res.TatThongBao} </Button>
+              <Button startIcon={<DoneIcon />} type='submit' variant="outlined" onClick={() => handleOk() } color="secondary">{res.TatThongBao} </Button>
               <Button startIcon={<CloseIcon />} style={{ marginLeft: 10 }} onClick={() => setVisible(false)} variant="outlined" color="primary">{res.Dong}</Button>
             </div>
           </FormGroup>

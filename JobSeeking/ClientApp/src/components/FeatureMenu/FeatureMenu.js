@@ -15,6 +15,8 @@ import { useSelector } from 'react-redux';
 import TemplateEmailForm from 'components/TemplateEmail/TemplateEmailForm';
 import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate';
 import LoadJobsApi from 'api/HomePageAPI';
+import SeekerAPI from 'api/JobSeeker/SeekerAPI';
+import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 
 const StyledMenu = withStyles({
   paper: {
@@ -102,6 +104,15 @@ export default function CustomizedMenus() {
       setVisibleTimeline(false);
     }
   }
+  const OpenNotification = async () =>{
+    const result = await SeekerAPI.updateStatusViewTimeLine(true);
+    if(result.error === ""){
+      MyToaStrSuccess("Cập nhật thành công")
+      setVisible(false);
+      return;
+    }
+    MyToaStrError("Có lỗi xảy ra");
+  }
   useEffect(() => {
     LoadDataSource();
   }, [LoginInfo])
@@ -129,6 +140,13 @@ export default function CustomizedMenus() {
                 <SendIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText primary="Đã ứng tuyển" />
+            </StyledMenuItem> : null}
+            {LoginInfo.role === "User" ?
+            <StyledMenuItem onClick={() => OpenNotification()}>
+              <ListItemIcon>
+                <SendIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Bật thông báo" />
             </StyledMenuItem> : null}
           {LoginInfo.role === "Recruiter" ?
             <StyledMenuItem onClick={() => RedirectPageRecruitmentManagement()}>
