@@ -21,11 +21,14 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import BusinessIcon from '@material-ui/icons/Business';
 import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate.js';
+import FormForgetPassword from './FormForgetPassword/FormForgetPassword.js';
 
 const useStyles = makeStyles(styles);
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
+  const [visibleFormForget, setVisibleFormForget] = React.useState(false);
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const LoginInfo = useSelector(state => state.loginInfo);
@@ -85,11 +88,16 @@ const HandleRedirectProfilePage = () =>{
   window.scrollTo(0, 325);
 }
   // Cần phải dispath một cái action
-
+const ShowFormForget = () =>{
+  setOpen(false);
+  setVisibleFormForget(true);
+}
   
   return (
-    
+    <div>
     <div style={{ display: "inline" }}>
+  <FormForgetPassword visible={visibleFormForget} setVisible={setVisibleFormForget} setShowLoginForm={setOpen}></FormForgetPassword>
+
         {LoginInfo.UserLoginDB === '' || typeof LoginInfo.UserLoginDB === 'undefined'
         ?       <Button
         color="default"
@@ -110,6 +118,7 @@ const HandleRedirectProfilePage = () =>{
       
     {LoginInfo.UserLoginDB}
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+
         <DialogContent>
           <Formik initialValues={initialValues}
                         validationSchema={validationShema}
@@ -136,6 +145,8 @@ const HandleRedirectProfilePage = () =>{
                                     <FormGroup>
                                         <Button style={{marginTop:10}} startIcon={<ExitToAppIcon />} type='submit' variant="outlined" color="primary">{res.DangNhap}</Button>
                                         <br/>
+                                        <Button style={{marginTop:10}} startIcon={<ExitToAppIcon />} onClick={()=>ShowFormForget()} variant="outlined" color="primary">Quên mật khẩu</Button>
+                                        <br/>
                                         <p style={{marginTop:30}}>Bạn chưa có tài khoản? Đăng ký ngay</p>
                                         <Button startIcon={<GroupAddIcon />} onClick={()=>HandleRedirectProfilePage()} variant="outlined" color="secondary">{res.DangKyThanhVien}</Button>
 
@@ -147,6 +158,7 @@ const HandleRedirectProfilePage = () =>{
                     </Formik>
         </DialogContent>
       </Dialog>
+    </div>
     </div>
   );
 }

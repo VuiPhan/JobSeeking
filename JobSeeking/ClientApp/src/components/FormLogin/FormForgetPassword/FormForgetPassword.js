@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,18 +18,23 @@ import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import { DialogTitle } from '@material-ui/core';
-import styles from "../../assets/jss/material-kit-react/components/headerLinksStyle.js";
-const useStyles = makeStyles(styles);
 
-export default function FormForgetPassword(props) {
-  const {isShowFormChangePass,setIsShowFormChangePass} = props;
+export default function FormChangePassword(props) {
+  const {visible,setVisible,setShowLoginForm} = props;
   const res = LGCompanyPage.CompanyPage;
   const resValidation = handleGetJson("Validation","PersonalPage");
+  const [isShowTextChangePass, setIsShowTextChangePass] = React.useState(false);
+  const [textExprire, setIsTextExprire] = React.useState('');
+  
   const initialValues = {
     PasswordCurrent: '',
     PasswordNew: '',
     RePasswordNew: '',
 };
+const handleCloseFormForget = () =>{
+    setVisible(false);
+    setShowLoginForm(true);
+  }
   const handleChangePassword = async (data) => {
     const result = await SeekerAPI.changePassword(data.PasswordCurrent,data.PasswordNew);
     if(result.error != ""){
@@ -39,7 +45,7 @@ export default function FormForgetPassword(props) {
     //
     setTimeout(
       function() {
-        setIsShowFormChangePass(false); 
+        handleCloseFormForget();
       }
       .bind(this),
       2000
@@ -57,9 +63,14 @@ RePasswordNew: yup.string()
   .oneOf([yup.ref('PasswordNew'), null], resValidation.MatKhauKK).nullable(),
 })
   // Cần phải dispath một cái action
+const SendOTP = () =>{
+    setIsTextExprire('Còn 30s');
+    setIsShowTextChangePass(true);
+}
+
   return (
     <div style={{ display: "inline" }}>
-      <Dialog open={isShowFormChangePass} onClose={()=>setIsShowFormChangePass(false)} aria-labelledby="form-dialog-title">
+      <Dialog open={visible} onClose={()=>handleCloseFormForget()} aria-labelledby="form-dialog-title">
         <DialogContent>
           <Formik initialValues={initialValues}
                         validationSchema={validationShema}
@@ -70,14 +81,25 @@ RePasswordNew: yup.string()
                                     <h1>Thay đổi mật khẩu</h1>
                                     <hr></hr>
                                     <FastField
-                                        name="PasswordCurrent"
+                                        name="loginAccount"
                                         component={InputField}
-                                        type='password'
-                                        label="Mật khẩu hiện tại"
+                                        type='text'
+                                        label="Tài khoản đăng nhập"
                                         placeholder="Mời bạn nhập"
                                     />
+                                      <Button startIcon={<DoneIcon />} onClick={()=>SendOTP()} variant="outlined" color="secondary">Gửi mã OTP</Button>
 
-                                    <FastField
+                                      {isShowTextChangePass === true ? 
+                                    <div>
+                                        {textExprire}
+                                        <FastField
+                                        name="otp"
+                                        component={InputField}
+                                        type='text'
+                                        label="Mời bạn nhập mã OTP"
+                                        placeholder="Mời bạn nhập"
+                                    />
+ <FastField
                                         name="PasswordNew"
                                         component={InputField}
                                         label="Mật khẩu mới"
@@ -91,12 +113,16 @@ RePasswordNew: yup.string()
                                         type='password'
                                         placeholder="Mời bạn nhập lại mật khẩu mới"
                                     />
-                                  <MyToastr></MyToastr>
+                                    </div>  : null
+                                    }
+                                  
+
+                                   
                                   <hr style={{marginTop:100}}></hr>
                                     <FormGroup>
                                       <div style={{float:'right'}}>
                                         <Button startIcon={<DoneIcon />} type='submit' variant="outlined" color="secondary">Xác nhận thay đổi</Button>
-                                        <Button  startIcon={<CloseIcon />} style={{marginLeft:10}} onClick={()=>setIsShowFormChangePass(false)} variant="outlined" color="primary">Đóng</Button>
+                                        <Button  startIcon={<CloseIcon />} style={{marginLeft:10}} onClick={()=>handleCloseFormForget()} variant="outlined" color="primary">Đóng</Button>
                                         </div>
                                     </FormGroup>
                                 </Form>
