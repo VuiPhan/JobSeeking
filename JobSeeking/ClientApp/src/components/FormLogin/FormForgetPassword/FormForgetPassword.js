@@ -18,12 +18,19 @@ import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import { DialogTitle } from '@material-ui/core';
+import GuestAPI from 'api/Guest/GuestAPI';
+import Countdown from 'react-countdown';
+import { isDebuggerStatement } from 'typescript';
 
+const Completionist = () => <span>Mã OTP đã hết hạn, bạn vui lòng gửi lại OTP mới!</span>;
 export default function FormChangePassword(props) {
   const {visible,setVisible,setShowLoginForm} = props;
   const res = LGCompanyPage.CompanyPage;
   const resValidation = handleGetJson("Validation","PersonalPage");
+  const minusExprire = 30 * 1000;
   const [isShowTextChangePass, setIsShowTextChangePass] = React.useState(false);
+  const [valueMinusExpire, setValueMinusExpire] = React.useState(minusExprire);
+  const [valueOfCountdown, setCalueOfCountdown] = React.useState(Date.now() + 50000);
   const [textExprire, setIsTextExprire] = React.useState('');
   
   const initialValues = {
@@ -34,6 +41,7 @@ export default function FormChangePassword(props) {
 const handleCloseFormForget = () =>{
     setVisible(false);
     setShowLoginForm(true);
+    setIsShowTextChangePass(false);
   }
   const handleChangePassword = async (data) => {
     const result = await SeekerAPI.changePassword(data.PasswordCurrent,data.PasswordNew);
@@ -63,22 +71,58 @@ RePasswordNew: yup.string()
   .oneOf([yup.ref('PasswordNew'), null], resValidation.MatKhauKK).nullable(),
 })
   // Cần phải dispath một cái action
-const SendOTP = () =>{
-    setIsTextExprire('Còn 30s');
-    setIsShowTextChangePass(true);
+const SendOTP = async (loginAccount) =>{
+    const result = await GuestAPI.forgetPassword(loginAccount);
+    if(result.isSendOTP === true){
+      setIsShowTextChangePass(true);
+      MyToaStrSuccess(result.message);
+      return;
+    }
+    MyToaStrError(result.message);
+    return;
+}
+const renderer = ({ hours, minutes, seconds, completed }) => {
+  if (completed) {
+    setIsShowTextChangePass(false);
+    // Render a completed state
+    return <Completionist />;
+  } else {
+    // Render a countdown
+    return <span style={{color:'red',paddingTop:3,paddingBottom:3}}>Mã OTP sẽ hết hạn sau: {hours}:{minutes}:{seconds}</span>;
+  }
+};
+const UpdatePassWordForget = async (values) =>{
+  const result = await GuestAPI.updatePassword(values.loginAccount,values.otp,values.PasswordNew);
+    if(result.isUpdateSuccess === true){
+      setIsShowTextChangePass(true);
+      MyToaStrSuccess(result.message);
+      handleCloseFormForget();
+      return;
+    }
+    MyToaStrError(result.message);
+    return;
+
 }
 
   return (
     <div style={{ display: "inline" }}>
+    
       <Dialog open={visible} onClose={()=>handleCloseFormForget()} aria-labelledby="form-dialog-title">
         <DialogContent>
           <Formik initialValues={initialValues}
                         validationSchema={validationShema}
                          onSubmit={values =>handleChangePassword(values)}>
                         {FormikProps => {
+                             const { values, errors, touched } = FormikProps;
                             return (
+                              <div>
+                              {/* {isShowTextChangePass === true ? 
+                                <Countdown
+                                                                    date={valueOfCountdown}
+                                                                    renderer={renderer}
+                                                                  /> : null} */}
                                 <Form>
-                                    <h1>Thay đổi mật khẩu</h1>
+                                    <h1 style={{paddingTop: 0}}>Thay đổi mật khẩu</h1>
                                     <hr></hr>
                                     <FastField
                                         name="loginAccount"
@@ -87,11 +131,12 @@ const SendOTP = () =>{
                                         label="Tài khoản đăng nhập"
                                         placeholder="Mời bạn nhập"
                                     />
-                                      <Button startIcon={<DoneIcon />} onClick={()=>SendOTP()} variant="outlined" color="secondary">Gửi mã OTP</Button>
-
+                                        {isShowTextChangePass === true ?
+                                        null:
+                                        <Button startIcon={<DoneIcon />} onClick={()=>SendOTP(values.loginAccount)} variant="outlined" color="secondary">Gửi mã OTP</Button>}
                                       {isShowTextChangePass === true ? 
                                     <div>
-                                        {textExprire}
+                                       
                                         <FastField
                                         name="otp"
                                         component={InputField}
@@ -115,17 +160,16 @@ const SendOTP = () =>{
                                     />
                                     </div>  : null
                                     }
-                                  
-
-                                   
-                                  <hr style={{marginTop:100}}></hr>
+                                  <hr style={{marginTop:5}}></hr>
                                     <FormGroup>
                                       <div style={{float:'right'}}>
-                                        <Button startIcon={<DoneIcon />} type='submit' variant="outlined" color="secondary">Xác nhận thay đổi</Button>
+                                      {isShowTextChangePass === true ? <Button startIcon={<DoneIcon />} type='submit' variant="outlined" onClick={() =>UpdatePassWordForget(values)} color="secondary">Xác nhận thay đổi</Button>:null}
                                         <Button  startIcon={<CloseIcon />} style={{marginLeft:10}} onClick={()=>handleCloseFormForget()} variant="outlined" color="primary">Đóng</Button>
                                         </div>
                                     </FormGroup>
                                 </Form>
+    </div>
+
                             )
                         }}
                     </Formik>
