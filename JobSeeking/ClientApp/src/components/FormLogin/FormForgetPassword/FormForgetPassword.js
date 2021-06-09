@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -21,18 +21,37 @@ import { DialogTitle } from '@material-ui/core';
 import GuestAPI from 'api/Guest/GuestAPI';
 import Countdown from 'react-countdown';
 import { isDebuggerStatement } from 'typescript';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import { IsObjectEmpty } from 'common/CommonFunction';
+
+
 
 const Completionist = () => <span>Mã OTP đã hết hạn, bạn vui lòng gửi lại OTP mới!</span>;
 export default function FormChangePassword(props) {
   const {visible,setVisible,setShowLoginForm} = props;
   const res = LGCompanyPage.CompanyPage;
-  const resValidation = handleGetJson("Validation","PersonalPage");
   const minusExprire = 30 * 1000;
   const [isShowTextChangePass, setIsShowTextChangePass] = React.useState(false);
   const [valueMinusExpire, setValueMinusExpire] = React.useState(minusExprire);
   const [valueOfCountdown, setCalueOfCountdown] = React.useState(Date.now() + 50000);
   const [textExprire, setIsTextExprire] = React.useState('');
-  
+  const [resValidation, setRes] = React.useState({});
+  async function getResource() {
+    const resource = await handleGetJson("Validation", "PersonalPage");
+    setRes(resource);
+  }
+  useEffect(() => {
+    getResource();
+}, [])
+
+
+
+
+
+
+
+
+
   const initialValues = {
     PasswordCurrent: '',
     PasswordNew: '',
@@ -43,23 +62,17 @@ const handleCloseFormForget = () =>{
     setShowLoginForm(true);
     setIsShowTextChangePass(false);
   }
-  const handleChangePassword = async (data) => {
-    const result = await SeekerAPI.changePassword(data.PasswordCurrent,data.PasswordNew);
-    if(result.error != ""){
-      MyToaStrError('Mật khẩu hiện tại không chính xác, vui lòng kiểm tra lại!');
-      return;
-    }
-    MyToaStrSuccess('Cập nhật mật khẩu thành công!');
-    //
-    setTimeout(
-      function() {
-        handleCloseFormForget();
-      }
-      .bind(this),
-      2000
-  );
-  };
 const validationShema = yup.object().shape({
+  loginAccount: yup.string()
+  .required(resValidation.TruongBBNhap)
+  .email("Đây phải là một địa chỉ Email")
+  .nullable()
+,
+otp: yup.number()
+.typeError("Đây phải là dãy số")
+.required(resValidation.TruongBBNhap)
+.nullable()
+,
   PasswordNew: yup.string()
   .required(resValidation.TruongBBNhap)
   .min(8, resValidation.MatKhauQN)
@@ -72,6 +85,10 @@ RePasswordNew: yup.string()
 })
   // Cần phải dispath một cái action
 const SendOTP = async (loginAccount) =>{
+    if(loginAccount === "" || typeof loginAccount ==="undefined"){
+      MyToaStrError("Vui lòng nhập địa chỉ Email");
+      return;
+    }
     const result = await GuestAPI.forgetPassword(loginAccount);
     if(result.isSendOTP === true){
       setIsShowTextChangePass(true);
@@ -91,12 +108,20 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
     return <span style={{color:'red',paddingTop:3,paddingBottom:3}}>Mã OTP sẽ hết hạn sau: {hours}:{minutes}:{seconds}</span>;
   }
 };
-const UpdatePassWordForget = async (values) =>{
+const UpdatePassWordForget = async (values,errors) =>{
+  if(IsObjectEmpty(errors) === true){
+    return;
+  }
   const result = await GuestAPI.updatePassword(values.loginAccount,values.otp,values.PasswordNew);
     if(result.isUpdateSuccess === true){
       setIsShowTextChangePass(true);
       MyToaStrSuccess(result.message);
       handleCloseFormForget();
+      return;
+    }
+    if(result.isUpdateSuccess === false && result.message == "Mã OTP của bạn đã hết hạn. Vui lòng gửi lại"){
+      setIsShowTextChangePass(false);
+      MyToaStrError(result.message);
       return;
     }
     MyToaStrError(result.message);
@@ -111,7 +136,7 @@ const UpdatePassWordForget = async (values) =>{
         <DialogContent>
           <Formik initialValues={initialValues}
                         validationSchema={validationShema}
-                         onSubmit={values =>handleChangePassword(values)}>
+                      >
                         {FormikProps => {
                              const { values, errors, touched } = FormikProps;
                             return (
@@ -133,7 +158,7 @@ const UpdatePassWordForget = async (values) =>{
                                     />
                                         {isShowTextChangePass === true ?
                                         null:
-                                        <Button startIcon={<DoneIcon />} onClick={()=>SendOTP(values.loginAccount)} variant="outlined" color="secondary">Gửi mã OTP</Button>}
+                                        <Button startIcon={<MailOutlineIcon />} onClick={()=>SendOTP(values.loginAccount)} variant="outlined" color="secondary">Gửi mã OTP</Button>}
                                       {isShowTextChangePass === true ? 
                                     <div>
                                        
@@ -163,7 +188,7 @@ const UpdatePassWordForget = async (values) =>{
                                   <hr style={{marginTop:5}}></hr>
                                     <FormGroup>
                                       <div style={{float:'right'}}>
-                                      {isShowTextChangePass === true ? <Button startIcon={<DoneIcon />} type='submit' variant="outlined" onClick={() =>UpdatePassWordForget(values)} color="secondary">Xác nhận thay đổi</Button>:null}
+                                      {isShowTextChangePass === true ? <Button startIcon={<DoneIcon />} type='submit' variant="outlined" onClick={() =>UpdatePassWordForget(values,errors)} color="secondary">Xác nhận thay đổi</Button>:null}
                                         <Button  startIcon={<CloseIcon />} style={{marginLeft:10}} onClick={()=>handleCloseFormForget()} variant="outlined" color="primary">Đóng</Button>
                                         </div>
                                     </FormGroup>

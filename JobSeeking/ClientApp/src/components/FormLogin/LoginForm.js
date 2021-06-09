@@ -22,6 +22,7 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import BusinessIcon from '@material-ui/icons/Business';
 import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate.js';
 import FormForgetPassword from './FormForgetPassword/FormForgetPassword.js';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 const useStyles = makeStyles(styles);
 
@@ -141,11 +142,10 @@ const ShowFormForget = () =>{
                                         type='password'
                                         placeholder={res.MoiBanNhapMatKhau}
                                     />
-                                  <MyToastr></MyToastr>
                                     <FormGroup>
                                         <Button style={{marginTop:10}} startIcon={<ExitToAppIcon />} type='submit' variant="outlined" color="primary">{res.DangNhap}</Button>
                                         <br/>
-                                        <Button style={{marginTop:10}} startIcon={<ExitToAppIcon />} onClick={()=>ShowFormForget()} variant="outlined" color="primary">Quên mật khẩu</Button>
+                                        <Button style={{marginTop:10}} startIcon={<VpnKeyIcon />} onClick={()=>ShowFormForget()} variant="outlined" color="primary">Quên mật khẩu</Button>
                                         <br/>
                                         <p style={{marginTop:30}}>Bạn chưa có tài khoản? Đăng ký ngay</p>
                                         <Button startIcon={<GroupAddIcon />} onClick={()=>HandleRedirectProfilePage()} variant="outlined" color="secondary">{res.DangKyThanhVien}</Button>
