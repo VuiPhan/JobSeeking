@@ -91,7 +91,13 @@ function Dashboard() {
                     ],
                     borderColor: "rgba(75,192,192,1)"
                 }
-            ]
+            ],
+    options: {
+        title: {
+            display: true,
+            text: 'Custom Chart Title'
+        }
+    }
         };
         const dataChart_UngVienVaTuyenDung_DataAPI = {
             labels:dataChart_TinTuyenDung[6],
