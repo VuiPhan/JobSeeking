@@ -148,11 +148,10 @@ function NotificationOfRecruitForm(props) {
         <Modal
                 title="Thông báo từ ứng viên"
                 visible={visible}
-            //    onOk={() => handleOk(values,errors)}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
-              width={widthForm}
-              cancelText="Đóng"
+                width={widthForm}
+                cancelText="Đóng"
               >
          <Table
       rowSelection={{
