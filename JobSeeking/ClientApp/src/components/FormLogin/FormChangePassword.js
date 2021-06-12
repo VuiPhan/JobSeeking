@@ -91,7 +91,6 @@ RePasswordNew: yup.string()
                                         type='password'
                                         placeholder="Mời bạn nhập lại mật khẩu mới"
                                     />
-                                  <MyToastr></MyToastr>
                                   <hr style={{marginTop:100}}></hr>
                                     <FormGroup>
                                       <div style={{float:'right'}}>

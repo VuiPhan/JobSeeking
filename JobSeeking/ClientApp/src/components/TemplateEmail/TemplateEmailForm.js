@@ -106,6 +106,8 @@ function TemplateEmailForm(props) {
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
                 width={widthForm}
+                okText="Lưu"
+                cancelText="Đóng"
               >
                 <div style={{ marginTop: 0 }}>
                   <FastField

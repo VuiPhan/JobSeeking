@@ -93,8 +93,10 @@ function ListViewKendoForSearchKeyword(props) {
     const { companyID } = useParams();
     useEffect(() => {
         async function fetchMyAPI() {
+          if(SearchKeyword){
           const result = await LoadJobsApi.getJobForSearchKeyword(SearchKeyword);
           setData(result);
+        }
         }
         if(dataID){
             fetchMyAPI();

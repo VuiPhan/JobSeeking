@@ -63,6 +63,8 @@ function FormCategories(props) {
                 onOk={() => handleOk(values)}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
+                okText="Lưu"
+                cancelText="Đóng"
               >
                 <FastField
                   name="categoryName"

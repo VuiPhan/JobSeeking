@@ -4,8 +4,12 @@ import WorkProcessAPI from 'api/JobSeeker/WorkProcessAPI';
 export const GetWorkProcess = createAsyncThunk(
     'workProcess/callAPI',
     async data => {
+        
         var response = await WorkProcessAPI.get(data);
-        return response;
+        if(response.constructor === Array){
+            return response;
+        }
+        return [];
     },
 );
 const WorkProcessSlice = createSlice({

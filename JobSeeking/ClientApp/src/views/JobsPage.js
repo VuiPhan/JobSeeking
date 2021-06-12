@@ -164,7 +164,6 @@ export default function JobsPage(props) {
   };
   return (
     <div>
-      <MyToastr></MyToastr>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
@@ -287,9 +286,6 @@ export default function JobsPage(props) {
 
 
             </div>
-            <h3>
-              {res.CacCongViecTuongTu}
-            </h3>
             <ListViewKendo2 dataID={-1}></ListViewKendo2>
           </div>
         </div>

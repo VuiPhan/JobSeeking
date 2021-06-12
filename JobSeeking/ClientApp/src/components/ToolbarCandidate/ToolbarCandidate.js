@@ -95,7 +95,6 @@ function ToolbarCandidate() {
     return (
         <div className="Container__Parent">
         <div className="Container__Toolbar">
-        <MyToastr></MyToastr>
             <Button onClick={()=>HandleApplyCandidate()} className="item__Button" variant="outlined" color="secondary" startIcon={<AssignmentTurnedInIcon/>}>Đưa ứng viên vào vòng tuyển dụng</Button>
             <Button onClick={()=>HandlePotentialCandidates()} className="item__Button" variant="outlined" color="primary" startIcon={<HowToRegIcon/>}>Ứng viên tiềm năng</Button>
             <Button onClick={()=>HandleIgnoreCandidates()} className="item__Button" variant="outlined" color="default"  startIcon={<PersonAddDisabledIcon/>}>Bỏ qua ứng viên</Button>

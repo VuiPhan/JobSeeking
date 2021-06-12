@@ -196,7 +196,7 @@ function Dashboard() {
                         <CardFooter>
                             <hr />
                             <div className="stats">
-                                <i className="far fa-calendar" /> Tổng số ứng viên chờ việc
+                                <i className="far fa-calendar" /> Tổng số ứng viên trong hệ thống
                 </div>
                         </CardFooter>
                     </Card>
@@ -248,7 +248,7 @@ function Dashboard() {
                         <CardFooter>
                             <hr />
                             <div className="stats">
-                                <i className="fas fa-sync-alt" /> Số ứng viên trúng tuyển
+                                <i className="fas fa-sync-alt" /> Số lượt ứng viên trúng tuyển
                 </div>
                         </CardFooter>
                     </Card>

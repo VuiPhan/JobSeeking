@@ -112,9 +112,12 @@ function ListViewKendo_Manage(props) {
         async function fetchMyAPI() {
             const result = await LoadJobsApi.getAll(dataID, LoginInfo.CadidateCode, OwnCompany,IsReletive);
             setData(result);
-            const itemFirst = result[0].jobID;
-            const action = SelectedJob(itemFirst);
-            var Exec = dispatch(action);
+            if(result.length !== 0 ){
+                const itemFirst = result[0].jobID;
+                const action = SelectedJob(itemFirst);
+                var Exec = dispatch(action);
+            }
+       
         }
         if (dataID) {
             fetchMyAPI();
@@ -150,7 +153,7 @@ function ListViewKendo_Manage(props) {
 
                             />
                             <Pagination style={{ marginLeft: 'auto', marginTop: 10, marginBottom: 10 }} count={Math.round(data.length / take)} hideNextButton={false} hidePrevButton={false} page={page} onChange={handlePageChange} variant="outlined" color="secondary" />
-                        </div> : <div><p style={{ textAlign: 'center', padding: 40, fontSize: 24 }}>Chưa có việc làm nào được đăng. Hãy chờ thêm chút thời gian bạn nhé!</p></div>
+                        </div> : <div><p style={{ textAlign: 'center', padding: 40, fontSize: 24 }}>Hãy đăng tin tuyển dụng để sử dụng tính năng bạn nhé!</p></div>
                 }
 
                 <div style={{ display: 'flex' }}>

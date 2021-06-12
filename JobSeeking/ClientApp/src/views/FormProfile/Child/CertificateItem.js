@@ -91,8 +91,8 @@ function CertificateItem(props) {
     const LoginInfo = useSelector(state => state.loginInfo);
     const lstCertificate = useSelector(state => state.Certificate);
     const fetchDataCertificate = async () => {
-        const action = GetCertificate(CandidateCode);
-        const result = await dispatch(action);
+            const action = GetCertificate(CandidateCode);
+            const result = await dispatch(action);
     };
     useEffect(() => {
         fetchDataCertificate();

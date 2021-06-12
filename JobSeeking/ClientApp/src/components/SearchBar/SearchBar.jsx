@@ -13,6 +13,9 @@ function MySearchBar() {
     const dispatch = useDispatch();
   const history = useHistory();
     const handleSearch = (value) =>{
+        if(!value){
+            return;
+        }
         const action = changeSearchKeyWord(value);
         dispatch(action);
         const linkRedired = `/SearchPage`;

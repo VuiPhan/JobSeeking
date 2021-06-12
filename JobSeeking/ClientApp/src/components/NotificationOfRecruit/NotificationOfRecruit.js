@@ -151,7 +151,8 @@ function NotificationOfRecruitForm(props) {
             //    onOk={() => handleOk(values,errors)}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
-                width={widthForm}
+              width={widthForm}
+              cancelText="Đóng"
               >
          <Table
       rowSelection={{

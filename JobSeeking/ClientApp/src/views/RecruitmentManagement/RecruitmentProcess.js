@@ -15,6 +15,7 @@ function RecruitmentProcess(props) {
   const {JobID} = props;
 
   const [visible, setVisible] = React.useState(false);
+  const [visibleButtonAdd, setVisibleButtonAdd] = React.useState(false);
   const [item, setItem] = React.useState({
     jobID: 1,
     roundName: '',
@@ -35,6 +36,10 @@ function RecruitmentProcess(props) {
   const ListRecruitProcess = useSelector(state => state.ListRecruitProcess);
   const dispatch = useDispatch();
   async function fetchDataView() {
+    debugger;
+    if(SelectedJob){
+      setVisibleButtonAdd(true);
+    }
     const action = GetListRecruitProcess(SelectedJob);
     const execaction = await dispatch(action);
   }
@@ -45,9 +50,9 @@ function RecruitmentProcess(props) {
     <div>
     <div className="container__Recruitment">
       <div className="centerButton">
-        <Button type="primary" onClick={showModal}>
+        {visibleButtonAdd ? <Button type="primary" onClick={showModal} visible={visibleButtonAdd}>
           Thêm quy trình tuyển dụng
-      </Button>
+      </Button> : null}
       </div>
       <br></br>
       </div>

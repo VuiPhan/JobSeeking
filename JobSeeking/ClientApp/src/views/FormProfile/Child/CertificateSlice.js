@@ -5,7 +5,10 @@ export const GetCertificate = createAsyncThunk(
     'Certificate/callAPI',
     async data => {
         var response = await CertificateAPI.get(data);
-        return response;
+        if(response.constructor === Array){
+            return response;
+        }
+        return [];
     },
 );
 const CertificateSlice = createSlice({

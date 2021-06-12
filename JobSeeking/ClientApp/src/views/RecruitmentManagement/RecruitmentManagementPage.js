@@ -57,7 +57,6 @@ export default function RecruitmentManagementPage(props) {
                 />
               </GridItem>
             </GridContainer>
-            <MyToastr></MyToastr>
         </div>
   );
 }

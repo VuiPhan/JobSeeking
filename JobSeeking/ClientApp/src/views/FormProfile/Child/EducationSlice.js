@@ -5,7 +5,10 @@ export const GetEducation = createAsyncThunk(
     'education/callAPI',
     async data => {
         var response = await EducationAPI.get(data);
-        return response;
+        if(response.constructor === Array){
+            return response;
+        }
+        return [];
     },
 );
 const EducationSlice = createSlice({

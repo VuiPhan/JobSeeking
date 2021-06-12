@@ -41,7 +41,15 @@ import { Spin, Space } from 'antd';
 import DrawerCertificate from "./FormProfile/Certificate.js";
 import handleGetJson from "common/ReadJson.js";
 import StatisticalCard from "components/StatisticalCard/StatisticalCard.js";
-
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardTitle,
+  Row,
+  Col,
+} from "reactstrap";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage(props) {
@@ -111,7 +119,7 @@ export default function ProfilePage(props) {
       setValuesImage(initialValuesImage);
     }
 
-  
+
     async function fetchData() {
 
       const result = await SeekerAPI.get(LoginInfo.CadidateCode);
@@ -140,14 +148,13 @@ export default function ProfilePage(props) {
   }, [CandidateCode, LoginInfo.CadidateCode])
 
   async function updateViewProfile() {
-    if(LoginInfo.role === ConstCommon.RoleRecruiter)
-    {
+    if (LoginInfo.role === ConstCommon.RoleRecruiter) {
       const UpdateStatiscalViewProfile = await SeekerAPI.UpdateStatiscalViewProfile(CandidateCode);
     }
   }
   useEffect(() => {
     updateViewProfile();
-}, [CandidateCode])
+  }, [CandidateCode])
 
   const showPreview = e => {
     if (e.target.files && e.target.files[0]) {
@@ -222,7 +229,6 @@ export default function ProfilePage(props) {
   }
   return (
     <div>
-      {/* <MyToastr></MyToastr> */}
 
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
@@ -308,19 +314,29 @@ export default function ProfilePage(props) {
               <h2>
               </h2>
             </div>
-            { CandidateCode !== undefined ? null :
-            
-            <div>
-              <div style={{paddingLeft:50,paddingTop:10}}>
-              <h6>Thông kê số lượt xem từ nhà tuyển dụng</h6>
-              <p>Phần này chỉ hiển thị với riêng bạn</p>
-              </div>
-              <div style={{ display: 'flex',padding:20,justifyContent: 'space-evenly'}}>
-                <StatisticalCard cardName="tuần" countValue={viewStatiscal.viewInWeek}></StatisticalCard>
-                <StatisticalCard cardName="tháng" countValue={viewStatiscal.viewInMonths}></StatisticalCard>
-                <StatisticalCard cardName="năm" countValue={viewStatiscal.viewInYears}></StatisticalCard>
-              </div>
-            </div>}
+            {CandidateCode !== undefined ? null :
+
+              <div>
+                <div style={{ paddingLeft: 50, paddingTop: 10 }}>
+                  <h6>Thông kê số lượt xem từ nhà tuyển dụng</h6>
+                  <p>Phần này chỉ hiển thị với riêng bạn</p>
+                </div>
+                <div style={{ display: 'flex', padding: 20, justifyContent: 'space-evenly' }}>
+                  {/* <Col lg="12" md="12" sm="12"> */}
+                    <Row>
+                      <Col md="4" xs="12">
+                        <StatisticalCard cardName="tuần" countValue={viewStatiscal.viewInWeek}></StatisticalCard>
+                      </Col>
+                      <Col md="4" xs="12">
+                        <StatisticalCard cardName="tháng" countValue={viewStatiscal.viewInMonths}></StatisticalCard>
+                      </Col>
+                      <Col md="4" xs="12">
+                        <StatisticalCard cardName="năm" countValue={viewStatiscal.viewInYears}></StatisticalCard>
+                      </Col>
+                    </Row>
+                  {/* </Col> */}
+                </div>
+              </div>}
             <GridContainer justify="center">
 
               <GridItem xs={12} sm={12} md={10} className={classes.navWrapper}>

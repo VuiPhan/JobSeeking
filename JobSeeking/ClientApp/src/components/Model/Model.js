@@ -107,7 +107,6 @@ export default function AlertDialogSlide(props) {
                       label={res.TieuDe}
                       placeholder="Tiêu đề: Tóm tắt đánh giá của bạn.(Sếp tốt hoặc Nhân viên thân thiện"
                     />
-                    <MyToastr></MyToastr>
                     <FastField
                       name="ILike"
                       component={TextAreaField}

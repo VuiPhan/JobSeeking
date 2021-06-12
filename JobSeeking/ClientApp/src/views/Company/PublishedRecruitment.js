@@ -176,7 +176,6 @@ export default function PublishedRecruitment(props) {
                                         label=""
                                         placeholder={res.LyDoGiaNhapCongTy}
                                     />
-                                    <MyToastr></MyToastr>
                                     <h1>{res.MoTaCongViec}</h1>
                                     <FastField
                                         name="jobDescriptions"
