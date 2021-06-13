@@ -4,7 +4,7 @@ import SelectField from 'components/CustomField/SelectField';
 import React, { useEffect, useState } from 'react'
 
 import * as yup from 'yup';
-import { Table, Tag, Radio, Space, Divider } from 'antd';
+import { Table, Tag, Radio, Space, Divider, Input } from 'antd';
 
 import ManagerCategories_API from 'api/AdminPage/ManagerCategories_API';
 import LockIcon from '@material-ui/icons/Lock';
@@ -21,6 +21,8 @@ function ManagerCategories() {
 
     const [typeSelect, setTypeSelect] = React.useState({ typeSelected: 1 });
     const [dataSource, setDataSource] = React.useState([]);
+    const [dataSourceOriginal, setDataSourceOriginal] = useState([]);
+
     const [initialValues, setinitialValues] = React.useState({});
     const validationShema = yup.object().shape({});
     const [lstSelected, setLstSelected] = React.useState('');
@@ -37,6 +39,7 @@ function ManagerCategories() {
     const LoadDataSource = async () => {
         const dataSourceApi = await ManagerCategories_API.getManagerCategories(typeSelect.typeSelected);
         setDataSource(dataSourceApi);
+        setDataSourceOriginal(dataSourceApi);
     }
     const UpdateItemWhenChangeTemplate = (typeSelected) => {
         setTypeSelect({ typeSelected: typeSelected });
@@ -123,6 +126,21 @@ function ManagerCategories() {
             buttons: arrayButton
         });
     }
+    const [value, setValue] = useState('');
+    const FilterByNameInput = (
+        <Input
+        placeholder="Tên danh mục - Tìm kiếm"
+        value={value}
+        onChange={e => {
+          const currValue = e.target.value;
+          setValue(currValue.toLowerCase());
+          const filteredData = dataSourceOriginal.filter(entry =>
+            entry.categoryName.toLowerCase().includes(currValue)
+          );
+          setDataSource(filteredData);
+        }}
+      />
+      );
     const columns = [
         {
             key: 'key',
@@ -132,7 +150,7 @@ function ManagerCategories() {
         },
         {
             key: 'recID',
-            title: res.TenDanhMuc,
+            title: FilterByNameInput,//res.TenDanhMuc,
             dataIndex: 'categoryName',
           //  render: text => <a>{text}</a>,
         },

@@ -46,6 +46,7 @@ const MyItemRender = props => {
     }
    // 
       const ChangeColorSelected = (JobID) =>{
+        SetBackgroundHover("");
           SetBackgroundHover("#FFE4C4");
           const action = SelectedJob(JobID);
           var Exec = dispatch(action);
@@ -150,7 +151,6 @@ function ListViewKendo_Manage(props) {
                                 item={MyItemRender}
                                 style={{ width: "100%" }}
                                 header={myHeader}
-
                             />
                             <Pagination style={{ marginLeft: 'auto', marginTop: 10, marginBottom: 10 }} count={Math.round(data.length / take)} hideNextButton={false} hidePrevButton={false} page={page} onChange={handlePageChange} variant="outlined" color="secondary" />
                         </div> : <div><p style={{ textAlign: 'center', padding: 40, fontSize: 24 }}>Hãy đăng tin tuyển dụng để sử dụng tính năng bạn nhé!</p></div>

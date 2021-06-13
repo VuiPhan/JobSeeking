@@ -1,7 +1,7 @@
 import handleGetJson from 'common/ReadJson';
 import React, { useEffect, useState } from 'react'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import { Table, Tag, Radio, Space, Divider } from 'antd';
+import { Table, Tag, Radio, Space, Divider, Input } from 'antd';
 import RecruiterManagementAPI from 'api/AdminPage/RecruiterManagementAPI';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import EditIcon from '@material-ui/icons/Edit';
@@ -11,6 +11,7 @@ import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 function RecruiterManagement() {
     const [selectionType, setSelectionType] = useState('checkbox');
     const [dataSource, setDataSource] = useState([]);
+    const [dataSourceOriginal, setDataSourceOriginal] = useState([]);
     const history = useHistory();
     const [res, setRes] = React.useState({});
     const isActive = "1";
@@ -23,6 +24,7 @@ function RecruiterManagement() {
     const LoadDataSource = async () => {
         const resource = await RecruiterManagementAPI.getInfomationCompany();
         setDataSource(resource);
+        setDataSourceOriginal(resource);
     }
     const generateResult = (data) => {
         let text = "";
@@ -53,6 +55,25 @@ function RecruiterManagement() {
             name: record.recID
         })
     };
+    useEffect(() => {
+        LoadDataSource();
+        LoadResource();
+    }, [])
+    const [value, setValue] = useState('');
+    const FilterByNameInput = (
+        <Input
+        placeholder="Tên công ty - Tìm kiếm"
+        value={value}
+        onChange={e => {
+          const currValue = e.target.value;
+          setValue(currValue.toLowerCase());
+          const filteredData = dataSourceOriginal.filter(entry =>
+            entry.companyName.toLowerCase().includes(currValue)
+          );
+          setDataSource(filteredData);
+        }}
+      />
+      );
     const columns = [
         {
             key: 'recID',
@@ -63,7 +84,7 @@ function RecruiterManagement() {
         },
         {
             key: 'recID',
-            title: res.TenCongTy,
+            title: FilterByNameInput,//res.TenCongTy,
             dataIndex: 'companyName',
             render: text => <a>{text}</a>,
         }
@@ -119,11 +140,7 @@ function RecruiterManagement() {
             ),
         }
     ];
-    const [dataRenderTable, setdataRenderTable] = React.useState([]);
-    useEffect(() => {
-        LoadDataSource();
-        LoadResource();
-    }, [])
+
     const handleStatusOfCompany = async (companyID, status) => {
         const result = await RecruiterManagementAPI.updateStatusOfAccount(companyID, status);
         if (result.error === "") {
@@ -185,6 +202,7 @@ function RecruiterManagement() {
     return (
         <div style={{ marginTop: 40, marginLeft: 29, marginRight: 29 }}>
             <h1>{res.QuanLyNhaTuyenDung}</h1>
+            
             <Table
                 rowSelection={{
                     type: selectionType,
