@@ -234,7 +234,7 @@ export default function JobsPage(props) {
                 </div>
 
                 <div className="CenterButton">
-                  {LoginInfo.role === "Recruiter" ?
+                  {LoginInfo.role === "Recruiter" || data.isPublic === false ?
                     null
                     : <div className="buttonCenter"> <Button variant="outlined" onClick={() => submitApply()} color="secondary">Ứng tuyển ngay</Button>
                     </div>
@@ -245,7 +245,7 @@ export default function JobsPage(props) {
                   </div>
                 </div>
                 <div className="CenterButton">
-                  {LoginInfo.companyID == data.companyId  ?
+                  {LoginInfo.companyID == data.companyId  && data.isPublic === true  ?
                     <div className="buttonCenter"> <Button variant="outlined" onClick={() => lookingForCandidates()} color="secondary">Tìm kiếm ứng viên</Button>
                    
                     </div>

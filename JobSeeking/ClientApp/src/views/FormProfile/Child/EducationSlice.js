@@ -18,6 +18,10 @@ const EducationSlice = createSlice({
         GetEducationReducers: (state, action) => {
 
         },
+        updateEmptyEducationReducers: (state, action) => {
+            state = [];//action.payload;
+            return state;
+        },
     },
     extraReducers: {
         [GetEducation.fulfilled]: (state, action) => {
@@ -29,5 +33,5 @@ const EducationSlice = createSlice({
 });
 // Export ra các reducer và các action
 const { reducer, actions } = EducationSlice;
-export const { GetEducationReducers } = actions;
+export const { GetEducationReducers,updateEmptyEducationReducers } = actions;
 export default reducer;

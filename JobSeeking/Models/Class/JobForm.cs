@@ -41,6 +41,7 @@ namespace JobSeeking.Models.Class
         public string ReasonsToJoin { get; set; }
         public string PostingDate { get; set; }
         public string JobsTitle { get; set; }
+        public bool IsPublic { get; set; }
         public string LoveWorkingHere { get; set; }
         public string CompanyName { get; set; }
         public int CompanyId { get; set; }

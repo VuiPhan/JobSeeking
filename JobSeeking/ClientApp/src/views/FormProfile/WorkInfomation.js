@@ -24,6 +24,7 @@ const HtmlTooltip = withStyles((theme) => ({
 function WorkInfomation(props) {
     const { CandidateCode } = useParams();
     const LoginInfo = useSelector(state => state.loginInfo);
+  const isOwnProfile = useSelector(state => state.AppSlice.isOwnProfile);
     var disableForm = false;
     if (CandidateCode) {
         disableForm = true;
@@ -124,7 +125,7 @@ function WorkInfomation(props) {
                                 disabled={disableForm}
                                 ListName="UTELS_GetProvince"
                             />
-                            {LoginInfo.CadidateCode ? <FormGroup>
+                            {LoginInfo.CadidateCode && isOwnProfile ? <FormGroup>
                                 <Row className='clearfix'>
                                     <Col xs="12" sm="12"> <Button type='submit' style={{ float: 'right' }} variant="outlined" color="secondary" startIcon={<SaveIcon />} >Lưu thông tin </Button>
                                     </Col>

@@ -13,6 +13,8 @@ function OpenForm(props) {
     const { ComponentForm } = props;
     const [open, setOpen] = React.useState(false);
     const LoginInfo = useSelector(state => state.loginInfo);
+  const isOwnProfile = useSelector(state => state.AppSlice.isOwnProfile);
+
     const { CandidateCode } = useParams();
     const datainitialValuesCV = {
         pathCV: 'Mời bạn chọn CV',
@@ -106,7 +108,7 @@ function OpenForm(props) {
     return (
         <div>
         
-            {!LoginInfo.companyID ?<Button startIcon={<PostAddIcon />} type="submit" variant="outlined" color="secondary" onClick={() => { handleClickOpen(0) }}>Thêm mới CV</Button>:null}
+            {LoginInfo.CadidateCode && isOwnProfile  ?<Button startIcon={<PostAddIcon />} type="submit" variant="outlined" color="secondary" onClick={() => { handleClickOpen(0) }}>Thêm mới CV</Button>:null}
             <ComponentForm refreshData={fetchData} HandleCV={HandleCV} isOpen={open} FClose={setOpen} handleClose={handleClickOpen} initialValuesCV={initialValuesCV}></ComponentForm>
             <ListCV handleClose={handleClickOpen} deleteCV={deleteCV} data={listCV}></ListCV>
         </div>

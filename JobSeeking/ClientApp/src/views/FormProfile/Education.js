@@ -16,6 +16,8 @@ const { Option } = Select;
 
 export default function DrawerEducation(props) {
   const LoginInfo = useSelector(state => state.loginInfo);
+  const isOwnProfile = useSelector(state => state.AppSlice.isOwnProfile);
+  
   const [isvisible, SetIsvisible] = useState(false);
   const showDrawer = () => {
     SetIsvisible(true);
@@ -24,11 +26,6 @@ export default function DrawerEducation(props) {
   const onClose = () => {
     SetIsvisible(false);
   };
-
-  const validationShema = yup.object().shape({
-
-
-  })
   const dispatch = useDispatch();
   const HandleSubmitData = async (data) => {
       const formData = new FormData();
@@ -58,13 +55,11 @@ export default function DrawerEducation(props) {
     const UpdateStateShowForm = ()=>{
         setisShowForm(false);
     }
-
   return (
     <div>
-      {LoginInfo.CadidateCode === "" ? null: <Button type="primary" onClick={() => ShowForm()}>
+      {LoginInfo.CadidateCode && isOwnProfile === true ?  <Button type="primary" onClick={() => ShowForm()}>
         <PlusOutlined /> Thêm học vấn
-        </Button>}
-
+        </Button>:null}
         {isShowForm == true ?<EducationForm UpdateStateShowForm={UpdateStateShowForm}/>:null}
         <EducationItem></EducationItem>
     </div>

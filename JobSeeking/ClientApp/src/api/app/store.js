@@ -13,7 +13,9 @@ import SelectedJobProfile from 'components/ListViewKendo/SelectedJobSlice';
 // load lại khi thêm mới
 import ListRecruitProcessSlice from '../../views/RecruitmentManagement/ListRecruitmentSlicer';
 import ListCandidateOfProcessSlice from '../../views/RecruitmentOfCandidates/RecruitmentOfCandidatesSlicer';
-import ForSearchKeywordSlice from '../../components/KendoSearchKeywork/ForSearchKeywordSlice'
+import ForSearchKeywordSlice from '../../components/KendoSearchKeywork/ForSearchKeywordSlice';
+import AppSlice from './appSlicer';
+
 const { configureStore } = require("@reduxjs/toolkit");
 
 
@@ -29,7 +31,8 @@ const rootReducer = {
     SelectedJobProfile:SelectedJobProfile,
     ListRecruitProcess:ListRecruitProcessSlice,
     ListCandidateOfProcess:ListCandidateOfProcessSlice,
-    SearchKeyword:ForSearchKeywordSlice
+    SearchKeyword:ForSearchKeywordSlice,
+    AppSlice:AppSlice
 }
 const store = configureStore({
     reducer:rootReducer,

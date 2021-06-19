@@ -23,6 +23,7 @@ import BusinessIcon from '@material-ui/icons/Business';
 import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate.js';
 import FormForgetPassword from './FormForgetPassword/FormForgetPassword.js';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import { updateEmptyEducationReducers } from 'views/FormProfile/Child/EducationSlice.js';
 
 const useStyles = makeStyles(styles);
 

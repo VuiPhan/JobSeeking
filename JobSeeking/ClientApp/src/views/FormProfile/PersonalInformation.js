@@ -17,6 +17,7 @@ function PersonalInformation(props) {
     const { disableForm, data, SubmitDataFinal } = props;
     const [res, setRes] = React.useState({});
     const [resValidation,setresValidation] =  React.useState({});
+    const isOwnProfile = useSelector(state => state.AppSlice.isOwnProfile);
 
     const LoadResource = async () =>{
         const resource = await handleGetJson("PersonPage", "PersonalPage");
@@ -196,7 +197,7 @@ function PersonalInformation(props) {
                                         ListName="GioiTinh" />
                                 </Col>
                             </Form.Group>
-                            {isView ? <Button startIcon={<SaveIcon />} type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button> : null}
+                            {isOwnProfile ? <Button startIcon={<SaveIcon />} type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button> : null}
                             {/* <Button type="submit" variant="outlined" color="secondary">Tạo</Button> */}
                         </FormFormik>
                     )

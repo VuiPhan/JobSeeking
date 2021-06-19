@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
 import Camera from "@material-ui/icons/Camera";
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import WorkIcon from '@material-ui/icons/Work';
 import SchoolIcon from '@material-ui/icons/School';
 import Favorite from "@material-ui/icons/Favorite";
 import ReceiptIcon from '@material-ui/icons/Receipt';
-// core components
 import Footer from "../components/Footer/Footer.js";
 import Button from "../components/CustomButtons/Button.js";
 import GridContainer from "../components/Grid/GridContainer.js";
 import GridItem from "../components/Grid/GridItem.js";
 import NavPills from "../components/NavPills/NavPills.js";
-
 import profile from "../assets/img/faces/christian.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import PersonalInformation from "./FormProfile/PersonalInformation.js";
@@ -50,14 +45,13 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { CheckIsOwnProfile } from "api/app/appSlicer.js";
 const useStyles = makeStyles(styles);
-
 export default function ProfilePage(props) {
   const classes = useStyles();
   const LoginInfo = useSelector(state => state.loginInfo);
-
+  const AppSlice = useSelector(state => state.AppSlice);
   const { ...rest } = props;
-
   const imageClasses = classNames(
     classes.imgRaised,
     classes.imgRoundedCircle,
@@ -92,7 +86,6 @@ export default function ProfilePage(props) {
     titleJob: '',
     isAcceptWork: true
   });
-
   const [selfIntroduce, setselfIntroduce] = useState('Hello');
   const [viewStatiscal, setviewStatiscal] = useState('loading...');
   const [aliasName, setAliasName] = useState('Harry Pham');
@@ -115,13 +108,9 @@ export default function ProfilePage(props) {
         imageSrc: `${ConstCommon.LinkImage}${result.pathAvatar}`,
         imageFile: null
       };
-
       setValuesImage(initialValuesImage);
     }
-
-
     async function fetchData() {
-
       const result = await SeekerAPI.get(LoginInfo.CadidateCode);
       const resultStatistical = await SeekerAPI.applicantGetViewProfile();
       setviewStatiscal(resultStatistical[0])
@@ -145,6 +134,13 @@ export default function ProfilePage(props) {
     if (disableForm == false && LoginInfo.CadidateCode) {
       fetchData();
     }
+    async function updateOwnProfile() {
+      if(CandidateCode === LoginInfo.CadidateCode || typeof CandidateCode === "undefined"){
+        const action = CheckIsOwnProfile(true);
+        const execaction = await dispatch(action);
+      }
+    }
+    updateOwnProfile();
   }, [CandidateCode, LoginInfo.CadidateCode])
 
   async function updateViewProfile() {

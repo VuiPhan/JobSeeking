@@ -10,7 +10,7 @@ import * as yup from 'yup';
 //import DatePickers from '../../components/DatetimePicker/DatetimePicker';
 import InputField from "components/CustomField/InputField";
 import SelectField from 'components/CustomField/SelectField';
-import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
+import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 //import WorkProcessItem from './Child/WorkProcessItem';
 //import { GetWorkProcess } from './Child/WorkProcessSlice';
 import { useDispatch } from 'react-redux';
@@ -20,6 +20,7 @@ import { GetEducation } from '../Child/EducationSlice';
 import handleGetJson from 'common/ReadJson';
 import CertificateAPI from 'api/JobSeeker/CertificateAPI';
 import { GetCertificate } from '../Child/CertificateSlice';
+import { IsObjectEmpty } from 'common/CommonFunction';
 
 function CertificateForm(props) {
   const { item, UpdateStateShowForm } = props;
@@ -28,8 +29,9 @@ function CertificateForm(props) {
 
   const LoadResource = async () => {
     const resource = await handleGetJson("DrawerQualifications", "PersonalPage");
-    console.log('resourceresource', resource);
-    setRes(resource);
+    const resourceCommon = await handleGetJson("Validation", "LanguageInApp");
+    const resourceFinal = { ...resource, ...resourceCommon };
+    setRes(resourceFinal);
   }
   useEffect(() => {
     LoadResource();
@@ -60,11 +62,19 @@ function CertificateForm(props) {
   };
 
   const validationShema = yup.object().shape({
-
-
+    certificateName: yup.string()
+    .required(res.TruongBBNhap)
+  ,
+  degreePlace: yup.string()
+  .required(res.TruongBBNhap)
+  .nullable()
   })
   const dispatch = useDispatch();
-  const HandleSubmitData = async (data) => {
+  const HandleSubmitData = async (data,errors) => {
+    if(IsObjectEmpty(errors) === true ||data.certificateName ==="" || data.degreePlace ===""){
+      MyToaStrError(res.VuiLongKiemTraLaiThongTin);
+      return;
+    }
     var recID = 0
     if (typeof item !== 'undefined') {
       recID = item.recID
@@ -117,7 +127,7 @@ function CertificateForm(props) {
                   <Button onClick={() => onClose()} style={{ marginRight: 8 }}>
                     Đóng
               </Button>
-                  <Button type='submit' onClick={() => HandleSubmitData(values)} type="primary">
+                  <Button type='submit' onClick={() => HandleSubmitData(values,errors)} type="primary">
                     Lưu
               </Button>
                 </div>

@@ -17,6 +17,8 @@ const { Option } = Select;
 
 export default function DrawerCertificate(props) {
   const LoginInfo = useSelector(state => state.loginInfo);
+  const isOwnProfile = useSelector(state => state.AppSlice.isOwnProfile);
+
   const [isvisible, SetIsvisible] = useState(false);
   const [res, setRes] = React.useState({});
 
@@ -71,9 +73,9 @@ export default function DrawerCertificate(props) {
 
   return (
     <div>
-      {LoginInfo.CadidateCode === "" ? null: <Button type="primary" onClick={() => ShowForm()}>
+      {LoginInfo.CadidateCode && isOwnProfile ?<Button type="primary" onClick={() => ShowForm()}>
         <PlusOutlined /> {res.ThemChungChi}
-        </Button>}
+        </Button> : null}
 
         {isShowForm == true ?<CertificateForm UpdateStateShowForm={UpdateStateShowForm}/>:null}
         <CertificateItem></CertificateItem>

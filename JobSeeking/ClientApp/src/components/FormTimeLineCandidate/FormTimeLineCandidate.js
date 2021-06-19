@@ -36,9 +36,10 @@ function FormTimeLineCandidate(props) {
       .required(res.TruongBBNhap)
   });
   const GetTimelineCandidate = async () => {
+    if(LoginInfo.CadidateCode){
     const timelineCandidateAPI = await SeekerAPI.GetTimelineCandidate();
-    console.log('timelineCandidateAPI',timelineCandidateAPI);
     setValueTimeline(timelineCandidateAPI);
+  }
   }
   useEffect(() => {
     LoadResource();
@@ -99,7 +100,7 @@ function FormTimeLineCandidate(props) {
                     status={valueTimeline.hasInfoCV_Name} description={res.ThongTinCV} />
             </Steps>
             <div style={{ marginTop: 15 }}>
-              <ListViewJobRecent dataID={-1}></ListViewJobRecent>
+              <ListViewJobRecent dataID={-1} ></ListViewJobRecent>
             </div>
           </div>
           <hr style={{ marginTop: 10 }}></hr>

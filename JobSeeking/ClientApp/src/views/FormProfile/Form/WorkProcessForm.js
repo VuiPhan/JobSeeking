@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState,useEffect } from 'react';
 import 'antd/dist/antd.css';
-//import './index.css';
 import { Drawer,Form,  Button, Col, Row, Input, Select, DatePicker } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import MyCKEditor from "components/CKEditor/CKEditor";
 import { Formik,Form as FormMikContainer, FastField } from "formik";
 import * as yup from 'yup';
-//import DatePickers from '../../components/DatetimePicker/DatetimePicker';
 import InputField from "components/CustomField/InputField";
 import SelectField from 'components/CustomField/SelectField';
 import WorkProcessAPI from 'api/JobSeeker/WorkProcessAPI';
-import { MyToaStrSuccess } from 'components/Toastr/Toastr2';
-//import WorkProcessItem from './Child/WorkProcessItem';
-//import { GetWorkProcess } from './Child/WorkProcessSlice';
+import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { useDispatch } from 'react-redux';
 import DatePickers from 'components/DatetimePicker/DatetimePicker';
 import { GetWorkProcess } from '../Child/WorkProcessSlice';
+import handleGetJson from 'common/ReadJson';
+import { IsObjectEmpty } from 'common/CommonFunction';
 
 function WorkProcessForm(props) {
     const {item,UpdateStateShowForm} = props;
     const [isvisible, SetIsvisible] = useState(true);
-  
+    const [res, setRes] = React.useState({});
+    const LoadResource = async () => {
+      const resource = await handleGetJson("DrawerQualifications", "PersonalPage");
+      const resourceCommon = await handleGetJson("Validation", "LanguageInApp");
+      const resourceFinal = { ...resource, ...resourceCommon };
+      setRes(resourceFinal);
+    }
+    useEffect(() => {
+      LoadResource();
+    }, [])
   const showDrawer = () => {
     SetIsvisible(true);
   };
@@ -32,11 +37,19 @@ function WorkProcessForm(props) {
   };
 
   const validationShema = yup.object().shape({
-
+    jobTitle: yup.string()
+    .required(res.TruongBBNhap)
+  ,
+  companyName: yup.string()
+  .required(res.TruongBBNhap)
 
   })
   const dispatch = useDispatch();
-  const HandleSubmitData = async (data) => {
+  const HandleSubmitData = async (data,errors) => {
+    if(IsObjectEmpty(errors) === true ||data.jobTitle ==="" || data.companyName ===""){
+      MyToaStrError(res.VuiLongKiemTraLaiThongTin);
+      return;
+    }
        var recID = 0
        if (typeof item !== 'undefined'){
           recID = item.recID
@@ -77,7 +90,6 @@ function WorkProcessForm(props) {
           <Formik initialValues={initialValues}
         validationSchema={validationShema}
         enableReinitialize
-        onSubmit={values => HandleSubmitData(values)}
       >
         {FormikProps => {
           const { values, errors, touched } = FormikProps;
@@ -97,7 +109,7 @@ function WorkProcessForm(props) {
                   <Button onClick={() => onClose()} style={{ marginRight: 8 }}>
                     Đóng
               </Button>
-                  <Button type='submit' onClick={() => HandleSubmitData(values)} type="primary">
+                  <Button type='submit' onClick={() => HandleSubmitData(values,errors)} type="primary">
                     Lưu
               </Button>
                 </div>
@@ -107,11 +119,6 @@ function WorkProcessForm(props) {
                 <Row gutter={16}>
                   <Col span={12}>
                      <Form.Item>
-                    {/*  name="name"
-                      label=""
-                      rules={[{ required: true, message: 'Mời bạn nhập chức danh công việc' }]}
-                    >
-                      <Input placeholder="Mời bạn nhập chức danh công việc" /> */}
                       <FastField
                                         name="jobTitle"
                                         component={InputField}
@@ -168,16 +175,6 @@ function WorkProcessForm(props) {
                 </Row>
                 <Row gutter={16}>
                   <Col span={12}>
-                    {/* <Form.Item
-                      name="approver"
-                      label="Approver"
-                      rules={[{ required: true, message: 'Please choose the approver' }]}
-                    >
-                      <Select placeholder="Please choose the approver">
-                        <Option value="jack">Jack Ma</Option>
-                        <Option value="tom">Tom Liu</Option>
-                      </Select>
-                    </Form.Item> */}
                   </Col>
                   <Col span={12}>
                     

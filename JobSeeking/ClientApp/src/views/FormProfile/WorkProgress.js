@@ -12,6 +12,8 @@ const { Option } = Select;
 
 export default function DrawerWorkProcess(props) {
   const LoginInfo = useSelector(state => state.loginInfo);
+  const isOwnProfile = useSelector(state => state.AppSlice.isOwnProfile);
+  
   const [isvisible, SetIsvisible] = useState(false);
   const showDrawer = () => {
     SetIsvisible(true);
@@ -45,9 +47,9 @@ export default function DrawerWorkProcess(props) {
 
   return (
     <div>
-      {LoginInfo.CadidateCode === "" ? null: <Button type="primary" onClick={() => ShowForm()}>
+      {LoginInfo.CadidateCode && isOwnProfile ? <Button type="primary" onClick={() => ShowForm()}>
         <PlusOutlined /> Thêm quá trình
-        </Button>}
+        </Button> : null }
 
         {isShowForm == true ?<WorkProcessForm UpdateStateShowForm={UpdateStateShowForm}/>:null}
         <WorkProcessItem></WorkProcessItem>

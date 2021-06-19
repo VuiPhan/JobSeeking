@@ -127,7 +127,7 @@ function ListViewPotential(props) {
             setData(dataOrdinal);
             return;
         }
-        let result = dataOrdinal.filter(o => o.fullName.includes(value));
+        let result = dataOrdinal.filter(o => o.fullName.toLowerCase().includes(value.toLowerCase()));
         setData(result);
     }
 
