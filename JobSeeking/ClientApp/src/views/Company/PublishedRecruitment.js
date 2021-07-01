@@ -15,7 +15,7 @@ import MyCKEditor from "components/CKEditor/CKEditor";
 import PublishedRecruitmentAPI from "api/Company/PublishedRecruitmentAPI";
 import MutipleSelectField from "components/CustomField/MutipleSelectField";
 import HeaderCompany from "components/HeaderCompany/HeaderCompany";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MyToaStrSuccess } from "components/Toastr/Toastr2";
 import MyToastr from "components/Toastr/Toastr";
 import { useHistory, useParams } from "react-router-dom";
@@ -26,12 +26,14 @@ import { TextField } from "@material-ui/core";
 import SwitchLabels from "components/Checkbox/Checkbox";
 import JobsApi from "api/Company/JobsAPI";
 import BackupIcon from '@material-ui/icons/Backup';
+import { UpdateLoading } from "api/app/LoadingSlicer";
 const useStyles = makeStyles(styles);
 export default function PublishedRecruitment(props) {
     const classes = useStyles();
     const res = LGCompanyPage.PublishedRecruitment;
     const { ...rest } = props;
     const { jobID } = useParams();
+    const dispatch = useDispatch();
 
     const initialValuesImage = {
         imageName: '',
@@ -98,14 +100,20 @@ export default function PublishedRecruitment(props) {
         });
     };
     useEffect(() => {
+        dispatch(UpdateLoading(true));
         async function fetchDataView() {
+
             let result = await JobsApi.getForEdit(jobID);
             setinitialValues(result);
             setvaluesSalary( {...valuesSalary,salaryFrom:result.salaryFrom,salaryTo:result.salaryTo})
+           
         }
         if (jobID) {
             fetchDataView();
         }
+        setTimeout(() => {
+            dispatch(UpdateLoading(false));
+          }, 1000)
     }, [jobID])
     const HandleSubmitData = async (valuesForm) => {
         const formData = new FormData();

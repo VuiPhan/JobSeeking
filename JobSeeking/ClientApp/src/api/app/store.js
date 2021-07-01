@@ -15,6 +15,7 @@ import ListRecruitProcessSlice from '../../views/RecruitmentManagement/ListRecru
 import ListCandidateOfProcessSlice from '../../views/RecruitmentOfCandidates/RecruitmentOfCandidatesSlicer';
 import ForSearchKeywordSlice from '../../components/KendoSearchKeywork/ForSearchKeywordSlice';
 import AppSlice from './appSlicer';
+import LoadingSlicer from './LoadingSlicer';
 
 const { configureStore } = require("@reduxjs/toolkit");
 
@@ -32,7 +33,8 @@ const rootReducer = {
     ListRecruitProcess:ListRecruitProcessSlice,
     ListCandidateOfProcess:ListCandidateOfProcessSlice,
     SearchKeyword:ForSearchKeywordSlice,
-    AppSlice:AppSlice
+    AppSlice:AppSlice,
+    LoadingSlicer:LoadingSlicer
 }
 const store = configureStore({
     reducer:rootReducer,

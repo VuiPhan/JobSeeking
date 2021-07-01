@@ -16,20 +16,26 @@ import { AccessAlarm } from '@material-ui/icons';
 import LocationCityIcon from '@material-ui/icons/LocationCity';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import PeopleIcon from '@material-ui/icons/People';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CompanyAPI from "api/Company/CompanyAPI.js";
 import { useHistory, useParams } from "react-router-dom";
 import ListViewKendo2 from "components/ListViewKendo/ListViewKendo2.js";
+import { UpdateLoading } from "api/app/LoadingSlicer.js";
 const useStyles = makeStyles(styles);
 
 export default function CompanyPage(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [data, setData] = useState({companyName: '', introduceCompany: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
   const LoginInfo = useSelector(state => state.loginInfo);
   const { companyID } = useParams();
   async function fetchMyAPI() {
+    dispatch(UpdateLoading(true));
     const result = await CompanyAPI.get(companyID);
     setData(result);
+    setTimeout(() => {
+      dispatch(UpdateLoading(false));
+    }, 1000)
   }
   useEffect(() => {
 

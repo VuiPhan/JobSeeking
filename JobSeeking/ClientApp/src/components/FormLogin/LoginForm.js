@@ -1,30 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import {Logout, LoginAPIRedux } from 'components/FormLogin/LoginSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import styles from "../../assets/jss/material-kit-react/components/headerLinksStyle.js";
 import { makeStyles } from "@material-ui/core/styles";
-import { FastField, Formik, Form } from 'formik';
 import LGCompanyPage from "Language/CompanyPage";
-import InputField from 'components/CustomField/InputField';
-import { FormFeedback, FormGroup} from "reactstrap";
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { MyToaStrError } from 'components/Toastr/Toastr2.js';
-import MyToastr from 'components/Toastr/Toastr.js';
-import CustomizedMenus from 'components/FeatureMenu/FeatureMenu.js';
 import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import BusinessIcon from '@material-ui/icons/Business';
-import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate.js';
-import FormForgetPassword from './FormForgetPassword/FormForgetPassword.js';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import { updateEmptyEducationReducers } from 'views/FormProfile/Child/EducationSlice.js';
-
+import  FormLoginCustom from './FormLoginCustom/FormLoginCustom';
 const useStyles = makeStyles(styles);
 
 export default function FormDialog() {
@@ -45,7 +31,6 @@ export default function FormDialog() {
   const handleLogin = async (user) => {
     const action = LoginAPIRedux(user);
     const result = await dispatch(action);
-    debugger;
     if(typeof result.payload === 'string'){
       MyToaStrError(result.payload);
       return;
@@ -89,7 +74,6 @@ const HandleRedirectProfilePage = () =>{
   history.push(linkRedired);
   window.scrollTo(0, 325);
 }
-  // Cần phải dispath một cái action
 const ShowFormForget = () =>{
   setOpen(false);
   setVisibleFormForget(true);
@@ -98,7 +82,7 @@ const ShowFormForget = () =>{
   return (
     <div>
     <div style={{ display: "inline" }}>
-  <FormForgetPassword visible={visibleFormForget} setVisible={setVisibleFormForget} setShowLoginForm={setOpen}></FormForgetPassword>
+  
 
         {LoginInfo.UserLoginDB === '' || typeof LoginInfo.UserLoginDB === 'undefined'
         ?       <Button
@@ -119,8 +103,9 @@ const ShowFormForget = () =>{
       }
       
     {LoginInfo.UserLoginDB}
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-
+    <FormLoginCustom open = {open} setOpen = {setOpen}></FormLoginCustom>
+    {/* <div className={`${open ? "active" : ""} show`}> 
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="active show">
         <DialogContent>
           <Formik initialValues={initialValues}
                         validationSchema={validationShema}
@@ -159,6 +144,7 @@ const ShowFormForget = () =>{
                     </Formik>
         </DialogContent>
       </Dialog>
+      </div> */}
     </div>
     </div>
   );

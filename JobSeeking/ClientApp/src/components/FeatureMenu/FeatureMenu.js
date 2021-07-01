@@ -11,12 +11,13 @@ import FormChangePassword from 'components/FormLogin/FormChangePassword';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TemplateEmailForm from 'components/TemplateEmail/TemplateEmailForm';
 import FormTimeLineCandidate from 'components/FormTimeLineCandidate/FormTimeLineCandidate';
 import LoadJobsApi from 'api/HomePageAPI';
 import SeekerAPI from 'api/JobSeeker/SeekerAPI';
 import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
+import { UpdateLoading } from 'api/app/LoadingSlicer';
 
 const StyledMenu = withStyles({
   paper: {
@@ -75,7 +76,13 @@ export default function CustomizedMenus() {
     history.push(linkRedired);
     window.scrollTo(0, 450);
   }
+  const dispatch = useDispatch();
+
   const RedirectPageRecruitmentManagement = () => {
+    dispatch(UpdateLoading(true));
+    setTimeout(() => {
+      dispatch(UpdateLoading(false));
+    }, 1000)
     setAnchorEl(null);
     const linkRedired = `/RecruitmentManagement`;
     history.push(linkRedired);

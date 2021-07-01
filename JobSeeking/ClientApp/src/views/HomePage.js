@@ -23,9 +23,11 @@ export default function HomePage(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
-            <h3 style={{ paddingLeft: 30, paddingTop: 36,fontFamily: "Alfa Slab One",
-  fontSize: 30,
-  color: '#fb8500' }}>Nhà Tuyển Dụng Hàng Đầu</h3>
+            <h3 style={{
+              paddingLeft: 30, paddingTop: 36, fontFamily: "Alfa Slab One",
+              fontSize: 30,
+              color: '#fb8500'
+            }}>Nhà Tuyển Dụng Hàng Đầu</h3>
             <CompanyList></CompanyList>
             <div style={{ marginTop: 40 }}>
               <ListViewKendo2 dataID={-1}></ListViewKendo2>

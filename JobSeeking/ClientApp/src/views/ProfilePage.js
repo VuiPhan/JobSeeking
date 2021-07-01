@@ -46,6 +46,7 @@ import {
   Col,
 } from "reactstrap";
 import { CheckIsOwnProfile } from "api/app/appSlicer.js";
+import { UpdateLoading } from "api/app/LoadingSlicer.js";
 const useStyles = makeStyles(styles);
 export default function ProfilePage(props) {
   const classes = useStyles();
@@ -95,6 +96,7 @@ export default function ProfilePage(props) {
   const [LinkIn, setLinkIn] = useState('');
   useEffect(() => {
     async function fetchDataView() {
+      dispatch(UpdateLoading(true));
       const result = await SeekerAPI.getByRecruiter(CandidateCode, JobKendo.jobID);
       setData(result);
       setselfIntroduce(result.selfIntroduce);
@@ -141,6 +143,9 @@ export default function ProfilePage(props) {
       }
     }
     updateOwnProfile();
+    setTimeout(() => {
+      dispatch(UpdateLoading(false));
+    }, 1000)
   }, [CandidateCode, LoginInfo.CadidateCode])
 
   async function updateViewProfile() {

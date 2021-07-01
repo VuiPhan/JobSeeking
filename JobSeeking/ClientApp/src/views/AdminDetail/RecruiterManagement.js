@@ -8,6 +8,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { useHistory } from 'react-router';
 import { confirmAlert } from 'react-confirm-alert';
 import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
+import { useDispatch } from 'react-redux';
+import { UpdateLoading } from 'api/app/LoadingSlicer';
 function RecruiterManagement() {
     const [selectionType, setSelectionType] = useState('checkbox');
     const [dataSource, setDataSource] = useState([]);
@@ -16,15 +18,21 @@ function RecruiterManagement() {
     const [res, setRes] = React.useState({});
     const isActive = "1";
     const [lstCandidateSelected, setLstCandidateSelected] = React.useState('');
+    const dispatch = useDispatch();
 
     const LoadResource = async () => {
         const resource = await handleGetJson("RecruiterManagement", "AdminPage");
         setRes(resource);
     }
     const LoadDataSource = async () => {
+        dispatch(UpdateLoading(true));
+
         const resource = await RecruiterManagementAPI.getInfomationCompany();
         setDataSource(resource);
         setDataSourceOriginal(resource);
+        setTimeout(() => {
+            dispatch(UpdateLoading(false));
+          }, 1000)
     }
     const generateResult = (data) => {
         let text = "";
@@ -142,6 +150,7 @@ function RecruiterManagement() {
     ];
 
     const handleStatusOfCompany = async (companyID, status) => {
+
         const result = await RecruiterManagementAPI.updateStatusOfAccount(companyID, status);
         if (result.error === "") {
             MyToaStrSuccess('Cập nhật thành công');

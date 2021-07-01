@@ -12,16 +12,25 @@ import Button from '@material-ui/core/Button';
 import DoneIcon from '@material-ui/icons/Done';
 import ReactSelectStatic from 'components/ReactSelectStatic/ReactSelectStatic';
 import MyCKEditor from "components/CKEditor/CKEditor";
+import { useDispatch } from 'react-redux';
+import { UpdateLoading } from 'api/app/LoadingSlicer';
 
 
 function TemplateEmail_Admin() {
     const [res, setRes] = React.useState({});
     const [dataSource, setDataSource] = useState([]);
     const [initialValues, setinitialValues] = React.useState({});
+    const dispatch = useDispatch();
+
     const GetTemplateEmail = async () => {
+      dispatch(UpdateLoading(true));
+
         const lstTemplate = await TemplateEmail_AdminAPI.getAllTemplateEmail();
         setinitialValues(lstTemplate[0]);
         setLstTemplateEmail(lstTemplate);
+        setTimeout(() => {
+          dispatch(UpdateLoading(false));
+        }, 1000)
       }
   const [lstTemplateEmail, setLstTemplateEmail] = React.useState([]);
 

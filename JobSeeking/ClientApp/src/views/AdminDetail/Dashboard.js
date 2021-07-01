@@ -15,10 +15,12 @@ import DatePickers from 'components/DatetimePicker/DatetimePicker';
 import { Form } from 'antd';
 import { Button } from '@material-ui/core'
 import CachedIcon from '@material-ui/icons/Cached';
+import { useDispatch } from 'react-redux';
+import { UpdateLoading } from 'api/app/LoadingSlicer';
 function Dashboard() {
     const [dataLineChart, setDataLineChart] = useState({});
     const [dataViewCard,setDataViewCard] = useState({numCandidate:0,numRecruiter:0,candidateElect:0});
-
+    const dispatch = useDispatch();
     const [dataChart_TinTuyenDung,setDataChart_TinTuyenDung] = useState({});
     const [dataChart_KyNang,setDataChart_KyNang] = useState({});
     const [dataChart_ChucDanh,setDataChart_ChucDanh] = useState({});
@@ -29,6 +31,7 @@ function Dashboard() {
         setDataViewCard(dataCard[0]);
     }
     const getDataForChart = async (fromTime,toTime) =>{
+        dispatch(UpdateLoading(true));
         const dataChart_TinTuyenDung = await DashboardPageAPI.getViewCardStatis_Chart(fromTime,toTime);
         const dataChart_TinTuyenDung_DataAPI = {
             labels: dataChart_TinTuyenDung[0],
@@ -122,6 +125,9 @@ function Dashboard() {
         setDataChart_KyNang(dataChart_KyNang_DataAPI);
         setDataChart_ChucDanh(dataChart_ChucDanh_DataAPI);
         setDataChart_UngVienVaNhaTuyenDung(dataChart_UngVienVaTuyenDung_DataAPI);
+        setTimeout(() => {
+            dispatch(UpdateLoading(false));
+          }, 1000)
     }
     const initialValues = {
         fromTime:'2021-01-01',

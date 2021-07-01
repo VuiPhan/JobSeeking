@@ -15,6 +15,8 @@ import { Button, Icon } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { confirmAlert } from 'react-confirm-alert';
 import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
+import { useDispatch } from 'react-redux';
+import { UpdateLoading } from 'api/app/LoadingSlicer';
 function ManagerCategories() {
     const [res, setRes] = React.useState({});
     const [selectionType, setSelectionType] = useState('checkbox');
@@ -36,10 +38,16 @@ function ManagerCategories() {
         const resource = await handleGetJson("ManagerCategories", "AdminPage");
         setRes(resource);
     }
+    const dispatch = useDispatch();
+
     const LoadDataSource = async () => {
+        dispatch(UpdateLoading(true));
         const dataSourceApi = await ManagerCategories_API.getManagerCategories(typeSelect.typeSelected);
         setDataSource(dataSourceApi);
         setDataSourceOriginal(dataSourceApi);
+        setTimeout(() => {
+            dispatch(UpdateLoading(false));
+          }, 1000)
     }
     const UpdateItemWhenChangeTemplate = (typeSelected) => {
         setTypeSelect({ typeSelected: typeSelected });

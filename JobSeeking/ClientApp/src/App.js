@@ -22,6 +22,7 @@ import AdminPage from 'views/AdminPage/AdminPage';
 import { NavMenu } from './components/NavMenu';
 import PrivateRouteRecruiter from 'components/Router/PrivateRouteRecruiter';
 import PrivateRouteAdmin from 'components/Router/PrivateRouteAdmin';
+import LoadingPage from 'components/LoadingPage/LoadingPage';
 
 
 export default class App extends Component {
@@ -31,6 +32,7 @@ export default class App extends Component {
       <div>
       <div>
         <MyToastr></MyToastr>
+        <LoadingPage></LoadingPage>
         <Layout>
         <Route exact path='/' component={HomePage} />
         <PrivateRoute path='/RecruitmentManagement' component={RecruitmentManagement} exact />

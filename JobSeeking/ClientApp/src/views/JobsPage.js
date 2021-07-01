@@ -29,6 +29,7 @@ import MyToastr from "components/Toastr/Toastr.js";
 import TagList from "@progress/kendo-react-dropdowns/dist/npm/MultiSelect/TagList";
 import { changeSearch } from "components/ListViewKendo/ForSearchSlice.js";
 import { SelectedJob } from "components/ListViewKendo/SelectedJobSlice.js";
+import { UpdateLoading } from "api/app/LoadingSlicer.js";
 const useStyles = makeStyles(styles);
 
 
@@ -66,11 +67,17 @@ export default function JobsPage(props) {
   useEffect(() => {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
+      dispatch(UpdateLoading(true));
       // Nếu có candidate code thì update luôn số lần click
       if(LoginInfo.CadidateCode){
         const resultClick = await JobsApi.insertClick(LoginInfo.CadidateCode,jobID);
       }
       setData(result[0][0]);
+      setTimeout(() => {
+        dispatch(UpdateLoading(false));
+      }, 1000)
+     
+       
       setJobWorking(result[2]);
       setTagSkill(result[1]);
       setPriorityDegree(result[3]);
@@ -95,9 +102,13 @@ export default function JobsPage(props) {
         {
           label: 'Tìm kiếm ngay',
           onClick: async () => {
+            dispatch(UpdateLoading(true));
             const action = ChooseJob({ jobID: jobID, IsAccess: true ,IsSearch :true});
             var x = dispatch(action);
-            MyToaStrSuccess('Hệ thống đã lọc những ứng viên có khả năng ở góc dưới bên phải màn hình');
+            setTimeout(() => {
+              dispatch(UpdateLoading(false));
+              MyToaStrSuccess('Hệ thống đã lọc những ứng viên có khả năng ở góc dưới bên phải màn hình');
+            }, 1000)
             return;
           }
         },
