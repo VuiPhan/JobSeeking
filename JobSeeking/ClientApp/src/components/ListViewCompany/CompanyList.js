@@ -29,7 +29,7 @@ function CompanyList() {
             {listProduct.length > 0 &&
               listProduct.map(product => {
                 const { id } = product;
-                return <CompanyBox key={id} product={product} />;
+                return <CompanyBox key={product.companyID} product={product} />;
               })}
           </Row>
         </Container>

@@ -34,12 +34,12 @@ const MyItemRender = props => {
         <Card style={{ padding: '20px 24px', border: 'none', borderBottom: '1px solid rgba(0,0,0,0.12)', }} orientation='horizontal' className='d-flex justify-content-between'>
             <div className='k-vbox k-column DetailComment'>
                 <div >
-                    <h1 className='TitleReview DetailComment'>{item.titleReview}</h1>
+                    <h1 className='TitleReview DetailComment no__Paddingtop'>{item.titleReview}</h1>
                     <Ratting key={item.recID} value={item.star} size={25}></Ratting>
-                    <h1 className='Ilike DetailComment' >Điều tôi thích</h1>
-                    <p>{item.iLike}</p>
-                    <h1 className='Improve DetailComment'>Đề nghị cải thiện</h1>
-                    <p>{item.improve}</p>
+                    <h1 className='Ilike DetailComment no__Paddingtop' >Điều tôi thích</h1>
+                    <p className='detail'>{item.iLike}</p>
+                    <h1 className='Improve DetailComment no__Paddingtop'>Đề nghị cải thiện</h1>
+                    <p  className='detail'>{item.improve}</p>
                 </div>
             </div>
         </Card>

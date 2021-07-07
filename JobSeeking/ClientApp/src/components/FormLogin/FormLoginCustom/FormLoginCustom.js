@@ -38,7 +38,6 @@ function FormLoginCustom(props) {
     const handleLogin = async (user) => {
         const action = LoginAPIRedux(user);
         const result = await dispatch(action);
-        debugger;
         if (typeof result.payload === 'string') {
             MyToaStrError(result.payload);
             return;

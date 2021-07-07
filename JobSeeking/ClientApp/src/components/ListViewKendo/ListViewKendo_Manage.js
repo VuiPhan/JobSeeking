@@ -136,7 +136,7 @@ function ListViewKendo_Manage(props) {
                             checked={IsReletive}
                             onChange={()=>setIsReletive(!IsReletive)}
                             name="checkedB"
-                            color="Secondary"
+                            color="secondary"
                         />
                     }
                     label="Sử dụng hệ thống gợi ý"

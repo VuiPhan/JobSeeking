@@ -100,7 +100,7 @@ function EducationItem(props) {
     return (
         <div>
             {Education.map((item, i) => {
-                return <EducationRender item={item}></EducationRender>
+                return <EducationRender key={item.recid} item={item}></EducationRender>
             })}
         </div>
     )

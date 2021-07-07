@@ -20,7 +20,7 @@ function OpenForm(props) {
         pathCV: 'Mời bạn chọn CV',
         jobTitleID: 1,
         CVFile: null,
-        description: 'Việc làm',
+        description: 'Mọi thông tin thêm nhà tuyển dụng có thể xem thêm trong CV của tôi',
         OrdinalCVName:'',
         isPublic:true
     };

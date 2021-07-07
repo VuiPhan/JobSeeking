@@ -15,7 +15,7 @@ function CompanyBox(props) {
       window.scrollTo(0, 450);
     }
   return (
-    <div style={{marginTop: 40,    overflow: 'hidden'}} className="hoverItem" onClick={()=>HandleRedirectPage(companyID)}>
+    <div key={companyID} style={{marginTop: 40,    overflow: 'hidden'}} className="hoverItem" onClick={()=>HandleRedirectPage(companyID)}>
        <React.Fragment>
         <Col lg={3} md={6} xs={9}>
           <Card style={{ width: "18rem",height:440,textAlign: 'center',position:'relative'}}>
