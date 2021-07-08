@@ -124,10 +124,12 @@ export default function CompanyPage(props) {
         formData.append('imageName', values.imageName);
         let result = await RegisterCompanyApi.post(formData);
         if (result.error == "") {
-            MyToaStrSuccess('Đăng ký tài khoản thành công! Hãy chuyển đến trang công ty');
-            let dataLogin = { Email: valuesForm.Email, Password: valuesForm.Password }
-            const action = LoginAPIRedux(dataLogin);
-            dispatch(action);
+            MyToaStrSuccess('Đăng ký tài khoản thành công! Tài khoản của tuyển dụng đang trong trạng thái chờ hệ thống kiểm duyệt!');
+            history.push("/");
+            window.scrollTo(0, 150);
+            //let dataLogin = { Email: valuesForm.Email, Password: valuesForm.Password }
+            //const action = LoginAPIRedux(dataLogin);
+           // dispatch(action);
           }
         else{
             MyToaStrError('Địa chỉ Email đã tồn tại. Vui lòng sử dụng một địa chỉ Email khác!');

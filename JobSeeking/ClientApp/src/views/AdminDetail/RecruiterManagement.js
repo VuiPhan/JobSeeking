@@ -10,8 +10,11 @@ import { confirmAlert } from 'react-confirm-alert';
 import { MyToaStrError, MyToaStrSuccess } from 'components/Toastr/Toastr2';
 import { useDispatch } from 'react-redux';
 import { UpdateLoading } from 'api/app/LoadingSlicer';
+import PaymentForm from './Form/PaymentForm';
 function RecruiterManagement() {
     const [selectionType, setSelectionType] = useState('checkbox');
+    const [visible, setVisible] = React.useState(false);
+
     const [dataSource, setDataSource] = useState([]);
     const [dataSourceOriginal, setDataSourceOriginal] = useState([]);
     const history = useHistory();
@@ -32,7 +35,7 @@ function RecruiterManagement() {
         setDataSourceOriginal(resource);
         setTimeout(() => {
             dispatch(UpdateLoading(false));
-          }, 1000)
+        }, 1000)
     }
     const generateResult = (data) => {
         let text = "";
@@ -45,6 +48,9 @@ function RecruiterManagement() {
                 break;
             case 3:
                 text = res.Khoa;
+                break
+            case 4:
+                text = res.KhongDuDieuKien;
                 break
         }
         return text;
@@ -70,18 +76,18 @@ function RecruiterManagement() {
     const [value, setValue] = useState('');
     const FilterByNameInput = (
         <Input
-        placeholder="Tên công ty - Tìm kiếm"
-        value={value}
-        onChange={e => {
-          const currValue = e.target.value;
-          setValue(currValue.toLowerCase());
-          const filteredData = dataSourceOriginal.filter(entry =>
-            entry.companyName.toLowerCase().includes(currValue)
-          );
-          setDataSource(filteredData);
-        }}
-      />
-      );
+            placeholder="Tên công ty - Tìm kiếm"
+            value={value}
+            onChange={e => {
+                const currValue = e.target.value;
+                setValue(currValue.toLowerCase());
+                const filteredData = dataSourceOriginal.filter(entry =>
+                    entry.companyName.toLowerCase().includes(currValue)
+                );
+                setDataSource(filteredData);
+            }}
+        />
+    );
     const columns = [
         {
             key: 'recID',
@@ -109,20 +115,24 @@ function RecruiterManagement() {
             dataIndex: 'statusAccount',
             filters: [
                 {
-                  text: 'Đang hoạt động',
-                  value: 1,
+                    text: 'Đang hoạt động',
+                    value: 1,
                 },
                 {
-                  text: 'Chưa xác nhận',
-                  value: 2,
+                    text: 'Chưa xác nhận',
+                    value: 2,
                 },
                 {
-                  text: 'Khóa',
-                  value: 3,
+                    text: 'Khóa',
+                    value: 3,
+                },
+                {
+                    text: 'Không đủ điều kiện',
+                    value: 4,
                 }],
-                onFilter: (value, record) => record.statusAccount === value,
-                //sorter: (a, b) => a.name.length - b.name.length,
-                //sortDirections: ['descend'],
+            onFilter: (value, record) => record.statusAccount === value,
+            //sorter: (a, b) => a.name.length - b.name.length,
+            //sortDirections: ['descend'],
             render: tags => (
                 <span>
                     <Tag color={tags == isActive ? "green" : "volcano"} key={tags}>
@@ -159,7 +169,7 @@ function RecruiterManagement() {
         }
         MyToaStrError('Có lỗi xảy ra');
     }
-    const StatusAccount = { DangHoatDong: 1, MoiDangKy: 2, Khoa: 3 }
+    const StatusAccount = { DangHoatDong: 1, MoiDangKy: 2, Khoa: 3, KhongDuDieuKien: 4 }
     const handleAction = (companyID) => {
         let arrayButton = [
             {
@@ -184,6 +194,13 @@ function RecruiterManagement() {
                 }
             },
             {
+                label: res.KhongDuDieuKien,
+                onClick: async () => {
+                    handleStatusOfCompany(companyID, StatusAccount.KhongDuDieuKien);
+                    return;
+                }
+            },
+            {
                 label: 'Đóng',
                 onClick: () => { }
             }
@@ -193,6 +210,8 @@ function RecruiterManagement() {
         if (dataSelected.statusAccount == StatusAccount.DangHoatDong) {
             arrayButton.splice(0, 1); // 0: Xác nhận tài khoản.
             arrayButton.splice(1, 1); // 2: Mở khóa tài khoản
+            arrayButton.splice(1, 1); // 4: Không đủ điều kiện
+
         }
         if (dataSelected.statusAccount == StatusAccount.MoiDangKy) {
             arrayButton.splice(1, 1); // 1: Khóa
@@ -201,22 +220,49 @@ function RecruiterManagement() {
         if (dataSelected.statusAccount == StatusAccount.Khoa) {
             arrayButton.splice(0, 1); // 0: Xác nhận tài khoản.
             arrayButton.splice(0, 1); // 1: Mở khóa tài khoản
+            arrayButton.splice(1, 1); // 4: Không đủ điều kiện
+
         }
+        if (dataSelected.statusAccount == StatusAccount.KhongDuDieuKien) {
+            arrayButton.splice(1, 3);
+        }
+
         confirmAlert({
             title: res.ThaoTacConfirm,
             message: '',
             buttons: arrayButton
         });
     }
+    const [item, setItem] = React.useState({
+        jobID: 1,
+        roundName: '',
+        dateInterview: '2021-01-01',
+        contentInterview: '',
+      });
+      const onDoubleClickRowAndt = (record) => {
+          console.log('recordrecord',record);
+            setVisible(true);
+            setItem(record);
+      }
+     
     return (
         <div style={{ marginTop: 40, marginLeft: 29, marginRight: 29 }}>
             <h1>{res.QuanLyNhaTuyenDung}</h1>
-            
+            <PaymentForm visible={visible} setVisible={setVisible} item={item}></PaymentForm>
             <Table
                 rowSelection={{
                     type: selectionType,
                     ...rowSelection,
                 }}
+                onRow={(record, rowIndex) => {
+                    return {
+                      onClick: event => {}, // click row
+                      onDoubleClick: event => {onDoubleClickRowAndt(record)}, // double click row
+                      onContextMenu: event => {}, // right button click row
+                      onMouseEnter: event => {}, // mouse enter row
+                      onMouseLeave: event => {}, // mouse leave row
+                    };
+                  }}
                 columns={columns}
                 dataSource={dataSource}
                 pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
