@@ -2,6 +2,7 @@ import Dashboard from "./AdminDetail/Dashboard";
 import RecruiterManagement from "./AdminDetail/RecruiterManagement";
 import TemplateEmail_Admin from "./AdminDetail/TemplateEmail_Admin";
 import ManagerCategories from "./AdminDetail/ManagerCategories";
+import ConfigAppManagement from "./AdminDetail/ConfigAppManagement";
 
 var routes = [
   {
@@ -32,6 +33,14 @@ var routes = [
     name: "Thiết lập danh mục",
     icon: "nc-icon nc-bullet-list-67",
     component: ManagerCategories,
+    layout: "/AdminPage",
+  }
+  ,
+  {
+    path: "/ManagerConfigApp",
+    name: "Cấu hình hệ thống",
+    icon: "nc-icon nc-bulb-63",
+    component: ConfigAppManagement,
     layout: "/AdminPage",
   }
 ];

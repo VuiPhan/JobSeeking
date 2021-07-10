@@ -14,6 +14,7 @@
           "Khoa":"Khóa",
           "ChuaXacNhan":"Chưa xác nhận",
           "KhongDuDieuKien":"Không đủ điều kiện",
+          "HetHanSuDung":"Hết hạn sử dụng",
           "ThaoTac":"Thao tác",
           "ThaoTacConfirm":"Chọn thao tác",
           "XacNhanTaiKhoan":"Xác nhận tài khoản",
@@ -48,6 +49,28 @@
           "MoKhoaDanhMuc":"Mở khóa danh mục",
           "ThaoTacConfirm":"Xác nhận",
           "KhongSuDungDanhMuc":"Người dùng sẽ không chọn được danh mục này nữa"
+      },
+      "ConfigAppPage":{
+        "ThietLapCauHinhHeThong":"Thiết lập cấu hình hệ thống",
+        "Key":"Key",
+        "MaCauHinh":"Mã cấu hình",
+        "TenCauHinh":"Tên cấu hình",
+        "TenCongTy":"Tên công ty",
+        "LoaiHinhCongTy":"Loại hình công ty",
+        "TrangThai":"Trạng thái",
+        "NgayTaoTK":"Ngày tạo",
+        "DuyetTaiKhoan":"Duyệt tài khoản",
+        "XemTrang":"Xem trang",
+        "DangHoatDong":"Đang hoạt động",
+        "Khoa":"Khóa",
+        "ChuaXacNhan":"Chưa xác nhận",
+        "KhongDuDieuKien":"Không đủ điều kiện",
+        "HetHanSuDung":"Hết hạn sử dụng",
+        "ThaoTac":"Thao tác",
+        "ThaoTacConfirm":"Chọn thao tác",
+        "XacNhanTaiKhoan":"Xác nhận tài khoản",
+        "KhoaTaiKhoan":"Khóa tài khoản",
+        "MoKhoaTaiKhoan":"Mở khóa tài khoản"
       }
   }
   

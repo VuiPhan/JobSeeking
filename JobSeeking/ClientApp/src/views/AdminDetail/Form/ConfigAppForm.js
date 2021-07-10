@@ -11,8 +11,9 @@ import { Form } from 'antd';
 import NumberFormatCustom from 'components/InputNumber/InputNumber';
 import { TextField } from "@material-ui/core";
 import RecruiterManagementAPI from 'api/AdminPage/RecruiterManagementAPI';
+import ConfigAppManagementAPI from 'api/AdminPage/ConfigAppManagementAPI';
 
-function PaymentForm(props) {
+function ConfigAppForm(props) {
   const { item, visible, setVisible,LoadDataSource } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState('Content of the modal');
@@ -25,10 +26,14 @@ function PaymentForm(props) {
   });
   const [initialValues, setinitialValues] = React.useState(item);
   const dispatch = useDispatch();
-  const handleOk = async () => {
-    const result = await RecruiterManagementAPI.paymentCompany(item.companyID,valuesMoney);
+  const handleOk = async (data) => {
+    const formData = new FormData();
+    formData.append('NameConfig', data.nameConfig);
+    formData.append('ContentConfig', data.contentConfig);
+    formData.append('Descriptionss', data.descriptionss);
+    const result = await ConfigAppManagementAPI.updateConfigApp(formData);
     if(result.error === ""){
-      MyToaStrSuccess('Thanh toán thành công');
+      MyToaStrSuccess('Cập nhật thành công');
       setVisible(false);
       LoadDataSource();
       return
@@ -55,44 +60,33 @@ function PaymentForm(props) {
           return (
             <FormFormik>
               <Modal
-                title={"Thanh toán sử dụng "}
+                title={"Thông tin cấu hình"}
                 visible={visible}
                 onOk={() => handleOk(values)}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
-                okText="Thanh toán"
+                okText="Lưu"
                 cancelText="Đóng"
               >
                 <FastField
-                  name="companyName"
+                  name="nameConfig"
                   component={InputField}
-                  label="Tên công ty"
+                  label="Mã cấu hình"
                   disabled={true}
                   placeholder=""
                 />
                  <FastField
-                  name="emailCompany"
+                  name="descriptionss"
                   component={InputField}
-                  label="Thông tin liên lạc"
-                  disabled={true}
+                  label="Tên cấu hình"
                   placeholder=""
                 />
                 <FastField
-                  name="expiryDate_String"
+                  name="contentConfig"
                   component={InputField}
-                  label="Ngày hết hạn sử dụng"
-                  disabled={true}
+                  label="Nội dung"
+                  type="textarea"
                   placeholder=""
-                />
-                <TextField
-                  label="Thanh toán (VNĐ)"
-                  value={valuesMoney}
-                  onChange={handleChange}
-                  name="salaryFrom"
-                  id="formatted-numberformat-input"
-                  InputProps={{
-                    inputComponent: NumberFormatCustom,
-                  }}
                 />
               </Modal>
             </FormFormik>
@@ -103,4 +97,4 @@ function PaymentForm(props) {
   )
 }
 
-export default PaymentForm
+export default ConfigAppForm

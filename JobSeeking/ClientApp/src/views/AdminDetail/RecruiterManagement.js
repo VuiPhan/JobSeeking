@@ -52,6 +52,9 @@ function RecruiterManagement() {
             case 4:
                 text = res.KhongDuDieuKien;
                 break
+            case 5:
+                text = res.HetHanSuDung;
+                break
         }
         return text;
     }
@@ -129,6 +132,10 @@ function RecruiterManagement() {
                 {
                     text: 'Không đủ điều kiện',
                     value: 4,
+                },
+                {
+                    text: 'Hết hạn sử dụng',
+                    value: 5,
                 }],
             onFilter: (value, record) => record.statusAccount === value,
             //sorter: (a, b) => a.name.length - b.name.length,
@@ -169,7 +176,7 @@ function RecruiterManagement() {
         }
         MyToaStrError('Có lỗi xảy ra');
     }
-    const StatusAccount = { DangHoatDong: 1, MoiDangKy: 2, Khoa: 3, KhongDuDieuKien: 4 }
+    const StatusAccount = { DangHoatDong: 1, MoiDangKy: 2, Khoa: 3, KhongDuDieuKien: 4,KhoaDoHetHan:5 }
     const handleAction = (companyID) => {
         let arrayButton = [
             {
@@ -226,6 +233,9 @@ function RecruiterManagement() {
         if (dataSelected.statusAccount == StatusAccount.KhongDuDieuKien) {
             arrayButton.splice(1, 3);
         }
+        if (dataSelected.statusAccount == StatusAccount.KhoaDoHetHan) {
+            arrayButton.splice(0, 4);
+        }
 
         confirmAlert({
             title: res.ThaoTacConfirm,
@@ -248,7 +258,7 @@ function RecruiterManagement() {
     return (
         <div style={{ marginTop: 40, marginLeft: 29, marginRight: 29 }}>
             <h1>{res.QuanLyNhaTuyenDung}</h1>
-            <PaymentForm visible={visible} setVisible={setVisible} item={item}></PaymentForm>
+            <PaymentForm visible={visible} setVisible={setVisible} item={item} LoadDataSource={LoadDataSource}></PaymentForm>
             <Table
                 rowSelection={{
                     type: selectionType,

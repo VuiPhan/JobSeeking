@@ -58,7 +58,9 @@ namespace JobSeeking.Models.DB
 
         public DbSet<Admin_InfomationCompany> Admin_InfomationCompanys { get; set; }
         public DbSet<ManagerCategories> ManagerCategoriess { get; set; }
+        public DbSet<ManagerConfigApp> ManagerConfigApps { get; set; }
         
+
         public virtual DbSet<UteappAccount> UteappAccounts { get; set; }
         public virtual DbSet<UteappAppCertificate> UteappAppCertificates { get; set; }
         public virtual DbSet<UteappAppEducation> UteappAppEducations { get; set; }
@@ -127,7 +129,10 @@ namespace JobSeeking.Models.DB
             modelBuilder.Entity<Admin_InfomationCompany>().HasNoKey();
             modelBuilder.Entity<ManagerCategories>().HasNoKey();
             modelBuilder.Entity<TimeLineCandidate>().HasNoKey();
+            modelBuilder.Entity<ManagerConfigApp>().HasNoKey();
             
+
+
 
 
             modelBuilder.Entity<UteappAccount>(entity =>

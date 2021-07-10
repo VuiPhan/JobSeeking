@@ -55,5 +55,22 @@ namespace JobSeeking.Controllers.AdminPage
             response = Ok(new { Error = "Có lỗi" });
             return response;
         }
+        [HttpPost("PayMoneyForCompany")]
+        public async Task<object> PayMoneyForCompany(int? companyID, int? money)
+        {
+            var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Admin_PaymentForCompany" +
+            " @CompanyID={0},@MoneyPayment={1}",
+            companyID,
+            money
+            );
+            IActionResult response = Unauthorized();
+            if (result > 0)
+            {
+                response = Ok(new { Error = "" });
+                return response;
+            }
+            response = Ok(new { Error = "Có lỗi" });
+            return response;
+        }
     }
 }

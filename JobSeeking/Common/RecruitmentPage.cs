@@ -53,6 +53,8 @@ namespace JobSeeking.Common
         public string CompanyType_Name { get; set; }
         public string JoinDate_String { get; set; }
         public int StatusAccount { get; set; }
+        public string ExpiryDate_String { get; set; }
+        public string EmailCompany { get; set; }
     }
     public class ManagerCategories
     {
@@ -60,9 +62,15 @@ namespace JobSeeking.Common
         public int Key { get; set; }
         public string CategoryName { get; set; }
         public bool IsLock { get; set; }
-        
-
     }
+    public class ManagerConfigApp
+    {
+        public int Key { get; set; }
+        public string NameConfig { get; set; }
+        public string ContentConfig { get; set; }
+        public string Descriptionss { get; set; }
+    }
+
     public class NumberViewDashboardChart_Job
     {
         public string YYYYMM { get; set; }
@@ -113,5 +121,11 @@ namespace JobSeeking.Common
             public string CategoryName { get; set; }
             public int? TypeCategory { get; set; }
     }
-
+    public class Form_ConfigApp
+    {
+        public string NameConfig { get; set; }
+        public string ContentConfig { get; set; }
+        public string Descriptionss { get; set; }
     }
+
+}

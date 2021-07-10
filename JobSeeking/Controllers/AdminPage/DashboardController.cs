@@ -47,13 +47,15 @@ namespace JobSeeking.Controllers.AdminPage
             List<NumberViewDashboardChart_KyNang> numberViewDashboardChart_KyNang = new List<NumberViewDashboardChart_KyNang>();
             List<NumberViewDashboardChart_KyNang> numberViewDashboardChart_ChucDanh = new List<NumberViewDashboardChart_KyNang>();
             List<NumberViewDashboardChart_NhaTuyenDungAndUngVien> numberViewDashboardChart_NhaTuyenDungAndUngVien = new List<NumberViewDashboardChart_NhaTuyenDungAndUngVien>();
-            
+            List<NumberViewDashboardChart_NhaTuyenDungAndUngVien> numberViewDashboardChart_NhaTuyenDungAndThanhToan = new List<NumberViewDashboardChart_NhaTuyenDungAndUngVien>();
+
             try
             {
                 numberViewDashboardChart = await _context.NumberViewDashboardChart_Jobs.FromSqlRaw("EXEC dbo.UTE_SYS_Statistics_ViewDashboard_Chart_TinTuyenDung {0},{1}", fromTime,toTime).ToListAsync();
                 numberViewDashboardChart_KyNang = await _context.NumberViewDashboardChart_KyNangs.FromSqlRaw("EXEC dbo.UTE_SYS_Statistics_ViewDashboard_Chart_KyNang {0},{1}", fromTime, toTime).ToListAsync();
                 numberViewDashboardChart_ChucDanh = await _context.NumberViewDashboardChart_KyNangs.FromSqlRaw("EXEC dbo.UTE_SYS_Statistics_ViewDashboard_Chart_ChucDanh {0},{1}", fromTime, toTime).ToListAsync();
                 numberViewDashboardChart_NhaTuyenDungAndUngVien = await _context.NumberViewDashboardChart_NhaTuyenDungAndUngViens.FromSqlRaw("EXEC dbo.UTE_SYS_Statistics_ViewDashboard_Chart_NhaTuyenDungAndUngVien {0},{1}", fromTime, toTime).ToListAsync();
+                numberViewDashboardChart_NhaTuyenDungAndThanhToan = await _context.NumberViewDashboardChart_NhaTuyenDungAndUngViens.FromSqlRaw("EXEC dbo.UTE_SYS_Statistics_ViewDashboard_Chart_NhaTuyenDungAndThanhToan {0},{1}", fromTime, toTime).ToListAsync();
             }
             catch (Exception e)
             {
@@ -73,6 +75,11 @@ namespace JobSeeking.Controllers.AdminPage
 
             int?[] number_NhaTuyenDung = numberViewDashboardChart_NhaTuyenDungAndUngVien.Where(x => x.Type == 2).Select(x => x.SL).ToArray();
 
+
+            int?[] number_LuotThanhToan = numberViewDashboardChart_NhaTuyenDungAndThanhToan.Where(x => x.Type == 1).Select(x => x.SL).ToArray();
+
+            int?[] number_SoTienThanhToan = numberViewDashboardChart_NhaTuyenDungAndThanhToan.Where(x => x.Type == 2).Select(x => x.SL).ToArray();
+
             var dataFinal = new ArrayList()
                 {
                 Months, 
@@ -83,7 +90,9 @@ namespace JobSeeking.Controllers.AdminPage
                 numberChucDanh,
                 YYYYMM_UngVienVaTuyenDung,
                 number_UngVien,
-                number_NhaTuyenDung
+                number_NhaTuyenDung,
+                number_LuotThanhToan,
+                number_SoTienThanhToan
                 };
             return dataFinal;
         }

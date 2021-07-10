@@ -9,6 +9,10 @@ const RecruiterManagementAPI = {
         const url = `/RecruiterManagement/UpdateStatusOfAccount?companyID=${companyID}&status=${status}`;
         return axiosClient.post(url);
     },
+    paymentCompany: (companyID,money) => {
+        const url = `/RecruiterManagement/PayMoneyForCompany?companyID=${companyID}&money=${money}`;
+        return axiosClient.post(url);
+    },
     
 }
 export default RecruiterManagementAPI;
