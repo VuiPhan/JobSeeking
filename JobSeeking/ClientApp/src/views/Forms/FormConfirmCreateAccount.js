@@ -13,7 +13,7 @@ import { TextField } from "@material-ui/core";
 import RecruiterManagementAPI from 'api/AdminPage/RecruiterManagementAPI';
 
 function FormConfirmCreateAccount(props) {
-  const { item, visible, setVisible,LoadDataSource } = props;
+  const { item, visible, setVisible,LoadDataSource,RegisterCandidate } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState('Content of the modal');
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
@@ -26,14 +26,9 @@ function FormConfirmCreateAccount(props) {
   const [initialValues, setinitialValues] = React.useState(item);
   const dispatch = useDispatch();
   const handleOk = async () => {
-    const result = await RecruiterManagementAPI.paymentCompany(item.companyID,valuesMoney);
-    if(result.error === ""){
-      MyToaStrSuccess('Thanh toán thành công');
-      setVisible(false);
-      LoadDataSource();
-      return
-    }
-    MyToaStrError(result.error);
+    RegisterCandidate();
+    setVisible(false);
+
   };
 
   const handleCancel = () => {

@@ -97,6 +97,7 @@ export default function ProfilePage(props) {
   const [FaceBook, setFaceBook] = useState('');
   const [GitHub, setGitHub] = useState('');
   const [LinkIn, setLinkIn] = useState('');
+  const [formDataState, setFormDataState] = useState({});
   const history = useHistory();
 
   useEffect(() => {
@@ -180,7 +181,20 @@ export default function ProfilePage(props) {
       reader.readAsDataURL(imageFile);
     }
   }
+  const [loginInfoRegister, setLoginInfoRegister] = useState({email:'',password:''});
 
+  const RegisterCandidate = async () =>{
+    let result = await SeekerAPI.post(formDataState);
+    if (result.error === "") {
+      MyToaStrSuccess('Tạo tài khoản thành công! Hãy đến bước tiếp theo');
+      let dataLogin = { Email: loginInfoRegister.email, Password: loginInfoRegister.password }
+      const action = LoginAPIRedux(dataLogin);
+      dispatch(action);
+    }
+    else {
+      MyToaStrError('Địa chỉ Email đã tồn tại. Vui lòng sử dụng một địa chỉ Email khác');
+    }
+  }
 
   const SubmitDataFinal = async (values) => {
 
@@ -210,6 +224,8 @@ export default function ProfilePage(props) {
     if (!LoginInfo.CadidateCode) {
       // Sẽ tạo mới
       setVisible(true);
+      setFormDataState(formData);
+      setLoginInfoRegister({email:values.email,password:values.password})
       return
       let result = await SeekerAPI.post(formData);
       if (result.error === "") {
@@ -242,7 +258,7 @@ export default function ProfilePage(props) {
 
   return (
     <div>
-      <FormConfirmCreateAccount visible={visible} setVisible={setVisible}></FormConfirmCreateAccount>
+      <FormConfirmCreateAccount RegisterCandidate={RegisterCandidate} visible={visible} setVisible={setVisible}></FormConfirmCreateAccount>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>
