@@ -67,6 +67,11 @@ export default function JobsPage(props) {
   useEffect(() => {
     async function fetchMyAPI() {
       const result = await JobsApi.get(jobID);
+      if(result[0].length === 0){
+        
+        history.push('/ErrorPage');
+        return;
+      }
       dispatch(UpdateLoading(true));
       // Nếu có candidate code thì update luôn số lần click
       if(LoginInfo.CadidateCode){

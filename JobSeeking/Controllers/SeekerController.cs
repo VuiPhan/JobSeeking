@@ -295,11 +295,18 @@ namespace JobSeeking.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
         
-            bool IsOwn = true;
-            if(claims[5].Value.ToString() == "")
+            bool IsOwn = false;
+            if(claims.Count > 0)
             {
-                // Nhà tuyển dụng
-                IsOwn = false;
+                if(claims[5].Value != "")
+                {
+                    if (Int32.Parse(claims[5].Value) == CandidateCode)
+                    {
+                        // Đây là người đã login với 
+                        IsOwn = true;
+                    }
+                }
+              
             }
             var data = await _context.ListCVOfCandidates.FromSqlRaw("EXEC dbo.UTE_Seeker_GetListCV {0},{1}", CandidateCode, IsOwn).ToListAsync();
             return data;
@@ -439,7 +446,7 @@ namespace JobSeeking.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
-            var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomationByRecruiter {0},{1},{2}", CandidateCode, claims[4].Value,JobID).ToListAsync();
+            var data = await _context.FormJobSeekers.FromSqlRaw("EXEC dbo.UTE_Seeker_GetInfomationByRecruiter {0},{1},{2}", CandidateCode, 1,JobID).ToListAsync(); // Ngày 14/07: Vì public hết nên ko cần xét nữa
             return data.AsEnumerable().SingleOrDefault();
         }
         [HttpGet("GetTimelineCandidate")]

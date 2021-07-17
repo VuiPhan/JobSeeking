@@ -23,6 +23,7 @@ import { NavMenu } from './components/NavMenu';
 import PrivateRouteRecruiter from 'components/Router/PrivateRouteRecruiter';
 import PrivateRouteAdmin from 'components/Router/PrivateRouteAdmin';
 import LoadingPage from 'components/LoadingPage/LoadingPage';
+import ErrorPage from './views/ErrorPage/ErrorPage';
 
 
 export default class App extends Component {
@@ -35,7 +36,7 @@ export default class App extends Component {
         <LoadingPage></LoadingPage>
         <Layout>
         <Route exact path='/' component={HomePage} />
-        <PrivateRoute path='/RecruitmentManagement' component={RecruitmentManagement} exact />
+        <PrivateRouteRecruiter path='/RecruitmentManagement' component={RecruitmentManagement} exact />
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/ProfilePage' component={ProfilePage} exact/>
         <Route path='/ProfilePage/:CandidateCode' component={ProfilePage} exact />
@@ -52,6 +53,7 @@ export default class App extends Component {
         
       </Layout>
       <PrivateRouteAdmin path='/AdminPage' component={AdminPage} />
+      <Route path='/ErrorPage' component={ErrorPage} />
       <PrivateRouteForViewList path= {["/ProfilePage/:CandidateCode"]} component={ToolbarCandidate} />
       </div>
       </div>

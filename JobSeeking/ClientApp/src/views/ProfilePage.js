@@ -16,7 +16,7 @@ import profile from "../assets/img/faces/christian.jpg";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import PersonalInformation from "./FormProfile/PersonalInformation.js";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import SeekerAPI from "api/JobSeeker/SeekerAPI.js";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -47,11 +47,14 @@ import {
 } from "reactstrap";
 import { CheckIsOwnProfile } from "api/app/appSlicer.js";
 import { UpdateLoading } from "api/app/LoadingSlicer.js";
+import FormConfirmCreateAccount from "./Forms/FormConfirmCreateAccount.js";
 const useStyles = makeStyles(styles);
 export default function ProfilePage(props) {
   const classes = useStyles();
   const LoginInfo = useSelector(state => state.loginInfo);
   const AppSlice = useSelector(state => state.AppSlice);
+  const [visible, setVisible] = React.useState(false);
+
   const { ...rest } = props;
   const imageClasses = classNames(
     classes.imgRaised,
@@ -94,10 +97,16 @@ export default function ProfilePage(props) {
   const [FaceBook, setFaceBook] = useState('');
   const [GitHub, setGitHub] = useState('');
   const [LinkIn, setLinkIn] = useState('');
+  const history = useHistory();
+
   useEffect(() => {
     async function fetchDataView() {
       dispatch(UpdateLoading(true));
-      const result = await SeekerAPI.getByRecruiter(CandidateCode, JobKendo.jobID);
+      if(LoginInfo.role !== ConstCommon.RoleRecruiter){
+        history.push('/ErrorPage');
+        return;
+      }
+      const result = await SeekerAPI.getByRecruiter(CandidateCode, 1); // Ngày 14/07: bỏ cái này ra luôn => Cho mặc định truyền 1
       setData(result);
       setselfIntroduce(result.selfIntroduce);
       setAliasName(result.aliasesName);
@@ -200,6 +209,8 @@ export default function ProfilePage(props) {
     // Kiểm tra xem là đã có CandidateCode chưa, nếu có rồi thì sẽ là Update còn không thì đó sẽ là tạo mới
     if (!LoginInfo.CadidateCode) {
       // Sẽ tạo mới
+      setVisible(true);
+      return
       let result = await SeekerAPI.post(formData);
       if (result.error === "") {
         MyToaStrSuccess('Tạo tài khoản thành công! Hãy đến bước tiếp theo');
@@ -228,9 +239,10 @@ export default function ProfilePage(props) {
     }
 
   }
+
   return (
     <div>
-
+      <FormConfirmCreateAccount visible={visible} setVisible={setVisible}></FormConfirmCreateAccount>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div>
           <div className={classes.container}>

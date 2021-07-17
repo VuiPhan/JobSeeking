@@ -198,7 +198,6 @@ function PersonalInformation(props) {
                                 </Col>
                             </Form.Group>
                             {isOwnProfile ? <Button startIcon={<SaveIcon />} type="submit" variant="outlined" color="secondary">{isAddMode ? res.TaoTaiKhoan : 'Cập nhật'}</Button> : null}
-                            {/* <Button type="submit" variant="outlined" color="secondary">Tạo</Button> */}
                         </FormFormik>
                     )
                 }}

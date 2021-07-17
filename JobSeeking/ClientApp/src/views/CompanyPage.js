@@ -26,12 +26,18 @@ const useStyles = makeStyles(styles);
 export default function CompanyPage(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const [data, setData] = useState({companyName: '', introduceCompany: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
   const LoginInfo = useSelector(state => state.loginInfo);
   const { companyID } = useParams();
   async function fetchMyAPI() {
     dispatch(UpdateLoading(true));
     const result = await CompanyAPI.get(companyID);
+    if(!result.companyID){
+      history.push('/ErrorPage');
+      return;
+    }
     setData(result);
     setTimeout(() => {
       dispatch(UpdateLoading(false));

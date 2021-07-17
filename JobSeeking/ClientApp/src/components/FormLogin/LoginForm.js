@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { MyToaStrError } from 'components/Toastr/Toastr2.js';
 import SettingsPowerIcon from '@material-ui/icons/SettingsPower';
 import  FormLoginCustom from './FormLoginCustom/FormLoginCustom';
+import { CheckIsOwnProfile } from 'api/app/appSlicer.js';
 const useStyles = makeStyles(styles);
 
 export default function FormDialog() {
@@ -49,6 +50,7 @@ export default function FormDialog() {
       
       history.push('/');
     }
+    dispatch(CheckIsOwnProfile(false));
     const action = Logout();
     dispatch(action);
   };
