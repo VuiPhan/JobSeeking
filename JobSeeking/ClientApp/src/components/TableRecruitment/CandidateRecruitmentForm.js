@@ -21,8 +21,13 @@ function CandidateRecruitmentForm(props) {
   const { item, visible, setVisible } = props;
   //const item ={isElect:true};
   const [confirmLoading, setConfirmLoading] = React.useState(false);
-  const validationShema = yup.object().shape({});
+  const [visibleTotalIncome, setVisibleTotalIncome] = React.useState(false);
   const [res, setRes] = React.useState({});
+  const validationShema = yup.object().shape({
+  totalIncome: yup.number()
+  .typeError("Đây phải là 1 số")
+  .required("Trường bắt buộc nhập")
+  });
   const LoadResource = async () => {
     const resource = await handleGetJson("RecruitmentForm", "RecruitmentPage");
     const resourceCommon = await handleGetJson("Notification", "LanguageInApp");
@@ -35,6 +40,11 @@ function CandidateRecruitmentForm(props) {
   const [initialValues, setinitialValues] = React.useState();
   useEffect(() => {
       setinitialValues(item);
+      if(item.result === 4){
+        setVisibleTotalIncome(true);
+        return;
+      }
+      setVisibleTotalIncome(false);
   }, [item])
   const dispatch = useDispatch();
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
@@ -59,6 +69,13 @@ function CandidateRecruitmentForm(props) {
   const handleCancel = () => {
     setVisible(false);
   };
+  const changeComboboxWhenElect = (data) =>{
+    if(data===4){
+      setVisibleTotalIncome(true);
+      return;
+    }
+    setVisibleTotalIncome(false);
+  }
   return (
     <div>
       <Formik initialValues={initialValues}
@@ -97,6 +114,7 @@ function CandidateRecruitmentForm(props) {
                   <FastField
                     name="result"
                     component={SelectField}
+                    HandleOnChange={changeComboboxWhenElect}
                     label={res.KetQua}
                     ListName="Recruit.ResultInterView" />
                 </div>
@@ -107,6 +125,13 @@ function CandidateRecruitmentForm(props) {
                   label={res.MoTaThem}
                   placeholder={res.MoiBanNhapTT}
                 />
+                {visibleTotalIncome? <FastField
+                  name="totalIncome"
+                  component={InputField}
+                  visible={false}
+                  label={res.TongLuong}
+                  placeholder={res.MoiBanNhapTT}
+                /> : null}
               </Modal>
             </FormFormik>
           )

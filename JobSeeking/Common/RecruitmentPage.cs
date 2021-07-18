@@ -30,7 +30,7 @@ namespace JobSeeking.Common
         public int? Result { get; set; }
         public int? RecID { get; set; }
         public int? Key { get; set; }
-
+        public float? TotalIncome { get; set; }
     }
     public class Candidate
     {

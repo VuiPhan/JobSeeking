@@ -95,8 +95,8 @@ namespace JobSeeking.Controllers.RecruitmentManagement
             try
             {
                 result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_spUpdateResultOfCandidate" +
-               " @RecID={0},@DateInterview={1},@Result={2},@Descriptions={3}",
-               form.RecID, form.DateInterview, form.Result, form.Descriptions
+               " @RecID={0},@DateInterview={1},@Result={2},@Descriptions={3},@TotalIncome={4}",
+               form.RecID, form.DateInterview, form.Result, form.Descriptions,form.TotalIncome
                );
             }
             catch(Exception e)

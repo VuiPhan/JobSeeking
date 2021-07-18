@@ -21,9 +21,10 @@
           "KQPhongVan":"KẾT QUẢ PHỎNG VẤN",
           "TenUV":"Tên ứng viên",
           "KetQua":"Kết quả",
-          "NgayDienRa":"Ngày diễn ra",
+          "NgayDienRa":"Thời gian diễn ra",
           "MoTaThem":"Mô tả thêm",
-          "UngVienTrungTuyen":"Ứng viên trúng tuyển"
+          "UngVienTrungTuyen":"Ứng viên trúng tuyển",
+          "TongLuong":"Tổng lương (USD)"
       },
       "TemplateEmail":{
         "ChuDe":"Chủ đề: ",
