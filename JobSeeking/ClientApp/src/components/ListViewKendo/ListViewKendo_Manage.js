@@ -57,7 +57,7 @@ const MyItemRender = props => {
         borderBottom: '1px solid rgba(0,0,0,0.12)',backgroundColor:BackgroundHover}} 
         orientation='horizontal' className='d-flex justify-content-between'>
             <div className='k-vbox k-column' >
-                <div style={{ padding: '0 8px', marginRight: '3rem', height: 162, overflow: 'hidden', msTextOverflow: 'ellipsis' }}>
+                <div style={{ padding: '0 8px', height: 162, overflow: 'hidden', msTextOverflow: 'ellipsis' }}>
                     <CardTitle style={{ fontSize: 20, fontWeight: 'bold' }}>
                         {item.jobsTitle}
                     </CardTitle>

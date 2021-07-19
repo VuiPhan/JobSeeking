@@ -197,7 +197,6 @@ export default function ProfilePage(props) {
   }
 
   const SubmitDataFinal = async (values) => {
-
     const formData = new FormData();
     formData.append('Facebook', FaceBook);
     formData.append('Github', GitHub);
@@ -227,16 +226,6 @@ export default function ProfilePage(props) {
       setFormDataState(formData);
       setLoginInfoRegister({email:values.email,password:values.password})
       return
-      let result = await SeekerAPI.post(formData);
-      if (result.error === "") {
-        MyToaStrSuccess('Tạo tài khoản thành công! Hãy đến bước tiếp theo');
-        let dataLogin = { Email: values.email, Password: values.password }
-        const action = LoginAPIRedux(dataLogin);
-        dispatch(action);
-      }
-      else {
-        MyToaStrError('Địa chỉ Email đã tồn tại. Vui lòng sử dụng một địa chỉ Email khác');
-      }
     }
     else {
       // Sẽ đi cập nhật

@@ -54,7 +54,8 @@ function CandidateRecruitmentForm(props) {
     formData.append('Result', data.result);
     formData.append('Descriptions', data.descriptions);
     formData.append('RecID', initialValues.recID);
-    formData.append('TotalIncome', data.totalIncome);
+    debugger;
+    formData.append('TotalIncome', data.totalIncome ? data.totalIncome: 0);
     const result = await RecruitmentManagerAPI.UpdateResultOfCandidate(formData);
     if(result.error !== ""){
       MyToaStrError(result.error);  

@@ -29,11 +29,15 @@ import SelectField from "components/CustomField/SelectField";
 import SaveIcon from '@material-ui/icons/Save';
 import MutipleCombobox from "components/CustomField/MutipleCombobox";
 import TelegramIcon from '@material-ui/icons/Telegram';
+import FormConfirmAccountCompany from "views/Forms/FormConfirmAccountCompany";
 
 const useStyles = makeStyles(styles);
 export default function CompanyPage(props) {
     const classes = useStyles();
     const res = LGCompanyPage.CompanyPage;
+  const [visible, setVisible] = React.useState(false);
+  const [formDataState, setFormDataState] = useState({});
+
     const { ...rest } = props;
     const imageClasses = classNames(
         classes.imgRaised,
@@ -116,29 +120,30 @@ export default function CompanyPage(props) {
         formData.append('IntroduceCompany', valuesForm.InfomationCompany);
         formData.append('CompanyAddress', valuesForm.CompanyAddress);
         formData.append('LocationProvince', valuesForm.LocationProvince);
-        
         formData.append('CompanyType', valuesForm.CompanyType);
         formData.append('OTMode', valuesForm.OTMode);
         formData.append('ScalePeople', valuesForm.ScalePeople);
         formData.append('imageFile', values.imageFile);
         formData.append('imageName', values.imageName);
-        let result = await RegisterCompanyApi.post(formData);
+        setFormDataState(formData);
+        setVisible(true);
+    }
+    const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
+    const RegisterCompany = async () =>{
+        let result = await RegisterCompanyApi.post(formDataState);
         if (result.error == "") {
             MyToaStrSuccess('Đăng ký tài khoản thành công! Tài khoản của tuyển dụng đang trong trạng thái chờ hệ thống kiểm duyệt!');
             history.push("/");
             window.scrollTo(0, 150);
-            //let dataLogin = { Email: valuesForm.Email, Password: valuesForm.Password }
-            //const action = LoginAPIRedux(dataLogin);
-           // dispatch(action);
+
           }
         else{
             MyToaStrError('Địa chỉ Email đã tồn tại. Vui lòng sử dụng một địa chỉ Email khác!');
         }
     }
-   
-    const [data, setData] = useState({ companyName: '', TimeWorking: '', jobsTitle: '', jobDescriptions: 'a', jobRequirements: 'b', reasonsToJoin: 'c', loveWorkingHere: 'd' });
     return (
         <div>
+            <FormConfirmAccountCompany RegisterCompany={RegisterCompany} visible={visible} setVisible={setVisible}></FormConfirmAccountCompany>
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div>
                     <div className={classes.container}>

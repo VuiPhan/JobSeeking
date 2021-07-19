@@ -65,7 +65,7 @@ function FormTimeLineCandidate(props) {
 
   return (
     <div>
-      <Dialog open={visible} maxWidth={900} style={{ height: 600 }} onClose={() => setVisible(false)} aria-labelledby="form-dialog-title">
+      <Dialog open={visible} maxWidth={900} style={{ height: 700 }} onClose={() => setVisible(false)} aria-labelledby="form-dialog-title">
         <DialogTitle>
             <h1 style={{paddingTop: 0}}>{res.ThongTinThem}</h1>
             <hr></hr>

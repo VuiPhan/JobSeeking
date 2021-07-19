@@ -13,8 +13,8 @@ import { TextField } from "@material-ui/core";
 import RecruiterManagementAPI from 'api/AdminPage/RecruiterManagementAPI';
 import LogoJobSeeking from '../../assets/img/HeaderCompany/LogoJobseeking.png';
 
-function FormConfirmCreateAccount(props) {
-  const { item, visible, setVisible,LoadDataSource,RegisterCandidate } = props;
+function FormConfirmAccountCompany(props) {
+  const { item, visible, setVisible,LoadDataSource,RegisterCompany } = props;
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState('Content of the modal');
   const SelectedJob = useSelector(state => state.SelectedJobProfile);
@@ -27,9 +27,8 @@ function FormConfirmCreateAccount(props) {
   const [initialValues, setinitialValues] = React.useState(item);
   const dispatch = useDispatch();
   const handleOk = async () => {
-    RegisterCandidate();
+    RegisterCompany();
     setVisible(false);
-
   };
 
   const handleCancel = () => {
@@ -60,15 +59,16 @@ function FormConfirmCreateAccount(props) {
                 cancelText="Đóng"
               >
                 <img src={LogoJobSeeking}/>
-               <p>1. Chúng tôi luôn cố gắng để bảo vệ dữ liệu thông tin cá nhân của bạn. Tuy nhiên để đáp ứng
-                   nghiệp vụ tuyển dụng thông tin
-                      sẽ được cung cấp cho các nhà tuyển dụng khi bạn ở trạng thái tìm việc.
-                      </p>
-               <p>2. Là người sử dụng ứng dụng, bạn cần có trách nhiệm với các thông tin của bạn cung cấp là đúng sự thật.
+               <p>1. Là nhà tuyển dụng trên hệ thống, 
+                 bạn cần có trách nhiệm với các thông tin về công việc và công ty mà bạn cung cấp là đúng sự thật. </p>
+
+   
+                <p>2. Công ty và nhà tuyển dụng không được phép sử dụng cơ sở dữ liệu về hồ sơ các ứng viên trong bất kỳ hoàn cảnh nào mà theo 
+                  sự đánh giá riêng của JobSeekingUTE là bất hợp pháp, ảnh hưởng trực tiếp đến quyền lợi của người khác. Nếu vi phạm bạn sẽ chịu trách nhiệm trước pháp luật.
                 </p>
-                <p>3. Tài khoản của bạn sẽ bị khóa mà không cần có thông báo trước nếu chúng tôi phát hiện hành vi bất thường xảy ra.
+                <p>3. Tài khoản của bạn sẽ bị khóa mà không cần có sự thông báo trước nếu chúng tôi phát hiện sự vi phạm. Tất nhiên bạn sẽ nhận được Email khi khóa tài khoản.
                 </p>
-                <p>4. JobSeekingUTE chỉ là nơi gặp gỡ kết nối giữa ứng viên và công việc. Mọi phát sinh liên quan giữa bạn với công ty về các giao dịch chúng tôi sẽ không liên đới. 
+                <p>4. Hệ thống JobSeekingUTE sẽ miễn phí cho bạn 1 tháng sử dụng tài khoản. Sau đó bạn sẽ nhận được Email để hoàn thành thủ tục thanh toán để sử dụng hệ thống JobSeekingUTE.
                 </p>
               </Modal>
             </FormFormik>
@@ -79,4 +79,4 @@ function FormConfirmCreateAccount(props) {
   )
 }
 
-export default FormConfirmCreateAccount
+export default FormConfirmAccountCompany
