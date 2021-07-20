@@ -15,13 +15,18 @@ import { GetListCandidateProcess } from 'views/RecruitmentOfCandidates/Recruitme
 import SwitchLabels from "components/Checkbox/Checkbox";
 import handleGetJson from 'common/ReadJson';
 import DateAndTimePicker from 'components/DatetimePicker/DateAndTimePicker';
-
+import { Button, Tooltip } from 'antd';
+import { CloseCircleOutlined,SaveOutlined,SafetyCertificateOutlined,LikeOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
+import RecruitmentProfileAPI from 'api/Recruitment/RecruitmentProfile';
+import { confirmAlert } from 'react-confirm-alert';
 
 function CandidateRecruitmentForm(props) {
   const { item, visible, setVisible } = props;
   //const item ={isElect:true};
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [visibleTotalIncome, setVisibleTotalIncome] = React.useState(false);
+  const history = useHistory();
   const [res, setRes] = React.useState({});
   const validationShema = yup.object().shape({
   totalIncome: yup.number()
@@ -78,6 +83,24 @@ function CandidateRecruitmentForm(props) {
     }
     setVisibleTotalIncome(false);
   }
+  const Marginbutton ={
+    marginLeft:6
+  };
+  const redirectPageCandidate = (data) =>{
+    const linkRedired = `/ProfilePage/${data}`;
+    history.push(linkRedired);
+    window.scrollTo(0, 150);
+  }
+  const HandlePotentialCandidates = async (CandidateCode) =>{
+    const result = await RecruitmentProfileAPI.AddPotentialCandidates(CandidateCode);
+    if (result.error === "") {
+    MyToaStrSuccess('Đã đưa ứng viên vào danh sách ứng viên tiềm năng');
+    }
+    else{
+      MyToaStrError('Ứng viên đã ở trong ứng viên tiềm năng');
+    }
+    return;
+}
   return (
     <div>
       <Formik initialValues={initialValues}
@@ -91,11 +114,21 @@ function CandidateRecruitmentForm(props) {
               <Modal
                 title={res.KQPhongVan}
                 visible={visible}
-                onOk={() => handleOk(values)}
                 confirmLoading={confirmLoading}
-                onCancel={handleCancel}
-                okText = "Lưu"
-                cancelText = "Đóng"
+                footer={[
+                  <Tooltip title="Ứng viên tiềm năng">
+                  <Button key="1" onClick={() => HandlePotentialCandidates(values.candidateCode)} icon={<LikeOutlined />} style={Marginbutton}></Button>
+                  </Tooltip>,
+                  <Tooltip title="Đến trang ứng viên">
+                  <Button key="2" icon={<SafetyCertificateOutlined />} style={Marginbutton}  onClick={() => redirectPageCandidate(values.candidateCode)}></Button>
+                  </Tooltip>,
+                  <Button key="3" icon={<SaveOutlined />} type="primary" onClick={() => handleOk(values)} style={Marginbutton}>
+                    Lưu
+                  </Button>,
+                  <Button key="4" icon={<CloseCircleOutlined />} onClick={handleCancel} style={Marginbutton}>
+                  Đóng
+                </Button>
+                ]}
               >
                 <FastField
                   name="fullName"
