@@ -76,6 +76,7 @@ namespace JobSeeking.Models.Class
         public string FromTime { get; set; }
         public string ToTime { get; set; }
         public string BackgroundColor { get; set; }
-        
+
+        public string Majors { get; set; }
     }
 }

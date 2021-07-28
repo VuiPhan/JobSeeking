@@ -58,7 +58,8 @@ function EducationRender(props) {
                     <div className="cricle__TimeWorking">
                         {parse(item.timeEducation)}
                     </div>
-                    <h3>{item.typeDegree}</h3>
+                    <h2 style={{marginBottom: 0}}>{item.typeDegree}</h2>
+                    <h3>{item.majors}</h3>
                     <h5>{item.nameSchool}</h5>
                 </div>
                 <hr

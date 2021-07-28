@@ -124,6 +124,8 @@ namespace JobSeeking.Models.Class
         public string NameSchool { get; set; }
         public int RecID { get; set; }
         public string Descriptions { get; set; }
+        public string Majors { get; set; }
+        
     }
     public class ShowTimeLine
     {

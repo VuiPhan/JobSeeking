@@ -233,14 +233,15 @@ namespace JobSeeking.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             IList<Claim> claims = identity.Claims.ToList();
             var result = await _context.Database.ExecuteSqlRawAsync("dbo.UTE_Seeker_InsertUpdateEducation" +
-            " @CandidateCode={0},@FromTime={1},@ToTime={2},@DegreeTraining={3},@NameSchool={4},@RecID={5},@Descriptions = {6}",
+            " @CandidateCode={0},@FromTime={1},@ToTime={2},@DegreeTraining={3},@NameSchool={4},@RecID={5},@Descriptions = {6},@Majors = {7}",
             claims[5].Value,
             education.FromTime,
             education.ToTime,
             education.DegreeTraining,
             education.NameSchool,
             education.RecID,
-            education.Descriptions
+            education.Descriptions,
+            education.Majors
             );
             IActionResult response = Unauthorized();
             if (result > 0)
