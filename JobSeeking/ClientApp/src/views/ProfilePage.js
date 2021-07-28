@@ -48,7 +48,12 @@ import {
 import { CheckIsOwnProfile } from "api/app/appSlicer.js";
 import { UpdateLoading } from "api/app/LoadingSlicer.js";
 import FormConfirmCreateAccount from "./Forms/FormConfirmCreateAccount.js";
+import { Typography } from 'antd';
+import { HighlightOutlined, SmileOutlined, SmileFilled } from '@ant-design/icons';
+
 const useStyles = makeStyles(styles);
+const { Paragraph } = Typography;
+
 export default function ProfilePage(props) {
   const classes = useStyles();
   const LoginInfo = useSelector(state => state.loginInfo);
@@ -244,6 +249,9 @@ export default function ProfilePage(props) {
     }
 
   }
+  const handleChangeIntroduce = (data) =>{
+    setselfIntroduce(data);
+  }
 
   return (
     <div>
@@ -270,8 +278,37 @@ export default function ProfilePage(props) {
 
 
                   <div className={classes.name}>
-                    <h3 className={classes.title}><ClickEditInput disabled={disableForm} text={aliasName} placeholder="Bí danh của bạn" onSetText={text => setAliasName(text)} /></h3>
-                    <h6> <ClickEditInput disabled={disableForm} text={major} onSetText={text => setMajor(text)} /></h6>
+                    <h3 className={classes.title}
+                    style={disableForm == false ? {marginLeft:33,marginBottom: -15}:{marginBottom: -15}}
+                    >
+                      {/* <ClickEditInput disabled={disableForm} text={aliasName} placeholder="Bí danh của bạn" onSetText={text => setAliasName(text)} /> */}
+                      <Paragraph
+                        editable={disableForm == false ?{
+                          icon: <HighlightOutlined />,
+                          tooltip: 'Bí danh của bạn',
+                          onChange: setAliasName,
+                        }:null}
+                      >
+                       {aliasName}
+                      </Paragraph>
+                      </h3>
+                     
+                     <h6 style={disableForm == false ? {marginLeft:33}:null} > 
+                      {/* <ClickEditInput disabled={disableForm} text={major} onSetText={text => setMajor(text)} /> */}
+                      <Paragraph
+                        editable={disableForm == false ?{
+                          icon: <HighlightOutlined />,
+                          tooltip: 'Chức danh của bạn',
+                          onChange: setMajor,
+                        }:null}
+                      >
+                        {major}
+                      </Paragraph>
+                      
+                      </h6>
+     
+
+
                     <Tooltip title={data.facebook} interactive placement="top" TransitionComponent={Zoom}>
                       <Button justIcon link className={classes.margin1} href={data.facebook} target="_blank" rel="noopener noreferrer">
                         <FacebookIcon color="primary" fontSize="large" />
@@ -327,7 +364,18 @@ export default function ProfilePage(props) {
             </GridContainer>
             <div className={classes.description}>
               <p>
-                <ClickEditInput disabled={disableForm} text={selfIntroduce} onSetText={text => setselfIntroduce(text)} />
+                {/* <ClickEditInput disabled={disableForm} text={selfIntroduce} onSetText={() => handleChangeIntroduce(selfIntroduce)} /> */}
+                <Paragraph
+                  editable={disableForm == false ? {
+                    onChange: setselfIntroduce,
+                    maxLength: 5000,
+                    tooltip: 'Giới thiệu bản thân',
+                    autoSize: { maxRows: 5, minRows: 3 }
+                  }:null}
+                  
+                >
+                  {selfIntroduce}
+                </Paragraph>
               </p>
               <h2>
               </h2>
